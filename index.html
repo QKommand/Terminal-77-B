@@ -79,21 +79,27 @@
     </div>
 
     <!-- CATEGORY: SUB-HEADER DATA DECK -->
-    <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-2 pt-2 border-t border-slate-800/80 text-xs text-center md:text-left items-center">
+    <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-2 pt-2 border-t border-slate-800/80 text-xs text-center md:text-left items-center">
       
-      <!-- LEFT: TYRIAN CYCLE CLOCK -->
-      <div class="flex items-center justify-center md:justify-start gap-2">
-        <span class="text-slate-500 font-bold">TYRIAN CYCLE:</span>
-        <span id="tyria-clock-phase" class="text-amber-400 font-bold flex items-center gap-1">--</span>
+      <!-- TYRIAN TIME -->
+      <div class="flex items-center justify-center md:justify-start gap-1.5">
+        <span class="text-slate-500 font-bold">TYRIAN TIME:</span>
+        <span id="tyria-clock-time" class="text-amber-400 font-bold flex items-center gap-1">--:--</span>
       </div>
 
-      <!-- MIDDLE: LOCATION STAMP -->
+      <!-- SERVER TIMER (UTC) -->
+      <div class="text-center md:text-left">
+        <span class="text-slate-500 font-bold">SERVER TIME:</span>
+        <span id="server-clock" class="text-cyan-400 font-bold ml-1">--:--:-- UTC</span>
+      </div>
+
+      <!-- LOCATION STAMP -->
       <div class="text-center">
         <span class="text-slate-500 font-bold">LOCATION:</span>
         <span class="text-cyan-400 font-bold ml-1">DURMAND PRIORY // VAULT 77, BAY B // TERMINAL 77-B</span>
       </div>
 
-      <!-- RIGHT: USER LOCAL TIME -->
+      <!-- USER LOCAL TIME -->
       <div class="text-center md:text-right">
         <span class="text-slate-500 font-bold">LOCAL TIME:</span>
         <span id="local-clock" class="text-emerald-400 font-bold ml-1">--:--:--</span>
@@ -258,8 +264,8 @@
         <div id="console-logs" class="text-xs font-mono space-y-1 text-slate-500 h-64 overflow-y-auto p-3 bg-slate-950 border border-slate-800 rounded-sm">
           <div>[SYS] Terminal initialized...</div>
           <div>[SYS] Connection established: Vault 77-B</div>
-          <div>[CLK] Universal UTC epoch clock synced.</div>
-          <div>[CLK] Local user timezone initialized.</div>
+          <div>[CLK] Universal UTC server timer synced.</div>
+          <div>[CLK] In-game Tyrian solar cycle computed.</div>
         </div>
       </div>
     </div>
@@ -384,7 +390,6 @@
       const btnJournal = document.getElementById('tab-btn-journal');
       const btnTelemetry = document.getElementById('tab-btn-telemetry');
 
-      // Curriculum View Toggle
       if (curriculumTabState === 'on') {
         viewCurriculum.classList.remove('hidden');
         btnCurriculum.className = 'px-4 py-2 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/50 transition-all cursor-pointer';
@@ -393,7 +398,6 @@
         btnCurriculum.className = 'px-4 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all cursor-pointer';
       }
 
-      // Journal View Toggle
       if (journalTabState === 'on') {
         viewJournal.classList.remove('hidden');
         btnJournal.className = 'px-4 py-2 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/50 transition-all cursor-pointer';
@@ -402,7 +406,6 @@
         btnJournal.className = 'px-4 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all cursor-pointer';
       }
 
-      // Telemetry View Toggle
       if (telemetryTabState === 'on') {
         viewTelemetry.classList.remove('hidden');
         btnTelemetry.className = 'px-4 py-2 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/50 transition-all cursor-pointer';
@@ -416,33 +419,39 @@
     function updateClocks() {
       const now = new Date();
       
-      // Tyrian Cycle Calculation (UTC)
+      // 1. GW2 Server Timer (UTC)
+      const utcHours = String(now.getUTCHours()).padStart(2, '0');
+      const utcMins = String(now.getUTCMinutes()).padStart(2, '0');
+      const utcSecs = String(now.getUTCSeconds()).padStart(2, '0');
+      document.getElementById('server-clock').innerText = `${utcHours}:${utcMins}:${utcSecs} UTC`;
+
+      // 2. In-Game Tyrian Time Calculation
+      // 1 real day = 12 Tyrian days (2 real hours = 24 Tyrian hours).
+      // Dawn starts at 06:00 Tyrian time = 00:25 UTC on even hours (1500s offset).
       const totalUtcSec = (now.getUTCHours() * 3600) + (now.getUTCMinutes() * 60) + now.getUTCSeconds();
       const cycleOffset = 1500;
-      const secondsIntoCycle = (totalUtcSec - cycleOffset + 72000) % 7200;
+      const secondsInto2HrCycle = (totalUtcSec - cycleOffset + 720000) % 7200;
 
-      let phase = '';
-      let icon = '';
+      // Convert real seconds into Tyrian seconds (1 real second = 12 Tyrian seconds)
+      // Add 6 hours (21,600s) because cycle start is 06:00 AM Tyrian time
+      const tyrianSecFromMidnight = (secondsInto2HrCycle * 12 + 21600) % 86400;
+      const tyrianHour = Math.floor(tyrianSecFromMidnight / 3600);
+      const tyrianMin = Math.floor((tyrianSecFromMidnight % 3600) / 60);
 
-      if (secondsIntoCycle < 300) {
-        phase = 'DAWN';
-        icon = '🌅';
-      } else if (secondsIntoCycle < 4500) {
-        phase = 'DAY';
-        icon = '☀️';
-      } else if (secondsIntoCycle < 4800) {
-        phase = 'DUSK';
-        icon = '🌆';
-      } else {
-        phase = 'NIGHT';
-        icon = '🌙';
-      }
+      const formattedTyrianHour = String(tyrianHour).padStart(2, '0');
+      const formattedTyrianMin = String(tyrianMin).padStart(2, '0');
 
-      document.getElementById('tyria-clock-phase').innerHTML = `${icon} <span>${phase}</span>`;
+      // Phase Icon Indicator
+      let icon = '☀️';
+      if (tyrianHour >= 5 && tyrianHour < 6) icon = '🌅'; // Dawn (05:00-06:00)
+      else if (tyrianHour >= 6 && tyrianHour < 20) icon = '☀️'; // Day (06:00-20:00)
+      else if (tyrianHour >= 20 && tyrianHour < 21) icon = '🌆'; // Dusk (20:00-21:00)
+      else icon = '🌙'; // Night (21:00-05:00)
 
-      // Local Time Calculation
-      const localTimeString = now.toLocaleTimeString();
-      document.getElementById('local-clock').innerText = localTimeString;
+      document.getElementById('tyria-clock-time').innerHTML = `${icon} <span>${formattedTyrianHour}:${formattedTyrianMin}</span>`;
+
+      // 3. Local User Time
+      document.getElementById('local-clock').innerText = now.toLocaleTimeString();
     }
 
     /* CATEGORY: MODAL HANDLERS */
