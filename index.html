@@ -60,26 +60,26 @@
     }
   </style>
 </head>
-<body class="h-full flex flex-col crt-flicker relative bg-slate-950 text-slate-200 selection:bg-cyan-500 selection:text-slate-950">
+<body class="h-screen flex flex-col overflow-hidden crt-flicker relative bg-slate-950 text-slate-200 selection:bg-cyan-500 selection:text-slate-950">
 
   <!-- CATEGORY: SCANLINE LAYER -->
   <div class="pointer-events-none fixed inset-0 z-50 scanline-overlay"></div>
 
-  <!-- CATEGORY: TERMINAL HEADER -->
-  <header class="border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-4 py-4 space-y-3">
+  <!-- CATEGORY: STICKY TERMINAL HEADER -->
+  <header class="shrink-0 border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-4 py-3 space-y-2">
     
     <!-- CATEGORY: CENTERED TITLE -->
-    <div class="text-center space-y-1">
-      <h1 class="text-base sm:text-xl font-bold text-cyan-400 tracking-wider uppercase">
+    <div class="text-center space-y-0.5">
+      <h1 class="text-base sm:text-lg font-bold text-cyan-400 tracking-wider uppercase">
         Welcome to [LIAR] Tyrian University
       </h1>
-      <p class="text-xs text-slate-400 tracking-wide">
+      <p class="text-[11px] text-slate-400 tracking-wide">
         The essential digital journal for Guild Wars 2 players.
       </p>
     </div>
 
     <!-- CATEGORY: SUB-HEADER DATA DECK -->
-    <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-2 pt-2 border-t border-slate-800/80 text-xs text-center md:text-left items-center">
+    <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-2 pt-2 border-t border-slate-800/80 text-[11px] text-center md:text-left items-center">
       
       <!-- TYRIAN TIME -->
       <div class="flex items-center justify-center md:justify-start gap-1.5">
@@ -109,14 +109,21 @@
   </header>
 
   <!-- CATEGORY: TERMINAL NAVIGATION TAB BAR -->
-  <nav class="max-w-[1600px] w-full mx-auto px-4 md:px-6 pt-4">
+  <nav class="shrink-0 bg-slate-950 max-w-[1600px] w-full mx-auto px-4 md:px-6 pt-3">
     <div class="flex border-b border-slate-800 space-x-2 text-xs font-bold">
       <button 
-        id="tab-btn-curriculum" 
-        onclick="switchTab('curriculum')" 
+        id="tab-btn-basic" 
+        onclick="switchTab('basic')" 
         class="px-4 py-2 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/50 transition-all cursor-pointer"
       >
-        /// CURRICULUM DIRECTORY
+        /// BASIC COURSES
+      </button>
+      <button 
+        id="tab-btn-advanced" 
+        onclick="switchTab('advanced')" 
+        class="px-4 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all cursor-pointer"
+      >
+        /// ADVANCED TRAINING
       </button>
       <button 
         id="tab-btn-journal" 
@@ -125,67 +132,26 @@
       >
         /// ADVENTURER JOURNAL
       </button>
-      <button 
-        id="tab-btn-telemetry" 
-        onclick="switchTab('telemetry')" 
-        class="px-4 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all cursor-pointer"
-      >
-        /// SYSTEM TELEMETRY
-      </button>
     </div>
   </nav>
 
-  <!-- CATEGORY: MAIN CONTENT AREA -->
-  <main class="flex-1 max-w-[1600px] w-full mx-auto p-4 md:p-6 space-y-6">
+  <!-- CATEGORY: SCROLLABLE MAIN CONTENT CONTAINER -->
+  <main class="flex-1 overflow-y-auto max-w-[1600px] w-full mx-auto p-4 md:p-6 space-y-6">
 
-    <!-- CATEGORY: VIEW - CURRICULUM DIRECTORY -->
-    <div id="view-curriculum" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <!-- CATEGORY: VIEW - BASIC COURSES -->
+    <div id="view-basic" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
       
       <section class="lg:col-span-8 space-y-6">
         <div class="border border-slate-800 bg-slate-900/60 p-5 rounded-sm glow-cyan">
           <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
             <h2 class="text-sm font-bold text-cyan-400 tracking-wider flex items-center gap-2">
-              <span>///</span> OPEN-ACCESS ACADEMIC COURSES
+              <span>///</span> BASIC ACADEMIC COURSES
             </h2>
-            <span class="text-[10px] text-slate-500 uppercase">Public Archives</span>
+            <span class="text-[10px] text-slate-500 uppercase">Foundational Track</span>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div onclick="openCourseModal('101')" class="p-4 border border-slate-800 bg-slate-950/60 hover:border-cyan-500/50 cursor-pointer transition-all rounded-sm">
-              <div class="flex justify-between text-xs mb-2">
-                <span class="text-amber-400 font-bold">COURSE 101</span>
-                <span class="text-slate-500">CORE MATRIX</span>
-              </div>
-              <div class="text-sm font-bold text-slate-200 mb-1">Keymapping & Profession Identities</div>
-              <p class="text-xs text-slate-400 leading-relaxed">Foundational combat mechanics, ergonomic keybind layouts, and core trait profiling.</p>
-            </div>
-
-            <div onclick="openCourseModal('201')" class="p-4 border border-slate-800 bg-slate-950/60 hover:border-cyan-500/50 cursor-pointer transition-all rounded-sm">
-              <div class="flex justify-between text-xs mb-2">
-                <span class="text-amber-400 font-bold">COURSE 201</span>
-                <span class="text-slate-500">TACTICAL INTERFACE</span>
-              </div>
-              <div class="text-sm font-bold text-slate-200 mb-1">Asuran Signal Intercepts & UI Calibration</div>
-              <p class="text-xs text-slate-400 leading-relaxed">Visual clutter elimination, action camera settings, and squad buffer indicators.</p>
-            </div>
-
-            <div onclick="openCourseModal('301')" class="p-4 border border-slate-800 bg-slate-950/60 hover:border-cyan-500/50 cursor-pointer transition-all rounded-sm">
-              <div class="flex justify-between text-xs mb-2">
-                <span class="text-amber-400 font-bold">COURSE 301</span>
-                <span class="text-slate-500">FIELD OPS</span>
-              </div>
-              <div class="text-sm font-bold text-slate-200 mb-1">Squad Telemetry & Defiance Mechanics</div>
-              <p class="text-xs text-slate-400 leading-relaxed">Boon subgroup distribution, CC execution loops, and stack management.</p>
-            </div>
-
-            <div onclick="openCourseModal('401')" class="p-4 border border-slate-800 bg-slate-950/60 hover:border-cyan-500/50 cursor-pointer transition-all rounded-sm">
-              <div class="flex justify-between text-xs mb-2">
-                <span class="text-amber-400 font-bold">COURSE 401</span>
-                <span class="text-slate-500">ARCHIVAL MASTERY</span>
-              </div>
-              <div class="text-sm font-bold text-slate-200 mb-1">Vault Mastery & Narrative Conduits</div>
-              <p class="text-xs text-slate-400 leading-relaxed">Historical cipher analysis, archive restoration, and field guide authoring.</p>
-            </div>
+          <div id="basic-courses-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Basic courses rendered dynamically from JS -->
           </div>
         </div>
       </section>
@@ -206,6 +172,25 @@
         </div>
       </section>
 
+    </div>
+
+    <!-- CATEGORY: VIEW - ADVANCED TRAINING -->
+    <div id="view-advanced" class="hidden space-y-6">
+      <div class="border border-slate-800 bg-slate-900/60 p-5 rounded-sm glow-cyan">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+          <div>
+            <h2 class="text-sm font-bold text-cyan-400 tracking-wider flex items-center gap-2">
+              <span>///</span> ADVANCED TRAINING MODULES
+            </h2>
+            <span class="text-[10px] text-slate-500">Specialized Mastery Tracks</span>
+          </div>
+          <span class="text-xs text-amber-400 font-bold">[ELEVATED SYLLABUS]</span>
+        </div>
+
+        <div id="advanced-courses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Advanced courses rendered dynamically from JS -->
+        </div>
+      </div>
     </div>
 
     <!-- CATEGORY: VIEW - ADVENTURER JOURNAL -->
@@ -251,25 +236,6 @@
       </div>
     </div>
 
-    <!-- CATEGORY: VIEW - SYSTEM TELEMETRY -->
-    <div id="view-telemetry" class="hidden space-y-6">
-      <div class="border border-slate-800 bg-slate-900/60 p-5 rounded-sm">
-        <div class="border-b border-slate-800 pb-3 mb-4 flex justify-between items-center">
-          <h2 class="text-sm font-bold text-cyan-400 tracking-wider">
-            /// TERMINAL CONSOLE LOGS
-          </h2>
-          <span class="text-[10px] text-slate-500">Live Diagnostics</span>
-        </div>
-
-        <div id="console-logs" class="text-xs font-mono space-y-1 text-slate-500 h-64 overflow-y-auto p-3 bg-slate-950 border border-slate-800 rounded-sm">
-          <div>[SYS] Terminal initialized...</div>
-          <div>[SYS] Connection established: Vault 77-B</div>
-          <div>[CLK] Universal UTC server timer synced.</div>
-          <div>[CLK] In-game Tyrian solar cycle computed.</div>
-        </div>
-      </div>
-    </div>
-
   </main>
 
   <!-- CATEGORY: COURSE OVERLAY MODAL -->
@@ -308,14 +274,14 @@
     </div>
   </div>
 
-  <!-- CATEGORY: COMPLIANCE FOOTER -->
-  <footer class="border-t border-slate-800 bg-slate-950 px-4 py-6 mt-auto">
-    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
-      <p class="text-[11px] text-slate-500 max-w-2xl leading-relaxed">
+  <!-- CATEGORY: STICKY COMPLIANCE FOOTER -->
+  <footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-4 py-3">
+    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
+      <p class="text-[10px] text-slate-500 max-w-3xl leading-snug">
         This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
       </p>
 
-      <div class="flex items-center space-x-6 text-xs">
+      <div class="flex items-center space-x-4 text-[11px]">
         <a href="https://liarsguild.com" onclick="event.preventDefault();" data-target="https://liarsguild.com" class="text-cyan-400 hover:underline cursor-pointer">
           The Liars Guild
         </a>
@@ -330,88 +296,157 @@
   <!-- CATEGORY: LOGIC ENGINE -->
   <script>
     /* CATEGORY: STATE MANAGEMENT */
-    let curriculumTabState = 'on';
+    let basicTabState = 'on';
+    let advancedTabState = 'off';
     let journalTabState = 'off';
-    let telemetryTabState = 'off';
     let modalState = 'off';
 
-    /* CATEGORY: COURSE DATA ARCHIVE */
-    const courseData = {
+    /* CATEGORY: BASIC COURSES DATA ARCHIVE */
+    const basicCourses = {
       101: {
-        title: "Course 101: Keymapping & Profession Identities",
+        code: "COURSE 101",
+        category: "CORE MATRIX",
+        title: "Keymapping & Profession Identities",
+        desc: "Foundational combat mechanics, ergonomic keybind layouts, and core trait profiling.",
         step1: "A foundational matrix mapping Guild Wars 2 combat mechanics to ergonomic keybind profiles and core profession traits.",
         step2: "Access the Durmand Priory Archives or load your character profile into the Terminal Deck to sync combat keys.",
         step3: "Rebind movement keys to strafe-only (A/D), bind dodge to an accessible thumb button, and assign profession mechanics (F1-F5) to clear modifier layers."
       },
       201: {
-        title: "Course 201: Asuran Signal Intercepts & UI Calibration",
+        code: "COURSE 201",
+        category: "TACTICAL INTERFACE",
+        title: "Asuran Signal Intercepts & UI Calibration",
+        desc: "Visual clutter elimination, action camera settings, and squad buffer indicators.",
         step1: "Advanced interface calibration designed to eliminate visual bloat and improve situational combat reaction times.",
         step2: "Sync your account API key with Terminal 77-B and download custom grid overlays.",
         step3: "Disable action camera sticky targeting, enable ground-target instant cast, and set squad buffer indicators to high contrast."
-      },
+      }
+    };
+
+    /* CATEGORY: ADVANCED COURSES DATA ARCHIVE */
+    // Add new advanced courses here by adding a new entry to this object.
+    const advancedCourses = {
       301: {
-        title: "Course 301: Squad Telemetry & Defiance Mechanics",
+        code: "COURSE 301",
+        category: "FIELD OPS",
+        title: "Squad Telemetry & Defiance Mechanics",
+        desc: "Boon subgroup distribution, CC execution loops, and stack management.",
         step1: "Strategic squad coordination protocols analyzing boon uptime, breakbar defiance, and positioning loops.",
         step2: "Unlocked upon completion of Course 201 and verification of an active commander tag.",
         step3: "Monitor squad boon sub-groups, execute crowd control sequences during defy windows, and maintain stack proximity."
       },
       401: {
-        title: "Course 401: Vault Mastery & Narrative Conduits",
+        code: "COURSE 401",
+        category: "ARCHIVAL MASTERY",
+        title: "Vault Mastery & Narrative Conduits",
+        desc: "Historical cipher analysis, archive restoration, and field guide authoring.",
         step1: "Masterclass on Tyrian history, Vault 77 artifacts, and narrative design principles utilized by the Liars Guild.",
         step2: "Open exclusively to senior scholars and operatives who have cleared Sub-Level 4 validation.",
         step3: "Study ancient cipher logs, analyze dragon evacuation telemetry, and design narrative conduits for future recruits."
+      },
+      501: {
+        code: "COURSE 501",
+        category: "TACTICAL LEADERSHIP",
+        title: "Commander Tag Operating Procedures",
+        desc: "Squad subgroup balancing, raid markers, and strategic map communication.",
+        step1: "Comprehensive leadership framework for managing 50-player open world and instanced squads.",
+        step2: "Obtain a Commander Tag from the Master Tactics vendor in Lion's Arch.",
+        step3: "Assign quick-response sub-groups, place ground markers on priority targets, and maintain clear map chat callouts."
       }
     };
 
+    /* CATEGORY: COURSE RENDER ENGINE */
+    function renderCourseGrids() {
+      const basicGrid = document.getElementById('basic-courses-grid');
+      const advancedGrid = document.getElementById('advanced-courses-grid');
+
+      // Render Basic Courses
+      let basicHtml = '';
+      Object.keys(basicCourses).forEach(id => {
+        const c = basicCourses[id];
+        basicHtml += `
+          <div onclick="openCourseModal('${id}', 'basic')" class="p-4 border border-slate-800 bg-slate-950/60 hover:border-cyan-500/50 cursor-pointer transition-all rounded-sm">
+            <div class="flex justify-between text-xs mb-2">
+              <span class="text-amber-400 font-bold">${c.code}</span>
+              <span class="text-slate-500">${c.category}</span>
+            </div>
+            <div class="text-sm font-bold text-slate-200 mb-1">${c.title}</div>
+            <p class="text-xs text-slate-400 leading-relaxed">${c.desc}</p>
+          </div>
+        `;
+      });
+      basicGrid.innerHTML = basicHtml;
+
+      // Render Advanced Courses
+      let advancedHtml = '';
+      Object.keys(advancedCourses).forEach(id => {
+        const c = advancedCourses[id];
+        advancedHtml += `
+          <div onclick="openCourseModal('${id}', 'advanced')" class="p-4 border border-slate-800 bg-slate-950/60 hover:border-cyan-500/50 cursor-pointer transition-all rounded-sm">
+            <div class="flex justify-between text-xs mb-2">
+              <span class="text-amber-400 font-bold">${c.code}</span>
+              <span class="text-slate-500">${c.category}</span>
+            </div>
+            <div class="text-sm font-bold text-slate-200 mb-1">${c.title}</div>
+            <p class="text-xs text-slate-400 leading-relaxed">${c.desc}</p>
+          </div>
+        `;
+      });
+      advancedGrid.innerHTML = advancedHtml;
+    }
+
     /* CATEGORY: NAVIGATION TAB ENGINE */
     function switchTab(tabName) {
-      if (tabName === 'curriculum') {
-        curriculumTabState = 'on';
+      if (tabName === 'basic') {
+        basicTabState = 'on';
+        advancedTabState = 'off';
         journalTabState = 'off';
-        telemetryTabState = 'off';
+      } else if (tabName === 'advanced') {
+        basicTabState = 'off';
+        advancedTabState = 'on';
+        journalTabState = 'off';
       } else if (tabName === 'journal') {
-        curriculumTabState = 'off';
+        basicTabState = 'off';
+        advancedTabState = 'off';
         journalTabState = 'on';
-        telemetryTabState = 'off';
-      } else if (tabName === 'telemetry') {
-        curriculumTabState = 'off';
-        journalTabState = 'off';
-        telemetryTabState = 'on';
       }
       renderTabViews();
     }
 
     function renderTabViews() {
-      const viewCurriculum = document.getElementById('view-curriculum');
+      const viewBasic = document.getElementById('view-basic');
+      const viewAdvanced = document.getElementById('view-advanced');
       const viewJournal = document.getElementById('view-journal');
-      const viewTelemetry = document.getElementById('view-telemetry');
 
-      const btnCurriculum = document.getElementById('tab-btn-curriculum');
+      const btnBasic = document.getElementById('tab-btn-basic');
+      const btnAdvanced = document.getElementById('tab-btn-advanced');
       const btnJournal = document.getElementById('tab-btn-journal');
-      const btnTelemetry = document.getElementById('tab-btn-telemetry');
 
-      if (curriculumTabState === 'on') {
-        viewCurriculum.classList.remove('hidden');
-        btnCurriculum.className = 'px-4 py-2 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/50 transition-all cursor-pointer';
+      // Basic Tab View
+      if (basicTabState === 'on') {
+        viewBasic.classList.remove('hidden');
+        btnBasic.className = 'px-4 py-2 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/50 transition-all cursor-pointer';
       } else {
-        viewCurriculum.classList.add('hidden');
-        btnCurriculum.className = 'px-4 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all cursor-pointer';
+        viewBasic.classList.add('hidden');
+        btnBasic.className = 'px-4 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all cursor-pointer';
       }
 
+      // Advanced Tab View
+      if (advancedTabState === 'on') {
+        viewAdvanced.classList.remove('hidden');
+        btnAdvanced.className = 'px-4 py-2 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/50 transition-all cursor-pointer';
+      } else {
+        viewAdvanced.classList.add('hidden');
+        btnAdvanced.className = 'px-4 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all cursor-pointer';
+      }
+
+      // Journal Tab View
       if (journalTabState === 'on') {
         viewJournal.classList.remove('hidden');
         btnJournal.className = 'px-4 py-2 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/50 transition-all cursor-pointer';
       } else {
         viewJournal.classList.add('hidden');
         btnJournal.className = 'px-4 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all cursor-pointer';
-      }
-
-      if (telemetryTabState === 'on') {
-        viewTelemetry.classList.remove('hidden');
-        btnTelemetry.className = 'px-4 py-2 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/50 transition-all cursor-pointer';
-      } else {
-        viewTelemetry.classList.add('hidden');
-        btnTelemetry.className = 'px-4 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all cursor-pointer';
       }
     }
 
@@ -426,14 +461,10 @@
       document.getElementById('server-clock').innerText = `${utcHours}:${utcMins}:${utcSecs} UTC`;
 
       // 2. In-Game Tyrian Time Calculation
-      // 1 real day = 12 Tyrian days (2 real hours = 24 Tyrian hours).
-      // Dawn starts at 06:00 Tyrian time = 00:25 UTC on even hours (1500s offset).
       const totalUtcSec = (now.getUTCHours() * 3600) + (now.getUTCMinutes() * 60) + now.getUTCSeconds();
       const cycleOffset = 1500;
       const secondsInto2HrCycle = (totalUtcSec - cycleOffset + 720000) % 7200;
 
-      // Convert real seconds into Tyrian seconds (1 real second = 12 Tyrian seconds)
-      // Add 6 hours (21,600s) because cycle start is 06:00 AM Tyrian time
       const tyrianSecFromMidnight = (secondsInto2HrCycle * 12 + 21600) % 86400;
       const tyrianHour = Math.floor(tyrianSecFromMidnight / 3600);
       const tyrianMin = Math.floor((tyrianSecFromMidnight % 3600) / 60);
@@ -441,12 +472,11 @@
       const formattedTyrianHour = String(tyrianHour).padStart(2, '0');
       const formattedTyrianMin = String(tyrianMin).padStart(2, '0');
 
-      // Phase Icon Indicator
       let icon = '☀️';
-      if (tyrianHour >= 5 && tyrianHour < 6) icon = '🌅'; // Dawn (05:00-06:00)
-      else if (tyrianHour >= 6 && tyrianHour < 20) icon = '☀️'; // Day (06:00-20:00)
-      else if (tyrianHour >= 20 && tyrianHour < 21) icon = '🌆'; // Dusk (20:00-21:00)
-      else icon = '🌙'; // Night (21:00-05:00)
+      if (tyrianHour >= 5 && tyrianHour < 6) icon = '🌅';
+      else if (tyrianHour >= 6 && tyrianHour < 20) icon = '☀️';
+      else if (tyrianHour >= 20 && tyrianHour < 21) icon = '🌆';
+      else icon = '🌙';
 
       document.getElementById('tyria-clock-time').innerHTML = `${icon} <span>${formattedTyrianHour}:${formattedTyrianMin}</span>`;
 
@@ -455,16 +485,15 @@
     }
 
     /* CATEGORY: MODAL HANDLERS */
-    function openCourseModal(courseId) {
-      const data = courseData[courseId];
+    function openCourseModal(courseId, track = 'basic') {
+      const data = track === 'basic' ? basicCourses[courseId] : advancedCourses[courseId];
       if (!data) return;
-      document.getElementById('modal-title').innerText = data.title;
+      document.getElementById('modal-title').innerText = `${data.code}: ${data.title}`;
       document.getElementById('modal-step-1').innerText = data.step1;
       document.getElementById('modal-step-2').innerText = data.step2;
       document.getElementById('modal-step-3').innerText = data.step3;
       document.getElementById('course-modal').classList.remove('hidden');
       modalState = 'on';
-      appendConsoleLog(`[INSPECT] Accessed Course ${courseId} syllabus.`);
     }
 
     function closeCourseModal() {
@@ -472,18 +501,9 @@
       modalState = 'off';
     }
 
-    /* CATEGORY: CONSOLE UTILITY */
-    function appendConsoleLog(message) {
-      const logContainer = document.getElementById('console-logs');
-      if (!logContainer) return;
-      const newEntry = document.createElement('div');
-      newEntry.innerText = message;
-      logContainer.appendChild(newEntry);
-      logContainer.scrollTop = logContainer.scrollHeight;
-    }
-
     /* CATEGORY: INITIALIZATION */
     document.addEventListener('DOMContentLoaded', () => {
+      renderCourseGrids();
       updateClocks();
       renderTabViews();
       
