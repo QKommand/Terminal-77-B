@@ -230,7 +230,6 @@
     const basicCourses = {
       101: {
         code: "COURSE 101",
-        category: "CORE MATRIX",
         title: "Keymapping & Profession Identities",
         desc: "Foundational combat mechanics, ergonomic keybind layouts, and core trait profiling.",
         step1: "A foundational matrix mapping Guild Wars 2 combat mechanics to ergonomic keybind profiles and core profession traits.",
@@ -239,7 +238,6 @@
       },
       201: {
         code: "COURSE 201",
-        category: "TACTICAL INTERFACE",
         title: "Asuran Signal Intercepts & UI Calibration",
         desc: "Visual clutter elimination, action camera settings, and squad buffer indicators.",
         step1: "Advanced interface calibration designed to eliminate visual bloat and improve situational combat reaction times.",
@@ -252,7 +250,6 @@
     const advancedCourses = {
       301: {
         code: "COURSE 301",
-        category: "FIELD OPS",
         title: "Squad Telemetry & Defiance Mechanics",
         desc: "Boon subgroup distribution, CC execution loops, and stack management.",
         step1: "Strategic squad coordination protocols analyzing boon uptime, breakbar defiance, and positioning loops.",
@@ -261,7 +258,6 @@
       },
       401: {
         code: "COURSE 401",
-        category: "ARCHIVAL MASTERY",
         title: "Vault Mastery & Narrative Conduits",
         desc: "Historical cipher analysis, archive restoration, and field guide authoring.",
         step1: "Masterclass on Tyrian history, Priory artifacts, and narrative design principles utilized by the Liars Guild.",
@@ -270,7 +266,6 @@
       },
       501: {
         code: "COURSE 501",
-        category: "TACTICAL LEADERSHIP",
         title: "Commander Tag Operating Procedures",
         desc: "Squad subgroup balancing, raid markers, and strategic map communication.",
         step1: "Comprehensive leadership framework for managing 50-player open world and instanced squads.",
@@ -290,9 +285,8 @@
         basicHtml += `
           <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan">
             <div>
-              <div class="flex justify-between text-xs sm:text-sm mb-2">
+              <div class="text-xs sm:text-sm mb-2">
                 <span class="text-amber-400 font-bold">${c.code}</span>
-                <span class="text-white font-semibold">${c.category}</span>
               </div>
               <div class="text-base font-bold text-white mb-1.5">${c.title}</div>
               <p class="text-sm text-white leading-relaxed">${c.desc}</p>
@@ -314,9 +308,8 @@
         advancedHtml += `
           <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan">
             <div>
-              <div class="flex justify-between text-xs sm:text-sm mb-2">
+              <div class="text-xs sm:text-sm mb-2">
                 <span class="text-amber-400 font-bold">${c.code}</span>
-                <span class="text-white font-semibold">${c.category}</span>
               </div>
               <div class="text-base font-bold text-white mb-1.5">${c.title}</div>
               <p class="text-sm text-white leading-relaxed">${c.desc}</p>
