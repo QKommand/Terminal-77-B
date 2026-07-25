@@ -1,348 +1,413 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-slate-950 text-slate-100">
+<html lang="en" class="h-full bg-slate-950 text-white">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Terminal 77-B // Durmand Priory Archives</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[LIAR] Tyrian University // Terminal 77-B</title>
+  
+  <!-- CATEGORY: EXTERNAL DEPENDENCIES -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- CATEGORY: STYLES & TYPOGRAPHY -->
   <style>
-    /* CATEGORY: AMBIENT TERMINAL EFFECTS */
-    .scanline {
-      background: linear-gradient(
-        to bottom,
-        rgba(255,255,255,0),
-        rgba(255,255,255,0) 50%,
-        rgba(0, 0, 0, 0.35) 50%,
-        rgba(0, 0, 0, 0.35)
-      );
-      background-size: 100% 4px;
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    .glow-cyan {
+      box-shadow: 0 0 14px rgba(34, 211, 238, 0.15);
+    }
+    .glow-cyan:hover {
+      box-shadow: 0 0 22px rgba(34, 211, 238, 0.35);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #0f172a;
+      border: 1px solid #22d3ee;
     }
   </style>
 </head>
-<body class="font-mono min-h-screen relative selection:bg-amber-500 selection:text-slate-950">
-  <div class="fixed inset-0 pointer-events-none scanline opacity-30 z-50"></div>
+<body class="h-screen flex flex-col overflow-hidden relative bg-slate-950 text-white selection:bg-cyan-500 selection:text-slate-950">
 
-  <!-- CATEGORY: TERMINAL HEADER & LIVE TELEMETRY -->
-  <header class="border-b border-slate-800 bg-slate-900/90 px-6 py-4 sticky top-0 z-40 backdrop-blur">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
-      <div class="flex items-center gap-3">
-        <span class="h-2.5 w-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
-        <span class="text-slate-300 font-bold tracking-wider">DURMAND PRIORY // VAULT 77, BAY B // TERMINAL 77-B</span>
+  <!-- CATEGORY: STICKY HEADER -->
+  <header class="shrink-0 border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-6 py-4 space-y-3">
+    <div class="text-center space-y-1">
+      <h1 class="text-lg sm:text-2xl font-bold text-cyan-400 tracking-wider uppercase">
+        Welcome to [LIAR] Tyrian University
+      </h1>
+      <p class="text-sm text-white tracking-wide">
+        The essential digital guide for Guild Wars 2 players.
+      </p>
+    </div>
+
+    <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 pt-3 border-t border-slate-800 text-xs sm:text-sm text-center md:text-left items-center">
+      <div class="flex items-center justify-center md:justify-start gap-2">
+        <span class="text-slate-300 font-bold">TYRIAN TIME:</span>
+        <span id="tyria-clock-time" class="text-amber-400 font-bold flex items-center gap-1.5">--:--</span>
       </div>
-      
-      <div class="flex items-center gap-6 text-slate-400">
-        <div id="tyrian-clock" class="text-cyan-400">TYRIAN TIME: SYNCING...</div>
-        <div id="passport-status-tag" class="px-2 py-0.5 rounded border border-slate-700 bg-slate-950 text-slate-400">
-          MODE: GUEST
-        </div>
+
+      <div class="text-center md:text-left">
+        <span class="text-slate-300 font-bold">SERVER TIME:</span>
+        <span id="server-clock" class="text-cyan-400 font-bold ml-1">--:--:-- UTC</span>
+      </div>
+
+      <div class="text-center">
+        <span class="text-slate-300 font-bold">LOCATION:</span>
+        <span class="text-cyan-400 font-bold ml-1">DURMAND PRIORY // TERMINAL 77-B</span>
+      </div>
+
+      <div class="text-center md:text-right">
+        <span class="text-slate-300 font-bold">LOCAL TIME:</span>
+        <span id="local-clock" class="text-emerald-400 font-bold ml-1">--:--:--</span>
       </div>
     </div>
   </header>
 
-  <!-- CATEGORY: MAIN DASHBOARD LAYOUT -->
-  <main class="max-w-7xl mx-auto px-6 py-8 space-y-10">
+  <!-- CATEGORY: TAB NAVIGATION -->
+  <nav class="shrink-0 bg-slate-950 max-w-[1600px] w-full mx-auto px-6 pt-8 pb-3 mt-4">
+    <div class="flex justify-center border-b border-slate-800 space-x-3 text-xs sm:text-sm font-bold">
+      <button 
+        id="tab-btn-basic" 
+        onclick="switchTab('basic')" 
+        class="flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer"
+      >
+        <span class="text-[10px] sm:text-sm sm:mr-1.5 opacity-80 sm:opacity-100">///</span>
+        <span>BASIC COURSES</span>
+      </button>
+      <button 
+        id="tab-btn-advanced" 
+        onclick="switchTab('advanced')" 
+        class="flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
+      >
+        <span class="text-[10px] sm:text-sm sm:mr-1.5 opacity-80 sm:opacity-100">///</span>
+        <span>ADVANCED TRAINING</span>
+      </button>
+      <button 
+        id="tab-btn-journal" 
+        onclick="switchTab('journal')" 
+        class="flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
+      >
+        <span class="text-[10px] sm:text-sm sm:mr-1.5 opacity-80 sm:opacity-100">///</span>
+        <span>ADVENTURER JOURNAL</span>
+      </button>
+    </div>
+  </nav>
 
-    <!-- CATEGORY: HERO DECRYPTION PASSPORT -->
-    <section class="border border-slate-800 bg-slate-900/60 p-6 md:p-8 rounded-lg space-y-6">
-      <div class="space-y-2">
-        <div class="text-xs text-amber-400 tracking-widest font-semibold uppercase">ARCHIVE BRIEFING // PUBLIC TERMINAL</div>
-        <h1 class="text-2xl md:text-3xl font-bold text-slate-100">KNOWLEDGE IS A WEAPON. LEARN TO WIELD IT.</h1>
-        <p class="text-sm text-slate-300 font-sans leading-relaxed max-w-3xl">
-          Welcome, Adventurer. Terminal 77-B condenses thousands of battle logs and ancient Priory records into field-ready combat playbooks.
-        </p>
+  <!-- CATEGORY: MAIN CONTENT AREA -->
+  <main class="flex-1 overflow-y-auto max-w-[1600px] w-full mx-auto p-6 space-y-6">
+
+    <!-- CATEGORY: VIEW - BASIC COURSES -->
+    <div id="view-basic">
+      <div id="basic-courses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       </div>
+    </div>
 
-      <!-- CATEGORY: API PASSPORT INPUT -->
-      <div id="passport-input-block" class="space-y-3 pt-2 border-t border-slate-800">
-        <label for="api-key-input" class="block text-xs text-cyan-400 font-bold uppercase">
-          DECRYPTION PASSPORT (GW2 READ-ONLY API KEY)
-        </label>
-        <div class="flex flex-col sm:flex-row gap-3">
-          <input 
-            id="api-key-input" 
-            type="password" 
-            placeholder="Paste GW2 API Key (e.g., XXXXXXXX-XXXX-XXXX-..." 
-            class="bg-slate-950 border border-slate-700 text-slate-100 text-xs rounded px-4 py-3 focus:outline-none focus:border-cyan-400 flex-1 font-mono"
-          />
-          <button 
-            id="btn-sync-passport"
-            class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs px-6 py-3 rounded transition-colors"
-          >
-            SYNC PASSPORT
-          </button>
-        </div>
-        <p class="text-[11px] text-slate-500 font-sans">
-          🔒 Read-Only key stored locally in your browser. We cannot alter your account or items.
-        </p>
+    <!-- CATEGORY: VIEW - ADVANCED TRAINING -->
+    <div id="view-advanced" class="hidden">
+      <div id="advanced-courses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       </div>
+    </div>
 
-      <!-- CATEGORY: STUDENT SYNCED DECK -->
-      <div id="passport-synced-block" class="hidden space-y-4 pt-2 border-t border-slate-800">
-        <div class="flex justify-between items-center">
+    <!-- CATEGORY: VIEW - ADVENTURER JOURNAL -->
+    <div id="view-journal" class="hidden space-y-6">
+      <div class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-5">
           <div>
-            <span class="text-xs text-emerald-400 font-bold">STUDENT RECORD VERIFIED</span>
-            <div id="student-account-name" class="text-lg font-bold text-slate-100">Account.1234</div>
+            <h2 class="text-base font-bold text-cyan-400 tracking-wider flex items-center gap-2">
+              <span>///</span> ADVENTURER JOURNAL & FIELD LOGS
+            </h2>
+            <span class="text-xs text-white">Daily Tasks and Notes</span>
           </div>
-          <button 
-            id="btn-clear-passport"
-            class="border border-red-500/50 hover:border-red-500 text-red-400 text-xs px-4 py-2 rounded transition-colors"
-          >
-            DISCONNECT KEY
-          </button>
+          <span class="text-xs text-emerald-400 font-bold">[ACTIVE]</span>
         </div>
-      </div>
-    </section>
 
-    <!-- CATEGORY: ACADEMY COURSE SYLLABUS -->
-    <section class="space-y-4">
-      <div class="flex justify-between items-end border-b border-slate-800 pb-3">
-        <div>
-          <h2 class="text-xl font-bold text-slate-100">ACADEMY SYLLABUS</h2>
-          <p class="text-xs text-slate-400 font-sans">Open-access field modules available to all Adventurers.</p>
-        </div>
-      </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 text-sm">
+          <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm space-y-3">
+            <div class="text-amber-400 font-bold uppercase">Daily Checklist</div>
+            <ul class="space-y-2 text-white">
+              <li class="flex items-center gap-2.5"><input type="checkbox" class="w-4 h-4 accent-cyan-400 cursor-pointer" /> Ley-Line Matter Converter</li>
+              <li class="flex items-center gap-2.5"><input type="checkbox" class="w-4 h-4 accent-cyan-400 cursor-pointer" /> Wizard's Vault Dailies</li>
+              <li class="flex items-center gap-2.5"><input type="checkbox" class="w-4 h-4 accent-cyan-400 cursor-pointer" /> Home Instance Gathering</li>
+              <li class="flex items-center gap-2.5"><input type="checkbox" class="w-4 h-4 accent-cyan-400 cursor-pointer" /> Guild Hall Nodes</li>
+            </ul>
+          </div>
 
-      <!-- CATEGORY: COURSE CARDS GRID -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        
-        <!-- CATEGORY: COURSE 101 LINK BUTTON -->
-        <div class="border border-slate-800 bg-slate-900/40 p-6 rounded-lg space-y-4 hover:border-cyan-500/50 transition-colors flex flex-col justify-between">
-          <div class="space-y-2">
-            <div class="flex justify-between items-center">
-              <span class="text-xs text-cyan-400 font-bold">COURSE 101</span>
-              <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">FRESHMAN</span>
-            </div>
-            <h3 class="text-lg font-bold text-slate-100">Orientation & Field Survival</h3>
-            <p class="text-xs text-slate-300 font-sans leading-relaxed">
-              Interface calibration, control ergonomics, profession identities, active combat mitigation, and basic gear loadouts.
+          <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm space-y-3">
+            <div class="text-cyan-400 font-bold uppercase">Field Notes</div>
+            <p class="text-white leading-relaxed">
+              Use crowd control skills to break boss blue bars before big attacks. Stay close to your group for shared gifts and healing.
             </p>
           </div>
-          <a 
-            href="./class101/index.html" 
-            class="inline-block text-center bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 text-xs font-bold py-3 px-4 rounded transition-colors border border-cyan-500/30"
-          >
-            ENTER CLASS 101 →
-          </a>
-        </div>
 
-        <!-- CATEGORY: COURSE 201 LINK BUTTON -->
-        <div class="border border-slate-800 bg-slate-900/40 p-6 rounded-lg space-y-4 hover:border-cyan-500/50 transition-colors flex flex-col justify-between">
-          <div class="space-y-2">
-            <div class="flex justify-between items-center">
-              <span class="text-xs text-cyan-400 font-bold">COURSE 201</span>
-              <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">SOPHOMORE</span>
+          <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm space-y-3">
+            <div class="text-emerald-400 font-bold uppercase">Quick Waypoints</div>
+            <div class="space-y-2 text-white font-mono text-xs">
+              <div>Sparkfly Fen: <span class="text-cyan-300 font-bold">[&BNUC3AA=]</span></div>
+              <div>Queensdale: <span class="text-cyan-300 font-bold">[&BPwAAAA=]</span></div>
+              <div>Frostgorge: <span class="text-cyan-300 font-bold">[&BH4CAAA=]</span></div>
             </div>
-            <h3 class="text-lg font-bold text-slate-100">Boons, Conditions & Breakbars</h3>
-            <p class="text-xs text-slate-300 font-sans leading-relaxed">
-              Mastering combat status effects, crowd control timing, combo fields, and defiance bar mechanics.
-            </p>
           </div>
-          <a 
-            href="./class201/index.html" 
-            class="inline-block text-center bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 text-xs font-bold py-3 px-4 rounded transition-colors border border-cyan-500/30"
-          >
-            ENTER CLASS 201 →
-          </a>
         </div>
-
-        <!-- CATEGORY: COURSE 301 LINK BUTTON -->
-        <div class="border border-slate-800 bg-slate-900/40 p-6 rounded-lg space-y-4 hover:border-cyan-500/50 transition-colors flex flex-col justify-between">
-          <div class="space-y-2">
-            <div class="flex justify-between items-center">
-              <span class="text-xs text-cyan-400 font-bold">COURSE 301</span>
-              <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">JUNIOR</span>
-            </div>
-            <h3 class="text-lg font-bold text-slate-100">Economy, Logistics & Metas</h3>
-            <p class="text-xs text-slate-300 font-sans leading-relaxed">
-              Managing inventory, map currencies, daily routines, and large-scale open-world meta event trains.
-            </p>
-          </div>
-          <a 
-            href="./class301/index.html" 
-            class="inline-block text-center bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 text-xs font-bold py-3 px-4 rounded transition-colors border border-cyan-500/30"
-          >
-            ENTER CLASS 301 →
-          </a>
-        </div>
-
-        <!-- CATEGORY: COURSE 401 LINK BUTTON -->
-        <div class="border border-slate-800 bg-slate-900/40 p-6 rounded-lg space-y-4 hover:border-cyan-500/50 transition-colors flex flex-col justify-between">
-          <div class="space-y-2">
-            <div class="flex justify-between items-center">
-              <span class="text-xs text-cyan-400 font-bold">COURSE 401</span>
-              <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">SENIOR</span>
-            </div>
-            <h3 class="text-lg font-bold text-slate-100">Instanced Raids & Command</h3>
-            <p class="text-xs text-slate-300 font-sans leading-relaxed">
-              Strike missions, raid encounters, squad communication etiquette, and field commander tactics.
-            </p>
-          </div>
-          <a 
-            href="./class401/index.html" 
-            class="inline-block text-center bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 text-xs font-bold py-3 px-4 rounded transition-colors border border-cyan-500/30"
-          >
-            ENTER CLASS 401 →
-          </a>
-        </div>
-
       </div>
-    </section>
-
-    <!-- CATEGORY: AUXILIARY NAVIGATION BUTTONS -->
-    <section class="border border-slate-800 bg-slate-900/40 p-6 rounded-lg space-y-4">
-      <h2 class="text-lg font-bold text-slate-100">ARCHIVE DEPARTMENTS</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <a 
-          href="./lore/index.html" 
-          class="border border-slate-800 bg-slate-950 p-4 rounded hover:border-amber-500/50 text-center transition-colors"
-        >
-          <div class="text-amber-400 text-xs font-bold">🏛️ LORE LIBRARY</div>
-          <div class="text-[11px] text-slate-400 font-sans mt-1">Tyrian History & Relics</div>
-        </a>
-
-        <a 
-          href="./dossier/index.html" 
-          class="border border-slate-800 bg-slate-950 p-4 rounded hover:border-cyan-500/50 text-center transition-colors"
-        >
-          <div class="text-cyan-400 text-xs font-bold">📋 STUDENT DOSSIER</div>
-          <div class="text-[11px] text-slate-400 font-sans mt-1">Profile Badges & Audits</div>
-        </a>
-
-        <a 
-          href="./shortcuts/index.html" 
-          class="border border-slate-800 bg-slate-950 p-4 rounded hover:border-emerald-500/50 text-center transition-colors"
-        >
-          <div class="text-emerald-400 text-xs font-bold">⚔️ GEAR SHORTCUTS</div>
-          <div class="text-[11px] text-slate-400 font-sans mt-1">Questable Gear Paths</div>
-        </a>
-      </div>
-    </section>
+    </div>
 
   </main>
 
-  <!-- CATEGORY: COMPLIANCE FOOTER -->
-  <footer class="border-t border-slate-800 bg-slate-900/80 px-6 py-8 mt-12 text-xs font-sans text-slate-400">
-    <div class="max-w-7xl mx-auto space-y-4">
-      <div class="flex flex-col sm:flex-row justify-between gap-4 font-mono text-[11px]">
-        <div>OPERATED BY THE LIARS GUILD // ARCHITECTURE BY VANGUARD CITIZEN SERVICES</div>
-        <div class="flex gap-4">
-          <a href="https://liarsguild.com" target="_blank" class="text-cyan-400 hover:underline">LIARS GUILD PORTAL</a>
-        </div>
-      </div>
-      <p class="text-[11px] leading-relaxed text-slate-500">
-        LEGAL DISCLAIMER: This website is an unofficial community fansite and is not affiliated with, endorsed, sponsored, or approved by ArenaNet LLC or NCSOFT Corporation. Guild Wars, Guild Wars 2, and all associated logos and designs are trademarks or registered trademarks of NCSOFT Corporation.
+  <!-- CATEGORY: STICKY FOOTER -->
+  <footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-6 py-3">
+    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+      <p class="text-[10px] text-white/80 max-w-3xl leading-normal">
+        This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
       </p>
+
+      <div class="flex items-center space-x-4 text-xs">
+        <a href="https://liar.fyi" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 cursor-pointer">
+          The Liars Guild
+        </a>
+        <span class="text-slate-700">|</span>
+        <span class="text-white">
+          Powered by <a href="https://qkommand.github.io/home/" target="_blank" class="text-white hover:text-cyan-400 underline font-bold cursor-pointer">Commander Q</a>
+        </span>
+      </div>
     </div>
   </footer>
 
-  <!-- CATEGORY: TERMINAL INTERACTIVE SCRIPT -->
+  <!-- CATEGORY: LOGIC ENGINE -->
   <script>
-    // CATEGORY: PATH ROUTING CONFIGURATION
-    const ROUTE_CONFIG = {
-      class101: "./class101/index.html",
-      class201: "./class201/index.html",
-      class301: "./class301/index.html",
-      class401: "./class401/index.html",
-      lore: "./lore/index.html",
-      dossier: "./dossier/index.html",
-      shortcuts: "./shortcuts/index.html"
-    };
+    /* CATEGORY: STATE MANAGEMENT */
+    let basicTabState = 'on';
+    let advancedTabState = 'off';
+    let journalTabState = 'off';
 
-    const PASSPORT_KEY = 'priory_terminal_passport_key';
+    /* CATEGORY: BASIC COURSES CONFIGURATION */
+    // Add or remove items in this array to edit basic courses
+    const basicCourses = [
+      {
+        code: "COURSE 101",
+        title: "Keybinds & Movement Controls",
+        desc: "Learn easy key setups, strafe movement, and fast dodge mechanics.",
+        url: "./courses/101.html"
+      },
+      {
+        code: "COURSE 102",
+        title: "Screen & Interface Setup",
+        desc: "Clean up your screen, fix camera settings, and see group buffs clearly.",
+        url: "./courses/102.html"
+      },
+      {
+        code: "COURSE 103",
+        title: "Bags & Item Storage",
+        desc: "Organize your inventory, manage bank slots, and clear space fast.",
+        url: "./courses/103.html"
+      },
+      {
+        code: "COURSE 104",
+        title: "Map Travel & Mount Controls",
+        desc: "Travel maps faster using waypoints, mounts, and speed boosts.",
+        url: "./courses/104.html"
+      },
+      {
+        code: "COURSE 105",
+        title: "Trading Post Basics",
+        desc: "How to buy items, sell gear, and earn gold on the market.",
+        url: "./courses/105.html"
+      },
+      {
+        code: "COURSE 106",
+        title: "Gear Stats & Character Power",
+        desc: "Understand weapon stats, damage types, and gear choices.",
+        url: "./courses/106.html"
+      }
+    ];
 
-    // CATEGORY: STATE TOGGLES
-    let studentMode = 'off';
+    /* CATEGORY: ADVANCED COURSES CONFIGURATION */
+    // Add or remove items in this array to edit advanced courses
+    const advancedCourses = [
+      {
+        code: "COURSE 201",
+        title: "Group Buffs & Break Bars",
+        desc: "Learn team subgroup setups, boon sharing, and crowd control skills.",
+        url: "./courses/201.html"
+      },
+      {
+        code: "COURSE 202",
+        title: "Priory Lore & World Guides",
+        desc: "Read world history, study ancient secrets, and write field guides.",
+        url: "./courses/202.html"
+      },
+      {
+        code: "COURSE 203",
+        title: "Commander Tag Basics",
+        desc: "How to lead 50-player squads, set markers, and talk in map chat.",
+        url: "./courses/203.html"
+      },
+      {
+        code: "COURSE 204",
+        title: "Boss Fights & Strike Missions",
+        desc: "Master skill rotations, fight mechanics, and damage windows.",
+        url: "./courses/204.html"
+      },
+      {
+        code: "COURSE 205",
+        title: "Open World Map Events",
+        desc: "Coordinate squad lanes, split teams across maps, and time events.",
+        url: "./courses/205.html"
+      },
+      {
+        code: "COURSE 206",
+        title: "Build Testing & Fine Tuning",
+        desc: "Combine relics, armor runes, and traits to max out your damage.",
+        url: "./courses/206.html"
+      }
+    ];
 
+    /* CATEGORY: COURSE RENDER ENGINE */
+    function renderCourseGrids() {
+      const basicGrid = document.getElementById('basic-courses-grid');
+      const advancedGrid = document.getElementById('advanced-courses-grid');
+
+      let basicHtml = '';
+      basicCourses.forEach(c => {
+        basicHtml += `
+          <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan">
+            <div>
+              <div class="text-xs sm:text-sm mb-2">
+                <span class="text-amber-400 font-bold">${c.code}</span>
+              </div>
+              <div class="text-base font-bold text-white mb-1.5">${c.title}</div>
+              <p class="text-sm text-white leading-relaxed">${c.desc}</p>
+            </div>
+            <a 
+              href="${c.url}" 
+              class="w-full py-2.5 bg-slate-900 border border-cyan-500/50 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all text-center block cursor-pointer"
+            >
+              Access Course
+            </a>
+          </div>
+        `;
+      });
+      basicGrid.innerHTML = basicHtml;
+
+      let advancedHtml = '';
+      advancedCourses.forEach(c => {
+        advancedHtml += `
+          <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan">
+            <div>
+              <div class="text-xs sm:text-sm mb-2">
+                <span class="text-amber-400 font-bold">${c.code}</span>
+              </div>
+              <div class="text-base font-bold text-white mb-1.5">${c.title}</div>
+              <p class="text-sm text-white leading-relaxed">${c.desc}</p>
+            </div>
+            <a 
+              href="${c.url}" 
+              class="w-full py-2.5 bg-slate-900 border border-cyan-500/50 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all text-center block cursor-pointer"
+            >
+              Access Course
+            </a>
+          </div>
+        `;
+      });
+      advancedGrid.innerHTML = advancedHtml;
+    }
+
+    /* CATEGORY: NAVIGATION TAB ENGINE */
+    function switchTab(tabName) {
+      if (tabName === 'basic') {
+        basicTabState = 'on';
+        advancedTabState = 'off';
+        journalTabState = 'off';
+      } else if (tabName === 'advanced') {
+        basicTabState = 'off';
+        advancedTabState = 'on';
+        journalTabState = 'off';
+      } else if (tabName === 'journal') {
+        basicTabState = 'off';
+        advancedTabState = 'off';
+        journalTabState = 'on';
+      }
+      renderTabViews();
+    }
+
+    function renderTabViews() {
+      const viewBasic = document.getElementById('view-basic');
+      const viewAdvanced = document.getElementById('view-advanced');
+      const viewJournal = document.getElementById('view-journal');
+
+      const btnBasic = document.getElementById('tab-btn-basic');
+      const btnAdvanced = document.getElementById('tab-btn-advanced');
+      const btnJournal = document.getElementById('tab-btn-journal');
+
+      if (basicTabState === 'on') {
+        viewBasic.classList.remove('hidden');
+        btnBasic.className = 'flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer';
+      } else {
+        viewBasic.classList.add('hidden');
+        btnBasic.className = 'flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer';
+      }
+
+      if (advancedTabState === 'on') {
+        viewAdvanced.classList.remove('hidden');
+        btnAdvanced.className = 'flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer';
+      } else {
+        viewAdvanced.classList.add('hidden');
+        btnAdvanced.className = 'flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer';
+      }
+
+      if (journalTabState === 'on') {
+        viewJournal.classList.remove('hidden');
+        btnJournal.className = 'flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer';
+      } else {
+        viewJournal.classList.add('hidden');
+        btnJournal.className = 'flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer';
+      }
+    }
+
+    /* CATEGORY: UNIVERSAL CLOCKS ENGINE */
+    function updateClocks() {
+      const now = new Date();
+      
+      const utcHours = String(now.getUTCHours()).padStart(2, '0');
+      const utcMins = String(now.getUTCMinutes()).padStart(2, '0');
+      const utcSecs = String(now.getUTCSeconds()).padStart(2, '0');
+      document.getElementById('server-clock').innerText = `${utcHours}:${utcMins}:${utcSecs} UTC`;
+
+      const totalUtcSec = (now.getUTCHours() * 3600) + (now.getUTCMinutes() * 60) + now.getUTCSeconds();
+      const cycleOffset = 1500;
+      const secondsInto2HrCycle = (totalUtcSec - cycleOffset + 720000) % 7200;
+
+      const tyrianSecFromMidnight = (secondsInto2HrCycle * 12 + 21600) % 86400;
+      const tyrianHour = Math.floor(tyrianSecFromMidnight / 3600);
+      const tyrianMin = Math.floor((tyrianSecFromMidnight % 3600) / 60);
+
+      const formattedTyrianHour = String(tyrianHour).padStart(2, '0');
+      const formattedTyrianMin = String(tyrianMin).padStart(2, '0');
+
+      let icon = '☀️';
+      if (tyrianHour >= 5 && tyrianHour < 6) icon = '🌅';
+      else if (tyrianHour >= 6 && tyrianHour < 20) icon = '☀️';
+      else if (tyrianHour >= 20 && tyrianHour < 21) icon = '🌆';
+      else icon = '🌙';
+
+      document.getElementById('tyria-clock-time').innerHTML = `${icon} <span>${formattedTyrianHour}:${formattedTyrianMin}</span>`;
+
+      document.getElementById('local-clock').innerText = now.toLocaleTimeString();
+    }
+
+    /* CATEGORY: INITIALIZATION */
     document.addEventListener('DOMContentLoaded', () => {
-      initClockEngine();
-      checkPassportState();
-      setupPassportEvents();
+      renderCourseGrids();
+      updateClocks();
+      renderTabViews();
+      
+      setInterval(updateClocks, 1000);
     });
-
-    // CATEGORY: PASSPORT PERSISTENCE
-    function checkPassportState() {
-      const savedKey = localStorage.getItem(PASSPORT_KEY);
-      if (savedKey) {
-        studentMode = 'on';
-        renderPassportUI();
-      } else {
-        studentMode = 'off';
-        renderPassportUI();
-      }
-    }
-
-    function renderPassportUI() {
-      const inputBlock = document.getElementById('passport-input-block');
-      const syncedBlock = document.getElementById('passport-synced-block');
-      const statusTag = document.getElementById('passport-status-tag');
-
-      if (studentMode === 'on') {
-        inputBlock.classList.add('hidden');
-        syncedBlock.classList.remove('hidden');
-        statusTag.textContent = 'MODE: STUDENT (SYNCED)';
-        statusTag.className = 'px-2 py-0.5 rounded border border-emerald-500/50 bg-emerald-950/40 text-emerald-400';
-      } else {
-        inputBlock.classList.remove('hidden');
-        syncedBlock.classList.add('hidden');
-        statusTag.textContent = 'MODE: GUEST';
-        statusTag.className = 'px-2 py-0.5 rounded border border-slate-700 bg-slate-950 text-slate-400';
-      }
-    }
-
-    function setupPassportEvents() {
-      const btnSync = document.getElementById('btn-sync-passport');
-      const btnClear = document.getElementById('btn-clear-passport');
-      const inputKey = document.getElementById('api-key-input');
-
-      btnSync.addEventListener('click', () => {
-        const key = inputKey.value.trim();
-        if (key.length > 10) {
-          localStorage.setItem(PASSPORT_KEY, key);
-          studentMode = 'on';
-          renderPassportUI();
-        }
-      });
-
-      btnClear.addEventListener('click', () => {
-        localStorage.removeItem(PASSPORT_KEY);
-        studentMode = 'off';
-        renderPassportUI();
-      });
-    }
-
-    // CATEGORY: TYRIAN TIME CLOCK
-    function initClockEngine() {
-      function updateClock() {
-        const now = new Date();
-        const utcMinutes = now.getUTCHours() * 60 + now.getUTCMinutes();
-        const cycleMinute = utcMinutes % 120;
-
-        let phase = "DAY";
-        let minRemaining = 0;
-
-        if (cycleMinute < 25) {
-          phase = "DAY";
-          minRemaining = 25 - cycleMinute;
-        } else if (cycleMinute < 30) {
-          phase = "DUSK";
-          minRemaining = 30 - cycleMinute;
-        } else if (cycleMinute < 70) {
-          phase = "NIGHT";
-          minRemaining = 70 - cycleMinute;
-        } else if (cycleMinute < 75) {
-          phase = "DAWN";
-          minRemaining = 75 - cycleMinute;
-        } else {
-          phase = "DAY";
-          minRemaining = 120 - cycleMinute + 25;
-        }
-
-        document.getElementById('tyrian-clock').textContent = `TYRIAN TIME: ${phase} (${minRemaining}m remaining)`;
-      }
-
-      updateClock();
-      setInterval(updateClock, 30000);
-    }
   </script>
 </body>
 </html>
