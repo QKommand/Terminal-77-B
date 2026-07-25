@@ -66,7 +66,7 @@
 
       <div class="text-center">
         <span class="text-slate-300 font-bold">LOCATION:</span>
-        <span class="text-cyan-400 font-bold ml-1">DURMAND PRIORY // VAULT 77, BAY B // TERMINAL 77-B</span>
+        <span class="text-cyan-400 font-bold ml-1">DURMAND PRIORY // TERMINAL 77-B</span>
       </div>
 
       <div class="text-center md:text-right">
@@ -78,7 +78,7 @@
 
   <!-- CATEGORY: TAB NAVIGATION -->
   <nav class="shrink-0 bg-slate-950 max-w-[1600px] w-full mx-auto px-6 pt-6 pb-3">
-    <div class="flex border-b border-slate-800 space-x-3 text-sm font-bold">
+    <div class="flex justify-center border-b border-slate-800 space-x-3 text-sm font-bold">
       <button 
         id="tab-btn-basic" 
         onclick="switchTab('basic')" 
@@ -113,20 +113,8 @@
     </div>
 
     <!-- CATEGORY: VIEW - ADVANCED TRAINING -->
-    <div id="view-advanced" class="hidden space-y-6">
-      <div class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-5">
-          <div>
-            <h2 class="text-base font-bold text-cyan-400 tracking-wider flex items-center gap-2">
-              <span>///</span> ADVANCED TRAINING MODULES
-            </h2>
-            <span class="text-xs text-white">Specialized Mastery Tracks</span>
-          </div>
-          <span class="text-xs text-amber-400 font-bold">[ELEVATED SYLLABUS]</span>
-        </div>
-
-        <div id="advanced-courses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        </div>
+    <div id="view-advanced" class="hidden">
+      <div id="advanced-courses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       </div>
     </div>
 
@@ -276,7 +264,7 @@
         category: "ARCHIVAL MASTERY",
         title: "Vault Mastery & Narrative Conduits",
         desc: "Historical cipher analysis, archive restoration, and field guide authoring.",
-        step1: "Masterclass on Tyrian history, Vault 77 artifacts, and narrative design principles utilized by the Liars Guild.",
+        step1: "Masterclass on Tyrian history, Priory artifacts, and narrative design principles utilized by the Liars Guild.",
         step2: "Open exclusively to senior scholars and operatives who have cleared Sub-Level 4 validation.",
         step3: "Study ancient cipher logs, analyze dragon evacuation telemetry, and design narrative conduits for future recruits."
       },
@@ -297,7 +285,7 @@
       const advancedGrid = document.getElementById('advanced-courses-grid');
 
       let basicHtml = '';
-      Object.keys(basicCourses).forEach(id => {
+      Object.keys(basicCourses).slice(0, 6).forEach(id => {
         const c = basicCourses[id];
         basicHtml += `
           <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan">
@@ -321,10 +309,10 @@
       basicGrid.innerHTML = basicHtml;
 
       let advancedHtml = '';
-      Object.keys(advancedCourses).forEach(id => {
+      Object.keys(advancedCourses).slice(0, 6).forEach(id => {
         const c = advancedCourses[id];
         advancedHtml += `
-          <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4">
+          <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan">
             <div>
               <div class="flex justify-between text-xs sm:text-sm mb-2">
                 <span class="text-amber-400 font-bold">${c.code}</span>
