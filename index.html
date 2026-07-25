@@ -21,13 +21,6 @@
       box-shadow: 0 0 22px rgba(34, 211, 238, 0.35);
     }
 
-    .glow-amber {
-      box-shadow: 0 0 14px rgba(245, 158, 11, 0.15);
-    }
-    .glow-amber:hover {
-      box-shadow: 0 0 22px rgba(245, 158, 11, 0.35);
-    }
-
     ::-webkit-scrollbar {
       width: 8px;
     }
@@ -163,42 +156,6 @@
 
   </main>
 
-  <!-- CATEGORY: COURSE MODAL -->
-  <div id="course-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="border border-cyan-500/50 bg-slate-900 max-w-2xl w-full p-6 rounded-sm glow-cyan relative space-y-5">
-      <button onclick="closeCourseModal()" class="absolute top-4 right-4 text-white hover:text-cyan-400 text-sm font-bold cursor-pointer">
-        [CLOSE X]
-      </button>
-
-      <h3 id="modal-title" class="text-lg font-bold text-cyan-400 border-b border-slate-800 pb-3">
-        COURSE TITLE
-      </h3>
-
-      <div class="space-y-4 text-sm leading-relaxed">
-        <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm">
-          <span class="text-amber-400 font-bold block mb-1">1. WHAT IT IS</span>
-          <p id="modal-step-1" class="text-white"></p>
-        </div>
-
-        <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm">
-          <span class="text-cyan-400 font-bold block mb-1">2. HOW TO GET IT</span>
-          <p id="modal-step-2" class="text-white"></p>
-        </div>
-
-        <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm">
-          <span class="text-emerald-400 font-bold block mb-1">3. WHAT TO DO</span>
-          <p id="modal-step-3" class="text-white"></p>
-        </div>
-      </div>
-
-      <div class="pt-2 flex justify-end">
-        <button onclick="closeCourseModal()" class="min-h-[48px] px-6 bg-cyan-500 text-slate-950 text-xs font-bold uppercase rounded-sm hover:bg-cyan-400 cursor-pointer">
-          Acknowledge & Close
-        </button>
-      </div>
-    </div>
-  </div>
-
   <!-- CATEGORY: STICKY FOOTER -->
   <footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-6 py-3">
     <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
@@ -207,7 +164,7 @@
       </p>
 
       <div class="flex items-center space-x-4 text-xs">
-        <a href="https://liarsguild.com" onclick="event.preventDefault();" data-target="https://liarsguild.com" class="text-cyan-400 hover:underline cursor-pointer">
+        <a href="https://liarsguild.com" target="_blank" class="text-cyan-400 hover:underline cursor-pointer">
           The Liars Guild
         </a>
         <span class="text-slate-700">|</span>
@@ -224,55 +181,86 @@
     let basicTabState = 'on';
     let advancedTabState = 'off';
     let journalTabState = 'off';
-    let modalState = 'off';
 
-    /* CATEGORY: BASIC COURSES DATA */
-    const basicCourses = {
-      101: {
+    /* CATEGORY: BASIC COURSES CONFIGURATION */
+    const basicCourses = [
+      {
         code: "COURSE 101",
         title: "Keymapping & Profession Identities",
         desc: "Foundational combat mechanics, ergonomic keybind layouts, and core trait profiling.",
-        step1: "A foundational matrix mapping Guild Wars 2 combat mechanics to ergonomic keybind profiles and core profession traits.",
-        step2: "Access the Durmand Priory Archives or load your character profile into the Terminal Deck to sync combat keys.",
-        step3: "Rebind movement keys to strafe-only (A/D), bind dodge to an accessible thumb button, and assign profession mechanics (F1-F5) to clear modifier layers."
+        url: "#course-101"
       },
-      201: {
-        code: "COURSE 201",
+      {
+        code: "COURSE 102",
         title: "Asuran Signal Intercepts & UI Calibration",
         desc: "Visual clutter elimination, action camera settings, and squad buffer indicators.",
-        step1: "Advanced interface calibration designed to eliminate visual bloat and improve situational combat reaction times.",
-        step2: "Sync your account API key with Terminal 77-B and download custom grid overlays.",
-        step3: "Disable action camera sticky targeting, enable ground-target instant cast, and set squad buffer indicators to high contrast."
+        url: "#course-102"
+      },
+      {
+        code: "COURSE 103",
+        title: "Inventory & Material Storage Management",
+        desc: "Optimizing bag slots, bank organization, and automated deposit routines.",
+        url: "#course-103"
+      },
+      {
+        code: "COURSE 104",
+        title: "Tyrian Navigation & Movement Protocols",
+        desc: "Efficient waypointing, mount utilization, and swiftness/superspeed loops.",
+        url: "#course-104"
+      },
+      {
+        code: "COURSE 105",
+        title: "Trading Post Fundamentals",
+        desc: "Market listings, instant buy/sell mechanics, and crafting material valuation.",
+        url: "#course-105"
+      },
+      {
+        code: "COURSE 106",
+        title: "Equipment Stats & Attribute Matrices",
+        desc: "Understanding Power, Condition Damage, Boon Duration, and Berserker vs Viper stats.",
+        url: "#course-106"
       }
-    };
+    ];
 
-    /* CATEGORY: ADVANCED COURSES DATA */
-    const advancedCourses = {
-      301: {
-        code: "COURSE 301",
+    /* CATEGORY: ADVANCED COURSES CONFIGURATION */
+    const advancedCourses = [
+      {
+        code: "COURSE 201",
         title: "Squad Telemetry & Defiance Mechanics",
         desc: "Boon subgroup distribution, CC execution loops, and stack management.",
-        step1: "Strategic squad coordination protocols analyzing boon uptime, breakbar defiance, and positioning loops.",
-        step2: "Unlocked upon completion of Course 201 and verification of an active commander tag.",
-        step3: "Monitor squad boon sub-groups, execute crowd control sequences during defy windows, and maintain stack proximity."
+        url: "#course-201"
       },
-      401: {
-        code: "COURSE 401",
-        title: "Vault Mastery & Narrative Conduits",
-        desc: "Historical cipher analysis, archive restoration, and field guide authoring.",
-        step1: "Masterclass on Tyrian history, Priory artifacts, and narrative design principles utilized by the Liars Guild.",
-        step2: "Open exclusively to senior scholars and operatives who have cleared Sub-Level 4 validation.",
-        step3: "Study ancient cipher logs, analyze dragon evacuation telemetry, and design narrative conduits for future recruits."
+      {
+        code: "COURSE 202",
+        title: "Archival Mastery & Narrative Conduits",
+        desc: "Historical cipher analysis, Priory artifacts, and field guide authoring.",
+        url: "#course-202"
       },
-      501: {
-        code: "COURSE 501",
+      {
+        code: "COURSE 203",
         title: "Commander Tag Operating Procedures",
-        desc: "Squad subgroup balancing, raid markers, and strategic map communication.",
-        step1: "Comprehensive leadership framework for managing 50-player open world and instanced squads.",
-        step2: "Obtain a Commander Tag from the Master Tactics vendor in Lion's Arch.",
-        step3: "Assign quick-response sub-groups, place ground markers on priority targets, and maintain clear map chat callouts."
+        desc: "Squad subgroup balancing, raid markers, and strategic map chat communication.",
+        url: "#course-203"
+      },
+      {
+        code: "COURSE 204",
+        title: "Instanced Encounter Rotations",
+        desc: "Strike missions, Fractal instabilities, and burst damage window alignment.",
+        url: "#course-204"
+      },
+      {
+        code: "COURSE 205",
+        title: "Open World Meta Coordination",
+        desc: "Multi-map squad splitting, lane assignment, and event timing alignment.",
+        url: "#course-205"
+      },
+      {
+        code: "COURSE 206",
+        title: "Theorycrafting & Build Optimization",
+        desc: "Relic synergy, rune multipliers, and damage/support coefficient analysis.",
+        url: "#course-206"
       }
-    };
+    ];
 
     /* CATEGORY: COURSE RENDER ENGINE */
     function renderCourseGrids() {
@@ -280,8 +268,7 @@
       const advancedGrid = document.getElementById('advanced-courses-grid');
 
       let basicHtml = '';
-      Object.keys(basicCourses).slice(0, 6).forEach(id => {
-        const c = basicCourses[id];
+      basicCourses.slice(0, 6).forEach(c => {
         basicHtml += `
           <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan">
             <div>
@@ -291,20 +278,19 @@
               <div class="text-base font-bold text-white mb-1.5">${c.title}</div>
               <p class="text-sm text-white leading-relaxed">${c.desc}</p>
             </div>
-            <button 
-              onclick="openCourseModal('${id}', 'basic')" 
-              class="w-full py-2.5 bg-slate-900 border border-cyan-500/50 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all cursor-pointer"
+            <a 
+              href="${c.url}" 
+              class="w-full py-2.5 bg-slate-900 border border-cyan-500/50 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all text-center block cursor-pointer"
             >
               Access Course
-            </button>
+            </a>
           </div>
         `;
       });
       basicGrid.innerHTML = basicHtml;
 
       let advancedHtml = '';
-      Object.keys(advancedCourses).slice(0, 6).forEach(id => {
-        const c = advancedCourses[id];
+      advancedCourses.slice(0, 6).forEach(c => {
         advancedHtml += `
           <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan">
             <div>
@@ -314,12 +300,12 @@
               <div class="text-base font-bold text-white mb-1.5">${c.title}</div>
               <p class="text-sm text-white leading-relaxed">${c.desc}</p>
             </div>
-            <button 
-              onclick="openCourseModal('${id}', 'advanced')" 
-              class="w-full py-2.5 bg-slate-900 border border-cyan-500/50 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all cursor-pointer"
+            <a 
+              href="${c.url}" 
+              class="w-full py-2.5 bg-slate-900 border border-cyan-500/50 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all text-center block cursor-pointer"
             >
               Access Course
-            </button>
+            </a>
           </div>
         `;
       });
@@ -407,23 +393,6 @@
       document.getElementById('tyria-clock-time').innerHTML = `${icon} <span>${formattedTyrianHour}:${formattedTyrianMin}</span>`;
 
       document.getElementById('local-clock').innerText = now.toLocaleTimeString();
-    }
-
-    /* CATEGORY: MODAL HANDLERS */
-    function openCourseModal(courseId, track = 'basic') {
-      const data = track === 'basic' ? basicCourses[courseId] : advancedCourses[courseId];
-      if (!data) return;
-      document.getElementById('modal-title').innerText = `${data.code}: ${data.title}`;
-      document.getElementById('modal-step-1').innerText = data.step1;
-      document.getElementById('modal-step-2').innerText = data.step2;
-      document.getElementById('modal-step-3').innerText = data.step3;
-      document.getElementById('course-modal').classList.remove('hidden');
-      modalState = 'on';
-    }
-
-    function closeCourseModal() {
-      document.getElementById('course-modal').classList.add('hidden');
-      modalState = 'off';
     }
 
     /* CATEGORY: INITIALIZATION */
