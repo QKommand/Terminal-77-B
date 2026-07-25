@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-slate-950 text-slate-200">
+<html lang="en" class="h-full bg-slate-950 text-white">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,48 +8,28 @@
   <!-- CATEGORY: EXTERNAL DEPENDENCIES -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- CATEGORY: AMBIENT ANIMATIONS & OVERLAYS -->
+  <!-- CATEGORY: STYLES & TYPOGRAPHY -->
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,700;1,400&display=swap');
-
     body {
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .scanline-overlay {
-      background: linear-gradient(
-        rgba(18, 16, 16, 0) 50%, 
-        rgba(0, 0, 0, 0.18) 50%
-      );
-      background-size: 100% 2px;
-    }
-
-    @keyframes crtFlicker {
-      0% { opacity: 0.985; }
-      50% { opacity: 1; }
-      100% { opacity: 0.99; }
-    }
-
-    .crt-flicker {
-      animation: crtFlicker 0.2s infinite;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     .glow-cyan {
-      box-shadow: 0 0 12px rgba(34, 211, 238, 0.12);
+      box-shadow: 0 0 14px rgba(34, 211, 238, 0.15);
     }
     .glow-cyan:hover {
-      box-shadow: 0 0 20px rgba(34, 211, 238, 0.30);
+      box-shadow: 0 0 22px rgba(34, 211, 238, 0.35);
     }
 
     .glow-amber {
-      box-shadow: 0 0 12px rgba(245, 158, 11, 0.12);
+      box-shadow: 0 0 14px rgba(245, 158, 11, 0.15);
     }
     .glow-amber:hover {
-      box-shadow: 0 0 20px rgba(245, 158, 11, 0.30);
+      box-shadow: 0 0 22px rgba(245, 158, 11, 0.35);
     }
 
     ::-webkit-scrollbar {
-      width: 6px;
+      width: 8px;
     }
     ::-webkit-scrollbar-track {
       background: #020617;
@@ -60,176 +40,160 @@
     }
   </style>
 </head>
-<body class="h-screen flex flex-col overflow-hidden crt-flicker relative bg-slate-950 text-slate-200 selection:bg-cyan-500 selection:text-slate-950">
+<body class="h-screen flex flex-col overflow-hidden relative bg-slate-950 text-white selection:bg-cyan-500 selection:text-slate-950">
 
-  <!-- CATEGORY: SCANLINE LAYER -->
-  <div class="pointer-events-none fixed inset-0 z-50 scanline-overlay"></div>
-
-  <!-- CATEGORY: STICKY TERMINAL HEADER -->
-  <header class="shrink-0 border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-4 py-3 space-y-2">
-    
-    <!-- CATEGORY: CENTERED TITLE -->
-    <div class="text-center space-y-0.5">
-      <h1 class="text-base sm:text-lg font-bold text-cyan-400 tracking-wider uppercase">
+  <!-- CATEGORY: STICKY HEADER -->
+  <header class="shrink-0 border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-6 py-4 space-y-3">
+    <div class="text-center space-y-1">
+      <h1 class="text-lg sm:text-2xl font-bold text-cyan-400 tracking-wider uppercase">
         Welcome to [LIAR] Tyrian University
       </h1>
-      <p class="text-[11px] text-slate-400 tracking-wide">
+      <p class="text-sm text-white tracking-wide">
         The essential digital journal for Guild Wars 2 players.
       </p>
     </div>
 
-    <!-- CATEGORY: SUB-HEADER DATA DECK -->
-    <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-2 pt-2 border-t border-slate-800/80 text-[11px] text-center md:text-left items-center">
-      
-      <!-- TYRIAN TIME -->
-      <div class="flex items-center justify-center md:justify-start gap-1.5">
-        <span class="text-slate-500 font-bold">TYRIAN TIME:</span>
-        <span id="tyria-clock-time" class="text-amber-400 font-bold flex items-center gap-1">--:--</span>
+    <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 pt-3 border-t border-slate-800 text-xs sm:text-sm text-center md:text-left items-center">
+      <div class="flex items-center justify-center md:justify-start gap-2">
+        <span class="text-slate-300 font-bold">TYRIAN TIME:</span>
+        <span id="tyria-clock-time" class="text-amber-400 font-bold flex items-center gap-1.5">--:--</span>
       </div>
 
-      <!-- SERVER TIMER (UTC) -->
       <div class="text-center md:text-left">
-        <span class="text-slate-500 font-bold">SERVER TIME:</span>
+        <span class="text-slate-300 font-bold">SERVER TIME:</span>
         <span id="server-clock" class="text-cyan-400 font-bold ml-1">--:--:-- UTC</span>
       </div>
 
-      <!-- LOCATION STAMP -->
       <div class="text-center">
-        <span class="text-slate-500 font-bold">LOCATION:</span>
+        <span class="text-slate-300 font-bold">LOCATION:</span>
         <span class="text-cyan-400 font-bold ml-1">DURMAND PRIORY // VAULT 77, BAY B // TERMINAL 77-B</span>
       </div>
 
-      <!-- USER LOCAL TIME -->
       <div class="text-center md:text-right">
-        <span class="text-slate-500 font-bold">LOCAL TIME:</span>
+        <span class="text-slate-300 font-bold">LOCAL TIME:</span>
         <span id="local-clock" class="text-emerald-400 font-bold ml-1">--:--:--</span>
       </div>
-
     </div>
   </header>
 
-  <!-- CATEGORY: TERMINAL NAVIGATION TAB BAR -->
-  <nav class="shrink-0 bg-slate-950 max-w-[1600px] w-full mx-auto px-4 md:px-6 pt-3">
-    <div class="flex border-b border-slate-800 space-x-2 text-xs font-bold">
+  <!-- CATEGORY: TAB NAVIGATION -->
+  <nav class="shrink-0 bg-slate-950 max-w-[1600px] w-full mx-auto px-6 pt-6 pb-3">
+    <div class="flex border-b border-slate-800 space-x-3 text-sm font-bold">
       <button 
         id="tab-btn-basic" 
         onclick="switchTab('basic')" 
-        class="px-4 py-2 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/50 transition-all cursor-pointer"
+        class="px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer"
       >
         /// BASIC COURSES
       </button>
       <button 
         id="tab-btn-advanced" 
         onclick="switchTab('advanced')" 
-        class="px-4 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all cursor-pointer"
+        class="px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
       >
         /// ADVANCED TRAINING
       </button>
       <button 
         id="tab-btn-journal" 
         onclick="switchTab('journal')" 
-        class="px-4 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all cursor-pointer"
+        class="px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
       >
         /// ADVENTURER JOURNAL
       </button>
     </div>
   </nav>
 
-  <!-- CATEGORY: SCROLLABLE MAIN CONTENT CONTAINER -->
-  <main class="flex-1 overflow-y-auto max-w-[1600px] w-full mx-auto p-4 md:p-6 space-y-6">
+  <!-- CATEGORY: MAIN CONTENT AREA -->
+  <main class="flex-1 overflow-y-auto max-w-[1600px] w-full mx-auto p-6 space-y-6">
 
     <!-- CATEGORY: VIEW - BASIC COURSES -->
     <div id="view-basic" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-      
       <section class="lg:col-span-8 space-y-6">
-        <div class="border border-slate-800 bg-slate-900/60 p-5 rounded-sm glow-cyan">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-            <h2 class="text-sm font-bold text-cyan-400 tracking-wider flex items-center gap-2">
+        <div class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-5">
+            <h2 class="text-base font-bold text-cyan-400 tracking-wider flex items-center gap-2">
               <span>///</span> BASIC ACADEMIC COURSES
             </h2>
-            <span class="text-[10px] text-slate-500 uppercase">Foundational Track</span>
+            <span class="text-xs text-white uppercase font-bold">Foundational Track</span>
           </div>
 
-          <div id="basic-courses-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Basic courses rendered dynamically from JS -->
+          <div id="basic-courses-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5">
           </div>
         </div>
       </section>
 
       <section class="lg:col-span-4 space-y-6">
-        <div class="border border-slate-800 bg-slate-900/60 p-5 rounded-sm glow-amber space-y-4">
-          <div class="border-b border-slate-800 pb-2">
-            <h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider">
+        <div class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-amber space-y-4">
+          <div class="border-b border-slate-800 pb-3">
+            <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider">
               /// ACADEMIC ACCESS NOTE
             </h3>
           </div>
-          <p class="text-xs text-slate-400 leading-relaxed">
+          <p class="text-sm text-white leading-relaxed">
             All curriculum data within Terminal 77-B is open-access and queried directly from public Tyrian game endpoints. No account registration or elevated clearance is required to view course modules.
           </p>
-          <div class="p-3 bg-slate-950 border border-slate-800 rounded text-[11px] text-slate-500">
+          <div class="p-3 bg-slate-950 border border-slate-800 rounded text-xs text-white font-mono">
             [STATUS: UNRESTRICTED ACCESS]
           </div>
         </div>
       </section>
-
     </div>
 
     <!-- CATEGORY: VIEW - ADVANCED TRAINING -->
     <div id="view-advanced" class="hidden space-y-6">
-      <div class="border border-slate-800 bg-slate-900/60 p-5 rounded-sm glow-cyan">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+      <div class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-5">
           <div>
-            <h2 class="text-sm font-bold text-cyan-400 tracking-wider flex items-center gap-2">
+            <h2 class="text-base font-bold text-cyan-400 tracking-wider flex items-center gap-2">
               <span>///</span> ADVANCED TRAINING MODULES
             </h2>
-            <span class="text-[10px] text-slate-500">Specialized Mastery Tracks</span>
+            <span class="text-xs text-white">Specialized Mastery Tracks</span>
           </div>
           <span class="text-xs text-amber-400 font-bold">[ELEVATED SYLLABUS]</span>
         </div>
 
-        <div id="advanced-courses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <!-- Advanced courses rendered dynamically from JS -->
+        <div id="advanced-courses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         </div>
       </div>
     </div>
 
     <!-- CATEGORY: VIEW - ADVENTURER JOURNAL -->
     <div id="view-journal" class="hidden space-y-6">
-      <div class="border border-slate-800 bg-slate-900/60 p-5 rounded-sm glow-cyan">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+      <div class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-5">
           <div>
-            <h2 class="text-sm font-bold text-cyan-400 tracking-wider flex items-center gap-2">
+            <h2 class="text-base font-bold text-cyan-400 tracking-wider flex items-center gap-2">
               <span>///</span> ADVENTURER JOURNAL & FIELD LOGS
             </h2>
-            <span class="text-[10px] text-slate-500">Tyrian Operations Tracker</span>
+            <span class="text-xs text-white">Tyrian Operations Tracker</span>
           </div>
           <span class="text-xs text-emerald-400 font-bold">[JOURNAL ACTIVE]</span>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-          <div class="p-4 border border-slate-800 bg-slate-950/60 rounded-sm space-y-2">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 text-sm">
+          <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm space-y-3">
             <div class="text-amber-400 font-bold uppercase">Daily Checklist</div>
-            <ul class="space-y-1.5 text-slate-400">
-              <li class="flex items-center gap-2"><input type="checkbox" class="accent-cyan-400" /> Ley-Line Matter Converter</li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="accent-cyan-400" /> Wizard's Vault Dailies</li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="accent-cyan-400" /> Home Instance Gathering</li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="accent-cyan-400" /> Guild Hall Nodes</li>
+            <ul class="space-y-2 text-white">
+              <li class="flex items-center gap-2.5"><input type="checkbox" class="w-4 h-4 accent-cyan-400 cursor-pointer" /> Ley-Line Matter Converter</li>
+              <li class="flex items-center gap-2.5"><input type="checkbox" class="w-4 h-4 accent-cyan-400 cursor-pointer" /> Wizard's Vault Dailies</li>
+              <li class="flex items-center gap-2.5"><input type="checkbox" class="w-4 h-4 accent-cyan-400 cursor-pointer" /> Home Instance Gathering</li>
+              <li class="flex items-center gap-2.5"><input type="checkbox" class="w-4 h-4 accent-cyan-400 cursor-pointer" /> Guild Hall Nodes</li>
             </ul>
           </div>
 
-          <div class="p-4 border border-slate-800 bg-slate-950/60 rounded-sm space-y-2">
+          <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm space-y-3">
             <div class="text-cyan-400 font-bold uppercase">Active Field Notes</div>
-            <p class="text-slate-400 leading-relaxed">
+            <p class="text-white leading-relaxed">
               Prioritize defiance bar crowd control before major meta burns. Ensure stability stacks are active during group boss encounters.
             </p>
           </div>
 
-          <div class="p-4 border border-slate-800 bg-slate-950/60 rounded-sm space-y-2">
+          <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm space-y-3">
             <div class="text-emerald-400 font-bold uppercase">Quick Waypoints</div>
-            <div class="space-y-1 text-slate-400 font-mono text-[11px]">
-              <div>Sparkfly Fen: <span class="text-slate-200">[&BNUC3AA=]</span></div>
-              <div>Queensdale: <span class="text-slate-200">[&BPwAAAA=]</span></div>
-              <div>Frostgorge: <span class="text-slate-200">[&BH4CAAA=]</span></div>
+            <div class="space-y-2 text-white font-mono text-xs">
+              <div>Sparkfly Fen: <span class="text-cyan-300 font-bold">[&BNUC3AA=]</span></div>
+              <div>Queensdale: <span class="text-cyan-300 font-bold">[&BPwAAAA=]</span></div>
+              <div>Frostgorge: <span class="text-cyan-300 font-bold">[&BH4CAAA=]</span></div>
             </div>
           </div>
         </div>
@@ -238,31 +202,31 @@
 
   </main>
 
-  <!-- CATEGORY: COURSE OVERLAY MODAL -->
+  <!-- CATEGORY: COURSE MODAL -->
   <div id="course-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="border border-cyan-500/50 bg-slate-900 max-w-2xl w-full p-6 rounded-sm glow-cyan relative space-y-4">
-      <button onclick="closeCourseModal()" class="absolute top-4 right-4 text-slate-400 hover:text-cyan-400 text-sm font-bold cursor-pointer">
+    <div class="border border-cyan-500/50 bg-slate-900 max-w-2xl w-full p-6 rounded-sm glow-cyan relative space-y-5">
+      <button onclick="closeCourseModal()" class="absolute top-4 right-4 text-white hover:text-cyan-400 text-sm font-bold cursor-pointer">
         [CLOSE X]
       </button>
 
-      <h3 id="modal-title" class="text-base font-bold text-cyan-400 border-b border-slate-800 pb-3">
+      <h3 id="modal-title" class="text-lg font-bold text-cyan-400 border-b border-slate-800 pb-3">
         COURSE TITLE
       </h3>
 
-      <div class="space-y-4 text-xs leading-relaxed">
-        <div class="p-3 bg-slate-950 border border-slate-800 rounded-sm">
+      <div class="space-y-4 text-sm leading-relaxed">
+        <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm">
           <span class="text-amber-400 font-bold block mb-1">1. WHAT IT IS</span>
-          <p id="modal-step-1" class="text-slate-300"></p>
+          <p id="modal-step-1" class="text-white"></p>
         </div>
 
-        <div class="p-3 bg-slate-950 border border-slate-800 rounded-sm">
+        <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm">
           <span class="text-cyan-400 font-bold block mb-1">2. HOW TO GET IT</span>
-          <p id="modal-step-2" class="text-slate-300"></p>
+          <p id="modal-step-2" class="text-white"></p>
         </div>
 
-        <div class="p-3 bg-slate-950 border border-slate-800 rounded-sm">
+        <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm">
           <span class="text-emerald-400 font-bold block mb-1">3. WHAT TO DO</span>
-          <p id="modal-step-3" class="text-slate-300"></p>
+          <p id="modal-step-3" class="text-white"></p>
         </div>
       </div>
 
@@ -274,20 +238,20 @@
     </div>
   </div>
 
-  <!-- CATEGORY: STICKY COMPLIANCE FOOTER -->
-  <footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-4 py-3">
-    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
-      <p class="text-[10px] text-slate-500 max-w-3xl leading-snug">
+  <!-- CATEGORY: STICKY FOOTER -->
+  <footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-6 py-3">
+    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+      <p class="text-xs text-white max-w-3xl leading-relaxed">
         This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
       </p>
 
-      <div class="flex items-center space-x-4 text-[11px]">
+      <div class="flex items-center space-x-4 text-xs">
         <a href="https://liarsguild.com" onclick="event.preventDefault();" data-target="https://liarsguild.com" class="text-cyan-400 hover:underline cursor-pointer">
           The Liars Guild
         </a>
         <span class="text-slate-700">|</span>
-        <span class="text-slate-400">
-          Powered by <strong class="text-slate-200">Vanguard Citizen Services</strong>
+        <span class="text-white">
+          Powered by <strong class="text-white">Commander Q</strong>
         </span>
       </div>
     </div>
@@ -301,7 +265,7 @@
     let journalTabState = 'off';
     let modalState = 'off';
 
-    /* CATEGORY: BASIC COURSES DATA ARCHIVE */
+    /* CATEGORY: BASIC COURSES DATA */
     const basicCourses = {
       101: {
         code: "COURSE 101",
@@ -323,8 +287,7 @@
       }
     };
 
-    /* CATEGORY: ADVANCED COURSES DATA ARCHIVE */
-    // Add new advanced courses here by adding a new entry to this object.
+    /* CATEGORY: ADVANCED COURSES DATA */
     const advancedCourses = {
       301: {
         code: "COURSE 301",
@@ -360,35 +323,49 @@
       const basicGrid = document.getElementById('basic-courses-grid');
       const advancedGrid = document.getElementById('advanced-courses-grid');
 
-      // Render Basic Courses
       let basicHtml = '';
       Object.keys(basicCourses).forEach(id => {
         const c = basicCourses[id];
         basicHtml += `
-          <div onclick="openCourseModal('${id}', 'basic')" class="p-4 border border-slate-800 bg-slate-950/60 hover:border-cyan-500/50 cursor-pointer transition-all rounded-sm">
-            <div class="flex justify-between text-xs mb-2">
-              <span class="text-amber-400 font-bold">${c.code}</span>
-              <span class="text-slate-500">${c.category}</span>
+          <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex justify-between text-xs sm:text-sm mb-2">
+                <span class="text-amber-400 font-bold">${c.code}</span>
+                <span class="text-white font-semibold">${c.category}</span>
+              </div>
+              <div class="text-base font-bold text-white mb-1.5">${c.title}</div>
+              <p class="text-sm text-white leading-relaxed">${c.desc}</p>
             </div>
-            <div class="text-sm font-bold text-slate-200 mb-1">${c.title}</div>
-            <p class="text-xs text-slate-400 leading-relaxed">${c.desc}</p>
+            <button 
+              onclick="openCourseModal('${id}', 'basic')" 
+              class="w-full py-2.5 bg-slate-900 border border-cyan-500/50 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all cursor-pointer"
+            >
+              Access Course
+            </button>
           </div>
         `;
       });
       basicGrid.innerHTML = basicHtml;
 
-      // Render Advanced Courses
       let advancedHtml = '';
       Object.keys(advancedCourses).forEach(id => {
         const c = advancedCourses[id];
         advancedHtml += `
-          <div onclick="openCourseModal('${id}', 'advanced')" class="p-4 border border-slate-800 bg-slate-950/60 hover:border-cyan-500/50 cursor-pointer transition-all rounded-sm">
-            <div class="flex justify-between text-xs mb-2">
-              <span class="text-amber-400 font-bold">${c.code}</span>
-              <span class="text-slate-500">${c.category}</span>
+          <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex justify-between text-xs sm:text-sm mb-2">
+                <span class="text-amber-400 font-bold">${c.code}</span>
+                <span class="text-white font-semibold">${c.category}</span>
+              </div>
+              <div class="text-base font-bold text-white mb-1.5">${c.title}</div>
+              <p class="text-sm text-white leading-relaxed">${c.desc}</p>
             </div>
-            <div class="text-sm font-bold text-slate-200 mb-1">${c.title}</div>
-            <p class="text-xs text-slate-400 leading-relaxed">${c.desc}</p>
+            <button 
+              onclick="openCourseModal('${id}', 'advanced')" 
+              class="w-full py-2.5 bg-slate-900 border border-cyan-500/50 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all cursor-pointer"
+            >
+              Access Course
+            </button>
           </div>
         `;
       });
@@ -422,31 +399,28 @@
       const btnAdvanced = document.getElementById('tab-btn-advanced');
       const btnJournal = document.getElementById('tab-btn-journal');
 
-      // Basic Tab View
       if (basicTabState === 'on') {
         viewBasic.classList.remove('hidden');
-        btnBasic.className = 'px-4 py-2 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/50 transition-all cursor-pointer';
+        btnBasic.className = 'px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer';
       } else {
         viewBasic.classList.add('hidden');
-        btnBasic.className = 'px-4 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all cursor-pointer';
+        btnBasic.className = 'px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer';
       }
 
-      // Advanced Tab View
       if (advancedTabState === 'on') {
         viewAdvanced.classList.remove('hidden');
-        btnAdvanced.className = 'px-4 py-2 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/50 transition-all cursor-pointer';
+        btnAdvanced.className = 'px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer';
       } else {
         viewAdvanced.classList.add('hidden');
-        btnAdvanced.className = 'px-4 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all cursor-pointer';
+        btnAdvanced.className = 'px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer';
       }
 
-      // Journal Tab View
       if (journalTabState === 'on') {
         viewJournal.classList.remove('hidden');
-        btnJournal.className = 'px-4 py-2 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/50 transition-all cursor-pointer';
+        btnJournal.className = 'px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer';
       } else {
         viewJournal.classList.add('hidden');
-        btnJournal.className = 'px-4 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-all cursor-pointer';
+        btnJournal.className = 'px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer';
       }
     }
 
@@ -454,13 +428,11 @@
     function updateClocks() {
       const now = new Date();
       
-      // 1. GW2 Server Timer (UTC)
       const utcHours = String(now.getUTCHours()).padStart(2, '0');
       const utcMins = String(now.getUTCMinutes()).padStart(2, '0');
       const utcSecs = String(now.getUTCSeconds()).padStart(2, '0');
       document.getElementById('server-clock').innerText = `${utcHours}:${utcMins}:${utcSecs} UTC`;
 
-      // 2. In-Game Tyrian Time Calculation
       const totalUtcSec = (now.getUTCHours() * 3600) + (now.getUTCMinutes() * 60) + now.getUTCSeconds();
       const cycleOffset = 1500;
       const secondsInto2HrCycle = (totalUtcSec - cycleOffset + 720000) % 7200;
@@ -480,7 +452,6 @@
 
       document.getElementById('tyria-clock-time').innerHTML = `${icon} <span>${formattedTyrianHour}:${formattedTyrianMin}</span>`;
 
-      // 3. Local User Time
       document.getElementById('local-clock').innerText = now.toLocaleTimeString();
     }
 
