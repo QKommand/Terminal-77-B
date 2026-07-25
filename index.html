@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-200">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terminal 77-B // Priory Archives</title>
+  
+  <!-- CATEGORY: EXTERNAL DEPENDENCIES -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- CATEGORY: AMBIENT ANIMATIONS & OVERLAYS -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,700;1,400&display=swap');
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .scanline-overlay {
+      background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.35) 50%
+      ), linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 0.03),
+        rgba(0, 255, 0, 0.01),
+        rgba(0, 0, 255, 0.03)
+      );
+      background-size: 100% 4px, 6px 100%;
+    }
+
+    @keyframes crtFlicker {
+      0% { opacity: 0.985; }
+      50% { opacity: 1; }
+      100% { opacity: 0.99; }
+    }
+
+    .crt-flicker {
+      animation: crtFlicker 0.2s infinite;
+    }
+
+    .glow-cyan {
+      box-shadow: 0 0 12px rgba(34, 211, 238, 0.15);
+    }
+    .glow-cyan:hover {
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.35);
+    }
+
+    .glow-amber {
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.15);
+    }
+    .glow-amber:hover {
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.35);
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #0f172a;
+      border: 1px solid #22d3ee;
+    }
+  </style>
+</head>
+<body class="h-full flex flex-col crt-flicker relative bg-slate-950 text-slate-200 selection:bg-cyan-500 selection:text-slate-950">
+
+  <!-- CATEGORY: SCANLINE LAYER -->
+  <div class="pointer-events-none fixed inset-0 z-50 scanline-overlay"></div>
+
+  <!-- CATEGORY: TERMINAL HEADER -->
+  <header class="border-b border-cyan-500/30 bg-slate-900/80 backdrop-blur sticky top-0 z-40 px-4 py-3">
+    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="w-3 h-3 rounded-full bg-cyan-400 animate-pulse"></div>
+        <div>
+          <span class="text-xs text-slate-400 block tracking-widest">SYSTEM LOCATION STAMP</span>
+          <h1 class="text-xs sm:text-sm font-bold text-cyan-400 tracking-wider">
+            LOCATION: DURMAND PRIORY // VAULT 77, BAY B // TERMINAL 77-B
+          </h1>
+        </div>
+      </div>
+
+      <!-- CATEGORY: LIVE TYRIAN TELEMETRY -->
+      <div class="flex items-center space-x-6 border-t md:border-t-0 md:border-l border-slate-800 pt-2 md:pt-0 md:pl-6 text-xs">
+        <div>
+          <div class="text-slate-400">TYRIAN CYCLE [UTC]</div>
+          <div id="tyria-clock-phase" class="text-amber-400 font-bold flex items-center gap-1">
+            <span>--</span>
+          </div>
+        </div>
+        <div>
+          <div class="text-slate-400">PHASE TIMER</div>
+          <div id="tyria-clock-timer" class="text-cyan-400 font-bold">
+            00:00 REMAINING
+          </div>
+        </div>
+        <div>
+          <div class="text-slate-400">VAULT STATUS</div>
+          <div class="text-emerald-400 font-bold">[ONLINE]</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CATEGORY: MAIN CONTENT AREA -->
+  <main class="flex-1 max-w-[1600px] w-full mx-auto p-4 md:p-6 space-y-6">
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <!-- CATEGORY: LEFT PANE (SYLLABUS & LORE) -->
+      <section class="lg:col-span-4 space-y-6">
+        
+        <!-- CATEGORY: CURRICULUM DIRECTORY -->
+        <div class="border border-slate-800 bg-slate-900/60 p-4 rounded-sm glow-cyan">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+            <h2 class="text-sm font-bold text-cyan-400 tracking-wider flex items-center gap-2">
+              <span>///</span> CURRICULUM DIRECTORY
+            </h2>
+            <span class="text-[10px] text-slate-500 uppercase">Open Access</span>
+          </div>
+
+          <div class="space-y-3">
+            <div onclick="openCourseModal('101')" class="p-3 border border-slate-800 bg-slate-950/60 hover:border-cyan-500/50 cursor-pointer transition-all rounded-sm">
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-amber-400 font-bold">COURSE 101</span>
+                <span class="text-slate-500">CORE MATRIX</span>
+              </div>
+              <div class="text-xs font-bold text-slate-200">Keymapping & Profession Identities</div>
+            </div>
+
+            <div onclick="openCourseModal('201')" class="p-3 border border-slate-800 bg-slate-950/60 hover:border-cyan-500/50 cursor-pointer transition-all rounded-sm">
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-amber-400 font-bold">COURSE 201</span>
+                <span class="text-slate-500">TACTICAL INTERFACE</span>
+              </div>
+              <div class="text-xs font-bold text-slate-200">Asuran Signal Intercepts & UI Optimization</div>
+            </div>
+
+            <div onclick="openCourseModal('301')" class="p-3 border border-slate-800 bg-slate-950/60 hover:border-cyan-500/50 cursor-pointer transition-all rounded-sm">
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-amber-400 font-bold">COURSE 301</span>
+                <span class="text-slate-500">FIELD OPS</span>
+              </div>
+              <div class="text-xs font-bold text-slate-200">Squad Telemetry & Combat Mechanics</div>
+            </div>
+
+            <div onclick="openCourseModal('401')" class="p-3 border border-slate-800 bg-slate-950/60 hover:border-cyan-500/50 cursor-pointer transition-all rounded-sm">
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-amber-400 font-bold">COURSE 401</span>
+                <span class="text-slate-500">ARCHIVAL MASTERY</span>
+              </div>
+              <div class="text-xs font-bold text-slate-200">Vault Mastery & Narrative Architecture</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CATEGORY: PROVENANCE & RELIC LORE -->
+        <div class="border border-slate-800 bg-slate-900/60 p-4 rounded-sm glow-amber">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+            <h2 class="text-sm font-bold text-amber-400 tracking-wider flex items-center gap-2">
+              <span>///</span> PROVENANCE & RELIC LORE
+            </h2>
+            <span class="text-[10px] text-slate-500">ARCHIVE RECORD</span>
+          </div>
+
+          <div class="text-xs text-slate-400 space-y-3 leading-relaxed">
+            <p>
+              Discovered in 1320 AE during dragon evacuation procedures, Vault 77, Bay B remained sealed behind Asuran containment thresholds for decades.
+            </p>
+            <p>
+              Cracked and weaponized by <span class="text-cyan-400 font-semibold">The Liars Guild</span>, this interface serves as a strategic node for recruits and field commanders.
+            </p>
+            <p class="text-[11px] text-slate-500 border-l-2 border-amber-500/40 pl-2 italic">
+              Systems architecture engineered by Vanguard Citizen Services.
+            </p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- CATEGORY: CENTER PANE (DECRYPTION PASSPORT & WORKSPACE) -->
+      <section class="lg:col-span-5 space-y-6">
+        
+        <!-- CATEGORY: HERO DECRYPTION PASSPORT -->
+        <div class="border border-cyan-500/40 bg-slate-900/80 p-6 rounded-sm glow-cyan relative overflow-hidden">
+          <div class="absolute top-0 right-0 bg-cyan-500/10 text-cyan-400 text-[10px] px-3 py-1 border-b border-l border-cyan-500/30 uppercase tracking-widest">
+            Passport Terminal
+          </div>
+
+          <h2 class="text-base font-bold text-slate-100 mb-2">
+            DECRYPTION PASSPORT PROTOCOL
+          </h2>
+          <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+            Input your read-only Guild Wars 2 API Key to authenticate student credentials, synchronize telemetry, and unlock advanced quartermaster decks.
+          </p>
+
+          <!-- CATEGORY: GUEST MODE UI -->
+          <div id="passport-guest-view" class="space-y-4">
+            <div class="space-y-2">
+              <label for="api-key-input" class="text-xs font-bold text-cyan-400 block">
+                API ACCESS KEY [READ-ONLY]
+              </label>
+              <input 
+                id="api-key-input" 
+                type="password" 
+                placeholder="XXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXXXXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" 
+                class="w-full bg-slate-950 border border-slate-700 focus:border-cyan-400 text-xs text-cyan-300 p-3 rounded-sm font-mono outline-none transition-all placeholder:text-slate-600"
+              />
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+              <button 
+                onclick="saveApiKey()" 
+                class="min-h-[48px] px-6 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold tracking-wider uppercase rounded-sm transition-all flex items-center justify-center gap-2"
+              >
+                <span>Synchronize Passport</span>
+              </button>
+              <button 
+                onclick="event.preventDefault();" 
+                data-action="browse-courses"
+                class="min-h-[48px] px-6 border border-slate-700 hover:border-slate-500 text-slate-300 text-xs font-bold tracking-wider uppercase rounded-sm transition-all flex items-center justify-center cursor-pointer"
+              >
+                Browse Open Courses
+              </button>
+            </div>
+          </div>
+
+          <!-- CATEGORY: STUDENT MODE UI -->
+          <div id="passport-student-view" class="hidden space-y-4">
+            <div class="p-3 border border-cyan-500/30 bg-cyan-950/20 rounded-sm flex items-center justify-between">
+              <div>
+                <span class="text-[10px] text-slate-400 block">AUTHENTICATED USER</span>
+                <span id="account-handle-badge" class="text-sm font-bold text-cyan-400">[STATUS: SYNCED]</span>
+              </div>
+              <span class="text-xs px-2 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-sm">ACTIVE</span>
+            </div>
+
+            <div class="flex gap-3">
+              <button 
+                onclick="clearApiKey()" 
+                class="min-h-[48px] px-6 border border-rose-500/40 text-rose-400 hover:bg-rose-500/10 text-xs font-bold tracking-wider uppercase rounded-sm transition-all"
+              >
+                Clear Passport Key
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CATEGORY: PERSONAL QUARTERMASTER DECK TEASER -->
+        <div id="quartermaster-deck" class="border border-slate-800 bg-slate-900/40 p-6 rounded-sm opacity-50 transition-all">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+            <h3 class="text-xs font-bold text-slate-300 tracking-wider">
+              PERSONAL QUARTERMASTER DECK
+            </h3>
+            <span id="qm-status-pill" class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded">LOCKED</span>
+          </div>
+
+          <div id="qm-content" class="text-xs text-slate-500 space-y-3">
+            <p>Connect your passport API key to reveal synced loadouts, vault requisitions, and active course progress markers.</p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- CATEGORY: RIGHT PANE (SYSTEM TELEMETRY & CONSOLE) -->
+      <section class="lg:col-span-3 space-y-6">
+        
+        <!-- CATEGORY: ARCHIVE TELEMETRY -->
+        <div class="border border-slate-800 bg-slate-900/60 p-4 rounded-sm glow-cyan">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+            <h2 class="text-sm font-bold text-cyan-400 tracking-wider flex items-center gap-2">
+              <span>///</span> ARCHIVE TELEMETRY
+            </h2>
+            <span class="text-[10px] text-slate-500">SYSTEM NODE</span>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div class="p-3 border border-slate-800 bg-slate-950/60 rounded-sm flex items-center justify-between">
+              <span class="text-slate-400">Node Designation</span>
+              <span class="text-cyan-400 font-bold">Sub-Level 4 // B</span>
+            </div>
+            <div class="p-3 border border-slate-800 bg-slate-950/60 rounded-sm flex items-center justify-between">
+              <span class="text-slate-400">Security Threshold</span>
+              <span class="text-emerald-400 font-bold">Unsealed</span>
+            </div>
+            <div class="p-3 border border-slate-800 bg-slate-950/60 rounded-sm flex items-center justify-between">
+              <span class="text-slate-400">Asuran Gateway</span>
+              <span class="text-amber-400 font-bold">Synchronized</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CATEGORY: SYSTEM LOGS -->
+        <div class="border border-slate-800 bg-slate-900/60 p-4 rounded-sm">
+          <div class="border-b border-slate-800 pb-2 mb-3 text-xs font-bold text-slate-400">
+            SYSTEM CONSOLE LOGS
+          </div>
+          <div id="console-logs" class="text-[11px] font-mono space-y-1 text-slate-500 h-44 overflow-y-auto">
+            <div>[SYS] Terminal initialized...</div>
+            <div>[SYS] Connection established: Vault 77-B</div>
+            <div>[CLK] Universal UTC epoch clock synced.</div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- CATEGORY: COURSE OVERLAY MODAL -->
+  <div id="course-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="border border-cyan-500/50 bg-slate-900 max-w-2xl w-full p-6 rounded-sm glow-cyan relative space-y-4">
+      <button onclick="closeCourseModal()" class="absolute top-4 right-4 text-slate-400 hover:text-cyan-400 text-sm font-bold">
+        [CLOSE X]
+      </button>
+
+      <h3 id="modal-title" class="text-base font-bold text-cyan-400 border-b border-slate-800 pb-3">
+        COURSE TITLE
+      </h3>
+
+      <div class="space-y-4 text-xs leading-relaxed">
+        <div class="p-3 bg-slate-950 border border-slate-800 rounded-sm">
+          <span class="text-amber-400 font-bold block mb-1">1. WHAT IT IS</span>
+          <p id="modal-step-1" class="text-slate-300"></p>
+        </div>
+
+        <div class="p-3 bg-slate-950 border border-slate-800 rounded-sm">
+          <span class="text-cyan-400 font-bold block mb-1">2. HOW TO GET IT</span>
+          <p id="modal-step-2" class="text-slate-300"></p>
+        </div>
+
+        <div class="p-3 bg-slate-950 border border-slate-800 rounded-sm">
+          <span class="text-emerald-400 font-bold block mb-1">3. WHAT TO DO</span>
+          <p id="modal-step-3" class="text-slate-300"></p>
+        </div>
+      </div>
+
+      <div class="pt-2 flex justify-end">
+        <button onclick="closeCourseModal()" class="min-h-[48px] px-6 bg-cyan-500 text-slate-950 text-xs font-bold uppercase rounded-sm hover:bg-cyan-400">
+          Acknowledge & Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY: COMPLIANCE FOOTER -->
+  <footer class="border-t border-slate-800 bg-slate-950 px-4 py-6 mt-auto">
+    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+      <p class="text-[11px] text-slate-500 max-w-2xl leading-relaxed">
+        This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
+      </p>
+
+      <div class="flex items-center space-x-6 text-xs">
+        <a href="https://liarsguild.com" onclick="event.preventDefault();" data-target="https://liarsguild.com" class="text-cyan-400 hover:underline cursor-pointer">
+          The Liars Guild
+        </a>
+        <span class="text-slate-700">|</span>
+        <span class="text-slate-400">
+          Powered by <strong class="text-slate-200">Vanguard Citizen Services</strong>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CATEGORY: LOGIC ENGINE -->
+  <script>
+    /* CATEGORY: STATE MANAGEMENT */
+    let passportState = 'off';
+    let modalState = 'off';
+
+    /* CATEGORY: COURSE DATA ARCHIVE */
+    const courseData = {
+      101: {
+        title: "Course 101: Keymapping & Profession Identities",
+        step1: "A foundational matrix mapping Guild Wars 2 combat mechanics to ergonomic keybind profiles and core profession traits.",
+        step2: "Access the Durmand Priory Archives or load your character profile into the Terminal Deck to sync combat keys.",
+        step3: "Rebind movement keys to strafe-only (A/D), bind dodge to an accessible thumb button, and assign profession mechanics (F1-F5) to clear modifier layers."
+      },
+      201: {
+        title: "Course 201: Asuran Signal Intercepts & UI Optimization",
+        step1: "Advanced interface calibration designed to eliminate visual bloat and improve situational combat reaction times.",
+        step2: "Sync your account API key with Terminal 77-B and download custom grid overlays.",
+        step3: "Disable action camera sticky targeting, enable ground-target instant cast, and set squad buffer indicators to high contrast."
+      },
+      301: {
+        title: "Course 301: Squad Telemetry & Combat Mechanics",
+        step1: "Strategic squad coordination protocols analyzing boon uptime, breakbar defiance, and positioning loops.",
+        step2: "Unlocked upon completion of Course 201 and verification of an active commander tag.",
+        step3: "Monitor squad boon sub-groups, execute crowd control sequences during defy windows, and maintain stack proximity."
+      },
+      401: {
+        title: "Course 401: Vault Mastery & Narrative Architecture",
+        step1: "Masterclass on Tyrian history, Vault 77 artifacts, and narrative design principles utilized by the Liars Guild.",
+        step2: "Open exclusively to senior scholars and operatives who have cleared Sub-Level 4 validation.",
+        step3: "Study ancient cipher logs, analyze dragon evacuation telemetry, and design narrative conduits for future recruits."
+      }
+    };
+
+    /* CATEGORY: UNIVERSAL UTC TYRIAN CLOCK ENGINE */
+    function updateTyrianClock() {
+      const now = new Date();
+      const totalUtcSec = (now.getUTCHours() * 3600) + (now.getUTCMinutes() * 60) + now.getUTCSeconds();
+      
+      const cycleOffset = 1500;
+      const secondsIntoCycle = (totalUtcSec - cycleOffset + 72000) % 7200;
+
+      let phase = '';
+      let icon = '';
+      let remainingSec = 0;
+
+      if (secondsIntoCycle < 300) {
+        phase = 'DAWN';
+        icon = '🌅';
+        remainingSec = 300 - secondsIntoCycle;
+      } else if (secondsIntoCycle < 4500) {
+        phase = 'DAY';
+        icon = '☀️';
+        remainingSec = 4500 - secondsIntoCycle;
+      } else if (secondsIntoCycle < 4800) {
+        phase = 'DUSK';
+        icon = '🌆';
+        remainingSec = 4800 - secondsIntoCycle;
+      } else {
+        phase = 'NIGHT';
+        icon = '🌙';
+        remainingSec = 7200 - secondsIntoCycle;
+      }
+
+      const remMins = Math.floor(remainingSec / 60);
+      const remSecs = remainingSec % 60;
+      const formattedTime = `${String(remMins).padStart(2, '0')}:${String(remSecs).padStart(2, '0')}`;
+
+      document.getElementById('tyria-clock-phase').innerHTML = `${icon} <span>${phase}</span>`;
+      document.getElementById('tyria-clock-timer').innerText = `${formattedTime} REMAINING`;
+    }
+
+    /* CATEGORY: PASSPORT STATE MANAGEMENT */
+    function initPassport() {
+      const savedKey = localStorage.getItem('priory_terminal_passport_key');
+      if (savedKey) {
+        setPassportState('on', savedKey);
+      } else {
+        setPassportState('off');
+      }
+    }
+
+    function setPassportState(toggle, key = '') {
+      passportState = toggle;
+      const guestView = document.getElementById('passport-guest-view');
+      const studentView = document.getElementById('passport-student-view');
+      const qmDeck = document.getElementById('quartermaster-deck');
+      const qmPill = document.getElementById('qm-status-pill');
+      const qmContent = document.getElementById('qm-content');
+
+      if (passportState === 'on') {
+        guestView.classList.add('hidden');
+        studentView.classList.remove('hidden');
+        qmDeck.classList.remove('opacity-50');
+        qmPill.innerText = 'UNLOCKED';
+        qmPill.className = 'text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/30';
+        qmContent.innerHTML = `
+          <div class="space-y-2 text-slate-300">
+            <div class="p-2 bg-slate-950 border border-slate-800 rounded">
+              <span class="text-cyan-400 font-bold block">ACTIVE SYLLABUS TRACK</span>
+              <span>Course 101 Matrix In Progress</span>
+            </div>
+            <div class="p-2 bg-slate-950 border border-slate-800 rounded">
+              <span class="text-amber-400 font-bold block">VAULT REQUISITIONS</span>
+              <span>Sub-Level 4 Clearance Granted</span>
+            </div>
+          </div>
+        `;
+        fetchAccountData(key);
+        appendConsoleLog('[AUTH] Passport synchronized successfully.');
+      } else {
+        guestView.classList.remove('hidden');
+        studentView.classList.add('hidden');
+        qmDeck.classList.add('opacity-50');
+        qmPill.innerText = 'LOCKED';
+        qmPill.className = 'text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded';
+        qmContent.innerHTML = `<p>Connect your passport API key to reveal synced loadouts, vault requisitions, and active course progress markers.</p>`;
+        localStorage.removeItem('priory_terminal_passport_key');
+        appendConsoleLog('[AUTH] Passport key disconnected.');
+      }
+    }
+
+    async function fetchAccountData(key) {
+      const badgeEl = document.getElementById('account-handle-badge');
+      badgeEl.innerText = '[SYNCING...]';
+      try {
+        const response = await fetch(`https://api.guildwars2.com/v2/account?access_token=${key}`);
+        if (!response.ok) throw new Error('Invalid API Key');
+        const data = await response.json();
+        badgeEl.innerText = `[ACCOUNT: ${data.name}]`;
+      } catch (err) {
+        badgeEl.innerText = '[STATUS: SYNCED (LOCAL)]';
+      }
+    }
+
+    function saveApiKey() {
+      const input = document.getElementById('api-key-input');
+      const key = input.value.trim();
+      if (key) {
+        localStorage.setItem('priory_terminal_passport_key', key);
+        setPassportState('on', key);
+      } else {
+        appendConsoleLog('[ERR] Invalid key input.');
+      }
+    }
+
+    function clearApiKey() {
+      setPassportState('off');
+    }
+
+    /* CATEGORY: MODAL HANDLERS */
+    function openCourseModal(courseId) {
+      const data = courseData[courseId];
+      if (!data) return;
+      document.getElementById('modal-title').innerText = data.title;
+      document.getElementById('modal-step-1').innerText = data.step1;
+      document.getElementById('modal-step-2').innerText = data.step2;
+      document.getElementById('modal-step-3').innerText = data.step3;
+      document.getElementById('course-modal').classList.remove('hidden');
+      modalState = 'on';
+      appendConsoleLog(`[INSPECT] Accessed Course ${courseId} syllabus.`);
+    }
+
+    function closeCourseModal() {
+      document.getElementById('course-modal').classList.add('hidden');
+      modalState = 'off';
+    }
+
+    /* CATEGORY: CONSOLE UTILITY */
+    function appendConsoleLog(message) {
+      const logContainer = document.getElementById('console-logs');
+      if (!logContainer) return;
+      const newEntry = document.createElement('div');
+      newEntry.innerText = message;
+      logContainer.appendChild(newEntry);
+      logContainer.scrollTop = logContainer.scrollHeight;
+    }
+
+    /* CATEGORY: INITIALIZATION */
+    document.addEventListener('DOMContentLoaded', () => {
+      updateTyrianClock();
+      initPassport();
+      
+      setInterval(updateTyrianClock, 1000);
+    });
+  </script>
+</body>
+</html>
