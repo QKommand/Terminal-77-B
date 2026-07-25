@@ -71,27 +71,30 @@
 
   <!-- CATEGORY: TAB NAVIGATION -->
   <nav class="shrink-0 bg-slate-950 max-w-[1600px] w-full mx-auto px-6 pt-6 pb-3">
-    <div class="flex justify-center border-b border-slate-800 space-x-3 text-sm font-bold">
+    <div class="flex justify-center border-b border-slate-800 space-x-3 text-xs sm:text-sm font-bold">
       <button 
         id="tab-btn-basic" 
         onclick="switchTab('basic')" 
-        class="px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer"
+        class="flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer"
       >
-        /// BASIC COURSES
+        <span class="text-[10px] sm:text-sm sm:mr-1.5 opacity-80 sm:opacity-100">///</span>
+        <span>BASIC COURSES</span>
       </button>
       <button 
         id="tab-btn-advanced" 
         onclick="switchTab('advanced')" 
-        class="px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
+        class="flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
       >
-        /// ADVANCED TRAINING
+        <span class="text-[10px] sm:text-sm sm:mr-1.5 opacity-80 sm:opacity-100">///</span>
+        <span>ADVANCED TRAINING</span>
       </button>
       <button 
         id="tab-btn-journal" 
         onclick="switchTab('journal')" 
-        class="px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
+        class="flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
       >
-        /// ADVENTURER JOURNAL
+        <span class="text-[10px] sm:text-sm sm:mr-1.5 opacity-80 sm:opacity-100">///</span>
+        <span>ADVENTURER JOURNAL</span>
       </button>
     </div>
   </nav>
@@ -341,26 +344,26 @@
 
       if (basicTabState === 'on') {
         viewBasic.classList.remove('hidden');
-        btnBasic.className = 'px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer';
+        btnBasic.className = 'flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer';
       } else {
         viewBasic.classList.add('hidden');
-        btnBasic.className = 'px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer';
+        btnBasic.className = 'flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer';
       }
 
       if (advancedTabState === 'on') {
         viewAdvanced.classList.remove('hidden');
-        btnAdvanced.className = 'px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer';
+        btnAdvanced.className = 'flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer';
       } else {
         viewAdvanced.classList.add('hidden');
-        btnAdvanced.className = 'px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer';
+        btnAdvanced.className = 'flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer';
       }
 
       if (journalTabState === 'on') {
         viewJournal.classList.remove('hidden');
-        btnJournal.className = 'px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer';
+        btnJournal.className = 'flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer';
       } else {
         viewJournal.classList.add('hidden');
-        btnJournal.className = 'px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer';
+        btnJournal.className = 'flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer';
       }
     }
 
