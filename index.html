@@ -137,6 +137,7 @@
   <!-- CATEGORY: LOGIC ENGINE -->
   <script>
     /* CATEGORY: TAB STATE MANAGEMENT */
+    const TAB_STORAGE_KEY = 'archive_active_tab';
     let tabState = {
       basics: 'on',
       advanced: 'off'
@@ -265,6 +266,7 @@
       Object.keys(tabState).forEach(key => {
         tabState[key] = (key === selectedTab) ? 'on' : 'off';
       });
+      localStorage.setItem(TAB_STORAGE_KEY, selectedTab);
       renderTabViews();
     }
 
@@ -322,7 +324,10 @@
     document.addEventListener('DOMContentLoaded', () => {
       renderAllGrids();
       updateClocks();
-      renderTabViews();
+      
+      // Load saved active tab state or default to 'basics'
+      const savedTab = localStorage.getItem(TAB_STORAGE_KEY) || 'basics';
+      switchTab(savedTab);
       
       setInterval(updateClocks, 1000);
     });
