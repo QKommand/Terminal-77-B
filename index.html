@@ -71,29 +71,40 @@
 
   <!-- CATEGORY: TAB NAVIGATION -->
   <nav class="shrink-0 bg-slate-950 max-w-[1600px] w-full mx-auto px-6 pt-8 pb-3 mt-4">
-    <div class="flex justify-center border-b border-slate-800 space-x-3 text-xs sm:text-sm font-bold">
+    <div class="flex flex-wrap justify-center border-b border-slate-800 gap-2 text-xs sm:text-sm font-bold">
       <button 
         id="tab-btn-basic" 
         onclick="switchTab('basic')" 
-        class="flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer"
+        class="flex items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer"
       >
-        <span class="text-[10px] sm:text-sm sm:mr-1.5 opacity-80 sm:opacity-100">///</span>
+        <span class="text-[10px] sm:text-sm mr-1.5 opacity-80 sm:opacity-100">///</span>
         <span>BASIC COURSES</span>
       </button>
+
       <button 
         id="tab-btn-advanced" 
         onclick="switchTab('advanced')" 
-        class="flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
+        class="flex items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
       >
-        <span class="text-[10px] sm:text-sm sm:mr-1.5 opacity-80 sm:opacity-100">///</span>
+        <span class="text-[10px] sm:text-sm mr-1.5 opacity-80 sm:opacity-100">///</span>
         <span>ADVANCED TRAINING</span>
       </button>
+
+      <button 
+        id="tab-btn-optional" 
+        onclick="switchTab('optional')" 
+        class="flex items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
+      >
+        <span class="text-[10px] sm:text-sm mr-1.5 opacity-80 sm:opacity-100">///</span>
+        <span>OPTIONAL COURSES</span>
+      </button>
+
       <button 
         id="tab-btn-journal" 
         onclick="switchTab('journal')" 
-        class="flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
+        class="flex items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
       >
-        <span class="text-[10px] sm:text-sm sm:mr-1.5 opacity-80 sm:opacity-100">///</span>
+        <span class="text-[10px] sm:text-sm mr-1.5 opacity-80 sm:opacity-100">///</span>
         <span>ADVENTURER JOURNAL</span>
       </button>
     </div>
@@ -104,14 +115,17 @@
 
     <!-- CATEGORY: VIEW - BASIC COURSES -->
     <div id="view-basic">
-      <div id="basic-courses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-      </div>
+      <div id="grid-basic" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </div>
 
     <!-- CATEGORY: VIEW - ADVANCED TRAINING -->
     <div id="view-advanced" class="hidden">
-      <div id="advanced-courses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-      </div>
+      <div id="grid-advanced" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+    </div>
+
+    <!-- CATEGORY: VIEW - OPTIONAL COURSES -->
+    <div id="view-optional" class="hidden">
+      <div id="grid-optional" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </div>
 
     <!-- CATEGORY: VIEW - ADVENTURER JOURNAL -->
@@ -180,12 +194,15 @@
 
   <!-- CATEGORY: LOGIC ENGINE -->
   <script>
-    /* CATEGORY: STATE MANAGEMENT */
-    let basicTabState = 'on';
-    let advancedTabState = 'off';
-    let journalTabState = 'off';
+    /* CATEGORY: TAB STATE MANAGEMENT */
+    let tabState = {
+      basic: 'on',
+      advanced: 'off',
+      optional: 'off',
+      journal: 'off'
+    };
 
-    /* CATEGORY: BASIC COURSES CONFIGURATION */
+    /* CATEGORY: COURSE DATA STORES */
     const basicCourses = [
       {
         code: "COURSE 101",
@@ -225,7 +242,6 @@
       }
     ];
 
-    /* CATEGORY: ADVANCED COURSES CONFIGURATION */
     const advancedCourses = [
       {
         code: "COURSE 201",
@@ -265,14 +281,35 @@
       }
     ];
 
-    /* CATEGORY: COURSE RENDER ENGINE */
-    function renderCourseGrids() {
-      const basicGrid = document.getElementById('basic-courses-grid');
-      const advancedGrid = document.getElementById('advanced-courses-grid');
+    const optionalCourses = [
+      {
+        code: "OPTIONAL 301",
+        title: "Jumping Puzzles & Vista Routes",
+        desc: "Master tricky environmental platforming and terrain navigation shortcuts.",
+        url: "./optional301/index.html"
+      },
+      {
+        code: "OPTIONAL 302",
+        title: "Crafting & Refinement",
+        desc: "Level up discipline ranks, refine ores, and craft time-gated ascendants.",
+        url: "./optional302/index.html"
+      },
+      {
+        code: "OPTIONAL 303",
+        title: "Fashion Wars & Wardrobe",
+        desc: "Unlock armor skins, manage transmutation charges, and apply dyes.",
+        url: "./optional303/index.html"
+      }
+    ];
 
-      let basicHtml = '';
-      basicCourses.forEach(c => {
-        basicHtml += `
+    /* CATEGORY: DYNAMIC COURSE RENDER ENGINE */
+    function renderGrid(containerId, coursesList) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      let html = '';
+      coursesList.forEach(c => {
+        html += `
           <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan">
             <div>
               <div class="text-xs sm:text-sm mb-2">
@@ -290,81 +327,40 @@
           </div>
         `;
       });
-      basicGrid.innerHTML = basicHtml;
+      container.innerHTML = html;
+    }
 
-      let advancedHtml = '';
-      advancedCourses.forEach(c => {
-        advancedHtml += `
-          <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan">
-            <div>
-              <div class="text-xs sm:text-sm mb-2">
-                <span class="text-amber-400 font-bold">${c.code}</span>
-              </div>
-              <div class="text-base font-bold text-white mb-1.5">${c.title}</div>
-              <p class="text-sm text-white leading-relaxed">${c.desc}</p>
-            </div>
-            <a 
-              href="${c.url}" 
-              class="w-full py-2.5 bg-slate-900 border border-cyan-500/50 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all text-center block cursor-pointer"
-            >
-              Access Course
-            </a>
-          </div>
-        `;
-      });
-      advancedGrid.innerHTML = advancedHtml;
+    function renderAllGrids() {
+      renderGrid('grid-basic', basicCourses);
+      renderGrid('grid-advanced', advancedCourses);
+      renderGrid('grid-optional', optionalCourses);
     }
 
     /* CATEGORY: NAVIGATION TAB ENGINE */
-    function switchTab(tabName) {
-      if (tabName === 'basic') {
-        basicTabState = 'on';
-        advancedTabState = 'off';
-        journalTabState = 'off';
-      } else if (tabName === 'advanced') {
-        basicTabState = 'off';
-        advancedTabState = 'on';
-        journalTabState = 'off';
-      } else if (tabName === 'journal') {
-        basicTabState = 'off';
-        advancedTabState = 'off';
-        journalTabState = 'on';
-      }
+    function switchTab(selectedTab) {
+      Object.keys(tabState).forEach(key => {
+        tabState[key] = (key === selectedTab) ? 'on' : 'off';
+      });
       renderTabViews();
     }
 
     function renderTabViews() {
-      const viewBasic = document.getElementById('view-basic');
-      const viewAdvanced = document.getElementById('view-advanced');
-      const viewJournal = document.getElementById('view-journal');
+      const tabs = ['basic', 'advanced', 'optional', 'journal'];
+      
+      tabs.forEach(tab => {
+        const viewEl = document.getElementById(`view-${tab}`);
+        const btnEl = document.getElementById(`tab-btn-${tab}`);
 
-      const btnBasic = document.getElementById('tab-btn-basic');
-      const btnAdvanced = document.getElementById('tab-btn-advanced');
-      const btnJournal = document.getElementById('tab-btn-journal');
-
-      if (basicTabState === 'on') {
-        viewBasic.classList.remove('hidden');
-        btnBasic.className = 'flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer';
-      } else {
-        viewBasic.classList.add('hidden');
-        btnBasic.className = 'flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer';
-      }
-
-      if (advancedTabState === 'on') {
-        viewAdvanced.classList.remove('hidden');
-        btnAdvanced.className = 'flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer';
-      } else {
-        viewAdvanced.classList.add('hidden');
-        btnAdvanced.className = 'flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer';
-      }
-
-      if (journalTabState === 'on') {
-        viewJournal.classList.remove('hidden');
-        btnJournal.className = 'flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer';
-      } else {
-        viewJournal.classList.add('hidden');
-        btnJournal.className = 'flex flex-col sm:flex-row items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer';
-      }
+        if (viewEl && btnEl) {
+          if (tabState[tab] === 'on') {
+            viewEl.classList.remove('hidden');
+            btnEl.className = 'flex items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer';
+          } else {
+            viewEl.classList.add('hidden');
+            btnEl.className = 'flex items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer';
+          }
+        }
+      });
     }
 
     /* CATEGORY: UNIVERSAL CLOCKS ENGINE */
@@ -400,7 +396,7 @@
 
     /* CATEGORY: INITIALIZATION */
     document.addEventListener('DOMContentLoaded', () => {
-      renderCourseGrids();
+      renderAllGrids();
       updateClocks();
       renderTabViews();
       
