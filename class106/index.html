@@ -1,256 +1,304 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-slate-950 text-slate-100">
+<html lang="en" class="h-full bg-slate-950 text-white">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Class 106 // Priory Archive Terminal 77-B</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Course 106 // [LIAR] Tyrian University</title>
+  
+  <!-- CATEGORY: EXTERNAL DEPENDENCIES -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- CATEGORY: STYLES & ANIMATIONS -->
   <style>
-    /* CATEGORY: GRID BACKGROUND */
-    .grid-bg {
-      background-image: linear-gradient(to right, rgba(30, 41, 59, 0.3) 1px, transparent 1px),
-                        linear-gradient(to bottom, rgba(30, 41, 59, 0.3) 1px, transparent 1px);
-      background-size: 32px 32px;
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    .glow-cyan {
+      box-shadow: 0 0 14px rgba(34, 211, 238, 0.15);
+    }
+    .glow-cyan:hover {
+      box-shadow: 0 0 22px rgba(34, 211, 238, 0.35);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #0f172a;
+      border: 1px solid #22d3ee;
     }
   </style>
 </head>
-<body class="font-mono min-h-screen relative grid-bg selection:bg-amber-500 selection:text-slate-950">
+<body class="h-screen flex flex-col overflow-hidden relative bg-slate-950 text-white selection:bg-cyan-500 selection:text-slate-950">
 
-  <!-- CATEGORY: TERMINAL HEADER -->
-  <header class="border-b border-slate-800 bg-slate-900/90 px-6 py-4 sticky top-0 z-40 backdrop-blur">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs md:text-sm">
-      <div class="flex items-center gap-3">
-        <span class="h-2.5 w-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
-        <span class="text-slate-300 font-bold tracking-wider">DURMAND PRIORY // VAULT 77, BAY B // TERMINAL 77-B</span>
+  <!-- CATEGORY: STICKY HEADER -->
+  <header class="shrink-0 border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-6 py-4 space-y-3">
+    <div class="max-w-[1600px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <a 
+        href="../index.html" 
+        class="inline-flex items-center gap-2 px-4 py-2 bg-slate-950 border border-cyan-500/40 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all cursor-pointer"
+      >
+        <span>&larr;</span>
+        <span>Return To Main Directory</span>
+      </a>
+
+      <div class="text-center sm:text-right space-y-0.5">
+        <h1 class="text-base sm:text-xl font-bold text-cyan-400 tracking-wider uppercase">
+          Course 106: Hero Points, Traits & Build Templates
+        </h1>
+        <p class="text-xs text-slate-300">
+          [LIAR] Tyrian University // Basic Track
+        </p>
       </div>
-      
-      <div class="flex items-center gap-6 text-slate-400">
-        <div id="tyrian-clock" class="text-cyan-400 font-bold">TYRIAN TIME: SYNCING...</div>
-        <div class="px-2.5 py-1 rounded border border-cyan-500/40 bg-slate-950 text-cyan-400 font-bold">
-          CLASS 106
-        </div>
+    </div>
+
+    <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 pt-3 border-t border-slate-800 text-xs sm:text-sm text-center md:text-left items-center">
+      <div class="flex items-center justify-center md:justify-start gap-2">
+        <span class="text-slate-300 font-bold">TYRIAN TIME:</span>
+        <span id="tyria-clock-time" class="text-amber-400 font-bold flex items-center gap-1.5">--:--</span>
+      </div>
+
+      <div class="text-center md:text-left">
+        <span class="text-slate-300 font-bold">SERVER TIME:</span>
+        <span id="server-clock" class="text-cyan-400 font-bold ml-1">--:--:-- UTC</span>
+      </div>
+
+      <div class="text-center">
+        <span class="text-slate-300 font-bold">LOCATION:</span>
+        <span class="text-cyan-400 font-bold ml-1">DURMAND PRIORY // TERMINAL 77-B</span>
+      </div>
+
+      <div class="text-center md:text-right">
+        <span class="text-slate-300 font-bold">LOCAL TIME:</span>
+        <span id="local-clock" class="text-emerald-400 font-bold ml-1">--:--:--</span>
       </div>
     </div>
   </header>
 
-  <!-- CATEGORY: CENTERED RETURN BUTTON -->
-  <div class="max-w-4xl mx-auto px-6 pt-6 flex justify-center">
-    <a 
-      href="../index.html" 
-      class="inline-flex items-center gap-2 px-6 py-2.5 bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 font-bold text-xs md:text-sm tracking-wider rounded transition-colors shadow-lg"
-    >
-      ← RETURN TO TERMINAL 77-B
-    </a>
-  </div>
-
   <!-- CATEGORY: MAIN CONTENT AREA -->
-  <main class="max-w-4xl mx-auto px-6 py-6 space-y-8">
-    
-    <!-- CATEGORY: NARRATIVE BRIEFING -->
-    <section class="border border-slate-800 bg-slate-900/70 p-6 md:p-8 rounded-lg space-y-4 shadow-xl">
-      <div class="text-xs md:text-sm text-amber-400 tracking-widest font-semibold uppercase">FIELD BRIEFING // TRAITS, HERO POINTS & TEMPLATES</div>
-      <h1 class="text-2xl md:text-3xl font-bold text-slate-100">CONFIGURE YOUR COMBAT IDENTITY, ADVENTURER</h1>
-      <p class="text-sm md:text-base text-slate-300 leading-relaxed font-sans">
-        A weapon without a focused build is merely iron and wood. In Tyria, your traits and specializations determine how your skills synergize, turning basic attacks into devastating combos or party-wide support.
-      </p>
-      <p class="text-sm md:text-base text-slate-300 leading-relaxed font-sans">
-        Use this field manual to collect Hero Points efficiently, unlock core specialization lines, and configure build templates for seamless hot-swapping in the field.
-      </p>
-    </section>
+  <main class="flex-1 overflow-y-auto max-w-[1600px] w-full mx-auto p-6 space-y-6">
 
-    <!-- CATEGORY: MODULE 1 -->
-    <section class="border border-slate-800 bg-slate-900/40 rounded-lg overflow-hidden">
-      <details class="group" open>
-        <summary class="flex justify-between items-center p-5 cursor-pointer bg-slate-900/80 hover:bg-slate-800/60 transition-colors">
-          <span class="font-bold text-slate-200 text-base md:text-lg">MODULE 1: HERO POINT ACQUISITION</span>
-          <span class="text-xs text-amber-400 group-open:rotate-180 transition-transform">▼</span>
-        </summary>
-        
-        <div class="p-6 space-y-6 text-sm md:text-base font-sans border-t border-slate-800">
-          <div class="space-y-2">
-            <h3 class="font-mono text-cyan-400 font-semibold text-xs md:text-sm uppercase tracking-wider">Unlocking Specializations</h3>
-            <p class="text-slate-300 leading-relaxed">
-              Hero Points (HPs) are used in the Training tab to unlock utility skills and core trait trees. Leveling up to 80 provides all needed points for core trees, but map challenges speed up your progression.
+    <div class="animate-fade-in space-y-6">
+      
+      <!-- CATEGORY: LESSON OVERVIEW -->
+      <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-3">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+          <h2 class="text-base font-bold text-cyan-400 uppercase tracking-wider">
+            Lesson Goal
+          </h2>
+          <span class="text-xs text-amber-400 font-bold">[LESSON 6 OF 6]</span>
+        </div>
+        <p class="text-sm text-white leading-relaxed">
+          Configure your character's combat identity, Adventurer. A weapon without a synergistic build is merely iron and wood. This lesson covers gathering Hero Points efficiently, aligning trait trees with your primary stats, and setting up build templates for hot-swapping loadouts.
+        </p>
+      </section>
+
+      <!-- CATEGORY: LESSON STEPS GRID -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- STEP 1 -->
+        <section class="p-6 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan transition-all hover:-translate-y-1">
+          <div class="space-y-3">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">
+              Step 01
+            </div>
+            <h3 class="text-lg font-bold text-white">
+              Hero Point Acquisition
+            </h3>
+            <p class="text-sm text-white leading-relaxed">
+              Hero Points (HPs) unlock utility skills and specialization trees. Leveling to 80 provides enough points to max all core trees, but completing map Hero Challenges grants points early.
             </p>
           </div>
-
-          <div class="space-y-3 font-mono text-xs md:text-sm">
-            <label class="flex items-start gap-3 cursor-pointer p-3.5 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
-              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m1-hero-challenges" />
-              <span class="text-slate-300">Complete <strong>Hero Challenges</strong> across Central Tyria map icons (+1 HP each) to unlock core specialization tracks ahead of level milestones.</span>
-            </label>
-
-            <label class="flex items-start gap-3 cursor-pointer p-3.5 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
-              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m1-expansion-hp" />
-              <span class="text-slate-300">Note that Expansion map Hero Challenges grant <strong>+10 HPs each</strong>, making expansion trains the fastest path to maxing Elite Specializations.</span>
-            </label>
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded text-xs text-cyan-300 font-mono">
+            Central Tyria = +1 HP | Expansions = +10 HP
           </div>
-        </div>
-      </details>
-    </section>
+        </section>
 
-    <!-- CATEGORY: MODULE 2 -->
-    <section class="border border-slate-800 bg-slate-900/40 rounded-lg overflow-hidden">
-      <details class="group">
-        <summary class="flex justify-between items-center p-5 cursor-pointer bg-slate-900/80 hover:bg-slate-800/60 transition-colors">
-          <span class="font-bold text-slate-200 text-base md:text-lg">MODULE 2: TRAIT LINE SYNERGY & SPECIALIZATIONS</span>
-          <span class="text-xs text-amber-400 group-open:rotate-180 transition-transform">▼</span>
-        </summary>
-        
-        <div class="p-6 space-y-6 text-sm md:text-base font-sans border-t border-slate-800">
-          <div class="space-y-2">
-            <h3 class="font-mono text-cyan-400 font-semibold text-xs md:text-sm uppercase tracking-wider">Build Architecture</h3>
-            <p class="text-slate-300 leading-relaxed">
-              Characters can equip up to 3 Specializations simultaneously. Each specialization offers Minor (automatic) and Major (selectable) traits that modify how your skills perform.
+        <!-- STEP 2 -->
+        <section class="p-6 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan transition-all hover:-translate-y-1">
+          <div class="space-y-3">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">
+              Step 02
+            </div>
+            <h3 class="text-lg font-bold text-white">
+              Trait Line Synergy
+            </h3>
+            <p class="text-sm text-white leading-relaxed">
+              Equip up to 3 Specializations. Select 1 Major Trait per tier (Adept, Master, Grandmaster). Match trait effects to your damage type (Power, Condition, or Support).
             </p>
           </div>
-
-          <div class="space-y-3 font-mono text-xs md:text-sm">
-            <label class="flex items-start gap-3 cursor-pointer p-3.5 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
-              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m2-trait-alignment" />
-              <span class="text-slate-300">Align your 3 Specialization tracks to support your primary damage type (e.g., Power DPS vs. Condition DPS vs. Support).</span>
-            </label>
-
-            <label class="flex items-start gap-3 cursor-pointer p-3.5 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
-              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m2-major-traits" />
-              <span class="text-slate-300">Select 1 Major Trait per tier (Adept, Master, Grandmaster) in each of your 3 chosen specialization lines.</span>
-            </label>
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded text-xs text-cyan-300 font-mono">
+            3 Specializations | 9 Active Major Traits
           </div>
-        </div>
-      </details>
-    </section>
+        </section>
 
-    <!-- CATEGORY: MODULE 3 -->
-    <section class="border border-slate-800 bg-slate-900/40 rounded-lg overflow-hidden">
-      <details class="group">
-        <summary class="flex justify-between items-center p-5 cursor-pointer bg-slate-900/80 hover:bg-slate-800/60 transition-colors">
-          <span class="font-bold text-slate-200 text-base md:text-lg">MODULE 3: BUILD & EQUIPMENT TEMPLATES</span>
-          <span class="text-xs text-amber-400 group-open:rotate-180 transition-transform">▼</span>
-        </summary>
-        
-        <div class="p-6 space-y-6 text-sm md:text-base font-sans border-t border-slate-800">
-          <div class="space-y-2">
-            <h3 class="font-mono text-cyan-400 font-semibold text-xs md:text-sm uppercase tracking-wider">Hot-Swapping Loadouts</h3>
-            <p class="text-slate-300 leading-relaxed">
-              Build and Equipment Templates allow you to store different trait layouts and gear sets to swap instantly when out of combat.
+        <!-- STEP 3 -->
+        <section class="p-6 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan transition-all hover:-translate-y-1">
+          <div class="space-y-3">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">
+              Step 03
+            </div>
+            <h3 class="text-lg font-bold text-white">
+              Build & Gear Templates
+            </h3>
+            <p class="text-sm text-white leading-relaxed">
+              Store separate build layouts in your Hero Panel (<code class="text-cyan-300">H</code> key) for Open World exploration versus Group Instanced content. Assign hotkeys to swap instantly out of combat.
             </p>
           </div>
-
-          <div class="space-y-3 font-mono text-xs md:text-sm">
-            <label class="flex items-start gap-3 cursor-pointer p-3.5 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
-              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m3-hero-panel" />
-              <span class="text-slate-300">Open the Hero Panel (<strong>`H` key</strong>) to configure separate Build Tabs for Open World exploration versus Group Instanced content.</span>
-            </label>
-
-            <label class="flex items-start gap-3 cursor-pointer p-3.5 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
-              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m3-keybind-templates" />
-              <span class="text-slate-300">Bind dedicated hotkeys for Build Template swapping in Control Options to adapt to encounters on the fly.</span>
-            </label>
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded text-xs text-cyan-300 font-mono">
+            Hero Panel (H) &rarr; Hot-Swap Out of Combat
           </div>
+        </section>
+
+      </div>
+
+      <!-- CATEGORY: FIELD PRACTICE CHECKLIST -->
+      <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-4">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+          <h3 class="text-base font-bold text-cyan-400 uppercase tracking-wider">
+            Practice Drill Checklist
+          </h3>
+          <span id="checklist-status" class="text-xs text-amber-400 font-bold">[0 / 3 DONE]</span>
         </div>
-      </details>
-    </section>
 
-    <!-- CATEGORY: MODULE 4 (PRACTICE DRILLS) -->
-    <section class="border border-slate-800 bg-slate-900/40 rounded-lg overflow-hidden">
-      <details class="group">
-        <summary class="flex justify-between items-center p-5 cursor-pointer bg-slate-900/80 hover:bg-slate-800/60 transition-colors">
-          <span class="font-bold text-slate-200 text-base md:text-lg">PRACTICE DRILL CHECKLIST</span>
-          <span class="text-xs text-amber-400 group-open:rotate-180 transition-transform">▼</span>
-        </summary>
-        
-        <div class="p-6 space-y-6 text-sm md:text-base font-sans border-t border-slate-800">
-          <div class="space-y-2">
-            <h3 class="font-mono text-cyan-400 font-semibold text-xs md:text-sm uppercase tracking-wider">Field Exercises</h3>
-            <p class="text-slate-300 leading-relaxed">
-              Execute these 3 build verification drills in-game to optimize your setup.
-            </p>
-          </div>
+        <ul class="space-y-3 text-sm text-white">
+          <li class="flex items-center gap-3 p-3 bg-slate-950 border border-slate-800 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-5 h-5 accent-cyan-400 cursor-pointer" data-id="drill-1" />
+            <span>Open your Training tab (<code class="text-cyan-300">H</code>) and ensure all core skill and specialization wheels are 100% unlocked.</span>
+          </li>
+          <li class="flex items-center gap-3 p-3 bg-slate-950 border border-slate-800 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-5 h-5 accent-cyan-400 cursor-pointer" data-id="drill-2" />
+            <span>Verify that all 9 Major Trait slots across your 3 equipped specialization lines are active and aligned with your main stats.</span>
+          </li>
+          <li class="flex items-center gap-3 p-3 bg-slate-950 border border-slate-800 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-5 h-5 accent-cyan-400 cursor-pointer" data-id="drill-3" />
+            <span>Switch between Build Template 1 and Build Template 2 while out of combat to test hotkey swapping.</span>
+          </li>
+        </ul>
+      </section>
 
-          <div class="space-y-3 font-mono text-xs md:text-sm">
-            <label class="flex items-start gap-3 cursor-pointer p-3.5 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
-              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m4-drill-hero" />
-              <span class="text-slate-300"><strong>Drill 1 (Hero Point Audit):</strong> Open your Training tab (`H`) and ensure all core skill and specialization wheels are 100% unlocked.</span>
-            </label>
-
-            <label class="flex items-start gap-3 cursor-pointer p-3.5 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
-              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m4-drill-traits" />
-              <span class="text-slate-300"><strong>Drill 2 (Trait Verification):</strong> Verify that all 9 Major Trait slots across your 3 equipped specialization lines are active.</span>
-            </label>
-
-            <label class="flex items-start gap-3 cursor-pointer p-3.5 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
-              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m4-drill-swap" />
-              <span class="text-slate-300"><strong>Drill 3 (Template Swap Test):</strong> Switch between Build Template 1 and Build Template 2 while out of combat to test seamless swapping.</span>
-            </label>
-          </div>
-        </div>
-      </details>
-    </section>
+    </div>
 
   </main>
 
-  <!-- CATEGORY: PERSISTENCE SCRIPT -->
+  <!-- CATEGORY: STICKY FOOTER -->
+  <footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-6 py-3">
+    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+      <p class="text-[10px] text-white/80 max-w-3xl leading-normal">
+        This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
+      </p>
+
+      <div class="flex items-center space-x-4 text-xs">
+        <a href="https://liar.fyi" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 cursor-pointer">
+          The Liars Guild
+        </a>
+        <span class="text-slate-700">|</span>
+        <span class="text-white">
+          Powered by <a href="https://qkommand.github.io/home/" target="_blank" class="text-white hover:text-cyan-400 underline font-bold cursor-pointer">Commander Q</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CATEGORY: LOGIC ENGINE -->
   <script>
+    /* CATEGORY: CHECKLIST STATE MANAGEMENT */
     const STORAGE_KEY = 'priory_class106_checkboxes';
+    let checklistCompletedState = 'off';
 
-    document.addEventListener('DOMContentLoaded', () => {
-      initClockEngine();
-      initCheckboxes();
-    });
+    function updateChecklist() {
+      const boxes = document.querySelectorAll('.id-check');
+      let checkedCount = 0;
+      const savedState = {};
 
-    function initCheckboxes() {
+      boxes.forEach(box => {
+        const id = box.getAttribute('data-id');
+        if (box.checked) {
+          checkedCount++;
+          savedState[id] = 'on';
+        } else {
+          savedState[id] = 'off';
+        }
+      });
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
+
+      const statusEl = document.getElementById('checklist-status');
+      statusEl.innerText = `[${checkedCount} / ${boxes.length} DONE]`;
+
+      if (checkedCount === boxes.length) {
+        checklistCompletedState = 'on';
+        statusEl.className = 'text-xs text-emerald-400 font-bold';
+      } else {
+        checklistCompletedState = 'off';
+        statusEl.className = 'text-xs text-amber-400 font-bold';
+      }
+    }
+
+    function loadChecklistState() {
       const savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-      const checkboxes = document.querySelectorAll('.id-check');
+      const boxes = document.querySelectorAll('.id-check');
 
-      checkboxes.forEach(box => {
+      boxes.forEach(box => {
         const id = box.getAttribute('data-id');
         if (savedState[id] === 'on') {
           box.checked = true;
         }
-
-        box.addEventListener('change', () => {
-          savedState[id] = box.checked ? 'on' : 'off';
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
-        });
       });
+
+      updateChecklist();
     }
 
-    // CATEGORY: TYRIAN TIME CLOCK
-    function initClockEngine() {
-      function updateClock() {
-        const now = new Date();
-        const utcMinutes = now.getUTCHours() * 60 + now.getUTCMinutes();
-        const cycleMinute = utcMinutes % 120;
+    /* CATEGORY: UNIVERSAL CLOCKS ENGINE */
+    function updateClocks() {
+      const now = new Date();
+      
+      const utcHours = String(now.getUTCHours()).padStart(2, '0');
+      const utcMins = String(now.getUTCMinutes()).padStart(2, '0');
+      const utcSecs = String(now.getUTCSeconds()).padStart(2, '0');
+      document.getElementById('server-clock').innerText = `${utcHours}:${utcMins}:${utcSecs} UTC`;
 
-        let phase = "DAY";
-        let minRemaining = 0;
+      const totalUtcSec = (now.getUTCHours() * 3600) + (now.getUTCMinutes() * 60) + now.getUTCSeconds();
+      const cycleOffset = 1500;
+      const secondsInto2HrCycle = (totalUtcSec - cycleOffset + 720000) % 7200;
 
-        if (cycleMinute < 25) {
-          phase = "DAY";
-          minRemaining = 25 - cycleMinute;
-        } else if (cycleMinute < 30) {
-          phase = "DUSK";
-          minRemaining = 30 - cycleMinute;
-        } else if (cycleMinute < 70) {
-          phase = "NIGHT";
-          minRemaining = 70 - cycleMinute;
-        } else if (cycleMinute < 75) {
-          phase = "DAWN";
-          minRemaining = 75 - cycleMinute;
-        } else {
-          phase = "DAY";
-          minRemaining = 120 - cycleMinute + 25;
-        }
+      const tyrianSecFromMidnight = (secondsInto2HrCycle * 12 + 21600) % 86400;
+      const tyrianHour = Math.floor(tyrianSecFromMidnight / 3600);
+      const tyrianMin = Math.floor((tyrianSecFromMidnight % 3600) / 60);
 
-        const clockEl = document.getElementById('tyrian-clock');
-        if (clockEl) {
-          clockEl.textContent = `TYRIAN TIME: ${phase} (${minRemaining}m REMAINING)`;
-        }
-      }
+      const formattedTyrianHour = String(tyrianHour).padStart(2, '0');
+      const formattedTyrianMin = String(tyrianMin).padStart(2, '0');
 
-      updateClock();
-      setInterval(updateClock, 30000);
+      let icon = '☀️';
+      if (tyrianHour >= 5 && tyrianHour < 6) icon = '🌅';
+      else if (tyrianHour >= 6 && tyrianHour < 20) icon = '☀️';
+      else if (tyrianHour >= 20 && tyrianHour < 21) icon = '🌆';
+      else icon = '🌙';
+
+      document.getElementById('tyria-clock-time').innerHTML = `${icon} <span>${formattedTyrianHour}:${formattedTyrianMin}</span>`;
+
+      document.getElementById('local-clock').innerText = now.toLocaleTimeString();
     }
+
+    /* CATEGORY: INITIALIZATION */
+    document.addEventListener('DOMContentLoaded', () => {
+      updateClocks();
+      loadChecklistState();
+      setInterval(updateClocks, 1000);
+    });
   </script>
 </body>
 </html>
