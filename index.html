@@ -82,21 +82,12 @@
       </button>
 
       <button 
-        id="tab-btn-tactics" 
-        onclick="switchTab('tactics')" 
+        id="tab-btn-advanced" 
+        onclick="switchTab('advanced')" 
         class="flex items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
       >
         <span class="text-[10px] sm:text-sm mr-1.5 opacity-80 sm:opacity-100">///</span>
-        <span>TACTICAL OPERATIONS</span>
-      </button>
-
-      <button 
-        id="tab-btn-specialized" 
-        onclick="switchTab('specialized')" 
-        class="flex items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
-      >
-        <span class="text-[10px] sm:text-sm mr-1.5 opacity-80 sm:opacity-100">///</span>
-        <span>SPECIALIZED GUIDES</span>
+        <span>ADVANCED FIELD GUIDES</span>
       </button>
 
       <a 
@@ -117,14 +108,9 @@
       <div id="grid-basics" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </div>
 
-    <!-- CATEGORY: VIEW - TACTICAL OPERATIONS -->
-    <div id="view-tactics" class="hidden">
-      <div id="grid-tactics" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
-    </div>
-
-    <!-- CATEGORY: VIEW - SPECIALIZED GUIDES -->
-    <div id="view-specialized" class="hidden">
-      <div id="grid-specialized" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+    <!-- CATEGORY: VIEW - ADVANCED FIELD GUIDES -->
+    <div id="view-advanced" class="hidden">
+      <div id="grid-advanced" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </div>
 
   </main>
@@ -153,8 +139,7 @@
     /* CATEGORY: TAB STATE MANAGEMENT */
     let tabState = {
       basics: 'on',
-      tactics: 'off',
-      specialized: 'off'
+      advanced: 'off'
     };
 
     /* CATEGORY: GUIDE DATA STORES */
@@ -197,7 +182,7 @@
       }
     ];
 
-    const tacticalGuides = [
+    const advancedGuides = [
       {
         code: "TACTICS 201",
         title: "Boons & Breakbars",
@@ -236,27 +221,6 @@
       }
     ];
 
-    const specializedGuides = [
-      {
-        code: "SPECIAL 301",
-        title: "Jumping Puzzles & Terrain",
-        desc: "Shortcut guides and movement techniques for tricky platforming challenges.",
-        url: "./optional301/index.html"
-      },
-      {
-        code: "SPECIAL 302",
-        title: "Crafting & Refinement",
-        desc: "Level crafting disciplines, refine rare materials, and craft ascended gear.",
-        url: "./optional302/index.html"
-      },
-      {
-        code: "SPECIAL 303",
-        title: "Fashion & Wardrobe Unlocks",
-        desc: "Manage transmutation charges, unlock skins, and match dye palettes.",
-        url: "./optional303/index.html"
-      }
-    ];
-
     /* CATEGORY: DYNAMIC RENDER ENGINE */
     function renderGrid(containerId, list) {
       const container = document.getElementById(containerId);
@@ -287,8 +251,7 @@
 
     function renderAllGrids() {
       renderGrid('grid-basics', basicGuides);
-      renderGrid('grid-tactics', tacticalGuides);
-      renderGrid('grid-specialized', specializedGuides);
+      renderGrid('grid-advanced', advancedGuides);
     }
 
     /* CATEGORY: TAB NAVIGATION ENGINE */
@@ -300,7 +263,7 @@
     }
 
     function renderTabViews() {
-      const tabs = ['basics', 'tactics', 'specialized'];
+      const tabs = ['basics', 'advanced'];
       
       tabs.forEach(tab => {
         const viewEl = document.getElementById(`view-${tab}`);
