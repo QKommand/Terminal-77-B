@@ -57,7 +57,7 @@
 
       <div class="text-center space-y-0.5">
         <h1 class="text-base sm:text-xl font-bold text-cyan-400 tracking-wider uppercase">
-          Adventurer Journal: Live Localized World Boss Schedule
+          Adventurer Journal: Live World Boss Schedule & External Tools
         </h1>
       </div>
 
@@ -190,33 +190,136 @@
 
   <!-- CATEGORY: LOGIC ENGINE -->
   <script>
-    /* CATEGORY: WORLD BOSS MASTER DATA (BASE UTC TIME SLOTS) */
-    const bossMasterSchedule = [
-      { name: "Jormag Claw", level: 80, location: "Frostgorge Sound", waypoint: "[&BHoCAAA=]", utcH: 5, utcM: 30 },
-      { name: "Behemoth of Shadows", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", utcH: 5, utcM: 45 },
-      { name: "Queen Karka", level: 80, location: "Southsun Cove", waypoint: "[&BNcGAAA=]", utcH: 5, utcM: 55 },
-      { name: "Taidha Covington", level: 50, location: "Bloodtide Coast", waypoint: "[&BKgBAAA=]", utcH: 6, utcM: 0 },
-      { name: "Shaman of Svanir", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", utcH: 6, utcM: 15 },
-      { name: "Megadestructor", level: 66, location: "Mount Maelstrom", waypoint: "[&BM0CAAA=]", utcH: 6, utcM: 30 },
-      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", utcH: 6, utcM: 45 },
-      { name: "Tequatl the Sunless", level: 80, location: "Sparkfly Fen", waypoint: "[&BNABAAA=]", utcH: 6, utcM: 55 },
-      { name: "The Destroyer", level: 80, location: "Sparkfly Fen", waypoint: "[&BE4DAAA=]", utcH: 7, utcM: 0 },
-      { name: "Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", utcH: 7, utcM: 15 },
-      { name: "Ulgoth the Modniir", level: 40, location: "Harathi Hinterlands", waypoint: "[&BLEAAAA=]", utcH: 7, utcM: 30 },
-      { name: "Triple Terror Wurm", level: 80, location: "Bloodtide Coast", waypoint: "[&BKoBAAA=]", utcH: 7, utcM: 55 },
-      { name: "Golem Mark II", level: 80, location: "Mount Maelstrom", waypoint: "[&BNQCAAA=]", utcH: 8, utcM: 0 }
+    /* CATEGORY: WORLD BOSS MASTER SCHEDULE (TIMETABLE SOURCE: UTC-4 STANDARD) */
+    const rawBossSchedule = [
+      { name: "Admiral Taidha Covington", level: 50, location: "Bloodtide Coast", waypoint: "[&BKgBAAA=]", h: 20, m: 0 },
+      { name: "Tequatl the Sunless", level: 80, location: "Sparkfly Fen", waypoint: "[&BNABAAA=]", h: 20, m: 0 },
+      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 20, m: 15 },
+      { name: "Megadestroyer", level: 66, location: "Mount Maelstrom", waypoint: "[&BM0CAAA=]", h: 20, m: 30 },
+      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 20, m: 45 },
+      { name: "The Shatterer", level: 50, location: "Blazeridge Steppes", waypoint: "[&BE4DAAA=]", h: 21, m: 0 },
+      { name: "Evolved Jungle Wurm", level: 80, location: "Bloodtide Coast", waypoint: "[&BKoBAAA=]", h: 21, m: 0 },
+      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 21, m: 15 },
+      { name: "Modniir Ulgoth", level: 40, location: "Harathi Hinterlands", waypoint: "[&BLEAAAA=]", h: 21, m: 30 },
+      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 21, m: 45 },
+      { name: "Golem Mark II", level: 80, location: "Mount Maelstrom", waypoint: "[&BNQCAAA=]", h: 22, m: 0 },
+      { name: "Karka Queen", level: 80, location: "Southsun Cove", waypoint: "[&BNcGAAA=]", h: 22, m: 0 },
+      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 22, m: 15 },
+      { name: "Claw of Jormag", level: 80, location: "Frostgorge Sound", waypoint: "[&BHoCAAA=]", h: 22, m: 30 },
+      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 22, m: 45 },
+      { name: "Admiral Taidha Covington", level: 50, location: "Bloodtide Coast", waypoint: "[&BKgBAAA=]", h: 23, m: 0 },
+      { name: "Tequatl the Sunless", level: 80, location: "Sparkfly Fen", waypoint: "[&BNABAAA=]", h: 23, m: 0 },
+      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 23, m: 15 },
+      { name: "Megadestroyer", level: 66, location: "Mount Maelstrom", waypoint: "[&BM0CAAA=]", h: 23, m: 30 },
+      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 23, m: 45 },
+      { name: "The Shatterer", level: 50, location: "Blazeridge Steppes", waypoint: "[&BE4DAAA=]", h: 0, m: 0 },
+      { name: "Evolved Jungle Wurm", level: 80, location: "Bloodtide Coast", waypoint: "[&BKoBAAA=]", h: 0, m: 0 },
+      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 0, m: 15 },
+      { name: "Modniir Ulgoth", level: 40, location: "Harathi Hinterlands", waypoint: "[&BLEAAAA=]", h: 0, m: 30 },
+      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 0, m: 45 },
+      { name: "Golem Mark II", level: 80, location: "Mount Maelstrom", waypoint: "[&BNQCAAA=]", h: 1, m: 0 },
+      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 1, m: 15 },
+      { name: "Claw of Jormag", level: 80, location: "Frostgorge Sound", waypoint: "[&BHoCAAA=]", h: 1, m: 30 },
+      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 1, m: 45 },
+      { name: "Admiral Taidha Covington", level: 50, location: "Bloodtide Coast", waypoint: "[&BKgBAAA=]", h: 2, m: 0 },
+      { name: "Karka Queen", level: 80, location: "Southsun Cove", waypoint: "[&BNcGAAA=]", h: 2, m: 0 },
+      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 2, m: 15 },
+      { name: "Megadestroyer", level: 66, location: "Mount Maelstrom", waypoint: "[&BM0CAAA=]", h: 2, m: 30 },
+      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 2, m: 45 },
+      { name: "The Shatterer", level: 50, location: "Blazeridge Steppes", waypoint: "[&BE4DAAA=]", h: 3, m: 0 },
+      { name: "Tequatl the Sunless", level: 80, location: "Sparkfly Fen", waypoint: "[&BNABAAA=]", h: 3, m: 0 },
+      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 3, m: 15 },
+      { name: "Modniir Ulgoth", level: 40, location: "Harathi Hinterlands", waypoint: "[&BLEAAAA=]", h: 3, m: 30 },
+      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 3, m: 45 },
+      { name: "Golem Mark II", level: 80, location: "Mount Maelstrom", waypoint: "[&BNQCAAA=]", h: 4, m: 0 },
+      { name: "Evolved Jungle Wurm", level: 80, location: "Bloodtide Coast", waypoint: "[&BKoBAAA=]", h: 4, m: 0 },
+      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 4, m: 15 },
+      { name: "Claw of Jormag", level: 80, location: "Frostgorge Sound", waypoint: "[&BHoCAAA=]", h: 4, m: 30 },
+      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 4, m: 45 },
+      { name: "Admiral Taidha Covington", level: 50, location: "Bloodtide Coast", waypoint: "[&BKgBAAA=]", h: 5, m: 0 },
+      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 5, m: 15 },
+      { name: "Megadestroyer", level: 66, location: "Mount Maelstrom", waypoint: "[&BM0CAAA=]", h: 5, m: 30 },
+      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 5, m: 45 },
+      { name: "The Shatterer", level: 50, location: "Blazeridge Steppes", waypoint: "[&BE4DAAA=]", h: 6, m: 0 },
+      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 6, m: 15 },
+      { name: "Modniir Ulgoth", level: 40, location: "Harathi Hinterlands", waypoint: "[&BLEAAAA=]", h: 6, m: 30 },
+      { name: "Karka Queen", level: 80, location: "Southsun Cove", waypoint: "[&BNcGAAA=]", h: 6, m: 30 },
+      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 6, m: 45 },
+      { name: "Golem Mark II", level: 80, location: "Mount Maelstrom", waypoint: "[&BNQCAAA=]", h: 7, m: 0 },
+      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 7, m: 15 },
+      { name: "Claw of Jormag", level: 80, location: "Frostgorge Sound", waypoint: "[&BHoCAAA=]", h: 7, m: 30 },
+      { name: "Tequatl the Sunless", level: 80, location: "Sparkfly Fen", waypoint: "[&BNABAAA=]", h: 7, m: 30 },
+      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 7, m: 45 },
+      { name: "Admiral Taidha Covington", level: 50, location: "Bloodtide Coast", waypoint: "[&BKgBAAA=]", h: 8, m: 0 },
+      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 8, m: 15 },
+      { name: "Megadestroyer", level: 66, location: "Mount Maelstrom", waypoint: "[&BM0CAAA=]", h: 8, m: 30 },
+      { name: "Evolved Jungle Wurm", level: 80, location: "Bloodtide Coast", waypoint: "[&BKoBAAA=]", h: 8, m: 30 },
+      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 8, m: 45 },
+      { name: "The Shatterer", level: 50, location: "Blazeridge Steppes", waypoint: "[&BE4DAAA=]", h: 9, m: 0 },
+      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 9, m: 15 },
+      { name: "Modniir Ulgoth", level: 40, location: "Harathi Hinterlands", waypoint: "[&BLEAAAA=]", h: 9, m: 30 },
+      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 9, m: 45 },
+      { name: "Golem Mark II", level: 80, location: "Mount Maelstrom", waypoint: "[&BNQCAAA=]", h: 10, m: 0 },
+      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 10, m: 15 },
+      { name: "Claw of Jormag", level: 80, location: "Frostgorge Sound", waypoint: "[&BHoCAAA=]", h: 10, m: 30 },
+      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 10, m: 45 },
+      { name: "Admiral Taidha Covington", level: 50, location: "Bloodtide Coast", waypoint: "[&BKgBAAA=]", h: 11, m: 0 },
+      { name: "Karka Queen", level: 80, location: "Southsun Cove", waypoint: "[&BNcGAAA=]", h: 11, m: 0 },
+      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 11, m: 15 },
+      { name: "Megadestroyer", level: 66, location: "Mount Maelstrom", waypoint: "[&BM0CAAA=]", h: 11, m: 30 },
+      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 11, m: 45 },
+      { name: "The Shatterer", level: 50, location: "Blazeridge Steppes", waypoint: "[&BE4DAAA=]", h: 12, m: 0 },
+      { name: "Tequatl the Sunless", level: 80, location: "Sparkfly Fen", waypoint: "[&BNABAAA=]", h: 12, m: 0 },
+      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 12, m: 15 },
+      { name: "Modniir Ulgoth", level: 40, location: "Harathi Hinterlands", waypoint: "[&BLEAAAA=]", h: 12, m: 30 },
+      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 12, m: 45 },
+      { name: "Golem Mark II", level: 80, location: "Mount Maelstrom", waypoint: "[&BNQCAAA=]", h: 13, m: 0 },
+      { name: "Evolved Jungle Wurm", level: 80, location: "Bloodtide Coast", waypoint: "[&BKoBAAA=]", h: 13, m: 0 },
+      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 13, m: 15 },
+      { name: "Claw of Jormag", level: 80, location: "Frostgorge Sound", waypoint: "[&BHoCAAA=]", h: 13, m: 30 },
+      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 13, m: 45 },
+      { name: "Admiral Taidha Covington", level: 50, location: "Bloodtide Coast", waypoint: "[&BKgBAAA=]", h: 14, m: 0 },
+      { name: "Karka Queen", level: 80, location: "Southsun Cove", waypoint: "[&BNcGAAA=]", h: 14, m: 0 },
+      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 14, m: 15 },
+      { name: "Megadestroyer", level: 66, location: "Mount Maelstrom", waypoint: "[&BM0CAAA=]", h: 14, m: 30 },
+      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 14, m: 45 },
+      { name: "The Shatterer", level: 50, location: "Blazeridge Steppes", waypoint: "[&BE4DAAA=]", h: 15, m: 0 },
+      { name: "Tequatl the Sunless", level: 80, location: "Sparkfly Fen", waypoint: "[&BNABAAA=]", h: 15, m: 0 },
+      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 15, m: 15 },
+      { name: "Modniir Ulgoth", level: 40, location: "Harathi Hinterlands", waypoint: "[&BLEAAAA=]", h: 15, m: 30 },
+      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 15, m: 45 },
+      { name: "Golem Mark II", level: 80, location: "Mount Maelstrom", waypoint: "[&BNQCAAA=]", h: 16, m: 0 },
+      { name: "Evolved Jungle Wurm", level: 80, location: "Bloodtide Coast", waypoint: "[&BKoBAAA=]", h: 16, m: 0 },
+      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 16, m: 15 },
+      { name: "Claw of Jormag", level: 80, location: "Frostgorge Sound", waypoint: "[&BHoCAAA=]", h: 16, m: 30 },
+      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 16, m: 45 },
+      { name: "Admiral Taidha Covington", level: 50, location: "Bloodtide Coast", waypoint: "[&BKgBAAA=]", h: 17, m: 0 },
+      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 17, m: 15 },
+      { name: "Megadestroyer", level: 66, location: "Mount Maelstrom", waypoint: "[&BM0CAAA=]", h: 17, m: 30 },
+      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 17, m: 45 },
+      { name: "The Shatterer", level: 50, location: "Blazeridge Steppes", waypoint: "[&BE4DAAA=]", h: 18, m: 0 },
+      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 18, m: 15 },
+      { name: "Modniir Ulgoth", level: 40, location: "Harathi Hinterlands", waypoint: "[&BLEAAAA=]", h: 18, m: 30 },
+      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 18, m: 45 },
+      { name: "Golem Mark II", level: 80, location: "Mount Maelstrom", waypoint: "[&BNQCAAA=]", h: 19, m: 0 },
+      { name: "Karka Queen", level: 80, location: "Southsun Cove", waypoint: "[&BNcGAAA=]", h: 19, m: 0 },
+      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 19, m: 15 },
+      { name: "Claw of Jormag", level: 80, location: "Frostgorge Sound", waypoint: "[&BHoCAAA=]", h: 19, m: 30 },
+      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 19, m: 45 }
     ];
 
-    /* CATEGORY: LOCAL TIME CONVERSION & SCHEDULE RENDERER */
+    /* CATEGORY: LOCAL TIME CONVERSION ENGINE */
     function renderLocalizedSchedule() {
       const now = new Date();
       const calculatedBosses = [];
 
-      bossMasterSchedule.forEach(boss => {
+      rawBossSchedule.forEach(boss => {
+        // UTC-4 is 4 hours behind UTC, so UTC Hour = (UTC-4 Hour + 4) % 24
+        const utcH = (boss.h + 4) % 24;
         let spawnDate = new Date();
-        spawnDate.setUTCHours(boss.utcH, boss.utcM, 0, 0);
+        spawnDate.setUTCHours(utcH, boss.m, 0, 0);
 
-        // If the event time has already passed today, roll it over to tomorrow's rotation
+        // If event time + 15 min active window has passed today, move to tomorrow
         if (spawnDate.getTime() + (15 * 60 * 1000) < now.getTime()) {
           spawnDate.setUTCDate(spawnDate.getUTCDate() + 1);
         }
@@ -224,7 +327,7 @@
         const diffMs = spawnDate.getTime() - now.getTime();
         const diffMins = Math.floor(diffMs / (1000 * 60));
 
-        // Format to user device local time standard (e.g. 01:30 PM)
+        // Format to user device's local time standard
         const localTimeStr = spawnDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
         calculatedBosses.push({
@@ -235,10 +338,9 @@
         });
       });
 
-      // Sort bosses by soonest spawn
-      calculatedBosses.sort((a, b) => a.diffMins - b.diffMins);
+      // Sort by soonest spawn time
+      calculatedBosses.sort((a, b) => a.spawnDate.getTime() - b.spawnDate.getTime());
 
-      // Extract Priority Top 3
       const priorityGrid = document.getElementById('priority-boss-grid');
       const scrollingList = document.getElementById('scrolling-boss-list');
 
@@ -247,7 +349,7 @@
       const top3 = calculatedBosses.slice(0, 3);
       const remaining = calculatedBosses.slice(3);
 
-      // Render Top 3 Cards
+      // Render Priority Top 3 Cards
       let top3Html = '';
       const badges = [
         { label: 'Current Boss', bg: 'bg-cyan-500 text-slate-950', status: 'Active / Starting', border: 'border-cyan-500/60 bg-slate-900/80' },
@@ -338,7 +440,7 @@
       renderLocalizedSchedule();
       
       setInterval(updateClocks, 1000);
-      setInterval(renderLocalizedSchedule, 30000); // Refresh schedule queue every 30 seconds
+      setInterval(renderLocalizedSchedule, 30000); // Auto-refresh rotation queue every 30s
     });
   </script>
 </body>
