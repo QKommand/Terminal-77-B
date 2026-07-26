@@ -101,8 +101,8 @@
           </h2>
           <span class="text-xs text-amber-400 font-bold">[LESSON 2 OF 6]</span>
         </div>
-        <p class="text-sm text-white leading-relaxed">
-          If Course 101 is learning how to hold your weapon in the barracks, Course 102 is your first real patrol through the forest. It teaches you how to read the landscape, work with local allies, clear ancient ruins, and prepare for Level 80 content.
+        <p class="text-sm md:text-base text-white leading-relaxed">
+          Step out on patrol, Adventurer. If Course 101 is learning how to hold your weapon in the barracks, Course 102 is your first real patrol through the forest. It teaches you how to read the landscape, work with local allies, clear ancient ruins, and prepare for Level 80 endgame content.
         </p>
       </section>
 
@@ -118,11 +118,11 @@
             <h3 class="text-lg font-bold text-white">
               Map Literacy & World Exploration
             </h3>
-            <p class="text-sm text-white leading-relaxed">
-              Open your World Map (M Key) to check regional goals. Unlock blue diamond Waypoints for fast travel during map events. Complete Renown Hearts to buy local gear with Karma, and climb terrain to reach Vistas and Points of Interest.
+            <p class="text-sm md:text-base text-white leading-relaxed">
+              Open your World Map (<code class="text-cyan-300">M</code> Key) to check regional goals. Unlock blue diamond Waypoints for fast travel during map events. Complete Renown Hearts to buy local gear with Karma, and climb terrain to reach Vistas and Points of Interest.
             </p>
           </div>
-          <div class="p-3 bg-slate-900 border border-slate-800 rounded text-xs text-cyan-300 font-mono">
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded text-xs md:text-sm text-cyan-300 font-mono">
             M Key = World Map | Blue Diamonds = Waypoints
           </div>
         </section>
@@ -136,11 +136,11 @@
             <h3 class="text-lg font-bold text-white">
               Hero Point Logistics
             </h3>
-            <p class="text-sm text-white leading-relaxed">
+            <p class="text-sm md:text-base text-white leading-relaxed">
               Gather Hero Points to unlock your skill trees and build trait lines. You earn points automatically as you level up from 1 to 80, but communing with Hero Challenges on maps speeds up unlocking your first 3 Core Trait lines early.
             </p>
           </div>
-          <div class="p-3 bg-slate-900 border border-slate-800 rounded text-xs text-cyan-300 font-mono">
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded text-xs md:text-sm text-cyan-300 font-mono">
             Levels 1–80 + Map Hero Challenges
           </div>
         </section>
@@ -154,11 +154,11 @@
             <h3 class="text-lg font-bold text-white">
               Core Dungeons & Group Tactics
             </h3>
-            <p class="text-sm text-white leading-relaxed">
+            <p class="text-sm md:text-base text-white leading-relaxed">
               Dungeons introduce 5-player team combat starting at Level 30. Run Story Mode for story context, then try Explorable Mode at Level 35 to practice staying grouped, dodging boss attacks, and reviving downed teammates.
             </p>
           </div>
-          <div class="p-3 bg-slate-900 border border-slate-800 rounded text-xs text-cyan-300 font-mono">
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded text-xs md:text-sm text-cyan-300 font-mono">
             Level 30 Story | Level 35 Explorable
           </div>
         </section>
@@ -172,11 +172,11 @@
             <h3 class="text-lg font-bold text-white">
               Pact Commander Initiation
             </h3>
-            <p class="text-sm text-white leading-relaxed">
+            <p class="text-sm md:text-base text-white leading-relaxed">
               When you hit Level 80, unlock your Central Tyria Mastery Tracks. Set Pact Commander as your active track right away and train it to Tier 5 (Advanced Logistics) to get passive Auto-Loot across all maps.
             </p>
           </div>
-          <div class="p-3 bg-slate-900 border border-slate-800 rounded text-xs text-cyan-300 font-mono">
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded text-xs md:text-sm text-cyan-300 font-mono">
             Goal: Pact Commander Tier 5 Auto-Loot
           </div>
         </section>
@@ -186,27 +186,27 @@
       <!-- CATEGORY: FIELD PRACTICE CHECKLIST -->
       <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-4">
         <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-          <h3 class="text-base font-bold text-cyan-400 uppercase tracking-wider">
+          <h3 class="text-base md:text-lg font-bold text-cyan-400 uppercase tracking-wider">
             Practice Drill Checklist
           </h3>
-          <span id="checklist-status" class="text-xs text-amber-400 font-bold">[0 / 4 DONE]</span>
+          <span id="checklist-status" class="text-xs md:text-sm text-amber-400 font-bold">[0 / 4 DONE]</span>
         </div>
 
-        <ul class="space-y-3 text-sm text-white">
-          <li class="flex items-center gap-3 p-3 bg-slate-950 border border-slate-800 rounded-sm">
-            <input type="checkbox" onchange="updateChecklist()" class="w-5 h-5 accent-cyan-400 cursor-pointer" />
+        <ul class="space-y-3 text-sm md:text-base text-white">
+          <li class="flex items-center gap-3 p-3.5 bg-slate-950 border border-slate-800 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-5 h-5 accent-cyan-400 cursor-pointer" data-id="drill-1" />
             <span>Unlock every blue diamond Waypoint you see on a new map for easy travel.</span>
           </li>
-          <li class="flex items-center gap-3 p-3 bg-slate-950 border border-slate-800 rounded-sm">
-            <input type="checkbox" onchange="updateChecklist()" class="w-5 h-5 accent-cyan-400 cursor-pointer" />
+          <li class="flex items-center gap-3 p-3.5 bg-slate-950 border border-slate-800 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-5 h-5 accent-cyan-400 cursor-pointer" data-id="drill-2" />
             <span>Complete Hero Challenges on starter maps to finish 3 core trait lines.</span>
           </li>
-          <li class="flex items-center gap-3 p-3 bg-slate-950 border border-slate-800 rounded-sm">
-            <input type="checkbox" onchange="updateChecklist()" class="w-5 h-5 accent-cyan-400 cursor-pointer" />
+          <li class="flex items-center gap-3 p-3.5 bg-slate-950 border border-slate-800 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-5 h-5 accent-cyan-400 cursor-pointer" data-id="drill-3" />
             <span>Finish your first 5-player dungeon Story Mode at Level 30 (Ascalonian Catacombs).</span>
           </li>
-          <li class="flex items-center gap-3 p-3 bg-slate-950 border border-slate-800 rounded-sm">
-            <input type="checkbox" onchange="updateChecklist()" class="w-5 h-5 accent-cyan-400 cursor-pointer" />
+          <li class="flex items-center gap-3 p-3.5 bg-slate-950 border border-slate-800 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-5 h-5 accent-cyan-400 cursor-pointer" data-id="drill-4" />
             <span>Set Pact Commander as your active mastery line at Level 80 to start training Auto-Loot.</span>
           </li>
         </ul>
@@ -238,26 +238,50 @@
   <!-- CATEGORY: LOGIC ENGINE -->
   <script>
     /* CATEGORY: CHECKLIST STATE MANAGEMENT */
+    const STORAGE_KEY = 'priory_class102_checkboxes';
     let checklistCompletedState = 'off';
 
     function updateChecklist() {
-      const boxes = document.querySelectorAll('input[type="checkbox"]');
+      const boxes = document.querySelectorAll('.id-check');
       let checkedCount = 0;
-      
+      const savedState = {};
+
       boxes.forEach(box => {
-        if (box.checked) checkedCount++;
+        const id = box.getAttribute('data-id');
+        if (box.checked) {
+          checkedCount++;
+          savedState[id] = 'on';
+        } else {
+          savedState[id] = 'off';
+        }
       });
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
 
       const statusEl = document.getElementById('checklist-status');
       statusEl.innerText = `[${checkedCount} / ${boxes.length} DONE]`;
 
       if (checkedCount === boxes.length) {
         checklistCompletedState = 'on';
-        statusEl.className = 'text-xs text-emerald-400 font-bold';
+        statusEl.className = 'text-xs md:text-sm text-emerald-400 font-bold';
       } else {
         checklistCompletedState = 'off';
-        statusEl.className = 'text-xs text-amber-400 font-bold';
+        statusEl.className = 'text-xs md:text-sm text-amber-400 font-bold';
       }
+    }
+
+    function loadChecklistState() {
+      const savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      const boxes = document.querySelectorAll('.id-check');
+
+      boxes.forEach(box => {
+        const id = box.getAttribute('data-id');
+        if (savedState[id] === 'on') {
+          box.checked = true;
+        }
+      });
+
+      updateChecklist();
     }
 
     /* CATEGORY: UNIVERSAL CLOCKS ENGINE */
@@ -294,6 +318,7 @@
     /* CATEGORY: INITIALIZATION */
     document.addEventListener('DOMContentLoaded', () => {
       updateClocks();
+      loadChecklistState();
       setInterval(updateClocks, 1000);
     });
   </script>
