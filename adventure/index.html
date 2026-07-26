@@ -64,7 +64,7 @@
         </p>
       </div>
 
-      <div class="hidden md:block w-32"></div> <!-- Spacer to perfectly balance header centering -->
+      <div class="hidden md:block w-32"></div>
     </div>
 
     <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 pt-3 border-t border-slate-800 text-xs sm:text-sm text-center md:text-left items-center">
@@ -166,12 +166,13 @@
             <h2 class="text-base font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
               <span>///</span> CORE TYRIA WORLD BOSS SCHEDULE (UTC-4)
             </h2>
-            <p class="text-xs text-slate-300">Live countdown rotation, waypoints, and plain-English preparation tips</p>
+            <p class="text-xs text-slate-300">Showing active encounter first, followed by a full 24-hour scrolling rotation</p>
           </div>
           <span class="text-xs text-amber-400 font-bold font-mono animate-pulse">● LIVE ROTATION</span>
         </div>
 
-        <div class="max-h-[500px] overflow-y-auto pr-2">
+        <!-- Scrollable container height restricted to show exactly 3 items at a time -->
+        <div class="max-h-[310px] overflow-y-auto pr-2">
           <div id="world-boss-list" class="space-y-3">
             <!-- Dynamic schedule list populated via script -->
           </div>
@@ -203,21 +204,21 @@
 
   <!-- CATEGORY: LOGIC ENGINE -->
   <script>
-    /* CATEGORY: BOSS METADATA & WAYPOINTS */
+    /* CATEGORY: BOSS METADATA, WAYPOINTS & HARDCORE FLAGS */
     const bossDetails = {
-      "Shadow Behemoth": { zone: "Queensdale", wp: "[&BPwAAAA=]", prep: "Clear the surrounding portals first. Use long-range attacks when the giant phantom appears." },
-      "Tequatl the Sunless": { zone: "Sparkfly Fen", wp: "[&BNUC3AA=]", prep: "Interrupt its major attacks when its blue shield bar lights up. Jump over the rolling water waves." },
-      "Svanir Shaman Chief": { zone: "Wayfarer Foothills", wp: "[&BMIDAAA=]", prep: "Destroy the floating ice crystal totems and smash through the protective frost barrier." },
-      "Megadestroyer": { zone: "Mount Maelstrom", wp: "[&BNECAAA=]", prep: "Avoid standing in glowing lava pools on the ground. Focus attacks on the main arms." },
-      "Fire Elemental": { zone: "Metrica Province", wp: "[&BEcAAAA=]", prep: "Gather near the entrance ramp, defeat the smaller fire embers quickly, then surround the boss." },
-      "The Shatterer": { zone: "Blazeridge Steppes", wp: "[&BE4DAAA=]", prep: "Bring a ranged weapon to shoot down the dragon while it flies across the canyon." },
-      "Evolved Jungle Wurm": { zone: "Caledon Forest", wp: "[&BIMAAAA=]", prep: "Defeat the armored support guards quickly so they do not heal the main head." },
-      "Great Jungle Wurm": { zone: "Caledon Forest", wp: "[&BIMAAAA=]", prep: "Defeat smaller guards before attacking the head. Watch out for poisonous green spit pools." },
-      "Modniir Ulgoth": { zone: "Harathi Hinterlands", wp: "[&BL8AAAA=]", prep: "Clear out the centaur camps around the arena before starting the main fight." },
-      "Golem Mark II": { zone: "Timberline Falls", wp: "[&BE8CAAA=]", prep: "Stay clear of the electrified floor grids when the robot triggers its security laser fields." },
-      "Karka Queen": { zone: "Southsun Cove", wp: "[&BN4GAAA=]", prep: "Roll away when the giant crab tucks into its shell to unleash rolling shockwaves." },
-      "Claw of Jormag": { zone: "Frostgorge Sound", wp: "[&BH4CAAA=]", prep: "Use explosive fire charges dropped by allies to break the giant ice walls protecting the dragon." },
-      "Admiral Taidha Covington": { zone: "Bloodtide Coast", wp: "[&BK0BAAA=]", prep: "Destroy the barricade gates with siege cannons, then sink her personal flagship." }
+      "Shadow Behemoth": { zone: "Queensdale", wp: "[&BPwAAAA=]", prep: "Clear the surrounding portals first. Use long-range attacks when the giant phantom appears.", hardcore: false },
+      "Tequatl the Sunless": { zone: "Sparkfly Fen", wp: "[&BNUC3AA=]", prep: "Interrupt major attacks when shields glow. Jump over rolling water rings.", hardcore: true },
+      "Svanir Shaman Chief": { zone: "Wayfarer Foothills", wp: "[&BMIDAAA=]", prep: "Destroy floating ice crystal totems and smash through the protective frost barrier.", hardcore: false },
+      "Megadestroyer": { zone: "Mount Maelstrom", wp: "[&BNECAAA=]", prep: "Avoid standing in glowing lava pools on the ground. Focus attacks on the main arms.", hardcore: false },
+      "Fire Elemental": { zone: "Metrica Province", wp: "[&BEcAAAA=]", prep: "Gather near the entrance ramp, defeat smaller fire embers quickly, then surround the boss.", hardcore: false },
+      "The Shatterer": { zone: "Blazeridge Steppes", wp: "[&BE4DAAA=]", prep: "Bring a ranged weapon to shoot down the dragon while it flies across the canyon.", hardcore: false },
+      "Evolved Jungle Wurm": { zone: "Caledon Forest", wp: "[&BIMAAAA=]", prep: "Coordinate squad lanes to defeat multiple husks and heads simultaneously.", hardcore: true },
+      "Great Jungle Wurm": { zone: "Caledon Forest", wp: "[&BIMAAAA=]", prep: "Defeat smaller guards before attacking the head. Watch out for poisonous green spit pools.", hardcore: false },
+      "Modniir Ulgoth": { zone: "Harathi Hinterlands", wp: "[&BL8AAAA=]", prep: "Clear out centaur camps around the arena before starting the main fight.", hardcore: false },
+      "Golem Mark II": { zone: "Timberline Falls", wp: "[&BE8CAAA=]", prep: "Stay clear of electrified floor grids when the robot triggers security laser fields.", hardcore: false },
+      "Karka Queen": { zone: "Southsun Cove", wp: "[&BN4GAAA=]", prep: "Roll away when the giant crab tucks into its shell to unleash rolling shockwaves.", hardcore: true },
+      "Claw of Jormag": { zone: "Frostgorge Sound", wp: "[&BH4CAAA=]", prep: "Use explosive fire charges dropped by allies to break giant ice walls protecting the dragon.", hardcore: false },
+      "Admiral Taidha Covington": { zone: "Bloodtide Coast", wp: "[&BK0BAAA=]", prep: "Destroy barricade gates with siege cannons, then sink her personal flagship.", hardcore: false }
     };
 
     /* CATEGORY: FULL 24-HOUR BOSS SCHEDULE (UTC-4) */
@@ -325,15 +326,15 @@
       const [h, m] = timeStr.split(':').map(Number);
       const now = new Date();
       const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m, 0);
-      // If time has already passed today, assume it's for tomorrow in local terms for scheduling
-      if (target.getTime() < now.getTime()) {
+      if (target.getTime() < now.getTime() - 600000) { // allow 10 min grace period for current slot
         target.setDate(target.getDate() + 1);
       }
       return target;
     }
 
     function formatCountdown(ms) {
-      if (ms <= 0) return "Starting Now!";
+      if (ms <= -600000) return "Completed";
+      if (ms <= 0 && ms > -600000) return "Active Now!";
       const totalSecs = Math.floor(ms / 1000);
       const hrs = Math.floor(totalSecs / 3600);
       const mins = Math.floor((totalSecs % 3600) / 60);
@@ -353,40 +354,58 @@
       if (!container) return;
 
       const now = new Date();
-      let html = '';
 
+      // Flatten schedule into individual boss events with timestamp
+      let flatEvents = [];
       scheduleData.forEach(item => {
         const targetDate = parseTimeToday(item.time);
-        const diff = targetDate.getTime() - now.getTime();
-        const countdownText = formatCountdown(diff);
-        const isImminent = diff > 0 && diff < 900000; // Under 15 minutes
-
         item.bosses.forEach(bossName => {
-          const info = bossDetails[bossName] || { zone: "Unknown Zone", wp: "[&------=]", prep: "Arrive early and follow commander tags." };
-          
-          html += `
-            <div class="p-4 bg-slate-950 border ${isImminent ? 'border-amber-500/60 bg-slate-900/40' : 'border-slate-800'} hover:border-slate-700 rounded-sm flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors">
-              <div class="space-y-1 max-w-3xl">
-                <div class="flex items-center gap-3">
-                  <span class="text-xs text-amber-400 font-mono font-bold px-2 py-0.5 bg-slate-900 border border-slate-800 rounded">${item.time} UTC-4</span>
-                  <h3 class="text-base font-bold text-white">${bossName}</h3>
-                  <span class="text-xs text-slate-400 font-bold px-2 py-0.5 bg-slate-900 border border-slate-800 rounded">${info.zone}</span>
-                </div>
-                <p class="text-xs text-slate-300"><strong class="text-cyan-400">Preparation:</strong> ${info.prep}</p>
-              </div>
+          flatEvents.push({
+            time: item.time,
+            name: bossName,
+            targetTime: targetDate.getTime(),
+            diff: targetDate.getTime() - now.getTime()
+          });
+        });
+      });
 
-              <div class="flex items-center justify-between md:justify-end gap-4 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-slate-800/80">
-                <span class="${isImminent ? 'text-amber-400 animate-pulse' : 'text-emerald-400'} font-mono text-sm font-bold">${countdownText}</span>
-                <div class="flex items-center gap-2">
-                  <span class="text-xs text-cyan-300 font-mono font-bold">${info.wp}</span>
-                  <button onclick="copyWaypoint('${info.wp}')" class="text-[11px] px-3 py-1 bg-slate-900 border border-cyan-500/40 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold rounded transition-all cursor-pointer">
-                    COPY WP
-                  </button>
-                </div>
+      // Sort events chronologically to find current/upcoming
+      flatEvents.sort((a, b) => a.targetTime - b.targetTime);
+
+      let html = '';
+      flatEvents.forEach((ev, index) => {
+        const info = bossDetails[ev.name] || { zone: "Unknown Zone", wp: "[&------=]", prep: "Arrive early.", hardcore: false };
+        const countdownText = formatCountdown(ev.diff);
+        const isActive = ev.diff <= 0 && ev.diff > -600000;
+        const isNext = index === 1;
+
+        const borderStyle = info.hardcore 
+          ? 'border-amber-500/80 bg-amber-950/20' 
+          : (isActive ? 'border-cyan-400 bg-cyan-950/20' : 'border-slate-800');
+
+        html += `
+          <div class="p-4 bg-slate-950 border ${borderStyle} rounded-sm flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors">
+            <div class="space-y-1 max-w-3xl">
+              <div class="flex items-center gap-3 flex-wrap">
+                <span class="text-xs text-amber-400 font-mono font-bold px-2 py-0.5 bg-slate-900 border border-slate-800 rounded">${ev.time} UTC-4</span>
+                <h3 class="text-base font-bold text-white">${ev.name}</h3>
+                <span class="text-xs text-slate-400 font-bold px-2 py-0.5 bg-slate-900 border border-slate-800 rounded">${info.zone}</span>
+                ${info.hardcore ? '<span class="text-[10px] px-2 py-0.5 bg-amber-500 text-slate-950 font-extrabold rounded uppercase tracking-wider">HARDCORE BOSS</span>' : ''}
+              </div>
+              <p class="text-xs text-slate-300"><strong class="text-cyan-400">Preparation:</strong> ${info.prep}</p>
+            </div>
+
+            <div class="flex items-center justify-between md:justify-end gap-4 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-slate-800/80">
+              <span class="${isActive ? 'text-amber-400 animate-pulse font-bold' : 'text-emerald-400'} font-mono text-sm">${countdownText}</span>
+              <div class="flex items-center gap-2">
+                <span class="text-xs text-cyan-300 font-mono font-bold">${info.wp}</span>
+                <button onclick="copyWaypoint('${info.wp}')" class="text-[11px] px-3 py-1 bg-slate-900 border border-cyan-500/40 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold rounded transition-all cursor-pointer">
+                  COPY WP
+                </button>
               </div>
             </div>
-          `;
-        });
+          </div>
+        `;
       });
 
       container.innerHTML = html;
@@ -429,7 +448,6 @@
 
       document.getElementById('local-clock').innerText = now.toLocaleTimeString();
 
-      // Refresh schedule countdowns every second
       renderSchedule();
     }
 
