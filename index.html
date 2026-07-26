@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>[LIAR] Tyrian University // Terminal 77-B</title>
+  <title>[LIAR] Tyrian Field Archives // Terminal 77-B</title>
   
   <!-- CATEGORY: EXTERNAL DEPENDENCIES -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -39,10 +39,10 @@
   <header class="shrink-0 border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-6 py-4 space-y-3">
     <div class="text-center space-y-1">
       <h1 class="text-lg sm:text-2xl font-bold text-cyan-400 tracking-wider uppercase">
-        Welcome to [LIAR] Tyrian University
+        [LIAR] Tyrian Field Archives
       </h1>
-      <p class="text-sm text-white tracking-wide">
-        The essential digital guide for Guild Wars 2 players.
+      <p class="text-sm text-slate-300 tracking-wide">
+        Essential guides, field manuals, and tools to enhance your Guild Wars 2 journey.
       </p>
     </div>
 
@@ -73,30 +73,30 @@
   <nav class="shrink-0 bg-slate-950 max-w-[1600px] w-full mx-auto px-6 pt-8 pb-3 mt-4">
     <div class="flex flex-wrap justify-center border-b border-slate-800 gap-2 text-xs sm:text-sm font-bold">
       <button 
-        id="tab-btn-basic" 
-        onclick="switchTab('basic')" 
+        id="tab-btn-basics" 
+        onclick="switchTab('basics')" 
         class="flex items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer"
       >
         <span class="text-[10px] sm:text-sm mr-1.5 opacity-80 sm:opacity-100">///</span>
-        <span>BASIC COURSES</span>
+        <span>FIELD BASICS</span>
       </button>
 
       <button 
-        id="tab-btn-advanced" 
-        onclick="switchTab('advanced')" 
+        id="tab-btn-tactics" 
+        onclick="switchTab('tactics')" 
         class="flex items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
       >
         <span class="text-[10px] sm:text-sm mr-1.5 opacity-80 sm:opacity-100">///</span>
-        <span>ADVANCED TRAINING</span>
+        <span>TACTICAL OPERATIONS</span>
       </button>
 
       <button 
-        id="tab-btn-optional" 
-        onclick="switchTab('optional')" 
+        id="tab-btn-specialized" 
+        onclick="switchTab('specialized')" 
         class="flex items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
       >
         <span class="text-[10px] sm:text-sm mr-1.5 opacity-80 sm:opacity-100">///</span>
-        <span>OPTIONAL COURSES</span>
+        <span>SPECIALIZED GUIDES</span>
       </button>
 
       <a 
@@ -112,19 +112,19 @@
   <!-- CATEGORY: MAIN CONTENT AREA -->
   <main class="flex-1 overflow-y-auto max-w-[1600px] w-full mx-auto p-6 space-y-6">
 
-    <!-- CATEGORY: VIEW - BASIC COURSES -->
-    <div id="view-basic">
-      <div id="grid-basic" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+    <!-- CATEGORY: VIEW - FIELD BASICS -->
+    <div id="view-basics">
+      <div id="grid-basics" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </div>
 
-    <!-- CATEGORY: VIEW - ADVANCED TRAINING -->
-    <div id="view-advanced" class="hidden">
-      <div id="grid-advanced" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+    <!-- CATEGORY: VIEW - TACTICAL OPERATIONS -->
+    <div id="view-tactics" class="hidden">
+      <div id="grid-tactics" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </div>
 
-    <!-- CATEGORY: VIEW - OPTIONAL COURSES -->
-    <div id="view-optional" class="hidden">
-      <div id="grid-optional" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+    <!-- CATEGORY: VIEW - SPECIALIZED GUIDES -->
+    <div id="view-specialized" class="hidden">
+      <div id="grid-specialized" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </div>
 
   </main>
@@ -152,132 +152,132 @@
   <script>
     /* CATEGORY: TAB STATE MANAGEMENT */
     let tabState = {
-      basic: 'on',
-      advanced: 'off',
-      optional: 'off'
+      basics: 'on',
+      tactics: 'off',
+      specialized: 'off'
     };
 
-    /* CATEGORY: COURSE DATA STORES */
-    const basicCourses = [
+    /* CATEGORY: GUIDE DATA STORES */
+    const basicGuides = [
       {
-        code: "COURSE 101",
-        title: "Keybinds & Movement Controls",
-        desc: "Learn easy key setups, strafe movement, and fast dodge mechanics.",
+        code: "MANUAL 101",
+        title: "Keybinds & Ergonomics",
+        desc: "Optimize controls, strafe mechanics, and single-button dodge setups for comfortable play.",
         url: "./class101/index.html"
       },
       {
-        code: "COURSE 102",
-        title: "Map Navigation & Field Patrol",
-        desc: "Learn map exploration, hero points, 5-player dungeons, and Pact Commander leveling.",
+        code: "MANUAL 102",
+        title: "Map Navigation & Exploration",
+        desc: "Master waypoints, renown hearts, map completion tricks, and early dungeons.",
         url: "./class102/index.html"
       },
       {
-        code: "COURSE 103",
-        title: "Bags & Item Storage",
-        desc: "Organize your inventory, manage bank slots, and clear space fast.",
+        code: "MANUAL 103",
+        title: "Inventory & Storage Logistics",
+        desc: "Set up invisible bags, auto-deposit materials, and master salvage kit choices.",
         url: "./class103/index.html"
       },
       {
-        code: "COURSE 104",
-        title: "Map Travel & Mount Controls",
-        desc: "Travel maps faster using waypoints, mounts, and speed boosts.",
+        code: "MANUAL 104",
+        title: "Fast Travel & Mount Controls",
+        desc: "Cross maps quickly using mount abilities, speed buffs, and waypoint tactics.",
         url: "./class104/index.html"
       },
       {
-        code: "COURSE 105",
-        title: "Trading Post Basics",
-        desc: "How to buy items, sell gear, and earn gold on the market.",
+        code: "MANUAL 105",
+        title: "Trading Post & Economy",
+        desc: "Buy gear smart, set custom orders, understand taxes, and make gold effortlessly.",
         url: "./class105/index.html"
       },
       {
-        code: "COURSE 106",
-        title: "Gear Stats & Character Power",
-        desc: "Understand weapon stats, damage types, and gear choices.",
+        code: "MANUAL 106",
+        title: "Hero Points & Build Templates",
+        desc: "Gather Hero Points efficiently, match trait lines, and set up fast build swaps.",
         url: "./class106/index.html"
       }
     ];
 
-    const advancedCourses = [
+    const tacticalGuides = [
       {
-        code: "COURSE 201",
-        title: "Group Buffs & Break Bars",
-        desc: "Learn team subgroup setups, boon sharing, and crowd control skills.",
+        code: "TACTICS 201",
+        title: "Boons & Breakbars",
+        desc: "Understand status effects, crowd control bars, and group boon sharing.",
         url: "./class201/index.html"
       },
       {
-        code: "COURSE 202",
-        title: "Priory Lore & World Guides",
-        desc: "Read world history, study ancient secrets, and write field guides.",
+        code: "TACTICS 202",
+        title: "Priory Archives & Lore",
+        desc: "Explore Tyrian history, ancient relics, and deep world background.",
         url: "./class202/index.html"
       },
       {
-        code: "COURSE 203",
-        title: "Commander Tag Basics",
-        desc: "How to lead 50-player squads, set markers, and talk in map chat.",
+        code: "TACTICS 203",
+        title: "Squad Leadership & Command",
+        desc: "Set map markers, manage 50-player squads, and lead open-world groups.",
         url: "./class203/index.html"
       },
       {
-        code: "COURSE 204",
-        title: "Boss Fights & Strike Missions",
-        desc: "Master skill rotations, fight mechanics, and damage windows.",
+        code: "TACTICS 204",
+        title: "Encounters & Boss Rotations",
+        desc: "Master strike encounters, damage windows, and active combat reflexes.",
         url: "./class204/index.html"
       },
       {
-        code: "COURSE 205",
-        title: "Open World Map Events",
-        desc: "Coordinate squad lanes, split teams across maps, and time events.",
+        code: "TACTICS 205",
+        title: "Open World Meta Trains",
+        desc: "Coordinate map lanes, time event spawns, and run profitable meta event routes.",
         url: "./class205/index.html"
       },
       {
-        code: "COURSE 206",
-        title: "Build Testing & Fine Tuning",
-        desc: "Combine relics, armor runes, and traits to max out your damage.",
+        code: "TACTICS 206",
+        title: "Build Optimization & Fine Tuning",
+        desc: "Fine-tune stat combinations, gear runes, and relics for maximum output.",
         url: "./class206/index.html"
       }
     ];
 
-    const optionalCourses = [
+    const specializedGuides = [
       {
-        code: "OPTIONAL 301",
-        title: "Jumping Puzzles & Vista Routes",
-        desc: "Master tricky environmental platforming and terrain navigation shortcuts.",
+        code: "SPECIAL 301",
+        title: "Jumping Puzzles & Terrain",
+        desc: "Shortcut guides and movement techniques for tricky platforming challenges.",
         url: "./optional301/index.html"
       },
       {
-        code: "OPTIONAL 302",
+        code: "SPECIAL 302",
         title: "Crafting & Refinement",
-        desc: "Level up discipline ranks, refine ores, and craft time-gated ascendants.",
+        desc: "Level crafting disciplines, refine rare materials, and craft ascended gear.",
         url: "./optional302/index.html"
       },
       {
-        code: "OPTIONAL 303",
-        title: "Fashion Wars & Wardrobe",
-        desc: "Unlock armor skins, manage transmutation charges, and apply dyes.",
+        code: "SPECIAL 303",
+        title: "Fashion & Wardrobe Unlocks",
+        desc: "Manage transmutation charges, unlock skins, and match dye palettes.",
         url: "./optional303/index.html"
       }
     ];
 
-    /* CATEGORY: DYNAMIC COURSE RENDER ENGINE */
-    function renderGrid(containerId, coursesList) {
+    /* CATEGORY: DYNAMIC RENDER ENGINE */
+    function renderGrid(containerId, list) {
       const container = document.getElementById(containerId);
       if (!container) return;
 
       let html = '';
-      coursesList.forEach(c => {
+      list.forEach(g => {
         html += `
           <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan">
             <div>
               <div class="text-xs sm:text-sm mb-2">
-                <span class="text-amber-400 font-bold">${c.code}</span>
+                <span class="text-amber-400 font-bold">${g.code}</span>
               </div>
-              <div class="text-base font-bold text-white mb-1.5">${c.title}</div>
-              <p class="text-sm text-white leading-relaxed">${c.desc}</p>
+              <div class="text-base font-bold text-white mb-1.5">${g.title}</div>
+              <p class="text-sm text-white leading-relaxed">${g.desc}</p>
             </div>
             <a 
-              href="${c.url}" 
+              href="${g.url}" 
               class="w-full py-2.5 bg-slate-900 border border-cyan-500/50 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all text-center block cursor-pointer"
             >
-              Access Course
+              Open Manual
             </a>
           </div>
         `;
@@ -286,12 +286,12 @@
     }
 
     function renderAllGrids() {
-      renderGrid('grid-basic', basicCourses);
-      renderGrid('grid-advanced', advancedCourses);
-      renderGrid('grid-optional', optionalCourses);
+      renderGrid('grid-basics', basicGuides);
+      renderGrid('grid-tactics', tacticalGuides);
+      renderGrid('grid-specialized', specializedGuides);
     }
 
-    /* CATEGORY: NAVIGATION TAB ENGINE */
+    /* CATEGORY: TAB NAVIGATION ENGINE */
     function switchTab(selectedTab) {
       Object.keys(tabState).forEach(key => {
         tabState[key] = (key === selectedTab) ? 'on' : 'off';
@@ -300,7 +300,7 @@
     }
 
     function renderTabViews() {
-      const tabs = ['basic', 'advanced', 'optional'];
+      const tabs = ['basics', 'tactics', 'specialized'];
       
       tabs.forEach(tab => {
         const viewEl = document.getElementById(`view-${tab}`);
