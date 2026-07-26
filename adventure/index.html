@@ -57,7 +57,7 @@
 
       <div class="text-center space-y-0.5">
         <h1 class="text-base sm:text-xl font-bold text-cyan-400 tracking-wider uppercase">
-          Adventurer Journal: Live World Boss Schedule & Waypoints
+          Adventurer Journal: Live World Boss Schedule & External Tools
         </h1>
       </div>
 
@@ -87,48 +87,55 @@
     </div>
   </header>
 
-  <!-- CATEGORY: TAB NAVIGATION / 4 LINKS -->
-  <nav class="shrink-0 bg-slate-950 max-w-[1600px] w-full mx-auto px-6 pt-8 pb-3 mt-4">
-    <div class="flex flex-wrap justify-center border-b border-slate-800 gap-2 text-xs sm:text-sm font-bold">
-      <a 
-        href="../index.html" 
-        class="flex items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
-      >
-        <span class="text-[10px] sm:text-sm mr-1.5 opacity-80 sm:opacity-100">///</span>
-        <span>FIELD BASICS</span>
-      </a>
-
-      <a 
-        href="../index.html" 
-        class="flex items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
-      >
-        <span class="text-[10px] sm:text-sm mr-1.5 opacity-80 sm:opacity-100">///</span>
-        <span>ADVANCED GUIDES</span>
-      </a>
-
-      <a 
-        href="./index.html" 
-        class="flex items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/60 transition-all cursor-pointer"
-      >
-        <span class="text-[10px] sm:text-sm mr-1.5 opacity-80 sm:opacity-100">///</span>
-        <span>ADVENTURER JOURNAL</span>
-      </a>
-
-      <a 
-        href="https://liar.fyi" 
-        target="_blank"
-        class="flex items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
-      >
-        <span class="text-[10px] sm:text-sm mr-1.5 opacity-80 sm:opacity-100">///</span>
-        <span>THE LIARS GUILD</span>
-      </a>
-    </div>
-  </nav>
-
   <!-- CATEGORY: MAIN CONTENT AREA -->
   <main class="flex-1 overflow-y-auto max-w-[1600px] w-full mx-auto p-6 space-y-6">
 
     <div class="animate-fade-in space-y-6">
+
+      <!-- CATEGORY: 4 BOXED EXTERNAL LINKS -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- GW2 EFFICIENT -->
+        <a href="https://gw2efficiency.com/" target="_blank" class="p-5 border border-slate-800 bg-slate-900/60 rounded-sm flex flex-col justify-between space-y-3 glow-cyan transition-all hover:-translate-y-1 block cursor-pointer">
+          <div class="space-y-1">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Account Utility</div>
+            <h3 class="text-base font-bold text-white">GW2 Efficiency</h3>
+            <p class="text-xs text-slate-300">Track achievements, crafting materials, wealth, and character progress.</p>
+          </div>
+          <span class="text-xs text-cyan-400 font-bold underline">Open Tool &rarr;</span>
+        </a>
+
+        <!-- GW2 CRAFTING -->
+        <a href="https://gw2crafts.net/" target="_blank" class="p-5 border border-slate-800 bg-slate-900/60 rounded-sm flex flex-col justify-between space-y-3 glow-cyan transition-all hover:-translate-y-1 block cursor-pointer">
+          <div class="space-y-1">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Discipline Guides</div>
+            <h3 class="text-base font-bold text-white">GW2 Crafting</h3>
+            <p class="text-xs text-slate-300">Fastest and cheapest leveling guides for all crafting disciplines.</p>
+          </div>
+          <span class="text-xs text-cyan-400 font-bold underline">Open Guide &rarr;</span>
+        </a>
+
+        <!-- SNOW CROWS -->
+        <a href="https://snowcrows.com/" target="_blank" class="p-5 border border-slate-800 bg-slate-900/60 rounded-sm flex flex-col justify-between space-y-3 glow-cyan transition-all hover:-translate-y-1 block cursor-pointer">
+          <div class="space-y-1">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Endgame Builds</div>
+            <h3 class="text-base font-bold text-white">Snow Crows</h3>
+            <p class="text-xs text-slate-300">Professional raid builds, strike rotations, and gear optimization.</p>
+          </div>
+          <span class="text-xs text-cyan-400 font-bold underline">Open Builds &rarr;</span>
+        </a>
+
+        <!-- GW2 WIKI -->
+        <a href="https://wiki.guildwars2.com/" target="_blank" class="p-5 border border-slate-800 bg-slate-900/60 rounded-sm flex flex-col justify-between space-y-3 glow-cyan transition-all hover:-translate-y-1 block cursor-pointer">
+          <div class="space-y-1">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Knowledge Base</div>
+            <h3 class="text-base font-bold text-white">GW2 Wiki</h3>
+            <p class="text-xs text-slate-300">The official database for items, events, collections, and guides.</p>
+          </div>
+          <span class="text-xs text-cyan-400 font-bold underline">Open Wiki &rarr;</span>
+        </a>
+
+      </div>
       
       <!-- CATEGORY: TOP 3 PRIORITY WORLD BOSSES -->
       <div class="space-y-4">
