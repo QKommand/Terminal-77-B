@@ -57,10 +57,10 @@
 
       <div class="text-center sm:text-right space-y-0.5">
         <h1 class="text-base sm:text-xl font-bold text-cyan-400 tracking-wider uppercase">
-          Adventurer Journal & Field Deck
+          Adventurer Journal
         </h1>
         <p class="text-xs text-slate-300">
-          [LIAR] Tyrian Field Archives // Operational Suite
+          [LIAR] Tyrian Field Archives // Quick Reference Suite
         </p>
       </div>
     </div>
@@ -93,115 +93,13 @@
 
     <div class="animate-fade-in space-y-6">
 
-      <!-- CATEGORY: ACCOUNT TELEMETRY -->
-      <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-4">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-800 pb-3 gap-2">
-          <div>
-            <h2 class="text-base font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
-              <span>///</span> FIELD DOSSIER & ACCOUNT TELEMETRY
-            </h2>
-            <p class="text-xs text-slate-300">Live Passport Verification</p>
-          </div>
-          <span id="dossier-status-tag" class="text-xs px-2.5 py-1 bg-amber-500/20 text-amber-400 border border-amber-500/40 rounded font-bold uppercase">
-            GUEST MODE
-          </span>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm space-y-1">
-            <span class="text-xs text-slate-400 uppercase font-bold">ACCOUNT HANDLE</span>
-            <div id="account-handle" class="text-base font-bold text-white font-mono">Commander.1234</div>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm space-y-1">
-            <span class="text-xs text-slate-400 uppercase font-bold">ACTIVE GUILD AFFILIATION</span>
-            <div id="guild-badges" class="flex items-center gap-2 font-mono text-xs">
-              <span class="px-2 py-0.5 bg-cyan-950 border border-cyan-500/50 text-cyan-400 font-bold rounded">[LIAR]</span>
-              <span class="text-slate-300">The Liars Guild</span>
-            </div>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm space-y-1">
-            <span class="text-xs text-slate-400 uppercase font-bold">READINESS STATUS</span>
-            <div id="readiness-status" class="text-base font-bold text-amber-400 font-mono">ACTIVE OPERATIVE</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- CATEGORY: PROGRESS WHEELS -->
+      <!-- CATEGORY: QUICK RESOURCES -->
       <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-4">
         <div class="border-b border-slate-800 pb-3">
           <h2 class="text-base font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
-            <span>///</span> ACCOUNT PROGRESS GAUGES
+            <span>///</span> QUICK RESOURCES
           </h2>
-          <p class="text-xs text-slate-300">Field Archives & Tyrian Exploration Audit</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="p-5 bg-slate-950 border border-slate-800 rounded-sm flex flex-col items-center text-center space-y-3">
-            <span class="text-xs font-bold text-slate-300 uppercase">World Map Completion</span>
-            <div class="relative w-28 h-28 flex items-center justify-center">
-              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                <path class="text-slate-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                <path id="wheel-map-path" class="text-cyan-400" stroke-dasharray="68, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-              </svg>
-              <span id="wheel-map-text" class="absolute text-lg font-bold font-mono text-white">68%</span>
-            </div>
-            <span class="text-xs text-slate-400">Core Tyria & Expansions</span>
-          </div>
-
-          <div class="p-5 bg-slate-950 border border-slate-800 rounded-sm flex flex-col items-center text-center space-y-3">
-            <span class="text-xs font-bold text-slate-300 uppercase">Field Manuals Audited</span>
-            <div class="relative w-28 h-28 flex items-center justify-center">
-              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                <path class="text-slate-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                <path id="wheel-course-path" class="text-amber-400" stroke-dasharray="83, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-              </svg>
-              <span id="wheel-course-text" class="absolute text-lg font-bold font-mono text-white">5/6</span>
-            </div>
-            <span class="text-xs text-slate-400">Basics Completed</span>
-          </div>
-
-          <div class="p-5 bg-slate-950 border border-slate-800 rounded-sm flex flex-col items-center text-center space-y-3">
-            <span class="text-xs font-bold text-slate-300 uppercase">Crafting Mastery</span>
-            <div class="relative w-28 h-28 flex items-center justify-center">
-              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                <path class="text-slate-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                <path id="wheel-craft-path" class="text-emerald-400" stroke-dasharray="50, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-              </svg>
-              <span id="wheel-craft-text" class="absolute text-lg font-bold font-mono text-white">4/8</span>
-            </div>
-            <span class="text-xs text-slate-400">Maxed Disciplines (500)</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- CATEGORY: SCROLLABLE CORE TYRIA WORLD BOSS SCHEDULE -->
-      <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-4">
-        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-          <div>
-            <h2 class="text-base font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
-              <span>///</span> CORE TYRIA WORLD BOSS SCHEDULE
-            </h2>
-            <p class="text-xs text-slate-300">Live Tactical Encounter Timers & Fast-Travel Codes</p>
-          </div>
-          <span class="text-xs text-amber-400 font-bold font-mono animate-pulse">● LIVE METAS</span>
-        </div>
-
-        <div class="max-h-[380px] overflow-y-auto pr-2">
-          <div id="world-boss-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            <!-- Dynamic boss cards rendered via JS -->
-          </div>
-        </div>
-      </section>
-
-      <!-- CATEGORY: EXTERNAL TACTICAL RESOURCES -->
-      <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-4">
-        <div class="border-b border-slate-800 pb-3">
-          <h2 class="text-base font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
-            <span>///</span> EXTERNAL TACTICAL RESOURCES
-          </h2>
-          <p class="text-xs text-slate-300">Essential External Tools & Database Portals</p>
+          <p class="text-xs text-slate-300">Essential External Tools & Reference Portals</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -259,6 +157,25 @@
         </div>
       </section>
 
+      <!-- CATEGORY: SCROLLABLE CORE TYRIA WORLD BOSS SCHEDULE LIST -->
+      <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-4">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+          <div>
+            <h2 class="text-base font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
+              <span>///</span> CORE TYRIA WORLD BOSS SCHEDULE
+            </h2>
+            <p class="text-xs text-slate-300">Live Encounter Timers & Waypoint Codes</p>
+          </div>
+          <span class="text-xs text-amber-400 font-bold font-mono animate-pulse">● LIVE METAS</span>
+        </div>
+
+        <div class="max-h-[460px] overflow-y-auto pr-2">
+          <div id="world-boss-list" class="space-y-3">
+            <!-- Dynamic boss list items rendered via JS -->
+          </div>
+        </div>
+      </section>
+
     </div>
 
   </main>
@@ -271,12 +188,12 @@
       </p>
 
       <div class="flex items-center space-x-4 text-xs">
-        <a href="https://liar.fyi" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 cursor-pointer">
-          The Liars Guild
-        </a>
+        <span class="text-white">
+          Written by <a href="https://liar.fyi" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 cursor-pointer font-bold">The Liars Guild</a>
+        </span>
         <span class="text-slate-700">|</span>
         <span class="text-white">
-          Powered by <a href="https://qkommand.github.io/home/" target="_blank" class="text-white hover:text-cyan-400 underline font-bold cursor-pointer">Commander Q</a>
+          Site Builder: <a href="https://qkommand.github.io/home/" target="_blank" class="text-white hover:text-cyan-400 underline font-bold cursor-pointer">Commander Q</a>
         </span>
       </div>
     </div>
@@ -284,9 +201,6 @@
 
   <!-- CATEGORY: LOGIC ENGINE -->
   <script>
-    /* CATEGORY: STATE MANAGEMENT TOGGLES */
-    let apiSyncState = 'off';
-
     /* CATEGORY: WORLD BOSS DATA STORE */
     const worldBosses = [
       {
@@ -333,28 +247,31 @@
       }
     ];
 
-    /* CATEGORY: WORLD BOSS RENDER ENGINE */
+    /* CATEGORY: WORLD BOSS LIST RENDER ENGINE */
     function renderWorldBosses() {
-      const container = document.getElementById('world-boss-grid');
+      const container = document.getElementById('world-boss-list');
       if (!container) return;
 
       let html = '';
       worldBosses.forEach(boss => {
         html += `
-          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm space-y-3 flex flex-col justify-between">
-            <div class="space-y-1">
-              <div class="flex justify-between items-center text-xs">
-                <span class="text-amber-400 font-bold">${boss.zone}</span>
-                <span class="text-emerald-400 font-mono font-bold">${boss.time}</span>
+          <div class="p-4 bg-slate-950 border border-slate-800 hover:border-slate-700 rounded-sm flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors">
+            <div class="space-y-1 max-w-3xl">
+              <div class="flex items-center gap-3">
+                <h3 class="text-base font-bold text-white">${boss.name}</h3>
+                <span class="text-xs text-amber-400 font-bold px-2 py-0.5 bg-slate-900 border border-slate-800 rounded">${boss.zone}</span>
               </div>
-              <h3 class="text-base font-bold text-white">${boss.name}</h3>
-              <p class="text-xs text-slate-400">Pre-Boss Prep: ${boss.prep}</p>
+              <p class="text-xs text-slate-400"><strong class="text-slate-300">Prep:</strong> ${boss.prep}</p>
             </div>
-            <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between">
-              <span class="text-xs text-cyan-300 font-mono font-bold">${boss.waypoint}</span>
-              <button onclick="copyWaypoint('${boss.waypoint}')" class="text-[11px] px-2 py-1 bg-slate-900 border border-cyan-500/40 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold rounded transition-all cursor-pointer">
-                COPY WP
-              </button>
+
+            <div class="flex items-center justify-between md:justify-end gap-4 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-slate-800/80">
+              <span class="text-emerald-400 font-mono text-sm font-bold">${boss.time}</span>
+              <div class="flex items-center gap-2">
+                <span class="text-xs text-cyan-300 font-mono font-bold">${boss.waypoint}</span>
+                <button onclick="copyWaypoint('${boss.waypoint}')" class="text-[11px] px-3 py-1 bg-slate-900 border border-cyan-500/40 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold rounded transition-all cursor-pointer">
+                  COPY WP
+                </button>
+              </div>
             </div>
           </div>
         `;
