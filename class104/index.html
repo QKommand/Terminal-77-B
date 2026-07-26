@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Class 104 // Priory Archive Terminal 77-B</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* CATEGORY: AMBIENT TERMINAL EFFECTS */
+    .scanline {
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0, 0, 0, 0.35) 50%,
+        rgba(0, 0, 0, 0.35)
+      );
+      background-size: 100% 4px;
+    }
+  </style>
+</head>
+<body class="font-mono min-h-screen relative selection:bg-amber-500 selection:text-slate-950">
+  <div class="fixed inset-0 pointer-events-none scanline opacity-40 z-50"></div>
+
+  <!-- CATEGORY: TERMINAL HEADER -->
+  <header class="border-b border-slate-800 bg-slate-900/90 px-6 py-4 sticky top-0 z-40 backdrop-blur">
+    <div class="max-w-6xl mx-auto flex justify-between items-center text-xs">
+      <div class="flex items-center gap-2">
+        <span class="h-2 w-2 rounded-full bg-cyan-400 animate-pulse"></span>
+        <span class="text-slate-400">PRIORY ARCHIVE // CLASS 104</span>
+      </div>
+      <a href="../index.html" class="text-amber-400 hover:text-amber-300 font-bold">← Return to Terminal 77-B</a>
+    </div>
+  </header>
+
+  <!-- CATEGORY: MAIN CONTENT AREA -->
+  <main class="max-w-4xl mx-auto px-6 py-8 space-y-8">
+    
+    <!-- CATEGORY: NARRATIVE BRIEFING -->
+    <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-lg space-y-3">
+      <div class="text-xs text-amber-400 tracking-widest font-semibold uppercase">FIELD BRIEFING // MAP TRAVEL & MOUNT CONTROLS</div>
+      <h1 class="text-2xl font-bold text-slate-100">NAVIGATE TYRIA WITH SPEED, ADVENTURER</h1>
+      <p class="text-sm text-slate-300 leading-relaxed font-sans">
+        Crossing entire regions on foot will leave you stranded far behind when open-world meta events and squad commanders move across the map. Master fast travel waypoints, movement speed boosts, and the specialized abilities of ground, water, and aerial mounts.
+      </p>
+      <p class="text-sm text-slate-300 leading-relaxed font-sans">
+        Use this field manual to set up dedicated mount keybinds, understand movement speed limits, and execute tactical dismounts in active battle zones.
+      </p>
+    </section>
+
+    <!-- CATEGORY: MODULE 1 -->
+    <section class="border border-slate-800 bg-slate-900/40 rounded-lg overflow-hidden">
+      <details class="group" open>
+        <summary class="flex justify-between items-center p-5 cursor-pointer bg-slate-900/80 hover:bg-slate-800/60 transition-colors">
+          <span class="font-bold text-slate-200">MODULE 1: WAYPOINTS & MOVEMENT SPEED BOOSTS</span>
+          <span class="text-xs text-amber-400 group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        
+        <div class="p-6 space-y-6 text-sm font-sans border-t border-slate-800">
+          <div class="space-y-2">
+            <h3 class="font-mono text-cyan-400 font-semibold text-xs uppercase tracking-wider">Fast Travel & Speed Caps</h3>
+            <p class="text-slate-300 leading-relaxed">
+              Waypoints provide instant map travel for a minor copper fee. On foot, movement speed is dictated by boon application and character traits.
+            </p>
+          </div>
+
+          <div class="space-y-3 font-mono text-xs">
+            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
+              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m1-waypoints" />
+              <span class="text-slate-300">Unlock waypoints in every new zone instantly—they serve as fast-travel anchors when responding to map pings during meta trains.</span>
+            </label>
+
+            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
+              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m1-swiftness" />
+              <span class="text-slate-300">Test maintaining <strong>Swiftness</strong> (+33% movement speed) via skill rotations or class traits while traveling on foot.</span>
+            </label>
+
+            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
+              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m1-superspeed" />
+              <span class="text-slate-300">Identify skills that grant <strong>Superspeed</strong> to hit the absolute movement speed ceiling (+100%) during high-pressure mechanics.</span>
+            </label>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- CATEGORY: MODULE 2 -->
+    <section class="border border-slate-800 bg-slate-900/40 rounded-lg overflow-hidden">
+      <details class="group">
+        <summary class="flex justify-between items-center p-5 cursor-pointer bg-slate-900/80 hover:bg-slate-800/60 transition-colors">
+          <span class="font-bold text-slate-200">MODULE 2: GROUND MOUNT MECHANICS</span>
+          <span class="text-xs text-amber-400 group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        
+        <div class="p-6 space-y-6 text-sm font-sans border-t border-slate-800">
+          <div class="space-y-2">
+            <h3 class="font-mono text-cyan-400 font-semibold text-xs uppercase tracking-wider">Terrain Traversal</h3>
+            <p class="text-slate-300 leading-relaxed">
+              Ground mounts bypass environmental barriers through unique movement skills. Matching the correct mount to the terrain prevents fall damage and dead ends.
+            </p>
+          </div>
+
+          <div class="space-y-3 font-mono text-xs">
+            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
+              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m2-raptor-leap" />
+              <span class="text-slate-300">Practice horizontal distance leaps with the <strong>Raptor</strong> to clear long ravines and river gaps.</span>
+            </label>
+
+            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
+              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m2-springer-jump" />
+              <span class="text-slate-300">Master vertical charge jumps with the <strong>Springer</strong> to scale steep cliffs and high ledges.</span>
+            </label>
+
+            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
+              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m2-jackal-blink" />
+              <span class="text-slate-300">Utilize the <strong>Jackal's</strong> evade-blink to teleport through sand portals and bypass hostile attack animations mid-sprint.</span>
+            </label>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- CATEGORY: MODULE 3 -->
+    <section class="border border-slate-800 bg-slate-900/40 rounded-lg overflow-hidden">
+      <details class="group">
+        <summary class="flex justify-between items-center p-5 cursor-pointer bg-slate-900/80 hover:bg-slate-800/60 transition-colors">
+          <span class="font-bold text-slate-200">MODULE 3: WATER & AERIAL FLIGHT CONTROLS</span>
+          <span class="text-xs text-amber-400 group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        
+        <div class="p-6 space-y-6 text-sm font-sans border-t border-slate-800">
+          <div class="space-y-2">
+            <h3 class="font-mono text-cyan-400 font-semibold text-xs uppercase tracking-wider">3D Navigation & Pitch Controls</h3>
+            <p class="text-slate-300 leading-relaxed">
+              Water and flying mounts require controlling altitude and pitch momentum. Hovering and diving mechanics allow seamless travel over hazardous hazards.
+            </p>
+          </div>
+
+          <div class="space-y-3 font-mono text-xs">
+            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
+              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m3-skimmer-water" />
+              <span class="text-slate-300">Use the <strong>Skimmer</strong> to hover across open water, sulfur pools, and branded ground without taking environmental damage.</span>
+            </label>
+
+            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
+              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m3-griffon-dive" />
+              <span class="text-slate-300">Practice pitch diving with the <strong>Griffon</strong> to convert height into maximum airspeed across open skies.</span>
+            </label>
+
+            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
+              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m3-skyscale-hover" />
+              <span class="text-slate-300">Master stationary hovering, wall-climbing, and endurance management with the <strong>Skyscale</strong>.</span>
+            </label>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- CATEGORY: MODULE 4 -->
+    <section class="border border-slate-800 bg-slate-900/40 rounded-lg overflow-hidden">
+      <details class="group">
+        <summary class="flex justify-between items-center p-5 cursor-pointer bg-slate-900/80 hover:bg-slate-800/60 transition-colors">
+          <span class="font-bold text-slate-200">MODULE 4: DRILLS & ERGONOMIC CONTROL CONFIGURATION</span>
+          <span class="text-xs text-amber-400 group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        
+        <div class="p-6 space-y-6 text-sm font-sans border-t border-slate-800">
+          <div class="space-y-2">
+            <h3 class="font-mono text-cyan-400 font-semibold text-xs uppercase tracking-wider">Control Customization</h3>
+            <p class="text-slate-300 leading-relaxed">
+              Fumbling through drop-down menus to summon mounts in combat will slow you down. Rebind specific mounts to individual keys or radial wheels.
+            </p>
+          </div>
+
+          <div class="space-y-3 font-mono text-xs">
+            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
+              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m4-mount-binds" />
+              <span class="text-slate-300">Set up dedicated keybinds for primary ground and flying mounts in Control Options instead of relying on default menus.</span>
+            </label>
+
+            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
+              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m4-dismount-attack" />
+              <span class="text-slate-300">Execute engagement dismount skills (Skill 1 while mounted) to initiate combat with instant damage and crowd control.</span>
+            </label>
+          </div>
+        </div>
+      </details>
+    </section>
+
+  </main>
+
+  <!-- CATEGORY: PERSISTENCE SCRIPT -->
+  <script>
+    const STORAGE_KEY = 'priory_class104_checkboxes';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      const checkboxes = document.querySelectorAll('.id-check');
+
+      checkboxes.forEach(box => {
+        const id = box.getAttribute('data-id');
+        if (savedState[id] === 'on') {
+          box.checked = true;
+        }
+
+        box.addEventListener('change', () => {
+          savedState[id] = box.checked ? 'on' : 'off';
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
+        });
+      });
+    });
+  </script>
+</body>
+</html>
