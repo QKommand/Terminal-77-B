@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-white">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Course 206 // [LIAR] Tyrian Field Archives</title>
+  
+  <!-- CATEGORY: EXTERNAL DEPENDENCIES -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- CATEGORY: STYLES & ANIMATIONS -->
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    .glow-cyan {
+      box-shadow: 0 0 14px rgba(34, 211, 238, 0.15);
+    }
+    .glow-cyan:hover {
+      box-shadow: 0 0 22px rgba(34, 211, 238, 0.35);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #0f172a;
+      border: 1px solid #22d3ee;
+    }
+  </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden relative bg-slate-950 text-white selection:bg-cyan-500 selection:text-slate-950">
+
+  <!-- CATEGORY: STICKY HEADER -->
+  <header class="shrink-0 border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-6 py-4 space-y-3">
+    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+      <a 
+        href="../index.html" 
+        class="inline-flex items-center gap-2 px-4 py-2 bg-slate-950 border border-cyan-500/40 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all cursor-pointer"
+      >
+        <span>&larr;</span>
+        <span>Return To Main Directory</span>
+      </a>
+
+      <div class="text-center space-y-0.5">
+        <h1 class="text-base sm:text-xl font-bold text-cyan-400 tracking-wider uppercase">
+          Course 206: Advanced Combat Skills & Techniques
+        </h1>
+      </div>
+
+      <div class="hidden md:block w-48"></div>
+    </div>
+
+    <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 pt-3 border-t border-slate-800 text-xs sm:text-sm text-center md:text-left items-center">
+      <div class="flex items-center justify-center md:justify-start gap-2">
+        <span class="text-slate-300 font-bold">TYRIAN TIME:</span>
+        <span id="tyria-clock-time" class="text-amber-400 font-bold flex items-center gap-1.5">--:--</span>
+      </div>
+
+      <div class="text-center md:text-left">
+        <span class="text-slate-300 font-bold">SERVER TIME:</span>
+        <span id="server-clock" class="text-cyan-400 font-bold ml-1">--:--:-- UTC</span>
+      </div>
+
+      <div class="text-center">
+        <span class="text-slate-300 font-bold">LOCATION:</span>
+        <span class="text-cyan-400 font-bold ml-1">DURMAND PRIORY // TERMINAL 77-B</span>
+      </div>
+
+      <div class="text-center md:text-right">
+        <span class="text-slate-300 font-bold">LOCAL TIME:</span>
+        <span id="local-clock" class="text-emerald-400 font-bold ml-1">--:--:--</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- CATEGORY: MAIN CONTENT AREA -->
+  <main class="flex-1 overflow-y-auto max-w-[1600px] w-full mx-auto p-6 space-y-6">
+
+    <div class="animate-fade-in space-y-6">
+      
+      <!-- CATEGORY: LESSON OVERVIEW -->
+      <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-3">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+          <h2 class="text-base font-bold text-cyan-400 uppercase tracking-wider">
+            Lesson Goal
+          </h2>
+          <span class="text-xs text-amber-400 font-bold">[ADVANCED TRACK]</span>
+        </div>
+        <p class="text-sm text-white leading-relaxed">
+          Master advanced combat timing and synergy. Learning these techniques transforms you from an individual fighter into a powerful team asset: you will learn how to amplify your squad's damage with element combos, protect your health with temporary energy shields, and react instantly by reading your skill bar's visual warnings.
+        </p>
+      </section>
+
+      <!-- CATEGORY: MODULES GRID -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- MODULE 1 -->
+        <section class="p-6 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan transition-all hover:-translate-y-1">
+          <div class="space-y-3">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">
+              Module 01
+            </div>
+            <h3 class="text-lg font-bold text-white">
+              Skill Combos (Fields + Finishers)
+            </h3>
+            <p class="text-sm text-white leading-relaxed">
+              Combine elemental zones on the ground with active attack finishers to trigger powerful bonus area effects for your entire squad.
+            </p>
+          </div>
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded text-xs text-cyan-300 font-mono">
+            Combo Fields + 4 Finisher Types
+          </div>
+        </section>
+
+        <!-- MODULE 2 -->
+        <section class="p-6 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan transition-all hover:-translate-y-1">
+          <div class="space-y-3">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">
+              Module 02
+            </div>
+            <h3 class="text-lg font-bold text-white">
+              Barrier Mechanics
+            </h3>
+            <p class="text-sm text-white leading-relaxed">
+              Absorb heavy incoming damage before it touches your actual health pool using temporary bubble-wrap shield layers over your health orb.
+            </p>
+          </div>
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded text-xs text-cyan-300 font-mono">
+            Yellow Shield Layer | 5-Second Rule
+          </div>
+        </section>
+
+        <!-- MODULE 3 -->
+        <section class="p-6 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan transition-all hover:-translate-y-1">
+          <div class="space-y-3">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">
+              Module 03
+            </div>
+            <h3 class="text-lg font-bold text-white">
+              Skill Bar UI Cues
+            </h3>
+            <p class="text-sm text-white leading-relaxed">
+              Read visual indicators on your skill bar—like auto-attack rings, range underlines, and pulsing white outlines—to react instantly during chaotic fights.
+            </p>
+          </div>
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded text-xs text-cyan-300 font-mono">
+            Auto-Attack | Range | Breakbar Cues
+          </div>
+        </section>
+
+        <!-- MODULE 4 -->
+        <section class="p-6 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan transition-all hover:-translate-y-1">
+          <div class="space-y-3">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">
+              Module 04
+            </div>
+            <h3 class="text-lg font-bold text-white">
+              Skill Categories & Themes
+            </h3>
+            <p class="text-sm text-white leading-relaxed">
+              Understand mechanical skill themes (Shouts, Signets, Wells, and Elixirs) to quickly determine what utility tools to bring into upcoming operations.
+            </p>
+          </div>
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded text-xs text-cyan-300 font-mono">
+            Shouts | Signets | Wells | Elixirs
+          </div>
+        </section>
+
+      </div>
+
+      <!-- CATEGORY: COMBO BREAKDOWN REFERENCE -->
+      <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-4">
+        <div class="border-b border-slate-800 pb-3">
+          <h3 class="text-base font-bold text-cyan-400 uppercase tracking-wider">
+            Combo Field & Finisher Reference Guide
+          </h3>
+          <p class="text-xs text-slate-300">How throwing an attack through an elemental zone creates team synergy.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm space-y-2">
+            <div class="font-bold text-amber-400">The 4 Finisher Types</div>
+            <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+              <li><strong>Blast Finishers:</strong> Triggers a large area effect (360 radius) around the blast point.</li>
+              <li><strong>Leap Finishers:</strong> Applies an effect to yourself or your target enemy.</li>
+              <li><strong>Projectile Finishers:</strong> Shoots an enhanced arrow/bullet through the field.</li>
+              <li><strong>Whirl Finishers:</strong> Launches multiple tiny elemental bolts in all directions.</li>
+            </ul>
+          </div>
+
+          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm space-y-2">
+            <div class="font-bold text-cyan-400">Popular Synergy Examples</div>
+            <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+              <li><strong>Fire Field + Blast:</strong> Grants nearby allies stacks of Might (+damage).</li>
+              <li><strong>Water Field + Blast:</strong> Grants nearby allies instant Area Healing.</li>
+              <li><strong>Smoke Field + Blast/Leap:</strong> Grants stealth to drop enemy aggro.</li>
+              <li><strong>Light Field + Any Finisher:</strong> Cleanses conditions off you and teammates.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- CATEGORY: NEXT STEPS // ADVENTURER JOURNAL -->
+      <section class="border border-cyan-500/40 bg-slate-900/80 p-6 rounded-sm glow-cyan space-y-3">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+          <h3 class="text-base font-bold text-cyan-400 uppercase tracking-wider">
+            Next Steps: Advanced Builds & Live Rotations
+          </h3>
+          <span class="text-xs text-amber-400 font-bold">[ADVENTURER JOURNAL]</span>
+        </div>
+        <p class="text-sm text-white leading-relaxed">
+          Once you feel comfortable executing combo fields and reading your skill bar under pressure, head over to the <a href="../adventure/index.html" class="text-cyan-400 underline font-bold hover:text-cyan-300">Adventurer Journal</a> tab to take full advantage of professional combat builds and live world boss encounter schedules.
+        </p>
+      </section>
+
+      <!-- CATEGORY: FIELD PRACTICE CHECKLIST -->
+      <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-4">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+          <h3 class="text-base font-bold text-cyan-400 uppercase tracking-wider">
+            Practice Drill Checklist
+          </h3>
+          <span id="checklist-status" class="text-xs text-amber-400 font-bold">[0 / 3 DONE]</span>
+        </div>
+
+        <ul class="space-y-3 text-sm text-white">
+          <li class="flex items-center gap-3 p-3 bg-slate-950 border border-slate-800 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-5 h-5 accent-cyan-400 cursor-pointer" data-id="drill-1" />
+            <span><strong>Trigger a Blast Combo:</strong> Drop a Fire or Water area skill, then use a Blast Finisher skill on top of it to see the combo text appear on your screen.</span>
+          </li>
+          <li class="flex items-center gap-3 p-3 bg-slate-950 border border-slate-800 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-5 h-5 accent-cyan-400 cursor-pointer" data-id="drill-2" />
+            <span><strong>Watch the White Highlight:</strong> Stand inside a teammate's combo field and notice your finisher skills light up with a white outline.</span>
+          </li>
+          <li class="flex items-center gap-3 p-3 bg-slate-950 border border-slate-800 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-5 h-5 accent-cyan-400 cursor-pointer" data-id="drill-3" />
+            <span><strong>Time Your Barrier:</strong> Apply a barrier skill right before a boss lands a heavy strike to absorb the damage without losing health.</span>
+          </li>
+        </ul>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- CATEGORY: STICKY FOOTER -->
+  <footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-6 py-3">
+    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+      <p class="text-[10px] text-white/80 max-w-3xl leading-normal">
+        This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
+      </p>
+
+      <div class="flex items-center space-x-4 text-xs">
+        <span class="text-white">
+          Written by <a href="https://liar.fyi" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 cursor-pointer font-bold">The Liars Guild</a>
+        </span>
+        <span class="text-slate-700">|</span>
+        <span class="text-white">
+          Site Builder: <a href="https://qkommand.github.io/home/" target="_blank" class="text-white hover:text-cyan-400 underline font-bold cursor-pointer">Commander Q</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CATEGORY: LOGIC ENGINE -->
+  <script>
+    /* CATEGORY: CHECKLIST STATE MANAGEMENT */
+    const STORAGE_KEY = 'priory_class206_checkboxes';
+    let checklistCompletedState = 'off';
+
+    function updateChecklist() {
+      const boxes = document.querySelectorAll('.id-check');
+      let checkedCount = 0;
+      const savedState = {};
+
+      boxes.forEach(box => {
+        const id = box.getAttribute('data-id');
+        if (box.checked) {
+          checkedCount++;
+          savedState[id] = 'on';
+        } else {
+          savedState[id] = 'off';
+        }
+      });
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
+
+      const statusEl = document.getElementById('checklist-status');
+      statusEl.innerText = `[${checkedCount} / ${boxes.length} DONE]`;
+
+      if (checkedCount === boxes.length) {
+        checklistCompletedState = 'on';
+        statusEl.className = 'text-xs text-emerald-400 font-bold';
+      } else {
+        checklistCompletedState = 'off';
+        statusEl.className = 'text-xs text-amber-400 font-bold';
+      }
+    }
+
+    function loadChecklistState() {
+      const savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      const boxes = document.querySelectorAll('.id-check');
+
+      boxes.forEach(box => {
+        const id = box.getAttribute('data-id');
+        if (savedState[id] === 'on') {
+          box.checked = true;
+        }
+      });
+
+      updateChecklist();
+    }
+
+    /* CATEGORY: UNIVERSAL CLOCKS ENGINE */
+    function updateClocks() {
+      const now = new Date();
+      
+      const utcHours = String(now.getUTCHours()).padStart(2, '0');
+      const utcMins = String(now.getUTCMinutes()).padStart(2, '0');
+      const utcSecs = String(now.getUTCSeconds()).padStart(2, '0');
+      document.getElementById('server-clock').innerText = `${utcHours}:${utcMins}:${utcSecs} UTC`;
+
+      const totalUtcSec = (now.getUTCHours() * 3600) + (now.getUTCMinutes() * 60) + now.getUTCSeconds();
+      const cycleOffset = 1500;
+      const secondsInto2HrCycle = (totalUtcSec - cycleOffset + 720000) % 7200;
+
+      const tyrianSecFromMidnight = (secondsInto2HrCycle * 12 + 21600) % 86400;
+      const tyrianHour = Math.floor(tyrianSecFromMidnight / 3600);
+      const tyrianMin = Math.floor((tyrianSecFromMidnight % 3600) / 60);
+
+      const formattedTyrianHour = String(tyrianHour).padStart(2, '0');
+      const formattedTyrianMin = String(tyrianMin).padStart(2, '0');
+
+      let icon = '☀️';
+      if (tyrianHour >= 5 && tyrianHour < 6) icon = '🌅';
+      else if (tyrianHour >= 6 && tyrianHour < 20) icon = '☀️';
+      else if (tyrianHour >= 20 && tyrianHour < 21) icon = '🌆';
+      else icon = '🌙';
+
+      document.getElementById('tyria-clock-time').innerHTML = `${icon} <span>${formattedTyrianHour}:${formattedTyrianMin}</span>`;
+
+      document.getElementById('local-clock').innerText = now.toLocaleTimeString();
+    }
+
+    /* CATEGORY: INITIALIZATION */
+    document.addEventListener('DOMContentLoaded', () => {
+      updateClocks();
+      loadChecklistState();
+      setInterval(updateClocks, 1000);
+    });
+  </script>
+</body>
+</html>
