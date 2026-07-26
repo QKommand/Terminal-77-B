@@ -57,7 +57,7 @@
 
       <div class="text-center space-y-0.5">
         <h1 class="text-base sm:text-xl font-bold text-cyan-400 tracking-wider uppercase">
-          Adventurer Journal: Live World Boss Schedule & External Tools
+          Adventurer Journal: Live Localized World Boss Schedule
         </h1>
       </div>
 
@@ -141,64 +141,13 @@
       <div class="space-y-4">
         <div class="flex justify-between items-center border-b border-slate-800 pb-3">
           <h2 class="text-base font-bold text-cyan-400 uppercase tracking-wider">
-            Immediate World Boss Queue
+            Immediate World Boss Queue (Local Device Time)
           </h2>
-          <span class="text-xs text-amber-400 font-bold">[LIVE PRIORITY QUEUE]</span>
+          <span class="text-xs text-amber-400 font-bold">[DYNAMIC LOCALIZED QUEUE]</span>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-
-          <!-- 1. CURRENT WORLD BOSS -->
-          <div class="p-5 border border-cyan-500/60 bg-slate-900/80 rounded-sm flex flex-col justify-between space-y-4 glow-cyan relative">
-            <span class="absolute -top-3 left-4 px-2 py-0.5 bg-cyan-500 text-slate-950 font-bold text-[10px] uppercase rounded">Current Boss</span>
-            <div class="space-y-2 pt-1">
-              <div class="flex justify-between items-center text-xs">
-                <span class="text-amber-400 font-bold">01:30 EDT</span>
-                <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 font-mono text-[10px] rounded">Active Now</span>
-              </div>
-              <h4 class="text-lg font-bold text-white">Jormag Claw</h4>
-              <p class="text-xs text-slate-300">Level 80 World Boss // Frostgorge Sound</p>
-            </div>
-            <div class="flex items-center justify-between pt-2 border-t border-slate-800 text-xs font-mono">
-              <span class="text-cyan-300 select-all font-bold">[&BHoCAAA=]</span>
-              <span class="text-emerald-400 font-bold">In Progress</span>
-            </div>
-          </div>
-
-          <!-- 2. NEXT WORLD BOSS -->
-          <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan relative">
-            <span class="absolute -top-3 left-4 px-2 py-0.5 bg-amber-500 text-slate-950 font-bold text-[10px] uppercase rounded">Up Next</span>
-            <div class="space-y-2 pt-1">
-              <div class="flex justify-between items-center text-xs">
-                <span class="text-amber-400 font-bold">01:45 EDT</span>
-                <span class="px-2 py-0.5 bg-amber-500/20 text-amber-300 font-mono text-[10px] rounded">In ~12 min</span>
-              </div>
-              <h4 class="text-lg font-bold text-white">Behemoth of Shadows</h4>
-              <p class="text-xs text-slate-300">Level 15 World Boss // Queensdale</p>
-            </div>
-            <div class="flex items-center justify-between pt-2 border-t border-slate-900 text-xs font-mono">
-              <span class="text-cyan-300 select-all font-bold">[&BPwAAAA=]</span>
-              <span class="text-slate-400">Waypoint</span>
-            </div>
-          </div>
-
-          <!-- 3. THIRD WORLD BOSS -->
-          <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan relative">
-            <span class="absolute -top-3 left-4 px-2 py-0.5 bg-slate-700 text-white font-bold text-[10px] uppercase rounded">Following</span>
-            <div class="space-y-2 pt-1">
-              <div class="flex justify-between items-center text-xs">
-                <span class="text-amber-400 font-bold">01:55 EDT</span>
-                <span class="px-2 py-0.5 bg-slate-800 text-slate-300 font-mono text-[10px] rounded">In ~22 min</span>
-              </div>
-              <h4 class="text-lg font-bold text-white">Queen Karka</h4>
-              <p class="text-xs text-slate-300">Level 80 World Boss // Southsun Cove</p>
-            </div>
-            <div class="flex items-center justify-between pt-2 border-t border-slate-900 text-xs font-mono">
-              <span class="text-cyan-300 select-all font-bold">[&BNcGAAA=]</span>
-              <span class="text-slate-400">Waypoint</span>
-            </div>
-          </div>
-
+        <div id="priority-boss-grid" class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- DYNAMICALLY POPULATED BY JAVASCRIPT -->
         </div>
       </div>
 
@@ -208,111 +157,11 @@
           <h3 class="text-base font-bold text-cyan-400 uppercase tracking-wider">
             Upcoming World Boss Rotations
           </h3>
-          <span class="text-xs text-slate-400">Scrollable Queue</span>
+          <span class="text-xs text-slate-400">Local Device Times</span>
         </div>
 
-        <div class="max-h-80 overflow-y-auto space-y-3 pr-2">
-
-          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 hover:border-cyan-500/50 transition-all">
-            <div class="space-y-1">
-              <div class="text-xs text-amber-400 font-bold">02:00 EDT (In ~27 min)</div>
-              <div class="text-sm font-bold text-white">Taidha Covington <span class="text-xs font-normal text-slate-400">// Level 50 (Bloodtide Coast)</span></div>
-            </div>
-            <div class="text-xs text-cyan-300 font-mono select-all bg-slate-900 px-3 py-1.5 border border-slate-800 rounded">
-              [&BKgBAAA=]
-            </div>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 hover:border-cyan-500/50 transition-all">
-            <div class="space-y-1">
-              <div class="text-xs text-amber-400 font-bold">02:15 EDT (In ~42 min)</div>
-              <div class="text-sm font-bold text-white">Shaman of Svanir <span class="text-xs font-normal text-slate-400">// Level 10 (Wayfarer Foothills)</span></div>
-            </div>
-            <div class="text-xs text-cyan-300 font-mono select-all bg-slate-900 px-3 py-1.5 border border-slate-800 rounded">
-              [&BH4BAAA=]
-            </div>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 hover:border-cyan-500/50 transition-all">
-            <div class="space-y-1">
-              <div class="text-xs text-amber-400 font-bold">02:30 EDT (In ~57 min)</div>
-              <div class="text-sm font-bold text-white">Megadestructor <span class="text-xs font-normal text-slate-400">// Level 66 (Mount Maelstrom)</span></div>
-            </div>
-            <div class="text-xs text-cyan-300 font-mono select-all bg-slate-900 px-3 py-1.5 border border-slate-800 rounded">
-              [&BM0CAAA=]
-            </div>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 hover:border-cyan-500/50 transition-all">
-            <div class="space-y-1">
-              <div class="text-xs text-amber-400 font-bold">02:45 EDT (In ~1h 12m)</div>
-              <div class="text-sm font-bold text-white">Fire Elemental <span class="text-xs font-normal text-slate-400">// Level 10 (Metrica Province)</span></div>
-            </div>
-            <div class="text-xs text-cyan-300 font-mono select-all bg-slate-900 px-3 py-1.5 border border-slate-800 rounded">
-              [&BEYAAAA=]
-            </div>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 hover:border-cyan-500/50 transition-all">
-            <div class="space-y-1">
-              <div class="text-xs text-amber-400 font-bold">02:55 EDT (In ~1h 22m)</div>
-              <div class="text-sm font-bold text-white">Tequatl the Sunless <span class="text-xs font-normal text-slate-400">// Level 80 (Sparkfly Fen)</span></div>
-            </div>
-            <div class="text-xs text-cyan-300 font-mono select-all bg-slate-900 px-3 py-1.5 border border-slate-800 rounded">
-              [&BNABAAA=]
-            </div>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 hover:border-cyan-500/50 transition-all">
-            <div class="space-y-1">
-              <div class="text-xs text-amber-400 font-bold">03:00 EDT (In ~1h 27m)</div>
-              <div class="text-sm font-bold text-white">The Destroyer <span class="text-xs font-normal text-slate-400">// Level 80 (Sparkfly Fen)</span></div>
-            </div>
-            <div class="text-xs text-cyan-300 font-mono select-all bg-slate-900 px-3 py-1.5 border border-slate-800 rounded">
-              [&BE4DAAA=]
-            </div>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 hover:border-cyan-500/50 transition-all">
-            <div class="space-y-1">
-              <div class="text-xs text-amber-400 font-bold">03:15 EDT (In ~1h 42m)</div>
-              <div class="text-sm font-bold text-white">Jungle Wurm <span class="text-xs font-normal text-slate-400">// Level 15 (Caledon Forest)</span></div>
-            </div>
-            <div class="text-xs text-cyan-300 font-mono select-all bg-slate-900 px-3 py-1.5 border border-slate-800 rounded">
-              [&BEEFAAA=]
-            </div>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 hover:border-cyan-500/50 transition-all">
-            <div class="space-y-1">
-              <div class="text-xs text-amber-400 font-bold">03:30 EDT (In ~1h 57m)</div>
-              <div class="text-sm font-bold text-white">Ulgoth the Modniir <span class="text-xs font-normal text-slate-400">// Level 40 (Harathi Hinterlands)</span></div>
-            </div>
-            <div class="text-xs text-cyan-300 font-mono select-all bg-slate-900 px-3 py-1.5 border border-slate-800 rounded">
-              [&BLEAAAA=]
-            </div>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 hover:border-cyan-500/50 transition-all">
-            <div class="space-y-1">
-              <div class="text-xs text-amber-400 font-bold">03:55 EDT (In ~2h 22m)</div>
-              <div class="text-sm font-bold text-white">Triple Terror Wurm <span class="text-xs font-normal text-slate-400">// Level 80 (Bloodtide Coast)</span></div>
-            </div>
-            <div class="text-xs text-cyan-300 font-mono select-all bg-slate-900 px-3 py-1.5 border border-slate-800 rounded">
-              [&BKoBAAA=]
-            </div>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 hover:border-cyan-500/50 transition-all">
-            <div class="space-y-1">
-              <div class="text-xs text-amber-400 font-bold">04:00 EDT (In ~2h 27m)</div>
-              <div class="text-sm font-bold text-white">Golem Mark II <span class="text-xs font-normal text-slate-400">// Level 80 (Mount Maelstrom)</span></div>
-            </div>
-            <div class="text-xs text-cyan-300 font-mono select-all bg-slate-900 px-3 py-1.5 border border-slate-800 rounded">
-              [&BNQCAAA=]
-            </div>
-          </div>
-
+        <div id="scrolling-boss-list" class="max-h-80 overflow-y-auto space-y-3 pr-2">
+          <!-- DYNAMICALLY POPULATED BY JAVASCRIPT -->
         </div>
       </section>
 
@@ -341,6 +190,117 @@
 
   <!-- CATEGORY: LOGIC ENGINE -->
   <script>
+    /* CATEGORY: WORLD BOSS MASTER DATA (BASE UTC TIME SLOTS) */
+    const bossMasterSchedule = [
+      { name: "Jormag Claw", level: 80, location: "Frostgorge Sound", waypoint: "[&BHoCAAA=]", utcH: 5, utcM: 30 },
+      { name: "Behemoth of Shadows", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", utcH: 5, utcM: 45 },
+      { name: "Queen Karka", level: 80, location: "Southsun Cove", waypoint: "[&BNcGAAA=]", utcH: 5, utcM: 55 },
+      { name: "Taidha Covington", level: 50, location: "Bloodtide Coast", waypoint: "[&BKgBAAA=]", utcH: 6, utcM: 0 },
+      { name: "Shaman of Svanir", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", utcH: 6, utcM: 15 },
+      { name: "Megadestructor", level: 66, location: "Mount Maelstrom", waypoint: "[&BM0CAAA=]", utcH: 6, utcM: 30 },
+      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", utcH: 6, utcM: 45 },
+      { name: "Tequatl the Sunless", level: 80, location: "Sparkfly Fen", waypoint: "[&BNABAAA=]", utcH: 6, utcM: 55 },
+      { name: "The Destroyer", level: 80, location: "Sparkfly Fen", waypoint: "[&BE4DAAA=]", utcH: 7, utcM: 0 },
+      { name: "Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", utcH: 7, utcM: 15 },
+      { name: "Ulgoth the Modniir", level: 40, location: "Harathi Hinterlands", waypoint: "[&BLEAAAA=]", utcH: 7, utcM: 30 },
+      { name: "Triple Terror Wurm", level: 80, location: "Bloodtide Coast", waypoint: "[&BKoBAAA=]", utcH: 7, utcM: 55 },
+      { name: "Golem Mark II", level: 80, location: "Mount Maelstrom", waypoint: "[&BNQCAAA=]", utcH: 8, utcM: 0 }
+    ];
+
+    /* CATEGORY: LOCAL TIME CONVERSION & SCHEDULE RENDERER */
+    function renderLocalizedSchedule() {
+      const now = new Date();
+      const calculatedBosses = [];
+
+      bossMasterSchedule.forEach(boss => {
+        let spawnDate = new Date();
+        spawnDate.setUTCHours(boss.utcH, boss.utcM, 0, 0);
+
+        // If the event time has already passed today, roll it over to tomorrow's rotation
+        if (spawnDate.getTime() + (15 * 60 * 1000) < now.getTime()) {
+          spawnDate.setUTCDate(spawnDate.getUTCDate() + 1);
+        }
+
+        const diffMs = spawnDate.getTime() - now.getTime();
+        const diffMins = Math.floor(diffMs / (1000 * 60));
+
+        // Format to user device local time standard (e.g. 01:30 PM)
+        const localTimeStr = spawnDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        calculatedBosses.push({
+          ...boss,
+          spawnDate,
+          diffMins,
+          localTimeStr
+        });
+      });
+
+      // Sort bosses by soonest spawn
+      calculatedBosses.sort((a, b) => a.diffMins - b.diffMins);
+
+      // Extract Priority Top 3
+      const priorityGrid = document.getElementById('priority-boss-grid');
+      const scrollingList = document.getElementById('scrolling-boss-list');
+
+      if (!priorityGrid || !scrollingList) return;
+
+      const top3 = calculatedBosses.slice(0, 3);
+      const remaining = calculatedBosses.slice(3);
+
+      // Render Top 3 Cards
+      let top3Html = '';
+      const badges = [
+        { label: 'Current Boss', bg: 'bg-cyan-500 text-slate-950', status: 'Active / Starting', border: 'border-cyan-500/60 bg-slate-900/80' },
+        { label: 'Up Next', bg: 'bg-amber-500 text-slate-950', status: 'Upcoming', border: 'border-slate-800 bg-slate-950/60' },
+        { label: 'Following', bg: 'bg-slate-700 text-white', status: 'Queued', border: 'border-slate-800 bg-slate-950/60' }
+      ];
+
+      top3.forEach((boss, index) => {
+        const badge = badges[index];
+        const timeLabel = boss.diffMins <= 0 ? 'Active Now' : `In ~${boss.diffMins} min`;
+
+        top3Html += `
+          <div class="p-5 border ${badge.border} rounded-sm flex flex-col justify-between space-y-4 glow-cyan relative">
+            <span class="absolute -top-3 left-4 px-2 py-0.5 ${badge.bg} font-bold text-[10px] uppercase rounded">${badge.label}</span>
+            <div class="space-y-2 pt-1">
+              <div class="flex justify-between items-center text-xs">
+                <span class="text-amber-400 font-bold">${boss.localTimeStr}</span>
+                <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 font-mono text-[10px] rounded">${timeLabel}</span>
+              </div>
+              <h4 class="text-lg font-bold text-white">${boss.name}</h4>
+              <p class="text-xs text-slate-300">Level ${boss.level} World Boss // ${boss.location}</p>
+            </div>
+            <div class="flex items-center justify-between pt-2 border-t border-slate-800 text-xs font-mono">
+              <span class="text-cyan-300 select-all font-bold">${boss.waypoint}</span>
+              <span class="text-slate-400">${badge.status}</span>
+            </div>
+          </div>
+        `;
+      });
+      priorityGrid.innerHTML = top3Html;
+
+      // Render Remaining Scrollable List
+      let listHtml = '';
+      remaining.forEach(boss => {
+        const timeDiffStr = boss.diffMins > 60 
+          ? `In ~${Math.floor(boss.diffMins / 60)}h ${boss.diffMins % 60}m` 
+          : `In ~${boss.diffMins} min`;
+
+        listHtml += `
+          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 hover:border-cyan-500/50 transition-all">
+            <div class="space-y-1">
+              <div class="text-xs text-amber-400 font-bold">${boss.localTimeStr} (${timeDiffStr})</div>
+              <div class="text-sm font-bold text-white">${boss.name} <span class="text-xs font-normal text-slate-400">// Level ${boss.level} (${boss.location})</span></div>
+            </div>
+            <div class="text-xs text-cyan-300 font-mono select-all bg-slate-900 px-3 py-1.5 border border-slate-800 rounded">
+              ${boss.waypoint}
+            </div>
+          </div>
+        `;
+      });
+      scrollingList.innerHTML = listHtml;
+    }
+
     /* CATEGORY: UNIVERSAL CLOCKS ENGINE */
     function updateClocks() {
       const now = new Date();
@@ -375,7 +335,10 @@
     /* CATEGORY: INITIALIZATION */
     document.addEventListener('DOMContentLoaded', () => {
       updateClocks();
+      renderLocalizedSchedule();
+      
       setInterval(updateClocks, 1000);
+      setInterval(renderLocalizedSchedule, 30000); // Refresh schedule queue every 30 seconds
     });
   </script>
 </body>
