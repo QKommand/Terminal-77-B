@@ -141,9 +141,9 @@
       <div class="space-y-4">
         <div class="flex justify-between items-center border-b border-slate-800 pb-3">
           <h2 class="text-base font-bold text-cyan-400 uppercase tracking-wider">
-            Immediate World Boss Queue (Local Device Time)
+            Immediate World Boss Queue
           </h2>
-          <span class="text-xs text-amber-400 font-bold">[DYNAMIC LOCALIZED QUEUE]</span>
+          <span class="text-xs text-amber-400 font-bold">[LIVE QUEUE]</span>
         </div>
 
         <div id="priority-boss-grid" class="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -157,7 +157,7 @@
           <h3 class="text-base font-bold text-cyan-400 uppercase tracking-wider">
             Upcoming World Boss Rotations
           </h3>
-          <span class="text-xs text-slate-400">Local Device Times</span>
+          <span class="text-xs text-slate-400">Rotation Schedule</span>
         </div>
 
         <div id="scrolling-boss-list" class="max-h-80 overflow-y-auto space-y-3 pr-2">
@@ -308,7 +308,7 @@
       { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 19, m: 45 }
     ];
 
-    /* CATEGORY: LOCAL TIME CONVERSION ENGINE */
+    /* CATEGORY: TIME CONVERSION ENGINE */
     function renderLocalizedSchedule() {
       const now = new Date();
       const calculatedBosses = [];
@@ -327,7 +327,6 @@
         const diffMs = spawnDate.getTime() - now.getTime();
         const diffMins = Math.floor(diffMs / (1000 * 60));
 
-        // Format to user device's local time standard
         const localTimeStr = spawnDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
         calculatedBosses.push({
