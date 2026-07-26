@@ -1,213 +1,303 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-slate-950 text-slate-100">
+<html lang="en" class="h-full bg-slate-950 text-white">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Class 104 // Priory Archive Terminal 77-B</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Course 104 // [LIAR] Tyrian University</title>
+  
+  <!-- CATEGORY: EXTERNAL DEPENDENCIES -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- CATEGORY: STYLES & ANIMATIONS -->
   <style>
-    /* CATEGORY: AMBIENT TERMINAL EFFECTS */
-    .scanline {
-      background: linear-gradient(
-        to bottom,
-        rgba(255,255,255,0),
-        rgba(255,255,255,0) 50%,
-        rgba(0, 0, 0, 0.35) 50%,
-        rgba(0, 0, 0, 0.35)
-      );
-      background-size: 100% 4px;
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    .glow-cyan {
+      box-shadow: 0 0 14px rgba(34, 211, 238, 0.15);
+    }
+    .glow-cyan:hover {
+      box-shadow: 0 0 22px rgba(34, 211, 238, 0.35);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #0f172a;
+      border: 1px solid #22d3ee;
     }
   </style>
 </head>
-<body class="font-mono min-h-screen relative selection:bg-amber-500 selection:text-slate-950">
-  <div class="fixed inset-0 pointer-events-none scanline opacity-40 z-50"></div>
+<body class="h-screen flex flex-col overflow-hidden relative bg-slate-950 text-white selection:bg-cyan-500 selection:text-slate-950">
 
-  <!-- CATEGORY: TERMINAL HEADER -->
-  <header class="border-b border-slate-800 bg-slate-900/90 px-6 py-4 sticky top-0 z-40 backdrop-blur">
-    <div class="max-w-6xl mx-auto flex justify-between items-center text-xs">
-      <div class="flex items-center gap-2">
-        <span class="h-2 w-2 rounded-full bg-cyan-400 animate-pulse"></span>
-        <span class="text-slate-400">PRIORY ARCHIVE // CLASS 104</span>
+  <!-- CATEGORY: STICKY HEADER -->
+  <header class="shrink-0 border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-6 py-4 space-y-3">
+    <div class="max-w-[1600px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <a 
+        href="../index.html" 
+        class="inline-flex items-center gap-2 px-4 py-2 bg-slate-950 border border-cyan-500/40 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all cursor-pointer"
+      >
+        <span>&larr;</span>
+        <span>Return To Main Directory</span>
+      </a>
+
+      <div class="text-center sm:text-right space-y-0.5">
+        <h1 class="text-base sm:text-xl font-bold text-cyan-400 tracking-wider uppercase">
+          Course 104: Map Travel & Mount Controls
+        </h1>
+        <p class="text-xs text-slate-300">
+          [LIAR] Tyrian University // Basic Track
+        </p>
       </div>
-      <a href="../index.html" class="text-amber-400 hover:text-amber-300 font-bold">← Return to Terminal 77-B</a>
+    </div>
+
+    <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 pt-3 border-t border-slate-800 text-xs sm:text-sm text-center md:text-left items-center">
+      <div class="flex items-center justify-center md:justify-start gap-2">
+        <span class="text-slate-300 font-bold">TYRIAN TIME:</span>
+        <span id="tyria-clock-time" class="text-amber-400 font-bold flex items-center gap-1.5">--:--</span>
+      </div>
+
+      <div class="text-center md:text-left">
+        <span class="text-slate-300 font-bold">SERVER TIME:</span>
+        <span id="server-clock" class="text-cyan-400 font-bold ml-1">--:--:-- UTC</span>
+      </div>
+
+      <div class="text-center">
+        <span class="text-slate-300 font-bold">LOCATION:</span>
+        <span class="text-cyan-400 font-bold ml-1">DURMAND PRIORY // TERMINAL 77-B</span>
+      </div>
+
+      <div class="text-center md:text-right">
+        <span class="text-slate-300 font-bold">LOCAL TIME:</span>
+        <span id="local-clock" class="text-emerald-400 font-bold ml-1">--:--:--</span>
+      </div>
     </div>
   </header>
 
   <!-- CATEGORY: MAIN CONTENT AREA -->
-  <main class="max-w-4xl mx-auto px-6 py-8 space-y-8">
-    
-    <!-- CATEGORY: NARRATIVE BRIEFING -->
-    <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-lg space-y-3">
-      <div class="text-xs text-amber-400 tracking-widest font-semibold uppercase">FIELD BRIEFING // MAP TRAVEL & MOUNT CONTROLS</div>
-      <h1 class="text-2xl font-bold text-slate-100">NAVIGATE TYRIA WITH SPEED, ADVENTURER</h1>
-      <p class="text-sm text-slate-300 leading-relaxed font-sans">
-        Crossing entire regions on foot will leave you stranded far behind when open-world meta events and squad commanders move across the map. Master fast travel waypoints, movement speed boosts, and the specialized abilities of ground, water, and aerial mounts.
-      </p>
-      <p class="text-sm text-slate-300 leading-relaxed font-sans">
-        Use this field manual to set up dedicated mount keybinds, understand movement speed limits, and execute tactical dismounts in active battle zones.
-      </p>
-    </section>
+  <main class="flex-1 overflow-y-auto max-w-[1600px] w-full mx-auto p-6 space-y-6">
 
-    <!-- CATEGORY: MODULE 1 -->
-    <section class="border border-slate-800 bg-slate-900/40 rounded-lg overflow-hidden">
-      <details class="group" open>
-        <summary class="flex justify-between items-center p-5 cursor-pointer bg-slate-900/80 hover:bg-slate-800/60 transition-colors">
-          <span class="font-bold text-slate-200">MODULE 1: WAYPOINTS & MOVEMENT SPEED BOOSTS</span>
-          <span class="text-xs text-amber-400 group-open:rotate-180 transition-transform">▼</span>
-        </summary>
-        
-        <div class="p-6 space-y-6 text-sm font-sans border-t border-slate-800">
-          <div class="space-y-2">
-            <h3 class="font-mono text-cyan-400 font-semibold text-xs uppercase tracking-wider">Fast Travel & Speed Caps</h3>
-            <p class="text-slate-300 leading-relaxed">
-              Waypoints provide instant map travel for a minor copper fee. On foot, movement speed is dictated by boon application and character traits.
+    <div class="animate-fade-in space-y-6">
+      
+      <!-- CATEGORY: LESSON OVERVIEW -->
+      <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-3">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+          <h2 class="text-base font-bold text-cyan-400 uppercase tracking-wider">
+            Lesson Goal
+          </h2>
+          <span class="text-xs text-amber-400 font-bold">[LESSON 4 OF 6]</span>
+        </div>
+        <p class="text-sm md:text-base text-white leading-relaxed">
+          Navigate Tyria with speed, Adventurer. Crossing entire regions on foot will leave you stranded far behind when open-world meta events and squad commanders move across the map. This lesson covers fast travel waypoints, movement speed boosts, and the specialized controls of ground, water, and aerial mounts.
+        </p>
+      </section>
+
+      <!-- CATEGORY: LESSON STEPS GRID -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- STEP 1 -->
+        <section class="p-6 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan transition-all hover:-translate-y-1">
+          <div class="space-y-3">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">
+              Step 01
+            </div>
+            <h3 class="text-lg font-bold text-white">
+              Waypoints & Speed Boosts
+            </h3>
+            <p class="text-sm md:text-base text-white leading-relaxed">
+              Waypoints provide instant map travel for a minor copper fee. On foot, Swiftness boosts movement speed by +33%, while Superspeed caps your mobility at the maximum +100% threshold during active combat mechanics.
             </p>
           </div>
-
-          <div class="space-y-3 font-mono text-xs">
-            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
-              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m1-waypoints" />
-              <span class="text-slate-300">Unlock waypoints in every new zone instantly—they serve as fast-travel anchors when responding to map pings during meta trains.</span>
-            </label>
-
-            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
-              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m1-swiftness" />
-              <span class="text-slate-300">Test maintaining <strong>Swiftness</strong> (+33% movement speed) via skill rotations or class traits while traveling on foot.</span>
-            </label>
-
-            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
-              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m1-superspeed" />
-              <span class="text-slate-300">Identify skills that grant <strong>Superspeed</strong> to hit the absolute movement speed ceiling (+100%) during high-pressure mechanics.</span>
-            </label>
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded text-xs md:text-sm text-cyan-300 font-mono">
+            Swiftness = +33% | Superspeed = +100%
           </div>
-        </div>
-      </details>
-    </section>
+        </section>
 
-    <!-- CATEGORY: MODULE 2 -->
-    <section class="border border-slate-800 bg-slate-900/40 rounded-lg overflow-hidden">
-      <details class="group">
-        <summary class="flex justify-between items-center p-5 cursor-pointer bg-slate-900/80 hover:bg-slate-800/60 transition-colors">
-          <span class="font-bold text-slate-200">MODULE 2: GROUND MOUNT MECHANICS</span>
-          <span class="text-xs text-amber-400 group-open:rotate-180 transition-transform">▼</span>
-        </summary>
-        
-        <div class="p-6 space-y-6 text-sm font-sans border-t border-slate-800">
-          <div class="space-y-2">
-            <h3 class="font-mono text-cyan-400 font-semibold text-xs uppercase tracking-wider">Terrain Traversal</h3>
-            <p class="text-slate-300 leading-relaxed">
-              Ground mounts bypass environmental barriers through unique movement skills. Matching the correct mount to the terrain prevents fall damage and dead ends.
+        <!-- STEP 2 -->
+        <section class="p-6 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan transition-all hover:-translate-y-1">
+          <div class="space-y-3">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">
+              Step 02
+            </div>
+            <h3 class="text-lg font-bold text-white">
+              Ground Mount Skills
+            </h3>
+            <p class="text-sm md:text-base text-white leading-relaxed">
+              Raptors leap long horizontal gaps over ravines. Springers charge high vertical jumps up cliff faces. Jackals evade-blink through sand portals, while Warclaws dash across rugged battlefields.
             </p>
           </div>
-
-          <div class="space-y-3 font-mono text-xs">
-            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
-              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m2-raptor-leap" />
-              <span class="text-slate-300">Practice horizontal distance leaps with the <strong>Raptor</strong> to clear long ravines and river gaps.</span>
-            </label>
-
-            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
-              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m2-springer-jump" />
-              <span class="text-slate-300">Master vertical charge jumps with the <strong>Springer</strong> to scale steep cliffs and high ledges.</span>
-            </label>
-
-            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
-              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m2-jackal-blink" />
-              <span class="text-slate-300">Utilize the <strong>Jackal's</strong> evade-blink to teleport through sand portals and bypass hostile attack animations mid-sprint.</span>
-            </label>
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded text-xs md:text-sm text-cyan-300 font-mono">
+            Raptor = Long | Springer = High | Jackal = Blink
           </div>
-        </div>
-      </details>
-    </section>
+        </section>
 
-    <!-- CATEGORY: MODULE 3 -->
-    <section class="border border-slate-800 bg-slate-900/40 rounded-lg overflow-hidden">
-      <details class="group">
-        <summary class="flex justify-between items-center p-5 cursor-pointer bg-slate-900/80 hover:bg-slate-800/60 transition-colors">
-          <span class="font-bold text-slate-200">MODULE 3: WATER & AERIAL FLIGHT CONTROLS</span>
-          <span class="text-xs text-amber-400 group-open:rotate-180 transition-transform">▼</span>
-        </summary>
-        
-        <div class="p-6 space-y-6 text-sm font-sans border-t border-slate-800">
-          <div class="space-y-2">
-            <h3 class="font-mono text-cyan-400 font-semibold text-xs uppercase tracking-wider">3D Navigation & Pitch Controls</h3>
-            <p class="text-slate-300 leading-relaxed">
-              Water and flying mounts require controlling altitude and pitch momentum. Hovering and diving mechanics allow seamless travel over hazardous hazards.
+        <!-- STEP 3 -->
+        <section class="p-6 border border-slate-800 bg-slate-950/60 rounded-sm flex flex-col justify-between space-y-4 glow-cyan transition-all hover:-translate-y-1">
+          <div class="space-y-3">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">
+              Step 03
+            </div>
+            <h3 class="text-lg font-bold text-white">
+              Water & Aerial Flight Controls
+            </h3>
+            <p class="text-sm md:text-base text-white leading-relaxed">
+              Skimmers hover over open water, sulfur, and hazard floors. Griffons dive to build massive airspeed across open valleys. Skyscales hover stationary in 3D space and cling to walls to climb ledges.
             </p>
           </div>
-
-          <div class="space-y-3 font-mono text-xs">
-            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
-              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m3-skimmer-water" />
-              <span class="text-slate-300">Use the <strong>Skimmer</strong> to hover across open water, sulfur pools, and branded ground without taking environmental damage.</span>
-            </label>
-
-            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
-              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m3-griffon-dive" />
-              <span class="text-slate-300">Practice pitch diving with the <strong>Griffon</strong> to convert height into maximum airspeed across open skies.</span>
-            </label>
-
-            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
-              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m3-skyscale-hover" />
-              <span class="text-slate-300">Master stationary hovering, wall-climbing, and endurance management with the <strong>Skyscale</strong>.</span>
-            </label>
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded text-xs md:text-sm text-cyan-300 font-mono">
+            Skimmer = Water | Griffon = Speed | Skyscale = Hover
           </div>
+        </section>
+
+      </div>
+
+      <!-- CATEGORY: FIELD PRACTICE CHECKLIST -->
+      <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-4">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+          <h3 class="text-base md:text-lg font-bold text-cyan-400 uppercase tracking-wider">
+            Practice Drill Checklist
+          </h3>
+          <span id="checklist-status" class="text-xs md:text-sm text-amber-400 font-bold">[0 / 3 DONE]</span>
         </div>
-      </details>
-    </section>
 
-    <!-- CATEGORY: MODULE 4 -->
-    <section class="border border-slate-800 bg-slate-900/40 rounded-lg overflow-hidden">
-      <details class="group">
-        <summary class="flex justify-between items-center p-5 cursor-pointer bg-slate-900/80 hover:bg-slate-800/60 transition-colors">
-          <span class="font-bold text-slate-200">MODULE 4: DRILLS & ERGONOMIC CONTROL CONFIGURATION</span>
-          <span class="text-xs text-amber-400 group-open:rotate-180 transition-transform">▼</span>
-        </summary>
-        
-        <div class="p-6 space-y-6 text-sm font-sans border-t border-slate-800">
-          <div class="space-y-2">
-            <h3 class="font-mono text-cyan-400 font-semibold text-xs uppercase tracking-wider">Control Customization</h3>
-            <p class="text-slate-300 leading-relaxed">
-              Fumbling through drop-down menus to summon mounts in combat will slow you down. Rebind specific mounts to individual keys or radial wheels.
-            </p>
-          </div>
+        <ul class="space-y-3 text-sm md:text-base text-white">
+          <li class="flex items-center gap-3 p-3.5 bg-slate-950 border border-slate-800 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-5 h-5 accent-cyan-400 cursor-pointer" data-id="drill-1" />
+            <span>Set up distinct, comfortable keybinds for your primary ground and flying mounts in Control Options.</span>
+          </li>
+          <li class="flex items-center gap-3 p-3.5 bg-slate-950 border border-slate-800 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-5 h-5 accent-cyan-400 cursor-pointer" data-id="drill-2" />
+            <span>Practice long distance leaps over river gaps with the Raptor and high vertical jumps with the Springer.</span>
+          </li>
+          <li class="flex items-center gap-3 p-3.5 bg-slate-950 border border-slate-800 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-5 h-5 accent-cyan-400 cursor-pointer" data-id="drill-3" />
+            <span>Test hovering over open water with a Skimmer or maintaining stationary flight altitude on a Skyscale.</span>
+          </li>
+        </ul>
+      </section>
 
-          <div class="space-y-3 font-mono text-xs">
-            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
-              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m4-mount-binds" />
-              <span class="text-slate-300">Set up dedicated keybinds for primary ground and flying mounts in Control Options instead of relying on default menus.</span>
-            </label>
-
-            <label class="flex items-start gap-3 cursor-pointer p-3 rounded bg-slate-950/60 border border-slate-800/80 hover:border-slate-700">
-              <input type="checkbox" class="mt-0.5 id-check accent-amber-500 h-4 w-4" data-id="m4-dismount-attack" />
-              <span class="text-slate-300">Execute engagement dismount skills (Skill 1 while mounted) to initiate combat with instant damage and crowd control.</span>
-            </label>
-          </div>
-        </div>
-      </details>
-    </section>
+    </div>
 
   </main>
 
-  <!-- CATEGORY: PERSISTENCE SCRIPT -->
+  <!-- CATEGORY: STICKY FOOTER -->
+  <footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-6 py-3">
+    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+      <p class="text-[10px] text-white/80 max-w-3xl leading-normal">
+        This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
+      </p>
+
+      <div class="flex items-center space-x-4 text-xs">
+        <a href="https://liar.fyi" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 cursor-pointer">
+          The Liars Guild
+        </a>
+        <span class="text-slate-700">|</span>
+        <span class="text-white">
+          Powered by <a href="https://qkommand.github.io/home/" target="_blank" class="text-white hover:text-cyan-400 underline font-bold cursor-pointer">Commander Q</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CATEGORY: LOGIC ENGINE -->
   <script>
+    /* CATEGORY: CHECKLIST STATE MANAGEMENT */
     const STORAGE_KEY = 'priory_class104_checkboxes';
+    let checklistCompletedState = 'off';
 
-    document.addEventListener('DOMContentLoaded', () => {
+    function updateChecklist() {
+      const boxes = document.querySelectorAll('.id-check');
+      let checkedCount = 0;
+      const savedState = {};
+
+      boxes.forEach(box => {
+        const id = box.getAttribute('data-id');
+        if (box.checked) {
+          checkedCount++;
+          savedState[id] = 'on';
+        } else {
+          savedState[id] = 'off';
+        }
+      });
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
+
+      const statusEl = document.getElementById('checklist-status');
+      statusEl.innerText = `[${checkedCount} / ${boxes.length} DONE]`;
+
+      if (checkedCount === boxes.length) {
+        checklistCompletedState = 'on';
+        statusEl.className = 'text-xs md:text-sm text-emerald-400 font-bold';
+      } else {
+        checklistCompletedState = 'off';
+        statusEl.className = 'text-xs md:text-sm text-amber-400 font-bold';
+      }
+    }
+
+    function loadChecklistState() {
       const savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-      const checkboxes = document.querySelectorAll('.id-check');
+      const boxes = document.querySelectorAll('.id-check');
 
-      checkboxes.forEach(box => {
+      boxes.forEach(box => {
         const id = box.getAttribute('data-id');
         if (savedState[id] === 'on') {
           box.checked = true;
         }
-
-        box.addEventListener('change', () => {
-          savedState[id] = box.checked ? 'on' : 'off';
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
-        });
       });
+
+      updateChecklist();
+    }
+
+    /* CATEGORY: UNIVERSAL CLOCKS ENGINE */
+    function updateClocks() {
+      const now = new Date();
+      
+      const utcHours = String(now.getUTCHours()).padStart(2, '0');
+      const utcMins = String(now.getUTCMinutes()).padStart(2, '0');
+      const utcSecs = String(now.getUTCSeconds()).padStart(2, '0');
+      document.getElementById('server-clock').innerText = `${utcHours}:${utcMins}:${utcSecs} UTC`;
+
+      const totalUtcSec = (now.getUTCHours() * 3600) + (now.getUTCMinutes() * 60) + now.getUTCSeconds();
+      const cycleOffset = 1500;
+      const secondsInto2HrCycle = (totalUtcSec - cycleOffset + 720000) % 7200;
+
+      const tyrianSecFromMidnight = (secondsInto2HrCycle * 12 + 21600) % 86400;
+      const tyrianHour = Math.floor(tyrianSecFromMidnight / 3600);
+      const tyrianMin = Math.floor((tyrianSecFromMidnight % 3600) / 60);
+
+      const formattedTyrianHour = String(tyrianHour).padStart(2, '0');
+      const formattedTyrianMin = String(tyrianMin).padStart(2, '0');
+
+      let icon = '☀️';
+      if (tyrianHour >= 5 && tyrianHour < 6) icon = '🌅';
+      else if (tyrianHour >= 6 && tyrianHour < 20) icon = '☀️';
+      else if (tyrianHour >= 20 && tyrianHour < 21) icon = '🌆';
+      else icon = '🌙';
+
+      document.getElementById('tyria-clock-time').innerHTML = `${icon} <span>${formattedTyrianHour}:${formattedTyrianMin}</span>`;
+
+      document.getElementById('local-clock').innerText = now.toLocaleTimeString();
+    }
+
+    /* CATEGORY: INITIALIZATION */
+    document.addEventListener('DOMContentLoaded', () => {
+      updateClocks();
+      loadChecklistState();
+      setInterval(updateClocks, 1000);
     });
   </script>
 </body>
