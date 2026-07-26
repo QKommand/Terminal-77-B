@@ -99,14 +99,13 @@
         <span>OPTIONAL COURSES</span>
       </button>
 
-      <button 
-        id="tab-btn-journal" 
-        onclick="switchTab('journal')" 
+      <a 
+        href="./adventure/index.html" 
         class="flex items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
       >
         <span class="text-[10px] sm:text-sm mr-1.5 opacity-80 sm:opacity-100">///</span>
         <span>ADVENTURER JOURNAL</span>
-      </button>
+      </a>
     </div>
   </nav>
 
@@ -126,49 +125,6 @@
     <!-- CATEGORY: VIEW - OPTIONAL COURSES -->
     <div id="view-optional" class="hidden">
       <div id="grid-optional" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
-    </div>
-
-    <!-- CATEGORY: VIEW - ADVENTURER JOURNAL -->
-    <div id="view-journal" class="hidden space-y-6">
-      <div class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-5">
-          <div>
-            <h2 class="text-base font-bold text-cyan-400 tracking-wider flex items-center gap-2">
-              <span>///</span> ADVENTURER JOURNAL & FIELD LOGS
-            </h2>
-            <span class="text-xs text-white">Daily Tasks and Notes</span>
-          </div>
-          <span class="text-xs text-emerald-400 font-bold">[ACTIVE]</span>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 text-sm">
-          <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm space-y-3">
-            <div class="text-amber-400 font-bold uppercase">Daily Checklist</div>
-            <ul class="space-y-2 text-white">
-              <li class="flex items-center gap-2.5"><input type="checkbox" class="w-4 h-4 accent-cyan-400 cursor-pointer" /> Ley-Line Matter Converter</li>
-              <li class="flex items-center gap-2.5"><input type="checkbox" class="w-4 h-4 accent-cyan-400 cursor-pointer" /> Wizard's Vault Dailies</li>
-              <li class="flex items-center gap-2.5"><input type="checkbox" class="w-4 h-4 accent-cyan-400 cursor-pointer" /> Home Instance Gathering</li>
-              <li class="flex items-center gap-2.5"><input type="checkbox" class="w-4 h-4 accent-cyan-400 cursor-pointer" /> Guild Hall Nodes</li>
-            </ul>
-          </div>
-
-          <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm space-y-3">
-            <div class="text-cyan-400 font-bold uppercase">Field Notes</div>
-            <p class="text-white leading-relaxed">
-              Use crowd control skills to break boss blue bars before big attacks. Stay close to your group for shared gifts and healing.
-            </p>
-          </div>
-
-          <div class="p-5 border border-slate-800 bg-slate-950/60 rounded-sm space-y-3">
-            <div class="text-emerald-400 font-bold uppercase">Quick Waypoints</div>
-            <div class="space-y-2 text-white font-mono text-xs">
-              <div>Sparkfly Fen: <span class="text-cyan-300 font-bold">[&BNUC3AA=]</span></div>
-              <div>Queensdale: <span class="text-cyan-300 font-bold">[&BPwAAAA=]</span></div>
-              <div>Frostgorge: <span class="text-cyan-300 font-bold">[&BH4CAAA=]</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
   </main>
@@ -198,8 +154,7 @@
     let tabState = {
       basic: 'on',
       advanced: 'off',
-      optional: 'off',
-      journal: 'off'
+      optional: 'off'
     };
 
     /* CATEGORY: COURSE DATA STORES */
@@ -345,7 +300,7 @@
     }
 
     function renderTabViews() {
-      const tabs = ['basic', 'advanced', 'optional', 'journal'];
+      const tabs = ['basic', 'advanced', 'optional'];
       
       tabs.forEach(tab => {
         const viewEl = document.getElementById(`view-${tab}`);
