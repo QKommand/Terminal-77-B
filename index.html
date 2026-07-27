@@ -195,6 +195,12 @@
         title: "Hero Points & Build Templates",
         desc: "Gather Hero Points efficiently, match trait lines, and set up fast build swaps.",
         url: "./class106/index.html"
+      },
+      {
+        code: "MANUAL 107",
+        title: "Choosing Your Tyrian Identity",
+        desc: "Explore all 9 professions and elite specializations to find your preferred battlefield combat fantasy.",
+        url: "./class107/index.html"
       }
     ];
 
@@ -246,8 +252,8 @@
     const expertGuides = [
       {
         code: "COURSE 301",
-        title: "Meta Build Anatomy — Power Luminary (GS / Spear)",
-        desc: "Deconstruct meta builds, stat allocation matrices, Light Aura detonations, and rotation flowcharts with an interactive build editor.",
+        title: "Build Theory & Attribute Foundations",
+        desc: "Learn core attribute mechanics, damage styles, and custom gear tailoring with an interactive build editor.",
         url: "./class301/index.html"
       }
     ];
@@ -350,7 +356,6 @@
       renderAllGrids();
       updateClocks();
       
-      // Load saved active tab state or default to 'basics'
       const savedTab = localStorage.getItem(TAB_STORAGE_KEY) || 'basics';
       switchTab(savedTab);
       
