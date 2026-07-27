@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-white">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Course 302 // [LIAR] Tyrian Field Archives</title>
+  
+  <!-- CATEGORY: EXTERNAL DEPENDENCIES -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- CATEGORY: STYLES & ANIMATIONS -->
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    .glow-cyan {
+      box-shadow: 0 0 14px rgba(34, 211, 238, 0.15);
+    }
+    .glow-cyan:hover {
+      box-shadow: 0 0 22px rgba(34, 211, 238, 0.35);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #0f172a;
+      border: 1px solid #22d3ee;
+    }
+  </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden relative bg-slate-950 text-white selection:bg-cyan-500 selection:text-slate-950">
+
+  <!-- CATEGORY: STICKY HEADER -->
+  <header class="shrink-0 border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-6 py-4 space-y-3">
+    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+      <a 
+        href="../index.html" 
+        class="inline-flex items-center gap-2 px-4 py-2 bg-slate-950 border border-cyan-500/40 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all cursor-pointer"
+      >
+        <span>&larr;</span>
+        <span>Return To Main Directory</span>
+      </a>
+
+      <div class="text-center space-y-0.5">
+        <h1 class="text-base sm:text-xl font-bold text-cyan-400 tracking-wider uppercase">
+          Course 302: Masteries & Account Progression
+        </h1>
+      </div>
+
+      <div class="hidden md:block w-48"></div>
+    </div>
+
+    <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 pt-3 border-t border-slate-800 text-xs sm:text-sm text-center md:text-left items-center">
+      <div class="flex items-center justify-center md:justify-start gap-2">
+        <span class="text-slate-300 font-bold">TYRIAN TIME:</span>
+        <span id="tyria-clock-time" class="text-amber-400 font-bold flex items-center gap-1.5">--:--</span>
+      </div>
+
+      <div class="text-center md:text-left">
+        <span class="text-slate-300 font-bold">SERVER TIME:</span>
+        <span id="server-clock" class="text-cyan-400 font-bold ml-1">--:--:-- UTC</span>
+      </div>
+
+      <div class="text-center">
+        <span class="text-slate-300 font-bold">LOCATION:</span>
+        <span class="text-cyan-400 font-bold ml-1">DURMAND PRIORY // TERMINAL 77-B</span>
+      </div>
+
+      <div class="text-center md:text-right">
+        <span class="text-slate-300 font-bold">LOCAL TIME:</span>
+        <span id="local-clock" class="text-emerald-400 font-bold ml-1">--:--:--</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- CATEGORY: MAIN CONTENT AREA -->
+  <main class="flex-1 overflow-y-auto max-w-[1600px] w-full mx-auto p-6 space-y-6">
+
+    <div class="animate-fade-in space-y-6">
+      
+      <!-- CATEGORY: LESSON GOAL -->
+      <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-3">
+        <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+          <h2 class="text-base font-bold text-cyan-400 uppercase tracking-wider">
+            Lesson Goal
+          </h2>
+          <span class="text-xs text-amber-400 font-bold">[ACCOUNT SYSTEM OVERHAUL]</span>
+        </div>
+        <p class="text-sm text-white leading-relaxed">
+          Think of the mastery system as upgrading your account operating system. Hitting level 80 shifts your focus from raw character stats to unlocking permanent abilities like gliders, mounts, auto-looting, and housing across every character on your account.
+        </p>
+      </section>
+
+      <!-- CATEGORY: MODULE 01 -->
+      <section class="border border-slate-800 bg-slate-950/60 p-6 rounded-sm glow-cyan space-y-4">
+        <div class="border-b border-slate-800 pb-3">
+          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Module 01</div>
+          <h3 class="text-lg font-bold text-white">The 3 Step Mastery Loop</h3>
+        </div>
+
+        <p class="text-xs text-slate-300">Acquiring any account capability follows a clear sequence:</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div class="p-4 bg-slate-900 border border-slate-800 rounded-sm space-y-2">
+            <div class="font-bold text-amber-400 uppercase">1. Select and Train</div>
+            <p class="text-slate-300 leading-relaxed">
+              Open the Hero Panel (H) to the Mastery tab and choose a track. Experience earned within that region fills the progress bar.
+            </p>
+          </div>
+
+          <div class="p-4 bg-slate-900 border border-slate-800 rounded-sm space-y-2">
+            <div class="font-bold text-cyan-400 uppercase">2. Collect Mastery Points</div>
+            <p class="text-slate-300 leading-relaxed">
+              Gather regional points by communing with open world insights, finishing story chapters, or completing achievements.
+            </p>
+          </div>
+
+          <div class="p-4 bg-slate-900 border border-slate-800 rounded-sm space-y-2">
+            <div class="font-bold text-emerald-400 uppercase">3. Spend and Activate</div>
+            <p class="text-slate-300 leading-relaxed">
+              Once the experience bar fills, spend your accumulated points to permanently unlock the capability across your whole account.
+            </p>
+          </div>
+        </div>
+
+        <blockquote class="p-4 border-l-4 border-cyan-400 bg-slate-900/80 rounded-r-sm text-xs text-slate-200">
+          <strong class="text-white font-bold">Pro Tip:</strong> Progress is retained automatically whenever you switch between active training tracks.
+        </blockquote>
+      </section>
+
+      <!-- CATEGORY: MODULE 02 -->
+      <section class="border border-slate-800 bg-slate-950/60 p-6 rounded-sm glow-cyan space-y-4">
+        <div class="border-b border-slate-800 pb-3">
+          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Module 02</div>
+          <h3 class="text-lg font-bold text-white">Regional Isolation</h3>
+        </div>
+
+        <p class="text-xs text-slate-300">Experience and mastery points remain locked to their origin territory:</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
+            <div>
+              <strong class="text-white block">Central Tyria (Red)</strong>
+              <span class="text-slate-400">Core maps, dungeons, Fractals</span>
+            </div>
+          </div>
+
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+            <div>
+              <strong class="text-white block">Heart of Thorns (Green)</strong>
+              <span class="text-slate-400">Maguuma Jungle, Season 3</span>
+            </div>
+          </div>
+
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-purple-500 inline-block"></span>
+            <div>
+              <strong class="text-white block">Path of Fire (Purple)</strong>
+              <span class="text-slate-400">Elonian Desert, Season 4</span>
+            </div>
+          </div>
+
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-blue-500 inline-block"></span>
+            <div>
+              <strong class="text-white block">Icebrood Saga (Blue)</strong>
+              <span class="text-slate-400">Shiverpeaks, Strike Missions</span>
+            </div>
+          </div>
+
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-teal-400 inline-block"></span>
+            <div>
+              <strong class="text-white block">End of Dragons (Teal)</strong>
+              <span class="text-slate-400">Cantha region</span>
+            </div>
+          </div>
+
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-yellow-400 inline-block"></span>
+            <div>
+              <strong class="text-white block">Secrets of the Obscure (Yellow)</strong>
+              <span class="text-slate-400">Horn of Maguuma, Nayos</span>
+            </div>
+          </div>
+
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-orange-500 inline-block"></span>
+            <div>
+              <strong class="text-white block">Janthir Wilds (Orange)</strong>
+              <span class="text-slate-400">Janthir region</span>
+            </div>
+          </div>
+
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-cyan-400 inline-block"></span>
+            <div>
+              <strong class="text-white block">Visions of Eternity (Cyan)</strong>
+              <span class="text-slate-400">Castora region</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CATEGORY: MODULE 03 -->
+      <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-4">
+        <div class="border-b border-slate-800 pb-3">
+          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Module 03</div>
+          <h3 class="text-lg font-bold text-white">Primary Regional Tracks</h3>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-950 text-cyan-400 border-b border-slate-800">
+                <th class="p-3 font-bold">Region</th>
+                <th class="p-3 font-bold">Featured Masteries</th>
+                <th class="p-3 font-bold">Primary Benefit</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60 text-slate-300">
+              <tr class="hover:bg-slate-900/40">
+                <td class="p-3 font-bold text-white">Central Tyria</td>
+                <td class="p-3">Pact Commander, Fractal Attunement, Legendary Crafting</td>
+                <td class="p-3 text-cyan-300">Unlocks automatic loot pickup and high tier recipe access.</td>
+              </tr>
+              <tr class="hover:bg-slate-900/40">
+                <td class="p-3 font-bold text-white">Heart of Thorns</td>
+                <td class="p-3">Gliding, Native Lore, Raids, Ancient Magics</td>
+                <td class="p-3 text-cyan-300">Aerial mobility, mushroom bouncing, and raid mechanics.</td>
+              </tr>
+              <tr class="hover:bg-slate-900/40">
+                <td class="p-3 font-bold text-white">Path of Fire</td>
+                <td class="p-3">Raptor, Springer, Skimmer, Jackal, Griffon, Beetle, Skyscale</td>
+                <td class="p-3 text-cyan-300">High speed terrain traversal and flying mounts.</td>
+              </tr>
+              <tr class="hover:bg-slate-900/40">
+                <td class="p-3 font-bold text-white">Icebrood Saga</td>
+                <td class="p-3">Waystation Synchronization, Essence Manipulation</td>
+                <td class="p-3 text-cyan-300">Portable buff stations and chest opening abilities.</td>
+              </tr>
+              <tr class="hover:bg-slate-900/40">
+                <td class="p-3 font-bold text-white">End of Dragons</td>
+                <td class="p-3">Fishing, Skiffs, Jade Bots, Siege Turtle</td>
+                <td class="p-3 text-cyan-300">Water travel, personal revive bots, and two player mounts.</td>
+              </tr>
+              <tr class="hover:bg-slate-900/40">
+                <td class="p-3 font-bold text-white">Secrets of the Obscure</td>
+                <td class="p-3">Flight Training, Rift Hunting, Astral Ward</td>
+                <td class="p-3 text-cyan-300">Updraft mounting and improved flying mount stamina.</td>
+              </tr>
+              <tr class="hover:bg-slate-900/40">
+                <td class="p-3 font-bold text-white">Janthir Wilds</td>
+                <td class="p-3">Warclaw, Lowland Kodan, Homesteading</td>
+                <td class="p-3 text-cyan-300">Combat mount upgrades and customizable account housing.</td>
+              </tr>
+              <tr class="hover:bg-slate-900/40">
+                <td class="p-3 font-bold text-white">Visions of Eternity</td>
+                <td class="p-3">Castoran Survival, Skimmer Adaptation</td>
+                <td class="p-3 text-cyan-300">Water speed enhancements and regional magic mechanics.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- CATEGORY: MODULE 04 -->
+      <section class="border border-slate-800 bg-slate-950/60 p-6 rounded-sm glow-cyan space-y-4">
+        <div class="border-b border-slate-800 pb-3">
+          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Module 04</div>
+          <h3 class="text-lg font-bold text-white">Experience Conversion</h3>
+        </div>
+
+        <p class="text-xs text-slate-300">Experience earned at level 80 never goes to waste:</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="p-4 bg-slate-900 border border-slate-800 rounded-sm space-y-2">
+            <div class="font-bold text-amber-400 uppercase text-xs">Overflow Routing</div>
+            <p class="text-slate-300 leading-relaxed">
+              Full experience bars redirect excess progress to the next available untrained track in that region automatically.
+            </p>
+          </div>
+
+          <div class="p-4 bg-slate-900 border border-slate-800 rounded-sm space-y-2">
+            <div class="font-bold text-cyan-400 uppercase text-xs">Spirit Shard Engine</div>
+            <p class="text-slate-300 leading-relaxed">
+              Fully completing all regional masteries converts every subsequent 254,000 experience points into a Spirit Shard for high tier crafting.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CATEGORY: FIELD PRACTICE CHECKLIST -->
+      <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-4">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+          <h3 class="text-base font-bold text-cyan-400 uppercase tracking-wider">
+            Practice Drill Checklist
+          </h3>
+          <span id="checklist-status" class="text-xs text-amber-400 font-bold">[0 / 3 DONE]</span>
+        </div>
+
+        <ul class="space-y-3 text-sm text-white">
+          <li class="flex items-center gap-3 p-3 bg-slate-950 border border-slate-800 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-5 h-5 accent-cyan-400 cursor-pointer" data-id="drill-1" />
+            <span><strong>Select a Track:</strong> Open your Hero Panel (H) and confirm a mastery track is currently active.</span>
+          </li>
+          <li class="flex items-center gap-3 p-3 bg-slate-950 border border-slate-800 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-5 h-5 accent-cyan-400 cursor-pointer" data-id="drill-2" />
+            <span><strong>Find an Insight:</strong> Filter the achievement panel to locate and commune with a nearby open world Mastery Insight.</span>
+          </li>
+          <li class="flex items-center gap-3 p-3 bg-slate-950 border border-slate-800 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-5 h-5 accent-cyan-400 cursor-pointer" data-id="drill-3" />
+            <span><strong>Automate Looting:</strong> Prioritize the Pact Commander line in Central Tyria to unlock account wide auto-loot.</span>
+          </li>
+        </ul>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- CATEGORY: STICKY FOOTER -->
+  <footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-6 py-3">
+    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+      <p class="text-[10px] text-white/80 max-w-3xl leading-normal">
+        This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
+      </p>
+
+      <div class="flex items-center space-x-4 text-xs">
+        <span class="text-white">
+          Written by <a href="https://liar.fyi" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 cursor-pointer font-bold">The Liars Guild</a>
+        </span>
+        <span class="text-slate-700">|</span>
+        <span class="text-white">
+          Site Builder: <a href="https://qkommand.github.io/home/" target="_blank" class="text-white hover:text-cyan-400 underline font-bold cursor-pointer">Commander Q</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CATEGORY: LOGIC ENGINE -->
+  <script>
+    /* CATEGORY: CHECKLIST STATE MANAGEMENT */
+    const STORAGE_KEY = 'priory_class302_checkboxes';
+    let checklistCompletedState = 'off';
+
+    function updateChecklist() {
+      const boxes = document.querySelectorAll('.id-check');
+      let checkedCount = 0;
+      const savedState = {};
+
+      boxes.forEach(box => {
+        const id = box.getAttribute('data-id');
+        if (box.checked) {
+          checkedCount++;
+          savedState[id] = 'on';
+        } else {
+          savedState[id] = 'off';
+        }
+      });
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
+
+      const statusEl = document.getElementById('checklist-status');
+      statusEl.innerText = `[${checkedCount} / ${boxes.length} DONE]`;
+
+      if (checkedCount === boxes.length) {
+        checklistCompletedState = 'on';
+        statusEl.className = 'text-xs text-emerald-400 font-bold';
+      } else {
+        checklistCompletedState = 'off';
+        statusEl.className = 'text-xs text-amber-400 font-bold';
+      }
+    }
+
+    function loadChecklistState() {
+      const savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      const boxes = document.querySelectorAll('.id-check');
+
+      boxes.forEach(box => {
+        const id = box.getAttribute('data-id');
+        if (savedState[id] === 'on') {
+          box.checked = true;
+        }
+      });
+
+      updateChecklist();
+    }
+
+    /* CATEGORY: UNIVERSAL CLOCKS ENGINE */
+    function updateClocks() {
+      const now = new Date();
+      
+      const utcHours = String(now.getUTCHours()).padStart(2, '0');
+      const utcMins = String(now.getUTCMinutes()).padStart(2, '0');
+      const utcSecs = String(now.getUTCSeconds()).padStart(2, '0');
+      document.getElementById('server-clock').innerText = `${utcHours}:${utcMins}:${utcSecs} UTC`;
+
+      const totalUtcSec = (now.getUTCHours() * 3600) + (now.getUTCMinutes() * 60) + now.getUTCSeconds();
+      const cycleOffset = 1500;
+      const secondsInto2HrCycle = (totalUtcSec - cycleOffset + 720000) % 7200;
+
+      const tyrianSecFromMidnight = (secondsInto2HrCycle * 12 + 21600) % 86400;
+      const tyrianHour = Math.floor(tyrianSecFromMidnight / 3600);
+      const tyrianMin = Math.floor((tyrianSecFromMidnight % 3600) / 60);
+
+      const formattedTyrianHour = String(tyrianHour).padStart(2, '0');
+      const formattedTyrianMin = String(tyrianMin).padStart(2, '0');
+
+      let icon = '☀️';
+      if (tyrianHour >= 5 && tyrianHour < 6) icon = '🌅';
+      else if (tyrianHour >= 6 && tyrianHour < 20) icon = '☀️';
+      else if (tyrianHour >= 20 && tyrianHour < 21) icon = '🌆';
+      else icon = '🌙';
+
+      document.getElementById('tyria-clock-time').innerHTML = `${icon} <span>${formattedTyrianHour}:${formattedTyrianMin}</span>`;
+
+      document.getElementById('local-clock').innerText = now.toLocaleTimeString();
+    }
+
+    /* CATEGORY: INITIALIZATION */
+    document.addEventListener('DOMContentLoaded', () => {
+      updateClocks();
+      loadChecklistState();
+      setInterval(updateClocks, 1000);
+    });
+  </script>
+</body>
+</html>
