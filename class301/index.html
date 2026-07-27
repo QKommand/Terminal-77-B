@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-white">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Course 301 // [LIAR] Tyrian Field Archives</title>
+  
+  <!-- CATEGORY: EXTERNAL DEPENDENCIES -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- CATEGORY: STYLES & ANIMATIONS -->
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    .glow-cyan {
+      box-shadow: 0 0 14px rgba(34, 211, 238, 0.15);
+    }
+    .glow-cyan:hover {
+      box-shadow: 0 0 22px rgba(34, 211, 238, 0.35);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #0f172a;
+      border: 1px solid #22d3ee;
+    }
+  </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden relative bg-slate-950 text-white selection:bg-cyan-500 selection:text-slate-950">
+
+  <!-- CATEGORY: STICKY HEADER -->
+  <header class="shrink-0 border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-6 py-4 space-y-3">
+    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+      <a 
+        href="../index.html" 
+        class="inline-flex items-center gap-2 px-4 py-2 bg-slate-950 border border-cyan-500/40 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all cursor-pointer"
+      >
+        <span>&larr;</span>
+        <span>Return To Main Directory</span>
+      </a>
+
+      <div class="text-center space-y-0.5">
+        <h1 class="text-base sm:text-xl font-bold text-cyan-400 tracking-wider uppercase">
+          Course 301: Power Luminary Attribute Anatomy & Build Configurator
+        </h1>
+      </div>
+
+      <div class="hidden md:block w-48"></div>
+    </div>
+
+    <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-3 pt-3 border-t border-slate-800 text-xs sm:text-sm text-center md:text-left items-center">
+      <div class="flex items-center justify-center md:justify-start gap-2">
+        <span class="text-slate-300 font-bold">TYRIAN TIME:</span>
+        <span id="tyria-clock-time" class="text-amber-400 font-bold flex items-center gap-1.5">--:--</span>
+      </div>
+
+      <div class="text-center md:text-left">
+        <span class="text-slate-300 font-bold">SERVER TIME:</span>
+        <span id="server-clock" class="text-cyan-400 font-bold ml-1">--:--:-- UTC</span>
+      </div>
+
+      <div class="text-center">
+        <span class="text-slate-300 font-bold">LOCATION:</span>
+        <span class="text-cyan-400 font-bold ml-1">DURMAND PRIORY // TERMINAL 77-B</span>
+      </div>
+
+      <div class="text-center md:text-right">
+        <span class="text-slate-300 font-bold">LOCAL TIME:</span>
+        <span id="local-clock" class="text-emerald-400 font-bold ml-1">--:--:--</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- CATEGORY: MAIN CONTENT AREA -->
+  <main class="flex-1 overflow-y-auto max-w-[1600px] w-full mx-auto p-6 space-y-6">
+
+    <div class="animate-fade-in space-y-6">
+      
+      <!-- CATEGORY: LESSON OVERVIEW -->
+      <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-3">
+        <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+          <h2 class="text-base font-bold text-cyan-400 uppercase tracking-wider">
+            Lesson Goal
+          </h2>
+          <span class="text-xs text-amber-400 font-bold">[BUILD EDITOR & ANALYSIS]</span>
+        </div>
+        <p class="text-sm text-white leading-relaxed">
+          Before copying a list of armor pieces, you need to understand how attributes work together. Think of build tailoring like tuning a race car: Power is your engine size, Precision is your steering accuracy, Ferocity is your turbocharger, Concentration is your fuel tank capacity, and Vitality is your roll cage. Adjusting these dials shapes your character's combat profile.
+        </p>
+      </section>
+
+      <!-- CATEGORY: ATTRIBUTE BREAKDOWN METAPHORS -->
+      <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-4">
+        <div class="border-b border-slate-800 pb-3">
+          <h3 class="text-base font-bold text-cyan-400 uppercase tracking-wider">
+            Core Attribute Breakdown
+          </h3>
+          <p class="text-xs text-slate-300">How each stat directly influences your Power Luminary performance.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          
+          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm space-y-2">
+            <div class="font-bold text-amber-400 uppercase text-xs">1. Raw Output (Power & Precision)</div>
+            <p class="text-slate-300 leading-relaxed">
+              • <strong class="text-white">Power (Base Engine):</strong> Determines your flat damage multiplier on all physical hits.<br/><br/>
+              • <strong class="text-white">Precision (Bullseye Chance):</strong> Raises Critical Hit Chance toward 100%. Luminary traits grant free crit chance when Resolution or Fury is active, allowing you to save stat points for other areas.
+            </p>
+          </div>
+
+          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm space-y-2">
+            <div class="font-bold text-cyan-400 uppercase text-xs">2. Impact & Utility (Ferocity & Concentration)</div>
+            <p class="text-slate-300 leading-relaxed">
+              • <strong class="text-white">Ferocity (Turbo Crunch):</strong> Increases critical hit damage numbers.<br/><br/>
+              • <strong class="text-white">Concentration (Boon Stretch):</strong> Extends the duration of Might, Resolution, and Quickness so your combat buffs never drop off during solo play.
+            </p>
+          </div>
+
+          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm space-y-2">
+            <div class="font-bold text-emerald-400 uppercase text-xs">3. Health Cushion (Vitality)</div>
+            <p class="text-slate-300 leading-relaxed">
+              • <strong class="text-white">Vitality (Roll Cage Padding):</strong> Adds flat max HP to your health orb.<br/><br/>
+              • <strong class="text-white">Barrier Synergy:</strong> Since Barrier scales off your maximum health pool (capped at 50% max HP), extra Vitality directly increases the size of your yellow shield layer!
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CATEGORY: INTERACTIVE BUILD EDITOR -->
+      <section class="border border-cyan-500/50 bg-slate-900/80 p-6 rounded-sm glow-cyan space-y-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-800 pb-3 gap-2">
+          <div>
+            <span class="text-amber-400 font-bold text-xs uppercase tracking-wider">[INTERACTIVE TOOL]</span>
+            <h3 class="text-lg font-bold text-cyan-400 uppercase tracking-wider">
+              Interactive Armor Configurator
+            </h3>
+          </div>
+          <button onclick="resetBuildEditor()" class="px-3 py-1 bg-slate-950 border border-slate-700 hover:border-cyan-400 text-xs text-slate-300 hover:text-cyan-300 rounded transition-all cursor-pointer">
+            Reset To Default Meta
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- SLOT SELECTORS (2 COLUMNS ON LG) -->
+          <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            
+            <div class="p-3 bg-slate-950 border border-slate-800 rounded space-y-1.5">
+              <label class="font-bold text-white block">Head Slot</label>
+              <select id="slot-head" onchange="calculateBuildProfile()" class="w-full bg-slate-900 border border-slate-700 text-cyan-300 p-2 rounded text-xs">
+                <option value="berserker">Berserker's (Power / Precision / Ferocity)</option>
+                <option value="dragon">Dragon's (Power / Ferocity / Precision / Vitality)</option>
+                <option value="diviner">Diviner's (Power / Concentration / Precision / Ferocity)</option>
+                <option value="marauder">Marauder's (Power / Precision / Vitality / Ferocity)</option>
+              </select>
+            </div>
+
+            <div class="p-3 bg-slate-950 border border-slate-800 rounded space-y-1.5">
+              <label class="font-bold text-white block">Shoulders Slot</label>
+              <select id="slot-shoulders" onchange="calculateBuildProfile()" class="w-full bg-slate-900 border border-slate-700 text-cyan-300 p-2 rounded text-xs">
+                <option value="berserker">Berserker's (Power / Precision / Ferocity)</option>
+                <option value="dragon">Dragon's (Power / Ferocity / Precision / Vitality)</option>
+                <option value="diviner">Diviner's (Power / Concentration / Precision / Ferocity)</option>
+                <option value="marauder">Marauder's (Power / Precision / Vitality / Ferocity)</option>
+              </select>
+            </div>
+
+            <div class="p-3 bg-slate-950 border border-slate-800 rounded space-y-1.5">
+              <label class="font-bold text-white block">Chest Slot</label>
+              <select id="slot-chest" onchange="calculateBuildProfile()" class="w-full bg-slate-900 border border-slate-700 text-cyan-300 p-2 rounded text-xs">
+                <option value="dragon" selected>Dragon's (Power / Ferocity / Precision / Vitality)</option>
+                <option value="berserker">Berserker's (Power / Precision / Ferocity)</option>
+                <option value="diviner">Diviner's (Power / Concentration / Precision / Ferocity)</option>
+                <option value="marauder">Marauder's (Power / Precision / Vitality / Ferocity)</option>
+              </select>
+            </div>
+
+            <div class="p-3 bg-slate-950 border border-slate-800 rounded space-y-1.5">
+              <label class="font-bold text-white block">Hands Slot</label>
+              <select id="slot-hands" onchange="calculateBuildProfile()" class="w-full bg-slate-900 border border-slate-700 text-cyan-300 p-2 rounded text-xs">
+                <option value="berserker">Berserker's (Power / Precision / Ferocity)</option>
+                <option value="dragon">Dragon's (Power / Ferocity / Precision / Vitality)</option>
+                <option value="diviner">Diviner's (Power / Concentration / Precision / Ferocity)</option>
+                <option value="marauder">Marauder's (Power / Precision / Vitality / Ferocity)</option>
+              </select>
+            </div>
+
+            <div class="p-3 bg-slate-950 border border-slate-800 rounded space-y-1.5">
+              <label class="font-bold text-white block">Legs Slot</label>
+              <select id="slot-legs" onchange="calculateBuildProfile()" class="w-full bg-slate-900 border border-slate-700 text-cyan-300 p-2 rounded text-xs">
+                <option value="dragon" selected>Dragon's (Power / Ferocity / Precision / Vitality)</option>
+                <option value="berserker">Berserker's (Power / Precision / Ferocity)</option>
+                <option value="diviner">Diviner's (Power / Concentration / Precision / Ferocity)</option>
+                <option value="marauder">Marauder's (Power / Precision / Vitality / Ferocity)</option>
+              </select>
+            </div>
+
+            <div class="p-3 bg-slate-950 border border-slate-800 rounded space-y-1.5">
+              <label class="font-bold text-white block">Feet Slot</label>
+              <select id="slot-feet" onchange="calculateBuildProfile()" class="w-full bg-slate-900 border border-slate-700 text-cyan-300 p-2 rounded text-xs">
+                <option value="berserker">Berserker's (Power / Precision / Ferocity)</option>
+                <option value="dragon">Dragon's (Power / Ferocity / Precision / Vitality)</option>
+                <option value="diviner">Diviner's (Power / Concentration / Precision / Ferocity)</option>
+                <option value="marauder">Marauder's (Power / Precision / Vitality / Ferocity)</option>
+              </select>
+            </div>
+
+          </div>
+
+          <!-- DYNAMIC PROFILE RESULT CARD -->
+          <div class="p-5 bg-slate-950 border border-cyan-500/60 rounded flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <span class="text-[10px] text-amber-400 font-bold uppercase tracking-wider block">Calculated Build Profile</span>
+              <h4 id="profile-title" class="text-xl font-bold text-cyan-300">The Balanced Luminary</h4>
+              <p id="profile-desc" class="text-xs text-slate-300 leading-relaxed">
+                An optimal mix of raw strike damage, maxed critical hit chance, and vital health padding.
+              </p>
+            </div>
+
+            <div class="space-y-2 border-t border-slate-800 pt-3 text-xs">
+              <div class="flex justify-between items-center">
+                <span class="text-slate-400">Strike Burst Rating:</span>
+                <span id="rating-damage" class="font-bold text-amber-400">High (95%)</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-slate-400">Health / Shield Cushion:</span>
+                <span id="rating-health" class="font-bold text-emerald-400">+3,200 HP</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-slate-400">Boon Stability Uptime:</span>
+                <span id="rating-boons" class="font-bold text-cyan-300">100% Self Uptime</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CATEGORY: ENGINE MECHANICS -->
+      <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-4">
+        <div class="border-b border-slate-800 pb-3">
+          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Module 02</div>
+          <h3 class="text-lg font-bold text-white">The Engine Mechanics (Resolution & Light Aura)</h3>
+        </div>
+        <p class="text-sm text-white leading-relaxed">
+          The Power Luminary damage output is driven by two interlocking mechanical engines: 100% Resolution Uptime and Light Aura Detonations.
+        </p>
+
+        <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm space-y-3 font-mono text-xs">
+          <div class="text-center font-bold text-amber-400 border-b border-slate-800 pb-2">RESOLUTION BOON ENGINE</div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-slate-300">
+            <div class="p-3 bg-slate-900 border border-slate-800 rounded">
+              <strong class="text-cyan-400 block mb-1">Retribution Trait</strong>
+              <span>──► Grants +10% Direct Damage</span>
+            </div>
+            <div class="p-3 bg-slate-900 border border-slate-800 rounded">
+              <strong class="text-cyan-400 block mb-1">Righteous Instincts Trait</strong>
+              <span>──► Grants +25% Critical Chance</span>
+            </div>
+          </div>
+          <div class="text-center text-cyan-400 font-bold pt-1">▲ (Maintained via)</div>
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded text-slate-300 space-y-1">
+            <div>• Greatsword 4 (Symbol of Resolution)</div>
+            <div>• Spear 2 (Helio Rush - when Illuminated & not full HP)</div>
+            <div>• Heal Skill (Litany of Wrath via Healer's Resolution)</div>
+            <div>• Passive Light Aura hits (Grants Resolution automatically)</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs pt-2">
+          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm space-y-2">
+            <div class="font-bold text-amber-400 uppercase">Creating Light Aura</div>
+            <ul class="text-slate-300 space-y-1.5 list-disc list-inside">
+              <li><strong class="text-white">Skill Combos:</strong> Leap through Light Fields (e.g., Greatsword 3 Leap of Faith inside Greatsword 4 Symbol of Resolution).</li>
+              <li><strong class="text-white">Stances & Virtues:</strong> Radiant Justice (F1), Radiant Resolve (F2), Effulgent Stance, or entering Radiant Forge (F4).</li>
+            </ul>
+          </div>
+
+          <div class="p-4 bg-slate-950 border border-slate-800 rounded-sm space-y-2">
+            <div class="font-bold text-cyan-400 uppercase">Detonating Light Aura</div>
+            <ul class="text-slate-300 space-y-1.5 list-disc list-inside">
+              <li><strong class="text-white">Stance Explosions:</strong> Cast Luminary Stance skills (Piercing Stance, Effulgent Stance, Daring Advance) to detonate active Light Auras via Sovereign of Light for massive AOE damage spikes.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- CATEGORY: SKILL PRIORITY & ROTATION FLOWCHARTS -->
+      <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-4">
+        <div class="border-b border-slate-800 pb-3">
+          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Module 03</div>
+          <h3 class="text-lg font-bold text-white">Skill Priority & Rotation Flowcharts</h3>
+        </div>
+
+        <div class="space-y-4 text-xs">
+          <div>
+            <h4 class="font-bold text-cyan-400 uppercase mb-2">1. Spear Skill Priority (Illuminated State Engine)</h4>
+            <p class="text-slate-300 mb-2">The Spear set relies on the Illuminated buff. Symbol of Luminance (Spear 5) makes all subsequent spear skills Illuminated while active.</p>
+            <pre class="p-4 bg-slate-950 border border-slate-800 text-amber-400 font-mono text-xs overflow-x-auto rounded-sm">[Start Spear] ──► Skill 5: Symbol of Luminance (Grants Full Illuminated)
+                         │
+                         ▼
+                  Skill 2: Helio Rush (If NOT Illuminated)
+                         │
+                         ▼
+                  Skill 3: Gleaming Disc (If Illuminated)
+                         │
+                         ▼
+                  Skill 4: Solar Storm (If Illuminated)</pre>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-cyan-400 uppercase mb-2">2. Greatsword Burst Sequence</h4>
+            <p class="text-slate-300 mb-2">Greatsword provides heavy area cleave and creates your primary Light Field.</p>
+            <pre class="p-4 bg-slate-950 border border-slate-800 text-cyan-300 font-mono text-xs overflow-x-auto rounded-sm">[Swap GS] ──► Skill 4: Symbol of Resolution (Drops Light Field)
+                     │
+                     ▼
+              Skill 2: Whirling Wrath (Heavy Cleave Damage)
+                     │
+                     ▼
+              Skill 5: Binding Blade (Pulls Foes into Symbol)
+                     │
+                     ▼
+              Skill 3: Leap of Faith (Leaps in Field --> Gains Light Aura!)</pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- CATEGORY: DEFIANCE BREAK REFERENCE -->
+      <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-4">
+        <div class="border-b border-slate-800 pb-3">
+          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Module 04</div>
+          <h3 class="text-lg font-bold text-white">Defiance Break (CC) Reference Table</h3>
+        </div>
+        
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-950 text-cyan-400 border-b border-slate-800">
+                <th class="p-3 font-bold">Skill Name</th>
+                <th class="p-3 font-bold">Weapon / Source</th>
+                <th class="p-3 font-bold">Defiance Bar Damage</th>
+                <th class="p-3 font-bold">Cast Type</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60 text-slate-300">
+              <tr class="hover:bg-slate-900/40"><td class="p-3 font-bold text-amber-400">Sanctuary</td><td class="p-3">Alternate Utility</td><td class="p-3 font-bold text-emerald-400">1,050 (150 x 7 ticks)</td><td class="p-3">Ground Targeted Zone</td></tr>
+              <tr class="hover:bg-slate-900/40"><td class="p-3 font-bold text-white">Bane Signet</td><td class="p-3">Utility Skill</td><td class="p-3 font-bold text-cyan-300">300</td><td class="p-3">Instant Cast</td></tr>
+              <tr class="hover:bg-slate-900/40"><td class="p-3 font-bold text-white">Dazzling Hammer (Skill 2)</td><td class="p-3">Radiant Forge (F4)</td><td class="p-3 font-bold text-cyan-300">200</td><td class="p-3">Melee Attack</td></tr>
+              <tr class="hover:bg-slate-900/40"><td class="p-3 font-bold text-white">Brilliant Slam (Skill 5)</td><td class="p-3">Radiant Forge (F4)</td><td class="p-3 font-bold text-cyan-300">200</td><td class="p-3">Melee Slam</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- CATEGORY: FIELD PRACTICE CHECKLIST -->
+      <section class="border border-slate-800 bg-slate-900/60 p-6 rounded-sm glow-cyan space-y-4">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+          <h3 class="text-base font-bold text-cyan-400 uppercase tracking-wider">
+            Practice Drill Checklist
+          </h3>
+          <span id="checklist-status" class="text-xs text-amber-400 font-bold">[0 / 3 DONE]</span>
+        </div>
+
+        <ul class="space-y-3 text-sm text-white">
+          <li class="flex items-center gap-3 p-3 bg-slate-950 border border-slate-800 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-5 h-5 accent-cyan-400 cursor-pointer" data-id="drill-1" />
+            <span><strong>Test Build Configurator:</strong> Swap armor slots in the interactive tool above to see how your damage rating and health cushion change.</span>
+          </li>
+          <li class="flex items-center gap-3 p-3 bg-slate-950 border border-slate-800 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-5 h-5 accent-cyan-400 cursor-pointer" data-id="drill-2" />
+            <span><strong>Verify Resolution Engine:</strong> Drop Greatsword 4 (Symbol of Resolution) and leap through it with Skill 3 (Leap of Faith) to generate Light Aura and cap Resolution uptime.</span>
+          </li>
+          <li class="flex items-center gap-3 p-3 bg-slate-950 border border-slate-800 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-5 h-5 accent-cyan-400 cursor-pointer" data-id="drill-3" />
+            <span><strong>Execute Illuminated Spear Chain:</strong> Cast Spear 5 (Symbol of Luminance), then immediately execute Illuminated Spear 3 and Spear 4 in sequence.</span>
+          </li>
+        </ul>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- CATEGORY: STICKY FOOTER -->
+  <footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-6 py-3">
+    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+      <p class="text-[10px] text-white/80 max-w-3xl leading-normal">
+        This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
+      </p>
+
+      <div class="flex items-center space-x-4 text-xs">
+        <span class="text-white">
+          Written by <a href="https://liar.fyi" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 cursor-pointer font-bold">The Liars Guild</a>
+        </span>
+        <span class="text-slate-700">|</span>
+        <span class="text-white">
+          Site Builder: <a href="https://qkommand.github.io/home/" target="_blank" class="text-white hover:text-cyan-400 underline font-bold cursor-pointer">Commander Q</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CATEGORY: LOGIC ENGINE -->
+  <script>
+    /* CATEGORY: BUILD EDITOR LOGIC */
+    function calculateBuildProfile() {
+      const head = document.getElementById('slot-head').value;
+      const shoulders = document.getElementById('slot-shoulders').value;
+      const chest = document.getElementById('slot-chest').value;
+      const hands = document.getElementById('slot-hands').value;
+      const legs = document.getElementById('slot-legs').value;
+      const feet = document.getElementById('slot-feet').value;
+
+      const slots = [head, shoulders, chest, hands, legs, feet];
+      
+      let counts = { berserker: 0, dragon: 0, diviner: 0, marauder: 0 };
+      slots.forEach(slot => { counts[slot] = (counts[slot] || 0) + 1; });
+
+      const profileTitle = document.getElementById('profile-title');
+      const profileDesc = document.getElementById('profile-desc');
+      const ratingDamage = document.getElementById('rating-damage');
+      const ratingHealth = document.getElementById('rating-health');
+      const ratingBoons = document.getElementById('rating-boons');
+
+      let customActiveState = 'off';
+
+      if (counts.berserker >= 5) {
+        profileTitle.innerText = "The Pure Glass Cannon";
+        profileTitle.className = "text-xl font-bold text-amber-400";
+        profileDesc.innerText = "Maximum raw burst damage output. Extremely high critical numbers, but zero additional health cushion—punishing if you miss a dodge.";
+        ratingDamage.innerText = "Maximum (100%)";
+        ratingHealth.innerText = "+0 Base HP";
+        ratingBoons.innerText = "Requires Fury/Resolution";
+      } else if (counts.dragon >= 3) {
+        profileTitle.innerText = "The Dragon Brawler";
+        profileTitle.className = "text-xl font-bold text-cyan-300";
+        profileDesc.innerText = "Heavy strike impact backed by extra Vitality. Gives you room to absorb boss hits while keeping high Ferocity spikes.";
+        ratingDamage.innerText = "High (94%)";
+        ratingHealth.innerText = "+3,800 HP Cushion";
+        ratingBoons.innerText = "High Self Uptime";
+      } else if (counts.diviner >= 3) {
+        profileTitle.innerText = "The Boon Sentinel";
+        profileTitle.className = "text-xl font-bold text-emerald-400";
+        profileDesc.innerText = "Focused on Concentration. Guarantees long-lasting Resolution and Quickness for group operations at the cost of slightly lower peak burst.";
+        ratingDamage.innerText = "Moderate (82%)";
+        ratingHealth.innerText = "+0 Base HP";
+        ratingBoons.innerText = "Extended Boon Duration (+40%)";
+      } else if (counts.marauder >= 3) {
+        profileTitle.innerText = "The Forgiving Wanderer";
+        profileTitle.className = "text-xl font-bold text-purple-400";
+        profileDesc.innerText = "High base Precision and health padding. Excellent for returning players who want an easy, forgiving open-world experience.";
+        ratingDamage.innerText = "Solid (88%)";
+        ratingHealth.innerText = "+2,800 HP Cushion";
+        ratingBoons.innerText = "Baseline";
+      } else {
+        customActiveState = 'on';
+        profileTitle.innerText = "The Balanced Luminary (Meta Hybrid)";
+        profileTitle.className = "text-xl font-bold text-cyan-300";
+        profileDesc.innerText = "An optimal mix of raw strike damage, maxed critical hit chance, and vital health padding.";
+        ratingDamage.innerText = "Optimal (95%)";
+        ratingHealth.innerText = "+2,400 HP Cushion";
+        ratingBoons.innerText = "100% Self Uptime";
+      }
+    }
+
+    function resetBuildEditor() {
+      document.getElementById('slot-head').value = 'berserker';
+      document.getElementById('slot-shoulders').value = 'berserker';
+      document.getElementById('slot-chest').value = 'dragon';
+      document.getElementById('slot-hands').value = 'berserker';
+      document.getElementById('slot-legs').value = 'dragon';
+      document.getElementById('slot-feet').value = 'berserker';
+      calculateBuildProfile();
+    }
+
+    /* CATEGORY: CHECKLIST STATE MANAGEMENT */
+    const STORAGE_KEY = 'priory_class301_checkboxes';
+    let checklistCompletedState = 'off';
+
+    function updateChecklist() {
+      const boxes = document.querySelectorAll('.id-check');
+      let checkedCount = 0;
+      const savedState = {};
+
+      boxes.forEach(box => {
+        const id = box.getAttribute('data-id');
+        if (box.checked) {
+          checkedCount++;
+          savedState[id] = 'on';
+        } else {
+          savedState[id] = 'off';
+        }
+      });
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
+
+      const statusEl = document.getElementById('checklist-status');
+      statusEl.innerText = `[${checkedCount} / ${boxes.length} DONE]`;
+
+      if (checkedCount === boxes.length) {
+        checklistCompletedState = 'on';
+        statusEl.className = 'text-xs text-emerald-400 font-bold';
+      } else {
+        checklistCompletedState = 'off';
+        statusEl.className = 'text-xs text-amber-400 font-bold';
+      }
+    }
+
+    function loadChecklistState() {
+      const savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      const boxes = document.querySelectorAll('.id-check');
+
+      boxes.forEach(box => {
+        const id = box.getAttribute('data-id');
+        if (savedState[id] === 'on') {
+          box.checked = true;
+        }
+      });
+
+      updateChecklist();
+    }
+
+    /* CATEGORY: UNIVERSAL CLOCKS ENGINE */
+    function updateClocks() {
+      const now = new Date();
+      
+      const utcHours = String(now.getUTCHours()).padStart(2, '0');
+      const utcMins = String(now.getUTCMinutes()).padStart(2, '0');
+      const utcSecs = String(now.getUTCSeconds()).padStart(2, '0');
+      document.getElementById('server-clock').innerText = `${utcHours}:${utcMins}:${utcSecs} UTC`;
+
+      const totalUtcSec = (now.getUTCHours() * 3600) + (now.getUTCMinutes() * 60) + now.getUTCSeconds();
+      const cycleOffset = 1500;
+      const secondsInto2HrCycle = (totalUtcSec - cycleOffset + 720000) % 7200;
+
+      const tyrianSecFromMidnight = (secondsInto2HrCycle * 12 + 21600) % 86400;
+      const tyrianHour = Math.floor(tyrianSecFromMidnight / 3600);
+      const tyrianMin = Math.floor((tyrianSecFromMidnight % 3600) / 60);
+
+      const formattedTyrianHour = String(tyrianHour).padStart(2, '0');
+      const formattedTyrianMin = String(tyrianMin).padStart(2, '0');
+
+      let icon = '☀️';
+      if (tyrianHour >= 5 && tyrianHour < 6) icon = '🌅';
+      else if (tyrianHour >= 6 && tyrianHour < 20) icon = '☀️';
+      else if (tyrianHour >= 20 && tyrianHour < 21) icon = '🌆';
+      else icon = '🌙';
+
+      document.getElementById('tyria-clock-time').innerHTML = `${icon} <span>${formattedTyrianHour}:${formattedTyrianMin}</span>`;
+
+      document.getElementById('local-clock').innerText = now.toLocaleTimeString();
+    }
+
+    /* CATEGORY: INITIALIZATION */
+    document.addEventListener('DOMContentLoaded', () => {
+      updateClocks();
+      loadChecklistState();
+      calculateBuildProfile();
+      setInterval(updateClocks, 1000);
+    });
+  </script>
+</body>
+</html>
