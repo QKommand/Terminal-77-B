@@ -90,6 +90,15 @@
         <span>ADVANCED FIELD GUIDES</span>
       </button>
 
+      <button 
+        id="tab-btn-expert" 
+        onclick="switchTab('expert')" 
+        class="flex items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
+      >
+        <span class="text-[10px] sm:text-sm mr-1.5 opacity-80 sm:opacity-100">///</span>
+        <span>EXPERT GUIDES</span>
+      </button>
+
       <a 
         href="./adventure/index.html" 
         class="flex items-center justify-center text-center px-3 sm:px-5 py-2.5 border-b-2 border-transparent text-white hover:text-cyan-300 transition-all cursor-pointer"
@@ -111,6 +120,11 @@
     <!-- CATEGORY: VIEW - ADVANCED FIELD GUIDES -->
     <div id="view-advanced" class="hidden">
       <div id="grid-advanced" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+    </div>
+
+    <!-- CATEGORY: VIEW - EXPERT GUIDES -->
+    <div id="view-expert" class="hidden">
+      <div id="grid-expert" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </div>
 
   </main>
@@ -140,7 +154,8 @@
     const TAB_STORAGE_KEY = 'archive_active_tab';
     let tabState = {
       basics: 'on',
-      advanced: 'off'
+      advanced: 'off',
+      expert: 'off'
     };
 
     /* CATEGORY: GUIDE DATA STORES */
@@ -228,6 +243,15 @@
       }
     ];
 
+    const expertGuides = [
+      {
+        code: "COURSE 301",
+        title: "Meta Build Anatomy — Power Luminary (GS / Spear)",
+        desc: "Deconstruct meta builds, stat allocation matrices, Light Aura detonations, and rotation flowcharts with an interactive build editor.",
+        url: "./class301/index.html"
+      }
+    ];
+
     /* CATEGORY: DYNAMIC RENDER ENGINE */
     function renderGrid(containerId, list) {
       const container = document.getElementById(containerId);
@@ -259,6 +283,7 @@
     function renderAllGrids() {
       renderGrid('grid-basics', basicGuides);
       renderGrid('grid-advanced', advancedGuides);
+      renderGrid('grid-expert', expertGuides);
     }
 
     /* CATEGORY: TAB NAVIGATION ENGINE */
@@ -271,7 +296,7 @@
     }
 
     function renderTabViews() {
-      const tabs = ['basics', 'advanced'];
+      const tabs = ['basics', 'advanced', 'expert'];
       
       tabs.forEach(tab => {
         const viewEl = document.getElementById(`view-${tab}`);
