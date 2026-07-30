@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-white">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Course 303 // [LIAR] Tyrian Field Archives</title>
+  
+  <!-- CATEGORY: EXTERNAL DEPENDENCIES -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- CATEGORY: STYLES & ANIMATIONS -->
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    .glow-cyan {
+      box-shadow: 0 0 14px rgba(34, 211, 238, 0.10);
+    }
+    .glow-cyan:hover {
+      box-shadow: 0 0 22px rgba(34, 211, 238, 0.25);
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #0f172a;
+      border: 1px solid #22d3ee;
+      border-radius: 2px;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .animate-slide-down {
+      animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden relative bg-slate-950 text-white selection:bg-cyan-500 selection:text-slate-950">
+
+  <!-- CATEGORY: TOAST NOTIFICATION CONTAINER -->
+  <div 
+    id="toast-notification" 
+    class="hidden fixed top-3 right-3 left-3 sm:left-auto sm:max-w-md z-50 bg-slate-900/95 border border-cyan-400 text-white p-3.5 rounded shadow-2xl backdrop-blur glow-cyan animate-slide-down"
+  >
+    <div class="flex items-start justify-between gap-3">
+      <div class="flex items-start gap-2.5">
+        <span class="text-amber-400 text-lg">🔔</span>
+        <div>
+          <h4 id="toast-title" class="text-xs font-bold text-cyan-400 uppercase font-mono tracking-wider">
+            RESET DETECTED
+          </h4>
+          <p id="toast-message" class="text-xs text-slate-200 mt-0.5 leading-snug">
+            Daily reset has occurred!
+          </p>
+        </div>
+      </div>
+      <button 
+        onclick="dismissToast()" 
+        class="text-slate-400 hover:text-white text-xs font-bold px-1.5 py-0.5 cursor-pointer rounded bg-slate-950/60"
+      >
+        ✕
+      </button>
+    </div>
+  </div>
+
+  <!-- CATEGORY: MINIMAL HEADER & COMPACT TELEMETRY BAR -->
+  <header class="shrink-0 border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-3 sm:px-6 py-2 sm:py-3 space-y-1.5 sm:space-y-3">
+    <div class="max-w-[1600px] mx-auto text-center space-y-0.5">
+      <h1 class="text-base sm:text-2xl font-black text-cyan-400 tracking-wider uppercase drop-shadow-[0_0_10px_rgba(34,211,238,0.2)]">
+        Course 303: Currencies and the Account Wallet
+      </h1>
+      <p class="hidden sm:block text-xs sm:text-sm text-slate-300 tracking-wide font-medium">
+        Simple guides, field manuals, and operational tools for your Guild Wars 2 journey.
+      </p>
+    </div>
+
+    <!-- CATEGORY: TIME DISPLAY MONITOR -->
+    <div class="max-w-[1600px] mx-auto flex items-center justify-around sm:grid sm:grid-cols-3 gap-2 pt-1.5 sm:pt-3 border-t border-slate-800/80 text-xs sm:text-sm overflow-x-auto no-scrollbar whitespace-nowrap">
+      
+      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50 shrink-0">
+        <span class="text-slate-400 font-bold uppercase tracking-wider">Tyria:</span>
+        <span id="tyria-clock-time" class="text-amber-400 font-bold flex items-center gap-1 font-mono">--:--</span>
+      </div>
+
+      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50 shrink-0">
+        <span class="text-slate-400 font-bold uppercase tracking-wider">Server:</span>
+        <span id="server-clock" class="text-cyan-400 font-bold font-mono">--:--:-- UTC</span>
+      </div>
+
+      <div class="hidden sm:flex items-center justify-center gap-2 bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50">
+        <span class="text-slate-400 font-bold uppercase tracking-wider">Location:</span>
+        <span class="text-cyan-400 font-bold tracking-wider">DURMAND PRIORY // TERMINAL 77-B</span>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- CATEGORY: RETURN BAR -->
+  <nav class="shrink-0 bg-slate-950 max-w-[1600px] w-full mx-auto px-2 sm:px-6 pt-2 sm:pt-4 pb-1">
+    <div class="flex justify-start sm:justify-center overflow-x-auto no-scrollbar border-b border-slate-800/80 gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold whitespace-nowrap">
+      <a 
+        href="../index.html" 
+        class="flex items-center justify-center text-center px-3 sm:px-6 py-2 sm:py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/80 transition-all cursor-pointer rounded-t-sm shrink-0"
+      >
+        <span class="text-xs mr-1.5 sm:mr-2 text-cyan-500 font-mono">&larr;</span>
+        <span>RETURN TO MAIN DIRECTORY</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- CATEGORY: MAIN CONTENT AREA -->
+  <main class="flex-1 overflow-y-auto max-w-[1600px] w-full mx-auto p-3 sm:p-6 space-y-4 sm:space-y-6">
+
+    <div class="animate-fade-in space-y-4 sm:space-y-6">
+      
+      <!-- CATEGORY: LESSON OVERVIEW -->
+      <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-2 sm:space-y-3">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-2 sm:pb-3">
+          <h2 class="text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-wider">
+            Lesson Goal
+          </h2>
+          <span class="text-xs text-amber-400 font-bold">[EXPERT TRACK]</span>
+        </div>
+        <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
+          Think of your account wallet as a multi-currency global bank account. Instead of clogging your inventory slots, earned currencies automatically deposit into a shared account ledger that every character on your account can spend from instantly.
+        </p>
+      </section>
+
+      <!-- CATEGORY: MODULE 01 - CORE ECONOMY & UNIVERSAL CURRENCIES -->
+      <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
+        <div class="border-b border-slate-800 pb-2 sm:pb-3">
+          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider font-mono">Module 01</div>
+          <h3 class="text-base sm:text-lg font-bold text-white tracking-wide">Core Economy and Universal Currencies</h3>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 text-xs sm:text-sm">
+          
+          <div class="p-3.5 sm:p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-1.5 sm:space-y-2 hover:border-cyan-500/40 transition-all">
+            <span class="font-bold text-amber-400 block font-mono">Gold, Silver, Copper</span>
+            <p class="text-slate-300 leading-relaxed font-normal">Primary Tyrian currency used on the Trading Post and with vendor NPCs.</p>
+          </div>
+
+          <div class="p-3.5 sm:p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-1.5 sm:space-y-2 hover:border-cyan-500/40 transition-all">
+            <span class="font-bold text-cyan-400 block font-mono">Gems</span>
+            <p class="text-slate-300 leading-relaxed font-normal">Premium store currency, convertible to and from gold through the Currency Exchange.</p>
+          </div>
+
+          <div class="p-3.5 sm:p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-1.5 sm:space-y-2 hover:border-cyan-500/40 transition-all">
+            <span class="font-bold text-purple-400 block font-mono">Karma</span>
+            <p class="text-slate-300 leading-relaxed font-normal">Non-tradeable points earned through open world events and spent at vendors world-wide.</p>
+          </div>
+
+          <div class="p-3.5 sm:p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-1.5 sm:space-y-2 hover:border-cyan-500/40 transition-all">
+            <span class="font-bold text-emerald-400 block font-mono">Astral Acclaim</span>
+            <p class="text-slate-300 leading-relaxed font-normal">Earned through Wizard's Vault tasks to buy high-value seasonal rewards.</p>
+          </div>
+
+          <div class="p-3.5 sm:p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-1.5 sm:space-y-2 hover:border-cyan-500/40 transition-all">
+            <span class="font-bold text-cyan-300 block font-mono">Spirit Shards</span>
+            <p class="text-slate-300 leading-relaxed font-normal">Earned via excess experience at level 80 to craft elite weapons and Mystic Forge recipes.</p>
+          </div>
+
+          <div class="p-3.5 sm:p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-1.5 sm:space-y-2 hover:border-cyan-500/40 transition-all">
+            <span class="font-bold text-amber-300 block font-mono">Laurels</span>
+            <p class="text-slate-300 leading-relaxed font-normal">Account reward currency used for specialized gear and crafting materials.</p>
+          </div>
+
+          <div class="p-3.5 sm:p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-1.5 sm:space-y-2 hover:border-cyan-500/40 transition-all">
+            <span class="font-bold text-indigo-400 block font-mono">Transmutation Charges</span>
+            <p class="text-slate-300 leading-relaxed font-normal">Currency spent in the Wardrobe to alter gear skins.</p>
+          </div>
+
+          <div class="p-3.5 sm:p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-1.5 sm:space-y-2 hover:border-cyan-500/40 transition-all">
+            <span class="font-bold text-teal-400 block font-mono">Research Notes</span>
+            <p class="text-slate-300 leading-relaxed font-normal">Acquired by salvaging crafted items using Research Kits.</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CATEGORY: MODULE 02 - COMPETITIVE & INSTANCED CONTENT CURRENCIES -->
+      <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
+        <div class="border-b border-slate-800 pb-2 sm:pb-3">
+          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider font-mono">Module 02</div>
+          <h3 class="text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-wider">Competitive and Instanced Content Currencies</h3>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm border-collapse">
+            <thead>
+              <tr class="border-b border-slate-800/80 text-cyan-400 bg-slate-950 font-mono">
+                <th class="p-2.5 sm:p-3 font-bold">Category</th>
+                <th class="p-2.5 sm:p-3 font-bold">Currency</th>
+                <th class="p-2.5 sm:p-3 font-bold">Source</th>
+                <th class="p-2.5 sm:p-3 font-bold">Primary Purpose</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60 text-slate-300 font-normal">
+              <tr class="hover:bg-slate-900/40">
+                <td class="p-2.5 sm:p-3 font-semibold text-white font-mono">PvP</td>
+                <td class="p-2.5 sm:p-3 text-cyan-300 font-bold">League Tickets & Shards of Glory</td>
+                <td class="p-2.5 sm:p-3">Ranked PvP Seasons</td>
+                <td class="p-2.5 sm:p-3">Ascended PvP gear and tournament rewards</td>
+              </tr>
+              <tr class="hover:bg-slate-900/40">
+                <td class="p-2.5 sm:p-3 font-semibold text-white font-mono">WvW</td>
+                <td class="p-2.5 sm:p-3 text-cyan-300 font-bold">Badges of Honor & Skirmish Tickets</td>
+                <td class="p-2.5 sm:p-3">World vs World fights</td>
+                <td class="p-2.5 sm:p-3">WvW siege, gear, and Legendary armor</td>
+              </tr>
+              <tr class="hover:bg-slate-900/40">
+                <td class="p-2.5 sm:p-3 font-semibold text-white font-mono">WvW</td>
+                <td class="p-2.5 sm:p-3 text-cyan-300 font-bold">Testimonies of Heroics</td>
+                <td class="p-2.5 sm:p-3">WvW rank increases</td>
+                <td class="p-2.5 sm:p-3">Unlocking expansion hero challenges remotely</td>
+              </tr>
+              <tr class="hover:bg-slate-900/40">
+                <td class="p-2.5 sm:p-3 font-semibold text-white font-mono">Raids</td>
+                <td class="p-2.5 sm:p-3 text-cyan-300 font-bold">Magnetite Shards & Gaeting Crystals</td>
+                <td class="p-2.5 sm:p-3">Boss encounters</td>
+                <td class="p-2.5 sm:p-3">Raid gear, infusions, and Legendary Insights</td>
+              </tr>
+              <tr class="hover:bg-slate-900/40">
+                <td class="p-2.5 sm:p-3 font-semibold text-white font-mono">Fractals</td>
+                <td class="p-2.5 sm:p-3 text-cyan-300 font-bold">Fractal Relics & Unstable Essences</td>
+                <td class="p-2.5 sm:p-3">Fractals of the Mists</td>
+                <td class="p-2.5 sm:p-3">Ascended rings, infusions, and title unlocks</td>
+              </tr>
+              <tr class="hover:bg-slate-900/40">
+                <td class="p-2.5 sm:p-3 font-semibold text-white font-mono">Dungeons</td>
+                <td class="p-2.5 sm:p-3 text-cyan-300 font-bold">Tales of Dungeon Delving</td>
+                <td class="p-2.5 sm:p-3">Core dungeons</td>
+                <td class="p-2.5 sm:p-3">Unique dungeon armor and weapon skins</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- CATEGORY: MODULE 03 - EXPANSION REGIONAL TOKENS -->
+      <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
+        <div class="border-b border-slate-800 pb-2 sm:pb-3">
+          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider font-mono">Module 03</div>
+          <h3 class="text-base sm:text-lg font-bold text-white tracking-wide">Expansion Regional Tokens</h3>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 text-xs sm:text-sm">
+          
+          <div class="p-3.5 sm:p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
+            <span class="font-bold text-emerald-400 block font-mono text-sm">Heart of Thorns</span>
+            <p class="text-slate-300 leading-relaxed font-normal">Airship Parts, Lumps of Aurillium, Ley Line Crystals, Unbound Magic.</p>
+          </div>
+
+          <div class="p-3.5 sm:p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
+            <span class="font-bold text-purple-400 block font-mono text-sm">Path of Fire</span>
+            <p class="text-slate-300 leading-relaxed font-normal">Trade Contracts, Elegy Mosaics, Volatile Magic, War Supplies.</p>
+          </div>
+
+          <div class="p-3.5 sm:p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
+            <span class="font-bold text-teal-400 block font-mono text-sm">End of Dragons</span>
+            <p class="text-slate-300 leading-relaxed font-normal">Imperial Favor, Ancient Coins, Jade Slivers, Canach Coins.</p>
+          </div>
+
+          <div class="p-3.5 sm:p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
+            <span class="font-bold text-yellow-400 block font-mono text-sm">Secrets of the Obscure</span>
+            <p class="text-slate-300 leading-relaxed font-normal">Static Charges, Pinches of Stardust, Calcified Gasps, Rift Essences.</p>
+          </div>
+
+          <div class="p-3.5 sm:p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
+            <span class="font-bold text-orange-500 block font-mono text-sm">Janthir Wilds</span>
+            <p class="text-slate-300 leading-relaxed font-normal">Ursus Oblige, regional Ancient Coins.</p>
+          </div>
+
+          <div class="p-3.5 sm:p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
+            <span class="font-bold text-cyan-400 block font-mono text-sm">Visions of Eternity</span>
+            <p class="text-slate-300 leading-relaxed font-normal">Aether-Rich Sap, Antiquated Ducats, Unusual Coins.</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CATEGORY: MODULE 04 - WALLET KEYS AND STORAGE EXCEPTIONS -->
+      <section class="border border-slate-800/80 bg-slate-950/60 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
+        <div class="border-b border-slate-800 pb-2 sm:pb-3">
+          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider font-mono">Module 04</div>
+          <h3 class="text-base sm:text-lg font-bold text-white tracking-wide">Wallet Keys and Storage Exceptions</h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 text-xs sm:text-sm">
+          
+          <div class="p-3.5 sm:p-4 bg-slate-900/60 border border-slate-800/80 rounded-sm space-y-2">
+            <div class="font-bold text-cyan-400 uppercase text-xs font-mono">Key Storage</div>
+            <p class="text-slate-300 leading-relaxed font-normal">
+              Specialized keys like Pact Crowbars, Exalted Keys, Trader Keys, and Jade Keycards store directly in the wallet rather than taking up inventory space.
+            </p>
+          </div>
+
+          <div class="p-3.5 sm:p-4 bg-slate-900/60 border border-slate-800/80 rounded-sm space-y-2">
+            <div class="font-bold text-amber-400 uppercase text-xs font-mono">Character Bound Exceptions</div>
+            <p class="text-slate-300 leading-relaxed font-normal">
+              Hero Points (for trait unlocks) and WvW Supply (for siege building) stay bound to individual characters instead of the global account wallet.
+            </p>
+          </div>
+
+          <div class="p-3.5 sm:p-4 bg-slate-900/60 border border-slate-800/80 rounded-sm space-y-2">
+            <div class="font-bold text-emerald-400 uppercase text-xs font-mono">Guild Funds</div>
+            <p class="text-slate-300 leading-relaxed font-normal">
+              Favor (earned from Guild Missions) and Aetherium (generated by Guild Mines) fuel guild hall upgrades.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CATEGORY: FIELD PRACTICE CHECKLIST -->
+      <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-2 sm:pb-3">
+          <h3 class="text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-wider">
+            Practice Drill Checklist
+          </h3>
+          <span id="checklist-status" class="text-xs sm:text-sm text-amber-400 font-bold">[0 / 3 DONE]</span>
+        </div>
+
+        <ul class="space-y-2.5 sm:space-y-3 text-sm text-slate-300 font-normal">
+          <li class="flex items-center gap-3 p-3 sm:p-3.5 bg-slate-950 border border-slate-800/80 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-4 h-4 sm:w-5 sm:h-5 accent-cyan-400 cursor-pointer" data-id="drill-1" />
+            <span><strong>Locate the Wallet:</strong> Press <code class="text-cyan-300 font-mono">I</code> to open your inventory and click the wallet icon in the lower left corner.</span>
+          </li>
+          <li class="flex items-center gap-3 p-3 sm:p-3.5 bg-slate-950 border border-slate-800/80 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-4 h-4 sm:w-5 sm:h-5 accent-cyan-400 cursor-pointer" data-id="drill-2" />
+            <span><strong>Check Your Wizard's Vault:</strong> Open the Wizard's Vault menu (<strong class="text-amber-400 font-semibold">Shift + H</strong>) to track your current Astral Acclaim balance.</span>
+          </li>
+          <li class="flex items-center gap-3 p-3 sm:p-3.5 bg-slate-950 border border-slate-800/80 rounded-sm">
+            <input type="checkbox" onchange="updateChecklist()" class="id-check w-4 h-4 sm:w-5 sm:h-5 accent-cyan-400 cursor-pointer" data-id="drill-3" />
+            <span><strong>Clear Inventory Space:</strong> Verify that your expansion keys and map tokens are stored directly in your wallet rather than taking up bag slots.</span>
+          </li>
+        </ul>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- CATEGORY: FOOTER WITH CENTERED MOBILE FLOW -->
+  <footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-3 sm:px-6 py-2.5 sm:py-3">
+    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
+      
+      <!-- DESKTOP DISCLAIMER PARAGRAPH -->
+      <p class="hidden md:block text-xs text-slate-400 max-w-3xl leading-normal">
+        This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
+      </p>
+
+      <!-- CREDITS LINKS -->
+      <div class="flex items-center justify-center space-x-2 sm:space-x-4 text-xs">
+        <span class="text-slate-300">
+          Written by <a href="https://liar.fyi" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 font-bold">The Liars Guild</a>
+        </span>
+        <span class="text-slate-700">|</span>
+        <span class="text-slate-300">
+          Site Builder: <a href="https://qkommand.github.io/home/" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 font-bold">Commander Q</a>
+        </span>
+      </div>
+
+      <!-- MOBILE DISCLAIMER MODAL TRIGGER -->
+      <button 
+        onclick="toggleDisclaimer('on')"
+        class="md:hidden text-xs text-slate-400 hover:text-cyan-400 underline cursor-pointer font-semibold uppercase tracking-wider"
+      >
+        [Disclaimer]
+      </button>
+
+    </div>
+  </footer>
+
+  <!-- CATEGORY: DISCLAIMER OVERLAY MODAL -->
+  <div 
+    id="disclaimer-modal" 
+    class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4"
+  >
+    <div class="bg-slate-900 border border-cyan-500/40 rounded p-5 max-w-md w-full space-y-4 glow-cyan">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+        <h3 class="text-sm font-bold text-cyan-400 tracking-wider uppercase font-mono">
+          /// LEGAL DISCLAIMER
+        </h3>
+        <button 
+          onclick="toggleDisclaimer('off')" 
+          class="text-slate-400 hover:text-white font-bold text-base px-2 cursor-pointer"
+        >
+          ✕
+        </button>
+      </div>
+
+      <p class="text-sm text-slate-300 leading-relaxed">
+        This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
+      </p>
+
+      <button 
+        onclick="toggleDisclaimer('off')" 
+        class="w-full py-2.5 bg-slate-950 border border-cyan-500/50 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all text-center block cursor-pointer"
+      >
+        Acknowledge
+      </button>
+    </div>
+  </div>
+
+  <!-- CATEGORY: LOGIC ENGINE -->
+  <script>
+    /* CATEGORY: DISCLAIMER MODAL CONTROLLER */
+    function toggleDisclaimer(state) {
+      const modal = document.getElementById('disclaimer-modal');
+      if (!modal) return;
+      if (state === 'on') {
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
+    /* CATEGORY: TOAST NOTIFICATION ENGINE */
+    let toastTimeout = null;
+    let lastHandledUtcMinute = -1;
+
+    function triggerToast(title, message) {
+      const toast = document.getElementById('toast-notification');
+      const titleEl = document.getElementById('toast-title');
+      const msgEl = document.getElementById('toast-message');
+
+      if (!toast || !titleEl || !msgEl) return;
+
+      titleEl.innerText = title;
+      msgEl.innerText = message;
+      toast.classList.remove('hidden');
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        dismissToast();
+      }, 9000);
+    }
+
+    function dismissToast() {
+      const toast = document.getElementById('toast-notification');
+      if (toast) toast.classList.add('hidden');
+    }
+
+    /* CATEGORY: CHECKLIST STATE MANAGEMENT */
+    const STORAGE_KEY = 'priory_class303_checkboxes';
+    let checklistCompletedState = 'off';
+
+    function updateChecklist() {
+      const boxes = document.querySelectorAll('.id-check');
+      let checkedCount = 0;
+      const savedState = {};
+
+      boxes.forEach(box => {
+        const id = box.getAttribute('data-id');
+        if (box.checked) {
+          checkedCount++;
+          savedState[id] = 'on';
+        } else {
+          savedState[id] = 'off';
+        }
+      });
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
+
+      const statusEl = document.getElementById('checklist-status');
+      statusEl.innerText = `[${checkedCount} / ${boxes.length} DONE]`;
+
+      if (checkedCount === boxes.length) {
+        checklistCompletedState = 'on';
+        statusEl.className = 'text-xs sm:text-sm text-emerald-400 font-bold';
+      } else {
+        checklistCompletedState = 'off';
+        statusEl.className = 'text-xs sm:text-sm text-amber-400 font-bold';
+      }
+    }
+
+    function loadChecklistState() {
+      const savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      const boxes = document.querySelectorAll('.id-check');
+
+      boxes.forEach(box => {
+        const id = box.getAttribute('data-id');
+        if (savedState[id] === 'on') {
+          box.checked = true;
+        }
+      });
+
+      updateChecklist();
+    }
+
+    /* CATEGORY: UNIVERSAL CLOCKS & RESET DETECTOR ENGINE */
+    function updateClocks() {
+      const now = new Date();
+      
+      const utcHours = now.getUTCHours();
+      const utcMins = now.getUTCMinutes();
+      const utcSecs = now.getUTCSeconds();
+      const utcDay = now.getUTCDay();
+
+      const strUtcHours = String(utcHours).padStart(2, '0');
+      const strUtcMins = String(utcMins).padStart(2, '0');
+      const strUtcSecs = String(utcSecs).padStart(2, '0');
+
+      document.getElementById('server-clock').innerText = `${strUtcHours}:${strUtcMins}:${strUtcSecs} UTC`;
+
+      /* RESET DETECTION LOGIC (DAILY: 00:00:00 UTC | WEEKLY: MON 07:30:00 UTC) */
+      if (utcSecs === 0 && utcMins !== lastHandledUtcMinute) {
+        lastHandledUtcMinute = utcMins;
+
+        if (utcHours === 0 && utcMins === 0) {
+          triggerToast("DAILY RESET DETECTED", "GW2 server daily reset is live! Daily achievements & wizards vault updated.");
+        } else if (utcDay === 1 && utcHours === 7 && utcMins === 30) {
+          triggerToast("WEEKLY RESET DETECTED", "GW2 server weekly reset is live! Raids, strikes, and weekly tasks refreshed.");
+        }
+      }
+
+      /* TYRIAN TIME CALCULATOR */
+      const totalUtcSec = (utcHours * 3600) + (utcMins * 60) + utcSecs;
+      const cycleOffset = 1500;
+      const secondsInto2HrCycle = (totalUtcSec - cycleOffset + 720000) % 7200;
+
+      const tyrianSecFromMidnight = (secondsInto2HrCycle * 12 + 21600) % 86400;
+      const tyrianHour = Math.floor(tyrianSecFromMidnight / 3600);
+      const tyrianMin = Math.floor((tyrianSecFromMidnight % 3600) / 60);
+
+      const formattedTyrianHour = String(tyrianHour).padStart(2, '0');
+      const formattedTyrianMin = String(tyrianMin).padStart(2, '0');
+
+      let icon = '☀️';
+      if (tyrianHour >= 5 && tyrianHour < 6) icon = '🌅';
+      else if (tyrianHour >= 6 && tyrianHour < 20) icon = '☀️';
+      else if (tyrianHour >= 20 && tyrianHour < 21) icon = '🌆';
+      else icon = '🌙';
+
+      document.getElementById('tyria-clock-time').innerHTML = `${icon} <span>${formattedTyrianHour}:${formattedTyrianMin}</span>`;
+    }
+
+    /* CATEGORY: INITIALIZATION */
+    document.addEventListener('DOMContentLoaded', () => {
+      updateClocks();
+      loadChecklistState();
+      setInterval(updateClocks, 1000);
+    });
+  </script>
+</body>
+</html>
