@@ -33,7 +33,6 @@
       border-radius: 2px;
     }
 
-    /* Hide scrollbars for slick mobile ticker overflow */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
@@ -48,7 +47,7 @@
   <!-- CATEGORY: MINIMAL HEADER & COMPACT TELEMETRY BAR -->
   <header class="shrink-0 border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-3 sm:px-6 py-2 sm:py-3 space-y-1.5 sm:space-y-3">
     <div class="max-w-[1600px] mx-auto text-center space-y-0.5">
-      <h1 class="text-sm sm:text-2xl font-black text-cyan-400 tracking-wider uppercase drop-shadow-[0_0_10px_rgba(34,211,238,0.2)]">
+      <h1 class="text-base sm:text-2xl font-black text-cyan-400 tracking-wider uppercase drop-shadow-[0_0_10px_rgba(34,211,238,0.2)]">
         [LIAR] Tyrian Field Archives
       </h1>
       <p class="hidden sm:block text-xs sm:text-sm text-slate-300 tracking-wide font-medium">
@@ -56,25 +55,25 @@
       </p>
     </div>
 
-    <!-- CATEGORY: TIME DISPLAY MONITOR (COMPACT SCROLL ON MOBILE) -->
-    <div class="max-w-[1600px] mx-auto flex items-center justify-between sm:grid sm:grid-cols-4 gap-2 pt-1.5 sm:pt-3 border-t border-slate-800/80 text-[10px] sm:text-xs overflow-x-auto no-scrollbar whitespace-nowrap">
+    <!-- CATEGORY: TIME DISPLAY MONITOR -->
+    <div class="max-w-[1600px] mx-auto flex items-center justify-between sm:grid sm:grid-cols-4 gap-2 pt-1.5 sm:pt-3 border-t border-slate-800/80 text-xs sm:text-sm overflow-x-auto no-scrollbar whitespace-nowrap">
       
-      <div class="flex items-center gap-1 sm:gap-2 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-2 rounded border border-slate-800/50 shrink-0">
+      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-2.5 rounded border border-slate-800/50 shrink-0">
         <span class="text-slate-400 font-bold uppercase tracking-wider">Tyria:</span>
         <span id="tyria-clock-time" class="text-amber-400 font-bold flex items-center gap-1 font-mono">--:--</span>
       </div>
 
-      <div class="flex items-center gap-1 sm:gap-2 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-2 rounded border border-slate-800/50 shrink-0">
+      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-2.5 rounded border border-slate-800/50 shrink-0">
         <span class="text-slate-400 font-bold uppercase tracking-wider">Server:</span>
         <span id="server-clock" class="text-cyan-400 font-bold font-mono">--:--:-- UTC</span>
       </div>
 
-      <div class="hidden sm:flex items-center justify-center gap-2 bg-slate-950/40 py-1 px-2 rounded border border-slate-800/50">
+      <div class="hidden sm:flex items-center justify-center gap-2 bg-slate-950/40 py-1 px-2.5 rounded border border-slate-800/50">
         <span class="text-slate-400 font-bold uppercase tracking-wider">Location:</span>
         <span class="text-cyan-400 font-bold tracking-wider">DURMAND PRIORY // TERMINAL 77-B</span>
       </div>
 
-      <div class="flex items-center gap-1 sm:gap-2 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-2 rounded border border-slate-800/50 shrink-0">
+      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-2.5 rounded border border-slate-800/50 shrink-0">
         <span class="text-slate-400 font-bold uppercase tracking-wider">Local:</span>
         <span id="local-clock" class="text-emerald-400 font-bold font-mono">--:--:--</span>
       </div>
@@ -84,39 +83,39 @@
 
   <!-- CATEGORY: STREAMLINED TAB NAVIGATION -->
   <nav class="shrink-0 bg-slate-950 max-w-[1600px] w-full mx-auto px-2 sm:px-6 pt-2 sm:pt-4 pb-1">
-    <div class="flex justify-start sm:justify-center overflow-x-auto no-scrollbar border-b border-slate-800/80 gap-1 sm:gap-2 text-[11px] sm:text-sm font-bold whitespace-nowrap">
+    <div class="flex justify-start sm:justify-center overflow-x-auto no-scrollbar border-b border-slate-800/80 gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold whitespace-nowrap">
       <button 
         id="tab-btn-basics" 
         onclick="switchTab('basics')" 
-        class="flex items-center justify-center text-center px-2.5 sm:px-6 py-1.5 sm:py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/80 transition-all cursor-pointer rounded-t-sm shrink-0"
+        class="flex items-center justify-center text-center px-3 sm:px-6 py-2 sm:py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/80 transition-all cursor-pointer rounded-t-sm shrink-0"
       >
-        <span class="text-[9px] sm:text-xs mr-1 sm:mr-2 text-cyan-500 font-mono">///</span>
+        <span class="text-xs mr-1.5 sm:mr-2 text-cyan-500 font-mono">///</span>
         <span>FIELD BASICS</span>
       </button>
 
       <button 
         id="tab-btn-advanced" 
         onclick="switchTab('advanced')" 
-        class="flex items-center justify-center text-center px-2.5 sm:px-6 py-1.5 sm:py-2.5 border-b-2 border-transparent text-slate-400 hover:text-cyan-300 transition-all cursor-pointer rounded-t-sm shrink-0"
+        class="flex items-center justify-center text-center px-3 sm:px-6 py-2 sm:py-2.5 border-b-2 border-transparent text-slate-400 hover:text-cyan-300 transition-all cursor-pointer rounded-t-sm shrink-0"
       >
-        <span class="text-[9px] sm:text-xs mr-1 sm:mr-2 text-slate-600 font-mono">///</span>
+        <span class="text-xs mr-1.5 sm:mr-2 text-slate-600 font-mono">///</span>
         <span>ADVANCED GUIDES</span>
       </button>
 
       <button 
         id="tab-btn-expert" 
         onclick="switchTab('expert')" 
-        class="flex items-center justify-center text-center px-2.5 sm:px-6 py-1.5 sm:py-2.5 border-b-2 border-transparent text-slate-400 hover:text-cyan-300 transition-all cursor-pointer rounded-t-sm shrink-0"
+        class="flex items-center justify-center text-center px-3 sm:px-6 py-2 sm:py-2.5 border-b-2 border-transparent text-slate-400 hover:text-cyan-300 transition-all cursor-pointer rounded-t-sm shrink-0"
       >
-        <span class="text-[9px] sm:text-xs mr-1 sm:mr-2 text-slate-600 font-mono">///</span>
+        <span class="text-xs mr-1.5 sm:mr-2 text-slate-600 font-mono">///</span>
         <span>EXPERT GUIDES</span>
       </button>
 
       <a 
         href="./adventure/index.html" 
-        class="flex items-center justify-center text-center px-2.5 sm:px-6 py-1.5 sm:py-2.5 border-b-2 border-transparent text-slate-400 hover:text-cyan-300 transition-all cursor-pointer rounded-t-sm shrink-0"
+        class="flex items-center justify-center text-center px-3 sm:px-6 py-2 sm:py-2.5 border-b-2 border-transparent text-slate-400 hover:text-cyan-300 transition-all cursor-pointer rounded-t-sm shrink-0"
       >
-        <span class="text-[9px] sm:text-xs mr-1 sm:mr-2 text-slate-600 font-mono">///</span>
+        <span class="text-xs mr-1.5 sm:mr-2 text-slate-600 font-mono">///</span>
         <span>JOURNAL</span>
       </a>
     </div>
@@ -142,14 +141,25 @@
 
   </main>
 
-  <!-- CATEGORY: FOOTER -->
+  <!-- CATEGORY: FOOTER WITH MOBILE DISCLAIMER TRIGGER -->
   <footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-3 sm:px-6 py-2 sm:py-3">
-    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
-      <p class="text-[9px] sm:text-[10px] text-slate-400 max-w-3xl leading-normal">
+    <div class="max-w-[1600px] mx-auto flex flex-row items-center justify-between gap-2 text-left">
+      
+      <!-- DESKTOP DISCLAIMER PARAGRAPH -->
+      <p class="hidden md:block text-xs text-slate-400 max-w-3xl leading-normal">
         This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
       </p>
 
-      <div class="flex items-center space-x-3 sm:space-x-4 text-[10px] sm:text-xs">
+      <!-- MOBILE DISCLAIMER MODAL TRIGGER -->
+      <button 
+        onclick="toggleDisclaimer('on')"
+        class="md:hidden text-xs text-slate-400 hover:text-cyan-400 underline cursor-pointer font-semibold uppercase tracking-wider"
+      >
+        [Disclaimer]
+      </button>
+
+      <!-- CREDITS LINKS -->
+      <div class="flex items-center space-x-2 sm:space-x-4 text-xs ml-auto">
         <span class="text-slate-300">
           Written by <a href="https://liar.fyi" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 font-bold">The Liars Guild</a>
         </span>
@@ -161,8 +171,50 @@
     </div>
   </footer>
 
+  <!-- CATEGORY: DISCLAIMER OVERLAY MODAL -->
+  <div 
+    id="disclaimer-modal" 
+    class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4"
+  >
+    <div class="bg-slate-900 border border-cyan-500/40 rounded p-5 max-w-md w-full space-y-4 glow-cyan">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+        <h3 class="text-sm font-bold text-cyan-400 tracking-wider uppercase font-mono">
+          /// LEGAL DISCLAIMER
+        </h3>
+        <button 
+          onclick="toggleDisclaimer('off')" 
+          class="text-slate-400 hover:text-white font-bold text-base px-2 cursor-pointer"
+        >
+          ✕
+        </button>
+      </div>
+
+      <p class="text-sm text-slate-300 leading-relaxed">
+        This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
+      </p>
+
+      <button 
+        onclick="toggleDisclaimer('off')" 
+        class="w-full py-2.5 bg-slate-950 border border-cyan-500/50 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all text-center block cursor-pointer"
+      >
+        Acknowledge
+      </button>
+    </div>
+  </div>
+
   <!-- CATEGORY: LOGIC ENGINE -->
   <script>
+    /* CATEGORY: DISCLAIMER MODAL CONTROLLER */
+    function toggleDisclaimer(state) {
+      const modal = document.getElementById('disclaimer-modal');
+      if (!modal) return;
+      if (state === 'on') {
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
     /* CATEGORY: TAB STATE MANAGEMENT */
     const TAB_STORAGE_KEY = 'archive_active_tab';
     let tabState = {
@@ -287,15 +339,15 @@
         html += `
           <div class="p-4 sm:p-5 border border-slate-800/80 bg-slate-900/40 rounded-sm flex flex-col justify-between space-y-3 sm:space-y-4 glow-cyan hover:border-cyan-500/40 transition-all">
             <div>
-              <div class="text-[10px] sm:text-xs font-mono mb-1.5 sm:mb-2">
-                <span class="text-amber-400 font-bold bg-amber-400/10 px-1.5 sm:px-2 py-0.5 rounded border border-amber-400/20">${g.code}</span>
+              <div class="text-xs font-mono mb-1.5 sm:mb-2">
+                <span class="text-amber-400 font-bold bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">${g.code}</span>
               </div>
-              <div class="text-sm sm:text-base font-bold text-white mb-1 tracking-wide">${g.title}</div>
-              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">${g.desc}</p>
+              <div class="text-base sm:text-lg font-bold text-white mb-1 tracking-wide">${g.title}</div>
+              <p class="text-sm text-slate-300 leading-relaxed font-normal">${g.desc}</p>
             </div>
             <a 
               href="${g.url}" 
-              class="w-full py-2 sm:py-2.5 bg-slate-900 border border-cyan-500/40 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-[11px] sm:text-xs uppercase tracking-wider rounded-sm transition-all text-center block cursor-pointer"
+              class="w-full py-2.5 bg-slate-900 border border-cyan-500/40 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs sm:text-sm uppercase tracking-wider rounded-sm transition-all text-center block cursor-pointer"
             >
               Open Manual
             </a>
@@ -330,12 +382,12 @@
         if (viewEl && btnEl) {
           if (tabState[tab] === 'on') {
             viewEl.classList.remove('hidden');
-            btnEl.className = 'flex items-center justify-center text-center px-2.5 sm:px-6 py-1.5 sm:py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/80 transition-all cursor-pointer rounded-t-sm shrink-0';
-            btnEl.querySelector('span:first-child').className = 'text-[9px] sm:text-xs mr-1 sm:mr-2 text-cyan-500 font-mono';
+            btnEl.className = 'flex items-center justify-center text-center px-3 sm:px-6 py-2 sm:py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/80 transition-all cursor-pointer rounded-t-sm shrink-0';
+            btnEl.querySelector('span:first-child').className = 'text-xs mr-1.5 sm:mr-2 text-cyan-500 font-mono';
           } else {
             viewEl.classList.add('hidden');
-            btnEl.className = 'flex items-center justify-center text-center px-2.5 sm:px-6 py-1.5 sm:py-2.5 border-b-2 border-transparent text-slate-400 hover:text-cyan-300 transition-all cursor-pointer rounded-t-sm shrink-0';
-            btnEl.querySelector('span:first-child').className = 'text-[9px] sm:text-xs mr-1 sm:mr-2 text-slate-600 font-mono';
+            btnEl.className = 'flex items-center justify-center text-center px-3 sm:px-6 py-2 sm:py-2.5 border-b-2 border-transparent text-slate-400 hover:text-cyan-300 transition-all cursor-pointer rounded-t-sm shrink-0';
+            btnEl.querySelector('span:first-child').className = 'text-xs mr-1.5 sm:mr-2 text-slate-600 font-mono';
           }
         }
       });
