@@ -141,25 +141,17 @@
 
   </main>
 
-  <!-- CATEGORY: FOOTER WITH MOBILE DISCLAIMER TRIGGER -->
-  <footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-3 sm:px-6 py-2 sm:py-3">
-    <div class="max-w-[1600px] mx-auto flex flex-row items-center justify-between gap-2 text-left">
+  <!-- CATEGORY: FOOTER WITH CENTERED MOBILE FLOW -->
+  <footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-3 sm:px-6 py-2.5 sm:py-3">
+    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
       
       <!-- DESKTOP DISCLAIMER PARAGRAPH -->
       <p class="hidden md:block text-xs text-slate-400 max-w-3xl leading-normal">
         This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
       </p>
 
-      <!-- MOBILE DISCLAIMER MODAL TRIGGER -->
-      <button 
-        onclick="toggleDisclaimer('on')"
-        class="md:hidden text-xs text-slate-400 hover:text-cyan-400 underline cursor-pointer font-semibold uppercase tracking-wider"
-      >
-        [Disclaimer]
-      </button>
-
-      <!-- CREDITS LINKS -->
-      <div class="flex items-center space-x-2 sm:space-x-4 text-xs ml-auto">
+      <!-- CREDITS LINKS (CENTERED ON MOBILE) -->
+      <div class="flex items-center justify-center space-x-2 sm:space-x-4 text-xs">
         <span class="text-slate-300">
           Written by <a href="https://liar.fyi" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 font-bold">The Liars Guild</a>
         </span>
@@ -168,6 +160,15 @@
           Site Builder: <a href="https://qkommand.github.io/home/" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 font-bold">Commander Q</a>
         </span>
       </div>
+
+      <!-- MOBILE DISCLAIMER MODAL TRIGGER (CENTERED) -->
+      <button 
+        onclick="toggleDisclaimer('on')"
+        class="md:hidden text-xs text-slate-400 hover:text-cyan-400 underline cursor-pointer font-semibold uppercase tracking-wider"
+      >
+        [Disclaimer]
+      </button>
+
     </div>
   </footer>
 
