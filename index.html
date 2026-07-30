@@ -56,16 +56,11 @@
     </div>
 
     <!-- CATEGORY: TIME DISPLAY MONITOR -->
-    <div class="max-w-[1600px] mx-auto flex items-center justify-between sm:grid sm:grid-cols-4 gap-2 pt-1.5 sm:pt-3 border-t border-slate-800/80 text-xs sm:text-sm overflow-x-auto no-scrollbar whitespace-nowrap">
+    <div class="max-w-[1600px] mx-auto flex items-center justify-between sm:grid sm:grid-cols-3 gap-2 pt-1.5 sm:pt-3 border-t border-slate-800/80 text-xs sm:text-sm overflow-x-auto no-scrollbar whitespace-nowrap">
       
       <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-2.5 rounded border border-slate-800/50 shrink-0">
         <span class="text-slate-400 font-bold uppercase tracking-wider">Tyria:</span>
         <span id="tyria-clock-time" class="text-amber-400 font-bold flex items-center gap-1 font-mono">--:--</span>
-      </div>
-
-      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-2.5 rounded border border-slate-800/50 shrink-0">
-        <span class="text-slate-400 font-bold uppercase tracking-wider">Server:</span>
-        <span id="server-clock" class="text-cyan-400 font-bold font-mono">--:--:-- UTC</span>
       </div>
 
       <div class="hidden sm:flex items-center justify-center gap-2 bg-slate-950/40 py-1 px-2.5 rounded border border-slate-800/50">
@@ -73,7 +68,7 @@
         <span class="text-cyan-400 font-bold tracking-wider">DURMAND PRIORY // TERMINAL 77-B</span>
       </div>
 
-      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-2.5 rounded border border-slate-800/50 shrink-0">
+      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-2.5 rounded border border-slate-800/50 shrink-0 ml-auto">
         <span class="text-slate-400 font-bold uppercase tracking-wider">Local:</span>
         <span id="local-clock" class="text-emerald-400 font-bold font-mono">--:--:--</span>
       </div>
@@ -150,7 +145,7 @@
         This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
       </p>
 
-      <!-- CREDITS LINKS (CENTERED ON MOBILE) -->
+      <!-- CREDITS LINKS -->
       <div class="flex items-center justify-center space-x-2 sm:space-x-4 text-xs">
         <span class="text-slate-300">
           Written by <a href="https://liar.fyi" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 font-bold">The Liars Guild</a>
@@ -161,7 +156,7 @@
         </span>
       </div>
 
-      <!-- MOBILE DISCLAIMER MODAL TRIGGER (CENTERED) -->
+      <!-- MOBILE DISCLAIMER MODAL TRIGGER -->
       <button 
         onclick="toggleDisclaimer('on')"
         class="md:hidden text-xs text-slate-400 hover:text-cyan-400 underline cursor-pointer font-semibold uppercase tracking-wider"
@@ -171,6 +166,32 @@
 
     </div>
   </footer>
+
+  <!-- CATEGORY: SERVER RESET TOAST NOTIFICATION -->
+  <div 
+    id="reset-toast" 
+    class="fixed bottom-14 right-4 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-500 ease-in-out max-w-xs sm:max-w-sm w-full bg-slate-900/95 border border-amber-400/50 rounded-sm p-3.5 shadow-2xl backdrop-blur-md"
+  >
+    <div class="flex items-start justify-between gap-3">
+      <div class="flex items-start gap-2.5">
+        <span class="text-amber-400 text-lg">⚠️</span>
+        <div class="space-y-0.5">
+          <h4 id="toast-title" class="text-xs font-bold text-amber-400 uppercase tracking-wider font-mono">
+            /// SERVER RESET
+          </h4>
+          <p id="toast-message" class="text-xs text-slate-200 leading-snug">
+            Tyrian daily reset has occurred! Fresh daily achievements and rewards are live.
+          </p>
+        </div>
+      </div>
+      <button 
+        onclick="closeResetToast()" 
+        class="text-slate-400 hover:text-white font-bold text-xs p-1 cursor-pointer shrink-0"
+      >
+        ✕
+      </button>
+    </div>
+  </div>
 
   <!-- CATEGORY: DISCLAIMER OVERLAY MODAL -->
   <div 
@@ -394,16 +415,52 @@
       });
     }
 
-    /* CATEGORY: UNIVERSAL CLOCKS ENGINE */
+    /* CATEGORY: UNIVERSAL CLOCKS & RESET MONITOR ENGINE */
+    let lastCheckedMinute = -1;
+
+    function triggerResetToast(title, message) {
+      const toast = document.getElementById('reset-toast');
+      document.getElementById('toast-title').innerText = title;
+      document.getElementById('toast-message').innerText = message;
+
+      toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+      toast.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+
+      setTimeout(() => {
+        closeResetToast();
+      }, 10000);
+    }
+
+    function closeResetToast() {
+      const toast = document.getElementById('reset-toast');
+      toast.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+      toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+    }
+
     function updateClocks() {
       const now = new Date();
       
-      const utcHours = String(now.getUTCHours()).padStart(2, '0');
-      const utcMins = String(now.getUTCMinutes()).padStart(2, '0');
-      const utcSecs = String(now.getUTCSeconds()).padStart(2, '0');
-      document.getElementById('server-clock').innerText = `${utcHours}:${utcMins}:${utcSecs} UTC`;
+      const utcHours = now.getUTCHours();
+      const utcMins = now.getUTCMinutes();
+      const utcDay = now.getUTCDay();
 
-      const totalUtcSec = (now.getUTCHours() * 3600) + (now.getUTCMinutes() * 60) + now.getUTCSeconds();
+      /* Check reset trigger strictly once per minute transition */
+      if (utcMins !== lastCheckedMinute) {
+        lastCheckedMinute = utcMins;
+
+        /* Daily Reset triggers at 00:00 UTC */
+        if (utcHours === 0 && utcMins === 0) {
+          /* Weekly Reset triggers on Monday at 07:00 UTC (00:00 UTC on Mondays for Wizard's Vault) */
+          if (utcDay === 1) {
+            triggerResetToast("/// WEEKLY & DAILY RESET", "Guild Wars 2 weekly and daily resets are now live! Vault rewards and caps have refreshed.");
+          } else {
+            triggerResetToast("/// DAILY RESET ACTIVE", "Tyrian daily reset has occurred! Daily achievements and Wizard's Vault tasks are updated.");
+          }
+        }
+      }
+
+      /* Tyria In-Game Clock Engine */
+      const totalUtcSec = (utcHours * 3600) + (utcMins * 60) + now.getUTCSeconds();
       const cycleOffset = 1500;
       const secondsInto2HrCycle = (totalUtcSec - cycleOffset + 720000) % 7200;
 
