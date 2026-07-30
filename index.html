@@ -40,9 +40,44 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .animate-slide-down {
+      animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
   </style>
 </head>
 <body class="h-screen flex flex-col overflow-hidden relative bg-slate-950 text-white selection:bg-cyan-500 selection:text-slate-950">
+
+  <!-- CATEGORY: TOAST NOTIFICATION CONTAINER -->
+  <div 
+    id="toast-notification" 
+    class="hidden fixed top-3 right-3 left-3 sm:left-auto sm:max-w-md z-50 bg-slate-900/95 border border-cyan-400 text-white p-3.5 rounded shadow-2xl backdrop-blur glow-cyan animate-slide-down"
+  >
+    <div class="flex items-start justify-between gap-3">
+      <div class="flex items-start gap-2.5">
+        <span class="text-amber-400 text-lg">🔔</span>
+        <div>
+          <h4 id="toast-title" class="text-xs font-bold text-cyan-400 uppercase font-mono tracking-wider">
+            RESET DETECTED
+          </h4>
+          <p id="toast-message" class="text-xs text-slate-200 mt-0.5 leading-snug">
+            Daily reset has occurred!
+          </p>
+        </div>
+      </div>
+      <button 
+        onclick="dismissToast()" 
+        class="text-slate-400 hover:text-white text-xs font-bold px-1.5 py-0.5 cursor-pointer rounded bg-slate-950/60"
+      >
+        ✕
+      </button>
+    </div>
+  </div>
 
   <!-- CATEGORY: MINIMAL HEADER & COMPACT TELEMETRY BAR -->
   <header class="shrink-0 border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-3 sm:px-6 py-2 sm:py-3 space-y-1.5 sm:space-y-3">
@@ -56,21 +91,21 @@
     </div>
 
     <!-- CATEGORY: TIME DISPLAY MONITOR -->
-    <div class="max-w-[1600px] mx-auto flex items-center justify-between sm:grid sm:grid-cols-3 gap-2 pt-1.5 sm:pt-3 border-t border-slate-800/80 text-xs sm:text-sm overflow-x-auto no-scrollbar whitespace-nowrap">
+    <div class="max-w-[1600px] mx-auto flex items-center justify-around sm:grid sm:grid-cols-3 gap-2 pt-1.5 sm:pt-3 border-t border-slate-800/80 text-xs sm:text-sm overflow-x-auto no-scrollbar whitespace-nowrap">
       
-      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-2.5 rounded border border-slate-800/50 shrink-0">
+      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50 shrink-0">
         <span class="text-slate-400 font-bold uppercase tracking-wider">Tyria:</span>
         <span id="tyria-clock-time" class="text-amber-400 font-bold flex items-center gap-1 font-mono">--:--</span>
       </div>
 
-      <div class="hidden sm:flex items-center justify-center gap-2 bg-slate-950/40 py-1 px-2.5 rounded border border-slate-800/50">
-        <span class="text-slate-400 font-bold uppercase tracking-wider">Location:</span>
-        <span class="text-cyan-400 font-bold tracking-wider">DURMAND PRIORY // TERMINAL 77-B</span>
+      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50 shrink-0">
+        <span class="text-slate-400 font-bold uppercase tracking-wider">Server:</span>
+        <span id="server-clock" class="text-cyan-400 font-bold font-mono">--:--:-- UTC</span>
       </div>
 
-      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-2.5 rounded border border-slate-800/50 shrink-0 ml-auto">
-        <span class="text-slate-400 font-bold uppercase tracking-wider">Local:</span>
-        <span id="local-clock" class="text-emerald-400 font-bold font-mono">--:--:--</span>
+      <div class="hidden sm:flex items-center justify-center gap-2 bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50">
+        <span class="text-slate-400 font-bold uppercase tracking-wider">Location:</span>
+        <span class="text-cyan-400 font-bold tracking-wider">DURMAND PRIORY // TERMINAL 77-B</span>
       </div>
 
     </div>
@@ -167,32 +202,6 @@
     </div>
   </footer>
 
-  <!-- CATEGORY: SERVER RESET TOAST NOTIFICATION -->
-  <div 
-    id="reset-toast" 
-    class="fixed bottom-14 right-4 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-500 ease-in-out max-w-xs sm:max-w-sm w-full bg-slate-900/95 border border-amber-400/50 rounded-sm p-3.5 shadow-2xl backdrop-blur-md"
-  >
-    <div class="flex items-start justify-between gap-3">
-      <div class="flex items-start gap-2.5">
-        <span class="text-amber-400 text-lg">⚠️</span>
-        <div class="space-y-0.5">
-          <h4 id="toast-title" class="text-xs font-bold text-amber-400 uppercase tracking-wider font-mono">
-            /// SERVER RESET
-          </h4>
-          <p id="toast-message" class="text-xs text-slate-200 leading-snug">
-            Tyrian daily reset has occurred! Fresh daily achievements and rewards are live.
-          </p>
-        </div>
-      </div>
-      <button 
-        onclick="closeResetToast()" 
-        class="text-slate-400 hover:text-white font-bold text-xs p-1 cursor-pointer shrink-0"
-      >
-        ✕
-      </button>
-    </div>
-  </div>
-
   <!-- CATEGORY: DISCLAIMER OVERLAY MODAL -->
   <div 
     id="disclaimer-modal" 
@@ -235,6 +244,32 @@
       } else {
         modal.classList.add('hidden');
       }
+    }
+
+    /* CATEGORY: TOAST NOTIFICATION ENGINE */
+    let toastTimeout = null;
+    let lastHandledUtcMinute = -1;
+
+    function triggerToast(title, message) {
+      const toast = document.getElementById('toast-notification');
+      const titleEl = document.getElementById('toast-title');
+      const msgEl = document.getElementById('toast-message');
+
+      if (!toast || !titleEl || !msgEl) return;
+
+      titleEl.innerText = title;
+      msgEl.innerText = message;
+      toast.classList.remove('hidden');
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        dismissToast();
+      }, 9000);
+    }
+
+    function dismissToast() {
+      const toast = document.getElementById('toast-notification');
+      if (toast) toast.classList.add('hidden');
     }
 
     /* CATEGORY: TAB STATE MANAGEMENT */
@@ -415,52 +450,34 @@
       });
     }
 
-    /* CATEGORY: UNIVERSAL CLOCKS & RESET MONITOR ENGINE */
-    let lastCheckedMinute = -1;
-
-    function triggerResetToast(title, message) {
-      const toast = document.getElementById('reset-toast');
-      document.getElementById('toast-title').innerText = title;
-      document.getElementById('toast-message').innerText = message;
-
-      toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
-      toast.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
-
-      setTimeout(() => {
-        closeResetToast();
-      }, 10000);
-    }
-
-    function closeResetToast() {
-      const toast = document.getElementById('reset-toast');
-      toast.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
-      toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
-    }
-
+    /* CATEGORY: UNIVERSAL CLOCKS & RESET DETECTOR ENGINE */
     function updateClocks() {
       const now = new Date();
       
       const utcHours = now.getUTCHours();
       const utcMins = now.getUTCMinutes();
+      const utcSecs = now.getUTCSeconds();
       const utcDay = now.getUTCDay();
 
-      /* Check reset trigger strictly once per minute transition */
-      if (utcMins !== lastCheckedMinute) {
-        lastCheckedMinute = utcMins;
+      const strUtcHours = String(utcHours).padStart(2, '0');
+      const strUtcMins = String(utcMins).padStart(2, '0');
+      const strUtcSecs = String(utcSecs).padStart(2, '0');
 
-        /* Daily Reset triggers at 00:00 UTC */
+      document.getElementById('server-clock').innerText = `${strUtcHours}:${strUtcMins}:${strUtcSecs} UTC`;
+
+      /* RESET DETECTION LOGIC (DAILY: 00:00:00 UTC | WEEKLY: MON 07:30:00 UTC) */
+      if (utcSecs === 0 && utcMins !== lastHandledUtcMinute) {
+        lastHandledUtcMinute = utcMins;
+
         if (utcHours === 0 && utcMins === 0) {
-          /* Weekly Reset triggers on Monday at 07:00 UTC (00:00 UTC on Mondays for Wizard's Vault) */
-          if (utcDay === 1) {
-            triggerResetToast("/// WEEKLY & DAILY RESET", "Guild Wars 2 weekly and daily resets are now live! Vault rewards and caps have refreshed.");
-          } else {
-            triggerResetToast("/// DAILY RESET ACTIVE", "Tyrian daily reset has occurred! Daily achievements and Wizard's Vault tasks are updated.");
-          }
+          triggerToast("DAILY RESET DETECTED", "GW2 server daily reset is live! Daily achievements & wizards vault updated.");
+        } else if (utcDay === 1 && utcHours === 7 && utcMins === 30) {
+          triggerToast("WEEKLY RESET DETECTED", "GW2 server weekly reset is live! Raids, strikes, and weekly tasks refreshed.");
         }
       }
 
-      /* Tyria In-Game Clock Engine */
-      const totalUtcSec = (utcHours * 3600) + (utcMins * 60) + now.getUTCSeconds();
+      /* TYRIAN TIME CALCULATOR */
+      const totalUtcSec = (utcHours * 3600) + (utcMins * 60) + utcSecs;
       const cycleOffset = 1500;
       const secondsInto2HrCycle = (totalUtcSec - cycleOffset + 720000) % 7200;
 
@@ -478,8 +495,6 @@
       else icon = '🌙';
 
       document.getElementById('tyria-clock-time').innerHTML = `${icon} <span>${formattedTyrianHour}:${formattedTyrianMin}</span>`;
-
-      document.getElementById('local-clock').innerText = now.toLocaleTimeString();
     }
 
     /* CATEGORY: INITIALIZATION */
