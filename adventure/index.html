@@ -3,12 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Adventurer Journal // [LIAR] Tyrian Field Archives</title>
-  
-  <!-- CATEGORY: EXTERNAL DEPENDENCIES -->
+  <title>Tyrian Resource Directory // [LIAR] Tyrian Field Archives</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- CATEGORY: STYLES & ANIMATIONS -->
+
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -26,6 +24,7 @@
     .glow-cyan {
       box-shadow: 0 0 14px rgba(34, 211, 238, 0.10);
     }
+
     .glow-cyan:hover {
       box-shadow: 0 0 22px rgba(34, 211, 238, 0.25);
     }
@@ -33,9 +32,11 @@
     ::-webkit-scrollbar {
       width: 6px;
     }
+
     ::-webkit-scrollbar-track {
       background: #020617;
     }
+
     ::-webkit-scrollbar-thumb {
       background: #0f172a;
       border: 1px solid #22d3ee;
@@ -45,63 +46,28 @@
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
+
     .no-scrollbar {
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
-
-    @keyframes slideDown {
-      from { transform: translateY(-100%); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .animate-slide-down {
-      animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
   </style>
 </head>
+
 <body class="h-screen flex flex-col overflow-hidden relative bg-slate-950 text-white selection:bg-cyan-500 selection:text-slate-950">
 
-  <!-- CATEGORY: TOAST NOTIFICATION CONTAINER -->
-  <div 
-    id="toast-notification" 
-    class="hidden fixed top-3 right-3 left-3 sm:left-auto sm:max-w-md z-50 bg-slate-900/95 border border-cyan-400 text-white p-3.5 rounded shadow-2xl backdrop-blur glow-cyan animate-slide-down"
-  >
-    <div class="flex items-start justify-between gap-3">
-      <div class="flex items-start gap-2.5">
-        <span class="text-amber-400 text-lg">🔔</span>
-        <div>
-          <h4 id="toast-title" class="text-xs font-bold text-cyan-400 uppercase font-mono tracking-wider">
-            RESET DETECTED
-          </h4>
-          <p id="toast-message" class="text-xs text-slate-200 mt-0.5 leading-snug">
-            Daily reset has occurred!
-          </p>
-        </div>
-      </div>
-      <button 
-        onclick="dismissToast()" 
-        class="text-slate-400 hover:text-white text-xs font-bold px-1.5 py-0.5 cursor-pointer rounded bg-slate-950/60"
-      >
-        ✕
-      </button>
-    </div>
-  </div>
-
-  <!-- CATEGORY: MINIMAL HEADER & COMPACT TELEMETRY BAR -->
   <header class="shrink-0 border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-3 sm:px-6 py-2 sm:py-3 space-y-1.5 sm:space-y-3">
     <div class="max-w-[1600px] mx-auto text-center space-y-0.5">
       <h1 class="text-base sm:text-2xl font-black text-cyan-400 tracking-wider uppercase drop-shadow-[0_0_10px_rgba(34,211,238,0.2)]">
-        Adventurer Journal
+        Tyrian Resource Directory
       </h1>
       <p class="hidden sm:block text-xs sm:text-sm text-slate-300 tracking-wide font-medium">
-        Live World Boss Schedule & External Field Utilities
+        A curated archive of official Guild Wars 2 services and trusted community resources.
       </p>
     </div>
 
-    <!-- CATEGORY: TIME DISPLAY MONITOR -->
     <div class="max-w-[1600px] mx-auto flex items-center justify-around sm:grid sm:grid-cols-3 gap-2 pt-1.5 sm:pt-3 border-t border-slate-800/80 text-xs sm:text-sm overflow-x-auto no-scrollbar whitespace-nowrap">
-      
+
       <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50 shrink-0">
         <span class="text-slate-400 font-bold uppercase tracking-wider">Tyria:</span>
         <span id="tyria-clock-time" class="text-amber-400 font-bold flex items-center gap-1 font-mono">--:--</span>
@@ -120,11 +86,10 @@
     </div>
   </header>
 
-  <!-- CATEGORY: RETURN BAR -->
   <nav class="shrink-0 bg-slate-950 max-w-[1600px] w-full mx-auto px-2 sm:px-6 pt-2 sm:pt-4 pb-1">
     <div class="flex justify-start sm:justify-center overflow-x-auto no-scrollbar border-b border-slate-800/80 gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold whitespace-nowrap">
-      <a 
-        href="../index.html" 
+      <a
+        href="../index.html"
         class="flex items-center justify-center text-center px-3 sm:px-6 py-2 sm:py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/80 transition-all cursor-pointer rounded-t-sm shrink-0"
       >
         <span class="text-xs mr-1.5 sm:mr-2 text-cyan-500 font-mono">&larr;</span>
@@ -133,98 +98,166 @@
     </div>
   </nav>
 
-  <!-- CATEGORY: MAIN CONTENT AREA -->
-  <main class="flex-1 overflow-y-auto max-w-[1600px] w-full mx-auto p-3 sm:p-6 space-y-4 sm:space-y-6">
+  <main class="flex-1 overflow-y-auto max-w-[1600px] w-full mx-auto p-3 sm:p-6 space-y-6 sm:space-y-8">
 
-    <div class="animate-fade-in space-y-4 sm:space-y-6">
-
-      <!-- CATEGORY: 4 BOXED EXTERNAL LINKS -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+    <section class="animate-fade-in border border-cyan-500/20 bg-slate-900/30 rounded-sm p-4 sm:p-6 glow-cyan">
+      <div class="max-w-3xl space-y-2">
         
-        <!-- GW2 APP -->
-        <a href="https://gw2.app/" target="_blank" class="p-4 sm:p-5 border border-slate-800/80 bg-slate-900/40 rounded-sm flex flex-col justify-between space-y-3 glow-cyan transition-all hover:border-cyan-500/40 block cursor-pointer">
-          <div class="space-y-1">
-            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Account Utility</div>
-            <h3 class="text-base sm:text-lg font-bold text-white">GW2 App</h3>
-            <p class="text-sm text-slate-300 leading-relaxed">A complete character overview and comprehensive tracker for your account progress.</p>
+        <h2 class="text-lg sm:text-2xl font-black text-white tracking-wide">
+          Trusted places to look when you need more information.
+        </h2>
+        <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+          This directory collects official ArenaNet services and established community resources in one place.
+          Each section can grow over time without changing the structure of the page.
+        </p>
+      </div>
+    </section>
+
+    <section class="animate-fade-in space-y-3 sm:space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 border-b border-slate-800 pb-2 sm:pb-3">
+        <div>
+          
+          <h2 class="text-base sm:text-xl font-bold text-cyan-400 uppercase tracking-wider">Official Resources</h2>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-400">ArenaNet websites and official account services.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4">
+
+        <a href="https://www.guildwars2.com/" target="_blank" rel="noopener noreferrer"
+          class="p-4 sm:p-5 border border-slate-800/80 bg-slate-900/40 rounded-sm flex flex-col justify-between space-y-4 glow-cyan transition-all hover:border-cyan-500/40">
+          <div class="space-y-2">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Official Website</div>
+            <h3 class="text-base sm:text-lg font-bold text-white">Guild Wars 2</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              News, expansion information, release updates, and official game announcements.
+            </p>
           </div>
-          <span class="text-xs sm:text-sm text-cyan-400 font-bold underline">Open Tool &rarr;</span>
+          <span class="text-xs sm:text-sm text-cyan-400 font-bold underline">Open Website &rarr;</span>
         </a>
 
-        <!-- GW2 CRAFTING -->
-        <a href="https://gw2crafts.net/" target="_blank" class="p-4 sm:p-5 border border-slate-800/80 bg-slate-900/40 rounded-sm flex flex-col justify-between space-y-3 glow-cyan transition-all hover:border-cyan-500/40 block cursor-pointer">
-          <div class="space-y-1">
-            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Discipline Guides</div>
-            <h3 class="text-base sm:text-lg font-bold text-white">GW2 Crafting</h3>
-            <p class="text-sm text-slate-300 leading-relaxed">Fastest and cheapest leveling guides for all crafting disciplines.</p>
-          </div>
-          <span class="text-xs sm:text-sm text-cyan-400 font-bold underline">Open Guide &rarr;</span>
-        </a>
-
-        <!-- SNOW CROWS -->
-        <a href="https://snowcrows.com/" target="_blank" class="p-4 sm:p-5 border border-slate-800/80 bg-slate-900/40 rounded-sm flex flex-col justify-between space-y-3 glow-cyan transition-all hover:border-cyan-500/40 block cursor-pointer">
-          <div class="space-y-1">
-            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Endgame Builds</div>
-            <h3 class="text-base sm:text-lg font-bold text-white">Snow Crows</h3>
-            <p class="text-sm text-slate-300 leading-relaxed">Professional raid builds, strike rotations, and gear optimization.</p>
-          </div>
-          <span class="text-xs sm:text-sm text-cyan-400 font-bold underline">Open Builds &rarr;</span>
-        </a>
-
-        <!-- GW2 WIKI -->
-        <a href="https://wiki.guildwars2.com/" target="_blank" class="p-4 sm:p-5 border border-slate-800/80 bg-slate-900/40 rounded-sm flex flex-col justify-between space-y-3 glow-cyan transition-all hover:border-cyan-500/40 block cursor-pointer">
-          <div class="space-y-1">
+        <a href="https://wiki.guildwars2.com/" target="_blank" rel="noopener noreferrer"
+          class="p-4 sm:p-5 border border-slate-800/80 bg-slate-900/40 rounded-sm flex flex-col justify-between space-y-4 glow-cyan transition-all hover:border-cyan-500/40">
+          <div class="space-y-2">
             <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Knowledge Base</div>
-            <h3 class="text-base sm:text-lg font-bold text-white">GW2 Wiki</h3>
-            <p class="text-sm text-slate-300 leading-relaxed">The official database for items, events, collections, and guides.</p>
+            <h3 class="text-base sm:text-lg font-bold text-white">Guild Wars 2 Wiki</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              The official player-maintained reference for items, events, achievements, maps, and game systems.
+            </p>
           </div>
           <span class="text-xs sm:text-sm text-cyan-400 font-bold underline">Open Wiki &rarr;</span>
         </a>
 
+        <a href="https://help.guildwars2.com/" target="_blank" rel="noopener noreferrer"
+          class="p-4 sm:p-5 border border-slate-800/80 bg-slate-900/40 rounded-sm flex flex-col justify-between space-y-4 glow-cyan transition-all hover:border-cyan-500/40">
+          <div class="space-y-2">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Customer Support</div>
+            <h3 class="text-base sm:text-lg font-bold text-white">Guild Wars 2 Support</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Help with account access, technical issues, purchases, security, and support tickets.
+            </p>
+          </div>
+          <span class="text-xs sm:text-sm text-cyan-400 font-bold underline">Open Support &rarr;</span>
+        </a>
+
+        <a href="https://account.arena.net/" target="_blank" rel="noopener noreferrer"
+          class="p-4 sm:p-5 border border-slate-800/80 bg-slate-900/40 rounded-sm flex flex-col justify-between space-y-4 glow-cyan transition-all hover:border-cyan-500/40">
+          <div class="space-y-2">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Account Services</div>
+            <h3 class="text-base sm:text-lg font-bold text-white">ArenaNet Account</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Manage account security, linked services, serial codes, and personal account settings.
+            </p>
+          </div>
+          <span class="text-xs sm:text-sm text-cyan-400 font-bold underline">Manage Account &rarr;</span>
+        </a>
+
       </div>
-      
-      <!-- CATEGORY: TOP 3 PRIORITY WORLD BOSSES -->
-      <div class="space-y-3 sm:space-y-4">
-        <div class="flex justify-between items-center border-b border-slate-800 pb-2 sm:pb-3">
-          <h2 class="text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-wider">
-            Immediate World Boss Queue
-          </h2>
-          <span class="text-xs text-amber-400 font-bold">[LIVE QUEUE]</span>
-        </div>
+    </section>
 
-        <div id="priority-boss-grid" class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-5">
-          <!-- DYNAMICALLY POPULATED BY JAVASCRIPT -->
+    <section class="animate-fade-in space-y-3 sm:space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 border-b border-slate-800 pb-2 sm:pb-3">
+        <div>
+          
+          <h2 class="text-base sm:text-xl font-bold text-cyan-400 uppercase tracking-wider">Community Resources</h2>
         </div>
+        <p class="text-xs sm:text-sm text-slate-400">Established tools and references created by the Guild Wars 2 community.</p>
       </div>
 
-      <!-- CATEGORY: SCROLLING LIST FOR OTHER WORLD BOSSES -->
-      <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
-        <div class="flex justify-between items-center border-b border-slate-800 pb-2 sm:pb-3">
-          <h3 class="text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-wider">
-            Upcoming World Boss Rotations
-          </h3>
-          <span class="text-xs text-slate-400">Rotation Schedule</span>
-        </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
 
-        <div id="scrolling-boss-list" class="max-h-80 overflow-y-auto space-y-2 sm:space-y-3 pr-1 sm:pr-2">
-          <!-- DYNAMICALLY POPULATED BY JAVASCRIPT -->
-        </div>
-      </section>
+        <a href="https://gw2efficiency.com/" target="_blank" rel="noopener noreferrer"
+          class="p-4 sm:p-5 border border-slate-800/80 bg-slate-900/40 rounded-sm flex flex-col justify-between space-y-4 glow-cyan transition-all hover:border-cyan-500/40">
+          <div class="space-y-2">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Account Tracking</div>
+            <h3 class="text-base sm:text-lg font-bold text-white">GW2Efficiency</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Track account value, achievements, collections, crafting goals, materials, and progression.
+            </p>
+          </div>
+          <span class="text-xs sm:text-sm text-cyan-400 font-bold underline">Open Resource &rarr;</span>
+        </a>
 
-    </div>
+        <a href="https://www.gw2bltc.com/" target="_blank" rel="noopener noreferrer"
+          class="p-4 sm:p-5 border border-slate-800/80 bg-slate-900/40 rounded-sm flex flex-col justify-between space-y-4 glow-cyan transition-all hover:border-cyan-500/40">
+          <div class="space-y-2">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Trading Post</div>
+            <h3 class="text-base sm:text-lg font-bold text-white">GW2BLTC</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Research Trading Post prices, item histories, market movement, and crafting profitability.
+            </p>
+          </div>
+          <span class="text-xs sm:text-sm text-cyan-400 font-bold underline">Open Market Tools &rarr;</span>
+        </a>
+
+        <a href="https://gw2crafts.net/" target="_blank" rel="noopener noreferrer"
+          class="p-4 sm:p-5 border border-slate-800/80 bg-slate-900/40 rounded-sm flex flex-col justify-between space-y-4 glow-cyan transition-all hover:border-cyan-500/40">
+          <div class="space-y-2">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Crafting Guides</div>
+            <h3 class="text-base sm:text-lg font-bold text-white">GW2Crafts</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Cost-aware leveling guides for Guild Wars 2 crafting disciplines.
+            </p>
+          </div>
+          <span class="text-xs sm:text-sm text-cyan-400 font-bold underline">Open Crafting Guides &rarr;</span>
+        </a>
+
+        <a href="https://gw2.app/" target="_blank" rel="noopener noreferrer"
+          class="p-4 sm:p-5 border border-slate-800/80 bg-slate-900/40 rounded-sm flex flex-col justify-between space-y-4 glow-cyan transition-all hover:border-cyan-500/40">
+          <div class="space-y-2">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Companion Platform</div>
+            <h3 class="text-base sm:text-lg font-bold text-white">GW2.app</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Explore account information, maps, achievements, collections, characters, and other companion tools.
+            </p>
+          </div>
+          <span class="text-xs sm:text-sm text-cyan-400 font-bold underline">Open Companion &rarr;</span>
+        </a>
+
+        <a href="https://snowcrows.com/" target="_blank" rel="noopener noreferrer"
+          class="p-4 sm:p-5 border border-slate-800/80 bg-slate-900/40 rounded-sm flex flex-col justify-between space-y-4 glow-cyan transition-all hover:border-cyan-500/40">
+          <div class="space-y-2">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider">Endgame Reference</div>
+            <h3 class="text-base sm:text-lg font-bold text-white">Snow Crows</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Endgame builds, rotations, encounter information, and group-content resources.
+            </p>
+          </div>
+          <span class="text-xs sm:text-sm text-cyan-400 font-bold underline">Open Snow Crows &rarr;</span>
+        </a>
+
+      </div>
+    </section>
 
   </main>
 
-  <!-- CATEGORY: FOOTER WITH CENTERED MOBILE FLOW -->
   <footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-3 sm:px-6 py-2.5 sm:py-3">
     <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
-      
-      <!-- DESKTOP DISCLAIMER PARAGRAPH -->
+
       <p class="hidden md:block text-xs text-slate-400 max-w-3xl leading-normal">
         This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
       </p>
 
-      <!-- CREDITS LINKS -->
       <div class="flex items-center justify-center space-x-2 sm:space-x-4 text-xs">
         <span class="text-slate-300">
           Written by <a href="https://liar.fyi" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 font-bold">The Liars Guild</a>
@@ -235,8 +268,7 @@
         </span>
       </div>
 
-      <!-- MOBILE DISCLAIMER MODAL TRIGGER -->
-      <button 
+      <button
         onclick="toggleDisclaimer('on')"
         class="md:hidden text-xs text-slate-400 hover:text-cyan-400 underline cursor-pointer font-semibold uppercase tracking-wider"
       >
@@ -246,9 +278,8 @@
     </div>
   </footer>
 
-  <!-- CATEGORY: DISCLAIMER OVERLAY MODAL -->
-  <div 
-    id="disclaimer-modal" 
+  <div
+    id="disclaimer-modal"
     class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4"
   >
     <div class="bg-slate-900 border border-cyan-500/40 rounded p-5 max-w-md w-full space-y-4 glow-cyan">
@@ -256,8 +287,8 @@
         <h3 class="text-sm font-bold text-cyan-400 tracking-wider uppercase font-mono">
           /// LEGAL DISCLAIMER
         </h3>
-        <button 
-          onclick="toggleDisclaimer('off')" 
+        <button
+          onclick="toggleDisclaimer('off')"
           class="text-slate-400 hover:text-white font-bold text-base px-2 cursor-pointer"
         >
           ✕
@@ -268,8 +299,8 @@
         This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
       </p>
 
-      <button 
-        onclick="toggleDisclaimer('off')" 
+      <button
+        onclick="toggleDisclaimer('off')"
         class="w-full py-2.5 bg-slate-950 border border-cyan-500/50 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all text-center block cursor-pointer"
       >
         Acknowledge
@@ -277,12 +308,11 @@
     </div>
   </div>
 
-  <!-- CATEGORY: LOGIC ENGINE -->
   <script>
-    /* CATEGORY: DISCLAIMER MODAL CONTROLLER */
     function toggleDisclaimer(state) {
       const modal = document.getElementById('disclaimer-modal');
       if (!modal) return;
+
       if (state === 'on') {
         modal.classList.remove('hidden');
       } else {
@@ -290,266 +320,22 @@
       }
     }
 
-    /* CATEGORY: TOAST NOTIFICATION ENGINE */
-    let toastTimeout = null;
-    let lastHandledUtcMinute = -1;
-
-    function triggerToast(title, message) {
-      const toast = document.getElementById('toast-notification');
-      const titleEl = document.getElementById('toast-title');
-      const msgEl = document.getElementById('toast-message');
-
-      if (!toast || !titleEl || !msgEl) return;
-
-      titleEl.innerText = title;
-      msgEl.innerText = message;
-      toast.classList.remove('hidden');
-
-      if (toastTimeout) clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        dismissToast();
-      }, 9000);
-    }
-
-    function dismissToast() {
-      const toast = document.getElementById('toast-notification');
-      if (toast) toast.classList.add('hidden');
-    }
-
-    /* CATEGORY: WORLD BOSS MASTER SCHEDULE (TIMETABLE SOURCE: UTC-4 STANDARD) */
-    const rawBossSchedule = [
-      { name: "Admiral Taidha Covington", level: 50, location: "Bloodtide Coast", waypoint: "[&BKgBAAA=]", h: 20, m: 0 },
-      { name: "Tequatl the Sunless", level: 80, location: "Sparkfly Fen", waypoint: "[&BNABAAA=]", h: 20, m: 0 },
-      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 20, m: 15 },
-      { name: "Megadestroyer", level: 66, location: "Mount Maelstrom", waypoint: "[&BM0CAAA=]", h: 20, m: 30 },
-      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 20, m: 45 },
-      { name: "The Shatterer", level: 50, location: "Blazeridge Steppes", waypoint: "[&BE4DAAA=]", h: 21, m: 0 },
-      { name: "Evolved Jungle Wurm", level: 80, location: "Bloodtide Coast", waypoint: "[&BKoBAAA=]", h: 21, m: 0 },
-      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 21, m: 15 },
-      { name: "Modniir Ulgoth", level: 40, location: "Harathi Hinterlands", waypoint: "[&BLEAAAA=]", h: 21, m: 30 },
-      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 21, m: 45 },
-      { name: "Golem Mark II", level: 80, location: "Mount Maelstrom", waypoint: "[&BNQCAAA=]", h: 22, m: 0 },
-      { name: "Karka Queen", level: 80, location: "Southsun Cove", waypoint: "[&BNcGAAA=]", h: 22, m: 0 },
-      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 22, m: 15 },
-      { name: "Claw of Jormag", level: 80, location: "Frostgorge Sound", waypoint: "[&BHoCAAA=]", h: 22, m: 30 },
-      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 22, m: 45 },
-      { name: "Admiral Taidha Covington", level: 50, location: "Bloodtide Coast", waypoint: "[&BKgBAAA=]", h: 23, m: 0 },
-      { name: "Tequatl the Sunless", level: 80, location: "Sparkfly Fen", waypoint: "[&BNABAAA=]", h: 23, m: 0 },
-      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 23, m: 15 },
-      { name: "Megadestroyer", level: 66, location: "Mount Maelstrom", waypoint: "[&BM0CAAA=]", h: 23, m: 30 },
-      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 23, m: 45 },
-      { name: "The Shatterer", level: 50, location: "Blazeridge Steppes", waypoint: "[&BE4DAAA=]", h: 0, m: 0 },
-      { name: "Evolved Jungle Wurm", level: 80, location: "Bloodtide Coast", waypoint: "[&BKoBAAA=]", h: 0, m: 0 },
-      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 0, m: 15 },
-      { name: "Modniir Ulgoth", level: 40, location: "Harathi Hinterlands", waypoint: "[&BLEAAAA=]", h: 0, m: 30 },
-      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 0, m: 45 },
-      { name: "Golem Mark II", level: 80, location: "Mount Maelstrom", waypoint: "[&BNQCAAA=]", h: 1, m: 0 },
-      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 1, m: 15 },
-      { name: "Claw of Jormag", level: 80, location: "Frostgorge Sound", waypoint: "[&BHoCAAA=]", h: 1, m: 30 },
-      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 1, m: 45 },
-      { name: "Admiral Taidha Covington", level: 50, location: "Bloodtide Coast", waypoint: "[&BKgBAAA=]", h: 2, m: 0 },
-      { name: "Karka Queen", level: 80, location: "Southsun Cove", waypoint: "[&BNcGAAA=]", h: 2, m: 0 },
-      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 2, m: 15 },
-      { name: "Megadestroyer", level: 66, location: "Mount Maelstrom", waypoint: "[&BM0CAAA=]", h: 2, m: 30 },
-      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 2, m: 45 },
-      { name: "The Shatterer", level: 50, location: "Blazeridge Steppes", waypoint: "[&BE4DAAA=]", h: 3, m: 0 },
-      { name: "Tequatl the Sunless", level: 80, location: "Sparkfly Fen", waypoint: "[&BNABAAA=]", h: 3, m: 0 },
-      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 3, m: 15 },
-      { name: "Modniir Ulgoth", level: 40, location: "Harathi Hinterlands", waypoint: "[&BLEAAAA=]", h: 3, m: 30 },
-      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 3, m: 45 },
-      { name: "Golem Mark II", level: 80, location: "Mount Maelstrom", waypoint: "[&BNQCAAA=]", h: 4, m: 0 },
-      { name: "Evolved Jungle Wurm", level: 80, location: "Bloodtide Coast", waypoint: "[&BKoBAAA=]", h: 4, m: 0 },
-      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 4, m: 15 },
-      { name: "Claw of Jormag", level: 80, location: "Frostgorge Sound", waypoint: "[&BHoCAAA=]", h: 4, m: 30 },
-      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 4, m: 45 },
-      { name: "Admiral Taidha Covington", level: 50, location: "Bloodtide Coast", waypoint: "[&BKgBAAA=]", h: 5, m: 0 },
-      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 5, m: 15 },
-      { name: "Megadestroyer", level: 66, location: "Mount Maelstrom", waypoint: "[&BM0CAAA=]", h: 5, m: 30 },
-      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 5, m: 45 },
-      { name: "The Shatterer", level: 50, location: "Blazeridge Steppes", waypoint: "[&BE4DAAA=]", h: 6, m: 0 },
-      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 6, m: 15 },
-      { name: "Modniir Ulgoth", level: 40, location: "Harathi Hinterlands", waypoint: "[&BLEAAAA=]", h: 6, m: 30 },
-      { name: "Karka Queen", level: 80, location: "Southsun Cove", waypoint: "[&BNcGAAA=]", h: 6, m: 30 },
-      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 6, m: 45 },
-      { name: "Golem Mark II", level: 80, location: "Mount Maelstrom", waypoint: "[&BNQCAAA=]", h: 7, m: 0 },
-      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 7, m: 15 },
-      { name: "Claw of Jormag", level: 80, location: "Frostgorge Sound", waypoint: "[&BHoCAAA=]", h: 7, m: 30 },
-      { name: "Tequatl the Sunless", level: 80, location: "Sparkfly Fen", waypoint: "[&BNABAAA=]", h: 7, m: 30 },
-      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 7, m: 45 },
-      { name: "Admiral Taidha Covington", level: 50, location: "Bloodtide Coast", waypoint: "[&BKgBAAA=]", h: 8, m: 0 },
-      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 8, m: 15 },
-      { name: "Megadestroyer", level: 66, location: "Mount Maelstrom", waypoint: "[&BM0CAAA=]", h: 8, m: 30 },
-      { name: "Evolved Jungle Wurm", level: 80, location: "Bloodtide Coast", waypoint: "[&BKoBAAA=]", h: 8, m: 30 },
-      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 8, m: 45 },
-      { name: "The Shatterer", level: 50, location: "Blazeridge Steppes", waypoint: "[&BE4DAAA=]", h: 9, m: 0 },
-      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 9, m: 15 },
-      { name: "Modniir Ulgoth", level: 40, location: "Harathi Hinterlands", waypoint: "[&BLEAAAA=]", h: 9, m: 30 },
-      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 9, m: 45 },
-      { name: "Golem Mark II", level: 80, location: "Mount Maelstrom", waypoint: "[&BNQCAAA=]", h: 10, m: 0 },
-      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 10, m: 15 },
-      { name: "Claw of Jormag", level: 80, location: "Frostgorge Sound", waypoint: "[&BHoCAAA=]", h: 10, m: 30 },
-      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 10, m: 45 },
-      { name: "Admiral Taidha Covington", level: 50, location: "Bloodtide Coast", waypoint: "[&BKgBAAA=]", h: 11, m: 0 },
-      { name: "Karka Queen", level: 80, location: "Southsun Cove", waypoint: "[&BNcGAAA=]", h: 11, m: 0 },
-      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 11, m: 15 },
-      { name: "Megadestroyer", level: 66, location: "Mount Maelstrom", waypoint: "[&BM0CAAA=]", h: 11, m: 30 },
-      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 11, m: 45 },
-      { name: "The Shatterer", level: 50, location: "Blazeridge Steppes", waypoint: "[&BE4DAAA=]", h: 12, m: 0 },
-      { name: "Tequatl the Sunless", level: 80, location: "Sparkfly Fen", waypoint: "[&BNABAAA=]", h: 12, m: 0 },
-      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 12, m: 15 },
-      { name: "Modniir Ulgoth", level: 40, location: "Harathi Hinterlands", waypoint: "[&BLEAAAA=]", h: 12, m: 30 },
-      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 12, m: 45 },
-      { name: "Golem Mark II", level: 80, location: "Mount Maelstrom", waypoint: "[&BNQCAAA=]", h: 13, m: 0 },
-      { name: "Evolved Jungle Wurm", level: 80, location: "Bloodtide Coast", waypoint: "[&BKoBAAA=]", h: 13, m: 0 },
-      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 13, m: 15 },
-      { name: "Claw of Jormag", level: 80, location: "Frostgorge Sound", waypoint: "[&BHoCAAA=]", h: 13, m: 30 },
-      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 13, m: 45 },
-      { name: "Admiral Taidha Covington", level: 50, location: "Bloodtide Coast", waypoint: "[&BKgBAAA=]", h: 14, m: 0 },
-      { name: "Karka Queen", level: 80, location: "Southsun Cove", waypoint: "[&BNcGAAA=]", h: 14, m: 0 },
-      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 14, m: 15 },
-      { name: "Megadestroyer", level: 66, location: "Mount Maelstrom", waypoint: "[&BM0CAAA=]", h: 14, m: 30 },
-      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 14, m: 45 },
-      { name: "The Shatterer", level: 50, location: "Blazeridge Steppes", waypoint: "[&BE4DAAA=]", h: 15, m: 0 },
-      { name: "Tequatl the Sunless", level: 80, location: "Sparkfly Fen", waypoint: "[&BNABAAA=]", h: 15, m: 0 },
-      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 15, m: 15 },
-      { name: "Modniir Ulgoth", level: 40, location: "Harathi Hinterlands", waypoint: "[&BLEAAAA=]", h: 15, m: 30 },
-      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 15, m: 45 },
-      { name: "Golem Mark II", level: 80, location: "Mount Maelstrom", waypoint: "[&BNQCAAA=]", h: 16, m: 0 },
-      { name: "Evolved Jungle Wurm", level: 80, location: "Bloodtide Coast", waypoint: "[&BKoBAAA=]", h: 16, m: 0 },
-      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 16, m: 15 },
-      { name: "Claw of Jormag", level: 80, location: "Frostgorge Sound", waypoint: "[&BHoCAAA=]", h: 16, m: 30 },
-      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 16, m: 45 },
-      { name: "Admiral Taidha Covington", level: 50, location: "Bloodtide Coast", waypoint: "[&BKgBAAA=]", h: 17, m: 0 },
-      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 17, m: 15 },
-      { name: "Megadestroyer", level: 66, location: "Mount Maelstrom", waypoint: "[&BM0CAAA=]", h: 17, m: 30 },
-      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 17, m: 45 },
-      { name: "The Shatterer", level: 50, location: "Blazeridge Steppes", waypoint: "[&BE4DAAA=]", h: 18, m: 0 },
-      { name: "Svanir Shaman Chief", level: 10, location: "Wayfarer Foothills", waypoint: "[&BH4BAAA=]", h: 18, m: 15 },
-      { name: "Modniir Ulgoth", level: 40, location: "Harathi Hinterlands", waypoint: "[&BLEAAAA=]", h: 18, m: 30 },
-      { name: "Fire Elemental", level: 10, location: "Metrica Province", waypoint: "[&BEYAAAA=]", h: 18, m: 45 },
-      { name: "Golem Mark II", level: 80, location: "Mount Maelstrom", waypoint: "[&BNQCAAA=]", h: 19, m: 0 },
-      { name: "Karka Queen", level: 80, location: "Southsun Cove", waypoint: "[&BNcGAAA=]", h: 19, m: 0 },
-      { name: "Great Jungle Wurm", level: 15, location: "Caledon Forest", waypoint: "[&BEEFAAA=]", h: 19, m: 15 },
-      { name: "Claw of Jormag", level: 80, location: "Frostgorge Sound", waypoint: "[&BHoCAAA=]", h: 19, m: 30 },
-      { name: "Shadow Behemoth", level: 15, location: "Queensdale", waypoint: "[&BPwAAAA=]", h: 19, m: 45 }
-    ];
-
-    /* CATEGORY: TIME CONVERSION ENGINE */
-    function renderLocalizedSchedule() {
-      const now = new Date();
-      const calculatedBosses = [];
-
-      rawBossSchedule.forEach(boss => {
-        const utcH = (boss.h + 4) % 24;
-        let spawnDate = new Date();
-        spawnDate.setUTCHours(utcH, boss.m, 0, 0);
-
-        if (spawnDate.getTime() + (15 * 60 * 1000) < now.getTime()) {
-          spawnDate.setUTCDate(spawnDate.getUTCDate() + 1);
-        }
-
-        const diffMs = spawnDate.getTime() - now.getTime();
-        const diffMins = Math.floor(diffMs / (1000 * 60));
-
-        const localTimeStr = spawnDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-        calculatedBosses.push({
-          ...boss,
-          spawnDate,
-          diffMins,
-          localTimeStr
-        });
-      });
-
-      calculatedBosses.sort((a, b) => a.spawnDate.getTime() - b.spawnDate.getTime());
-
-      const priorityGrid = document.getElementById('priority-boss-grid');
-      const scrollingList = document.getElementById('scrolling-boss-list');
-
-      if (!priorityGrid || !scrollingList) return;
-
-      const top3 = calculatedBosses.slice(0, 3);
-      const remaining = calculatedBosses.slice(3);
-
-      let top3Html = '';
-      const badges = [
-        { label: 'Current Boss', bg: 'bg-cyan-500 text-slate-950', status: 'Active / Starting', border: 'border-cyan-500/60 bg-slate-900/80' },
-        { label: 'Up Next', bg: 'bg-amber-500 text-slate-950', status: 'Upcoming', border: 'border-slate-800/80 bg-slate-900/40' },
-        { label: 'Following', bg: 'bg-slate-700 text-white', status: 'Queued', border: 'border-slate-800/80 bg-slate-900/40' }
-      ];
-
-      top3.forEach((boss, index) => {
-        const badge = badges[index];
-        const timeLabel = boss.diffMins <= 0 ? 'Active Now' : `In ~${boss.diffMins} min`;
-
-        top3Html += `
-          <div class="p-4 sm:p-5 border ${badge.border} rounded-sm flex flex-col justify-between space-y-3 sm:space-y-4 glow-cyan relative">
-            <span class="absolute -top-3 left-4 px-2 py-0.5 ${badge.bg} font-bold text-[10px] uppercase rounded">${badge.label}</span>
-            <div class="space-y-2 pt-1">
-              <div class="flex justify-between items-center text-xs">
-                <span class="text-amber-400 font-bold">${boss.localTimeStr}</span>
-                <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 font-mono text-[10px] rounded">${timeLabel}</span>
-              </div>
-              <h4 class="text-base sm:text-lg font-bold text-white">${boss.name}</h4>
-              <p class="text-xs sm:text-sm text-slate-300">Level ${boss.level} World Boss // ${boss.location}</p>
-            </div>
-            <div class="flex items-center justify-between pt-2 border-t border-slate-800/80 text-xs font-mono">
-              <span class="text-cyan-300 select-all font-bold">${boss.waypoint}</span>
-              <span class="text-slate-400">${badge.status}</span>
-            </div>
-          </div>
-        `;
-      });
-      priorityGrid.innerHTML = top3Html;
-
-      let listHtml = '';
-      remaining.forEach(boss => {
-        const timeDiffStr = boss.diffMins > 60 
-          ? `In ~${Math.floor(boss.diffMins / 60)}h ${boss.diffMins % 60}m` 
-          : `In ~${boss.diffMins} min`;
-
-        listHtml += `
-          <div class="p-3 sm:p-4 bg-slate-950 border border-slate-800/80 rounded-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3 hover:border-cyan-500/40 transition-all">
-            <div class="space-y-0.5 sm:space-y-1">
-              <div class="text-xs text-amber-400 font-bold">${boss.localTimeStr} (${timeDiffStr})</div>
-              <div class="text-sm font-bold text-white">${boss.name} <span class="text-xs font-normal text-slate-400">// Level ${boss.level} (${boss.location})</span></div>
-            </div>
-            <div class="text-xs text-cyan-300 font-mono select-all bg-slate-900 px-2.5 py-1 sm:px-3 sm:py-1.5 border border-slate-800/80 rounded">
-              ${boss.waypoint}
-            </div>
-          </div>
-        `;
-      });
-      scrollingList.innerHTML = listHtml;
-    }
-
-    /* CATEGORY: UNIVERSAL CLOCKS & RESET DETECTOR ENGINE */
     function updateClocks() {
       const now = new Date();
-      
+
       const utcHours = now.getUTCHours();
       const utcMins = now.getUTCMinutes();
       const utcSecs = now.getUTCSeconds();
-      const utcDay = now.getUTCDay();
 
       const strUtcHours = String(utcHours).padStart(2, '0');
       const strUtcMins = String(utcMins).padStart(2, '0');
       const strUtcSecs = String(utcSecs).padStart(2, '0');
 
-      document.getElementById('server-clock').innerText = `${strUtcHours}:${strUtcMins}:${strUtcSecs} UTC`;
-
-      /* RESET DETECTION LOGIC (DAILY: 00:00:00 UTC | WEEKLY: MON 07:30:00 UTC) */
-      if (utcSecs === 0 && utcMins !== lastHandledUtcMinute) {
-        lastHandledUtcMinute = utcMins;
-
-        if (utcHours === 0 && utcMins === 0) {
-          triggerToast("DAILY RESET DETECTED", "GW2 server daily reset is live! Daily achievements & wizards vault updated.");
-        } else if (utcDay === 1 && utcHours === 7 && utcMins === 30) {
-          triggerToast("WEEKLY RESET DETECTED", "GW2 server weekly reset is live! Raids, strikes, and weekly tasks refreshed.");
-        }
+      const serverClock = document.getElementById('server-clock');
+      if (serverClock) {
+        serverClock.innerText = `${strUtcHours}:${strUtcMins}:${strUtcSecs} UTC`;
       }
 
-      /* TYRIAN TIME CALCULATOR */
       const totalUtcSec = (utcHours * 3600) + (utcMins * 60) + utcSecs;
       const cycleOffset = 1500;
       const secondsInto2HrCycle = (totalUtcSec - cycleOffset + 720000) % 7200;
@@ -567,16 +353,15 @@
       else if (tyrianHour >= 20 && tyrianHour < 21) icon = '🌆';
       else icon = '🌙';
 
-      document.getElementById('tyria-clock-time').innerHTML = `${icon} <span>${formattedTyrianHour}:${formattedTyrianMin}</span>`;
+      const tyriaClock = document.getElementById('tyria-clock-time');
+      if (tyriaClock) {
+        tyriaClock.innerHTML = `${icon} <span>${formattedTyrianHour}:${formattedTyrianMin}</span>`;
+      }
     }
 
-    /* CATEGORY: INITIALIZATION */
     document.addEventListener('DOMContentLoaded', () => {
       updateClocks();
-      renderLocalizedSchedule();
-      
       setInterval(updateClocks, 1000);
-      setInterval(renderLocalizedSchedule, 30000);
     });
   </script>
 </body>
