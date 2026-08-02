@@ -445,12 +445,38 @@
     }
 
     /* CATEGORY: TAB NAVIGATION ENGINE */
-    function switchTab(selectedTab) {
+    const VALID_TABS = ['basics', 'advanced', 'expert'];
+
+    function normalizeTabName(tabName) {
+      const aliases = {
+        beginner: 'basics',
+        beginners: 'basics',
+        basic: 'basics',
+        basics: 'basics',
+        advanced: 'advanced',
+        expert: 'expert'
+      };
+
+      return aliases[String(tabName || '').toLowerCase()] || null;
+    }
+
+    function switchTab(selectedTab, updateUrl = true) {
+      const normalizedTab = normalizeTabName(selectedTab);
+      if (!normalizedTab || !VALID_TABS.includes(normalizedTab)) return;
+
       Object.keys(tabState).forEach(key => {
-        tabState[key] = (key === selectedTab) ? 'on' : 'off';
+        tabState[key] = (key === normalizedTab) ? 'on' : 'off';
       });
-      localStorage.setItem(TAB_STORAGE_KEY, selectedTab);
+
+      localStorage.setItem(TAB_STORAGE_KEY, normalizedTab);
       renderTabViews();
+
+      if (updateUrl) {
+        const newHash = `#${normalizedTab}`;
+        if (window.location.hash !== newHash) {
+          history.pushState({ tab: normalizedTab }, '', newHash);
+        }
+      }
     }
 
     function renderTabViews() {
@@ -521,14 +547,38 @@
       document.getElementById('tyria-clock-time').innerHTML = `${icon} <span>${formattedTyrianHour}:${formattedTyrianMin}</span>`;
     }
 
+    /* CATEGORY: URL HASH & BROWSER HISTORY SUPPORT */
+    function getTabFromUrl() {
+      return normalizeTabName(window.location.hash.replace('#', ''));
+    }
+
+    function loadTabFromUrlOrStorage() {
+      const urlTab = getTabFromUrl();
+      const savedTab = normalizeTabName(localStorage.getItem(TAB_STORAGE_KEY));
+      const initialTab = urlTab || savedTab || 'basics';
+
+      switchTab(initialTab, false);
+
+      if (!urlTab) {
+        history.replaceState({ tab: initialTab }, '', `#${initialTab}`);
+      }
+    }
+
+    window.addEventListener('popstate', () => {
+      const tab = getTabFromUrl() || 'basics';
+      switchTab(tab, false);
+    });
+
+    window.addEventListener('hashchange', () => {
+      const tab = getTabFromUrl();
+      if (tab) switchTab(tab, false);
+    });
+
     /* CATEGORY: INITIALIZATION */
     document.addEventListener('DOMContentLoaded', () => {
       renderAllGrids();
       updateClocks();
-      
-      const savedTab = localStorage.getItem(TAB_STORAGE_KEY) || 'basics';
-      switchTab(savedTab);
-      
+      loadTabFromUrlOrStorage();
       setInterval(updateClocks, 1000);
     });
   </script>
