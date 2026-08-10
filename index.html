@@ -1,586 +1,1139 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-slate-950 text-white">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>[LIAR] Tyrian Field Archives // Terminal 77-B</title>
-  
-  <!-- CATEGORY: EXTERNAL DEPENDENCIES -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#020617" />
+
+  <title>Terminal 77-B // Tyrian Strategy Guidebook</title>
+
+  <meta
+    name="description"
+    content="Terminal 77-B is a Guild Wars 2 community strategy guidebook written by the [Liar] community and built by Commander Q for new and returning players."
+  />
+
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- CATEGORY: STYLES & TYPOGRAPHY -->
+
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    :root {
+      --terminal-bg: #020617;
+      --terminal-panel: #0f172a;
+      --terminal-panel-soft: rgba(15, 23, 42, 0.72);
+      --terminal-cyan: #22d3ee;
+      --terminal-amber: #fbbf24;
+      --terminal-green: #86efac;
     }
 
-    .glow-cyan {
-      box-shadow: 0 0 14px rgba(34, 211, 238, 0.10);
+    * {
+      box-sizing: border-box;
     }
-    .glow-cyan:hover {
-      box-shadow: 0 0 22px rgba(34, 211, 238, 0.25);
+
+    html {
+      background: var(--terminal-bg);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, rgba(34, 211, 238, 0.08), transparent 26rem),
+        linear-gradient(to bottom, #020617 0%, #020617 100%);
+      color: white;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Text",
+        "SF Pro Display",
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.16;
+      background-image:
+        linear-gradient(rgba(34, 211, 238, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34, 211, 238, 0.025) 1px, transparent 1px);
+      background-size: 28px 28px;
+      z-index: -1;
+    }
+
+    a,
+    button {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .terminal-panel {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(15, 23, 42, 0.92),
+          rgba(2, 6, 23, 0.95)
+        );
+      border: 1px solid rgba(34, 211, 238, 0.18);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.025),
+        0 12px 40px rgba(0, 0, 0, 0.18);
+    }
+
+    .terminal-panel:hover {
+      border-color: rgba(34, 211, 238, 0.38);
+    }
+
+    .terminal-button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(251, 191, 36, 0.45);
+      background: rgba(251, 191, 36, 0.06);
+      color: #fbbf24;
+      transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .terminal-button:hover,
+    .terminal-button:focus-visible {
+      background: #fbbf24;
+      border-color: #fbbf24;
+      color: #020617;
+    }
+
+    .terminal-button:active {
+      transform: scale(0.985);
+    }
+
+    .section-label {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      letter-spacing: 0.15em;
+    }
+
+    .mobile-menu {
+      transition:
+        opacity 0.18s ease,
+        transform 0.18s ease;
+    }
+
+    ::selection {
+      background: #22d3ee;
+      color: #020617;
     }
 
     ::-webkit-scrollbar {
-      width: 6px;
+      width: 7px;
     }
+
     ::-webkit-scrollbar-track {
       background: #020617;
     }
+
     ::-webkit-scrollbar-thumb {
-      background: #0f172a;
-      border: 1px solid #22d3ee;
-      border-radius: 2px;
+      background: #164e63;
+      border-radius: 99px;
     }
 
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-
-    @keyframes slideDown {
-      from { transform: translateY(-100%); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .animate-slide-down {
-      animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
     }
   </style>
 </head>
-<body class="h-screen flex flex-col overflow-hidden relative bg-slate-950 text-white selection:bg-cyan-500 selection:text-slate-950">
 
-  <!-- CATEGORY: TOAST NOTIFICATION CONTAINER -->
-  <div 
-    id="toast-notification" 
-    class="hidden fixed top-3 right-3 left-3 sm:left-auto sm:max-w-md z-50 bg-slate-900/95 border border-cyan-400 text-white p-3.5 rounded shadow-2xl backdrop-blur glow-cyan animate-slide-down"
+<body class="min-h-screen text-slate-100">
+
+  <!-- =========================================================
+       HEADER
+       ========================================================= -->
+  <header
+    class="sticky top-0 z-50 border-b border-cyan-500/20 bg-slate-950/95 backdrop-blur-xl"
   >
-    <div class="flex items-start justify-between gap-3">
-      <div class="flex items-start gap-2.5">
-        <span class="text-amber-400 text-lg">🔔</span>
-        <div>
-          <h4 id="toast-title" class="text-xs font-bold text-cyan-400 uppercase font-mono tracking-wider">
-            RESET DETECTED
-          </h4>
-          <p id="toast-message" class="text-xs text-slate-200 mt-0.5 leading-snug">
-            Daily reset has occurred!
-          </p>
-        </div>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <div class="flex min-h-[68px] items-center justify-between gap-4">
+
+        <!-- BRAND -->
+        <a
+          href="./index.html"
+          class="flex min-w-0 items-center gap-3"
+          aria-label="Terminal 77-B Home"
+        >
+          <div
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-cyan-400/30 bg-cyan-400/5 text-cyan-300"
+            aria-hidden="true"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              class="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+            >
+              <path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6l-8-4Z"/>
+              <path d="m8 13 2.5-6 1.5 4 1.5-4L16 13"/>
+            </svg>
+          </div>
+
+          <div class="min-w-0">
+            <div
+              class="truncate text-sm font-black uppercase tracking-[0.18em] text-cyan-300 sm:text-base"
+            >
+              Terminal 77-B
+            </div>
+            <div
+              class="hidden truncate text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500 sm:block"
+            >
+              Tyrian Strategy Guidebook
+            </div>
+          </div>
+        </a>
+
+        <!-- DESKTOP NAV -->
+        <nav
+          class="hidden items-center gap-1 md:flex"
+          aria-label="Main Navigation"
+        >
+          <a
+            href="#home"
+            class="rounded px-3 py-2 text-xs font-bold uppercase tracking-wider text-amber-300 hover:bg-slate-900"
+          >
+            Home
+          </a>
+
+          <a
+            href="#archives"
+            class="rounded px-3 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-slate-900 hover:text-cyan-300"
+          >
+            Archives
+          </a>
+
+          <a
+            href="#quick-access"
+            class="rounded px-3 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-slate-900 hover:text-cyan-300"
+          >
+            Quick Access
+          </a>
+
+          <a
+            href="./adventure/index.html"
+            class="rounded px-3 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-slate-900 hover:text-cyan-300"
+          >
+            Resources
+          </a>
+
+          <a
+            href="#about"
+            class="rounded px-3 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-slate-900 hover:text-cyan-300"
+          >
+            About
+          </a>
+        </nav>
+
+        <!-- MOBILE MENU BUTTON -->
+        <button
+          id="menuButton"
+          type="button"
+          class="flex h-11 w-11 items-center justify-center rounded border border-slate-700 bg-slate-900 text-cyan-300 md:hidden"
+          aria-label="Open navigation menu"
+          aria-expanded="false"
+          aria-controls="mobileMenu"
+        >
+          <svg
+            id="menuIcon"
+            viewBox="0 0 24 24"
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+          >
+            <path d="M4 7h16M4 12h16M4 17h16"/>
+          </svg>
+        </button>
+
       </div>
-      <button 
-        onclick="dismissToast()" 
-        class="text-slate-400 hover:text-white text-xs font-bold px-1.5 py-0.5 cursor-pointer rounded bg-slate-950/60"
+
+      <!-- MOBILE NAV -->
+      <div
+        id="mobileMenu"
+        class="mobile-menu hidden border-t border-slate-800 pb-4 pt-3 md:hidden"
       >
-        ✕
-      </button>
-    </div>
-  </div>
+        <nav class="grid grid-cols-2 gap-2" aria-label="Mobile Navigation">
+          <a
+            href="#home"
+            class="rounded border border-slate-800 bg-slate-900/70 px-4 py-3 text-center text-xs font-bold uppercase tracking-wider text-cyan-300"
+          >
+            Home
+          </a>
 
-  <!-- CATEGORY: MINIMAL HEADER & COMPACT TELEMETRY BAR -->
-  <header class="shrink-0 border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-3 sm:px-6 py-2 sm:py-3 space-y-1.5 sm:space-y-3">
-    <div class="max-w-[1600px] mx-auto text-center space-y-0.5">
-      <h1 class="text-base sm:text-2xl font-black text-cyan-400 tracking-wider uppercase drop-shadow-[0_0_10px_rgba(34,211,238,0.2)]">
-        [LIAR] Tyrian Field Archives
-      </h1>
-      <p class="hidden sm:block text-xs sm:text-sm text-slate-300 tracking-wide font-medium">
-        Simple guides, field manuals, and operational tools for your Guild Wars 2 journey.
-      </p>
-    </div>
+          <a
+            href="#archives"
+            class="rounded border border-slate-800 bg-slate-900/70 px-4 py-3 text-center text-xs font-bold uppercase tracking-wider text-slate-200"
+          >
+            Archives
+          </a>
 
-    <!-- CATEGORY: TIME DISPLAY MONITOR -->
-    <div class="max-w-[1600px] mx-auto flex items-center justify-around sm:grid sm:grid-cols-3 gap-2 pt-1.5 sm:pt-3 border-t border-slate-800/80 text-xs sm:text-sm overflow-x-auto no-scrollbar whitespace-nowrap">
-      
-      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50 shrink-0">
-        <span class="text-slate-400 font-bold uppercase tracking-wider">Tyria:</span>
-        <span id="tyria-clock-time" class="text-amber-400 font-bold flex items-center gap-1 font-mono">--:--</span>
+          <a
+            href="#quick-access"
+            class="rounded border border-slate-800 bg-slate-900/70 px-4 py-3 text-center text-xs font-bold uppercase tracking-wider text-slate-200"
+          >
+            Quick Access
+          </a>
+
+          <a
+            href="./adventure/index.html"
+            class="rounded border border-slate-800 bg-slate-900/70 px-4 py-3 text-center text-xs font-bold uppercase tracking-wider text-slate-200"
+          >
+            Resources
+          </a>
+
+          <a
+            href="#about"
+            class="col-span-2 rounded border border-slate-800 bg-slate-900/70 px-4 py-3 text-center text-xs font-bold uppercase tracking-wider text-slate-200"
+          >
+            About Terminal
+          </a>
+        </nav>
       </div>
-
-      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50 shrink-0">
-        <span class="text-slate-400 font-bold uppercase tracking-wider">Server:</span>
-        <span id="server-clock" class="text-cyan-400 font-bold font-mono">--:--:-- UTC</span>
-      </div>
-
-      <div class="hidden sm:flex items-center justify-center gap-2 bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50">
-        <span class="text-slate-400 font-bold uppercase tracking-wider">Location:</span>
-        <span class="text-cyan-400 font-bold tracking-wider">DURMAND PRIORY // TERMINAL 77-B</span>
-      </div>
-
     </div>
   </header>
 
-  <!-- CATEGORY: STREAMLINED TAB NAVIGATION -->
-  <nav class="shrink-0 bg-slate-950 max-w-[1600px] w-full mx-auto px-2 sm:px-6 pt-2 sm:pt-4 pb-1">
-    <div class="flex justify-start sm:justify-center overflow-x-auto no-scrollbar border-b border-slate-800/80 gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold whitespace-nowrap">
-      <button 
-        id="tab-btn-basics" 
-        onclick="switchTab('basics')" 
-        class="flex items-center justify-center text-center px-3 sm:px-6 py-2 sm:py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/80 transition-all cursor-pointer rounded-t-sm shrink-0"
-      >
-        <span class="text-xs mr-1.5 sm:mr-2 text-cyan-500 font-mono">///</span>
-        <span>FIELD BASICS</span>
-      </button>
+  <!-- =========================================================
+       MAIN
+       ========================================================= -->
+  <main id="home">
 
-      <button 
-        id="tab-btn-advanced" 
-        onclick="switchTab('advanced')" 
-        class="flex items-center justify-center text-center px-3 sm:px-6 py-2 sm:py-2.5 border-b-2 border-transparent text-slate-400 hover:text-cyan-300 transition-all cursor-pointer rounded-t-sm shrink-0"
-      >
-        <span class="text-xs mr-1.5 sm:mr-2 text-slate-600 font-mono">///</span>
-        <span>ADVANCED GUIDES</span>
-      </button>
+    <!-- =======================================================
+         HERO
+         ======================================================= -->
+    <section class="border-b border-cyan-500/10">
+      <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:py-16">
 
-      <button 
-        id="tab-btn-expert" 
-        onclick="switchTab('expert')" 
-        class="flex items-center justify-center text-center px-3 sm:px-6 py-2 sm:py-2.5 border-b-2 border-transparent text-slate-400 hover:text-cyan-300 transition-all cursor-pointer rounded-t-sm shrink-0"
-      >
-        <span class="text-xs mr-1.5 sm:mr-2 text-slate-600 font-mono">///</span>
-        <span>EXPERT GUIDES</span>
-      </button>
+        <div
+          class="relative overflow-hidden rounded-sm border border-cyan-400/25 bg-slate-900"
+        >
+          <!-- Atmospheric Background -->
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-cyan-950/30"
+          ></div>
 
-      <a 
-        href="./adventure/index.html" 
-        class="flex items-center justify-center text-center px-3 sm:px-6 py-2 sm:py-2.5 border-b-2 border-transparent text-slate-400 hover:text-cyan-300 transition-all cursor-pointer rounded-t-sm shrink-0"
-      >
-        <span class="text-xs mr-1.5 sm:mr-2 text-slate-600 font-mono">///</span>
-        <span>RESOURCES</span>
-      </a>
-    </div>
-  </nav>
+          <div
+            class="absolute -right-20 top-0 h-80 w-80 rounded-full bg-cyan-400/10 blur-3xl"
+          ></div>
 
-  <!-- CATEGORY: MAIN CONTENT DISPLAY -->
-  <main class="flex-1 overflow-y-auto max-w-[1600px] w-full mx-auto p-3 sm:p-6 pb-32 sm:pb-40 space-y-4 sm:space-y-6">
+          <div
+            class="relative max-w-4xl px-5 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16"
+          >
+            <div
+              class="section-label mb-4 text-[10px] font-bold uppercase text-cyan-400 sm:text-xs"
+            >
+              Durmand Priory Field Terminal // Archive 77-B
+            </div>
 
-    <!-- CATEGORY: VIEW - FIELD BASICS -->
-    <div id="view-basics">
-      <div id="grid-basics" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5"></div>
-    </div>
+            <p
+              class="mb-2 text-xs font-bold uppercase tracking-[0.24em] text-slate-400 sm:text-sm"
+            >
+              Welcome to
+            </p>
 
-    <!-- CATEGORY: VIEW - ADVANCED FIELD GUIDES -->
-    <div id="view-advanced" class="hidden">
-      <div id="grid-advanced" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5"></div>
-    </div>
+            <h1
+              class="text-4xl font-black uppercase leading-none tracking-tight text-white sm:text-6xl lg:text-7xl"
+            >
+              Terminal
+              <span class="text-cyan-300">77-B</span>
+            </h1>
 
-    <!-- CATEGORY: VIEW - EXPERT GUIDES -->
-    <div id="view-expert" class="hidden">
-      <div id="grid-expert" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5"></div>
-    </div>
+            <p
+              class="mt-3 text-xs font-bold uppercase tracking-[0.25em] text-cyan-400 sm:text-sm"
+            >
+              Tyrian Strategy Guidebook
+            </p>
+
+            <p
+              class="mt-6 max-w-2xl text-base leading-relaxed text-slate-200 sm:text-lg"
+            >
+              A community field guide for new and returning Guild Wars 2 players.
+              Learn the systems that matter, understand your character, and find
+              your next step in Tyria.
+            </p>
+
+            <p
+              class="mt-5 text-sm font-semibold italic text-cyan-200 sm:text-base"
+            >
+              Learn. Connect. Fight. Thrive in Tyria.
+            </p>
+
+            <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+              <a
+                href="#archives"
+                class="terminal-button rounded-sm px-5 py-3 text-xs font-black uppercase tracking-wider"
+              >
+                Enter Training Archives
+                <span aria-hidden="true">→</span>
+              </a>
+
+              <a
+                href="#quick-access"
+                class="flex min-h-[46px] items-center justify-center rounded-sm border border-cyan-400/30 bg-cyan-400/5 px-5 py-3 text-xs font-black uppercase tracking-wider text-cyan-300 hover:bg-cyan-400 hover:text-slate-950"
+              >
+                Find a Topic
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================
+         TERMINAL ACCESS / INTRO
+         ======================================================= -->
+    <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10">
+      <div class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div class="flex flex-col gap-5 sm:flex-row sm:items-start">
+
+          <div
+            class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400/5 text-cyan-300"
+            aria-hidden="true"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              class="h-8 w-8"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+            >
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M12 5v14M5 12h14"/>
+              <path d="m8 8 8 8M16 8l-8 8"/>
+            </svg>
+          </div>
+
+          <div>
+            <div
+              class="section-label text-[10px] font-bold uppercase text-green-300"
+            >
+              Terminal Access Granted
+            </div>
+
+            <h2 class="mt-2 text-2xl font-black text-white sm:text-3xl">
+              Welcome, Commander.
+            </h2>
+
+            <p class="mt-3 max-w-4xl text-sm leading-7 text-slate-300 sm:text-base">
+              Terminal 77-B is a living Guild Wars 2 strategy archive written by
+              members of the <strong class="text-white">[Liar] community</strong>.
+              It is designed as a reference, not a test. Start at the beginning,
+              jump directly to what you need, or return whenever Tyria throws
+              something unfamiliar at you.
+            </p>
+
+            <p
+              class="mt-4 border-l-2 border-cyan-400 pl-4 text-sm italic leading-6 text-cyan-200"
+            >
+              Knowledge turns confusion into options.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         THREE ARCHIVE PATHS
+         ======================================================= -->
+    <section id="archives" class="scroll-mt-24">
+      <div class="mx-auto max-w-7xl px-4 pb-8 sm:px-6 sm:pb-12">
+
+        <div class="mb-6">
+          <div
+            class="section-label text-[10px] font-bold uppercase text-cyan-400"
+          >
+            Training Archives
+          </div>
+
+          <h2 class="mt-2 text-2xl font-black text-white sm:text-3xl">
+            Choose Your Entry Point
+          </h2>
+
+          <p class="mt-2 max-w-3xl text-sm leading-6 text-slate-400 sm:text-base">
+            The numbers organize the archive. They are not prerequisites.
+            Returning players can jump directly to the system they need.
+          </p>
+        </div>
+
+        <div class="grid gap-4 lg:grid-cols-3">
+
+          <!-- FIELD ARCHIVES -->
+          <article class="terminal-panel flex flex-col rounded-sm p-5 sm:p-6">
+            <div>
+              <div
+                class="section-label text-[10px] font-black uppercase text-cyan-400"
+              >
+                100 // Field Archives
+              </div>
+
+              <h3 class="mt-3 text-2xl font-black uppercase text-white">
+                Field Archives
+              </h3>
+
+              <p class="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-cyan-300">
+                Learn to exist in Tyria
+              </p>
+
+              <p class="mt-4 text-sm leading-6 text-slate-300">
+                Core knowledge for new and returning players: controls,
+                exploration, inventory, travel, the Trading Post, traits,
+                templates, and finding a profession that feels right.
+              </p>
+
+              <div class="mt-5 space-y-2 text-sm text-slate-400">
+                <a href="./class101/index.html" class="block hover:text-cyan-300">
+                  <span class="font-mono text-cyan-500">101</span> Keybinds & Controls
+                </a>
+                <a href="./class102/index.html" class="block hover:text-cyan-300">
+                  <span class="font-mono text-cyan-500">102</span> Exploration
+                </a>
+                <a href="./class103/index.html" class="block hover:text-cyan-300">
+                  <span class="font-mono text-cyan-500">103</span> Inventory
+                </a>
+                <a href="./class104/index.html" class="block hover:text-cyan-300">
+                  <span class="font-mono text-cyan-500">104</span> Travel & Mounts
+                </a>
+                <a href="./class105/index.html" class="block hover:text-cyan-300">
+                  <span class="font-mono text-cyan-500">105</span> Trading Post
+                </a>
+                <a href="./class106/index.html" class="block hover:text-cyan-300">
+                  <span class="font-mono text-cyan-500">106</span> Traits & Templates
+                </a>
+                <a href="./class107/index.html" class="block hover:text-cyan-300">
+                  <span class="font-mono text-cyan-500">107</span> Choosing Your Tyrian Identity
+                </a>
+              </div>
+            </div>
+
+            <a
+              href="./class101/index.html"
+              class="terminal-button mt-6 rounded-sm px-4 py-3 text-xs font-black uppercase tracking-wider"
+            >
+              Enter Field Archives
+              <span aria-hidden="true">→</span>
+            </a>
+          </article>
+
+          <!-- ADVANCED -->
+          <article class="terminal-panel flex flex-col rounded-sm p-5 sm:p-6">
+            <div>
+              <div
+                class="section-label text-[10px] font-black uppercase text-amber-400"
+              >
+                200 // Advanced Operations
+              </div>
+
+              <h3 class="mt-3 text-2xl font-black uppercase text-white">
+                Advanced Courses
+              </h3>
+
+              <p class="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-amber-300">
+                Learn to operate in Tyria
+              </p>
+
+              <p class="mt-4 text-sm leading-6 text-slate-300">
+                Learn how Guild Wars 2 communicates combat and group mechanics,
+                how gear works, how encounters flow, and what progression looks
+                like after level 80.
+              </p>
+
+              <div class="mt-5 space-y-2 text-sm text-slate-400">
+                <a href="./class201/index.html" class="block hover:text-cyan-300">
+                  <span class="font-mono text-amber-500">201</span> Boons & Breakbars
+                </a>
+                <a href="./class202/index.html" class="block hover:text-cyan-300">
+                  <span class="font-mono text-amber-500">202</span> Groups & Chat
+                </a>
+                <a href="./class203/index.html" class="block hover:text-cyan-300">
+                  <span class="font-mono text-amber-500">203</span> Crafting
+                </a>
+                <a href="./class204/index.html" class="block hover:text-cyan-300">
+                  <span class="font-mono text-amber-500">204</span> Encounters & Timing
+                </a>
+                <a href="./class205/index.html" class="block hover:text-cyan-300">
+                  <span class="font-mono text-amber-500">205</span> Armor & Attributes
+                </a>
+                <a href="./class206/index.html" class="block hover:text-cyan-300">
+                  <span class="font-mono text-amber-500">206</span> Advanced Combat
+                </a>
+                <a href="./class207/index.html" class="block hover:text-cyan-300">
+                  <span class="font-mono text-amber-500">207</span> Life After 80
+                </a>
+              </div>
+            </div>
+
+            <a
+              href="./class201/index.html"
+              class="terminal-button mt-6 rounded-sm px-4 py-3 text-xs font-black uppercase tracking-wider"
+            >
+              Enter Advanced Courses
+              <span aria-hidden="true">→</span>
+            </a>
+          </article>
+
+          <!-- EXPERT -->
+          <article class="terminal-panel flex flex-col rounded-sm p-5 sm:p-6">
+            <div>
+              <div
+                class="section-label text-[10px] font-black uppercase text-violet-300"
+              >
+                300 // Expert Terminal
+              </div>
+
+              <h3 class="mt-3 text-2xl font-black uppercase text-white">
+                Expert Terminal
+              </h3>
+
+              <p class="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-violet-300">
+                Learn to understand Tyria's systems
+              </p>
+
+              <p class="mt-4 text-sm leading-6 text-slate-300">
+                Connect the pieces together through build theory, account
+                progression, currencies, rewards, and Fractals of the Mists.
+              </p>
+
+              <div class="mt-5 space-y-2 text-sm text-slate-400">
+                <a href="./class301/index.html" class="block hover:text-cyan-300">
+                  <span class="font-mono text-violet-400">301</span> Build Theory & Stats
+                </a>
+                <a href="./class302/index.html" class="block hover:text-cyan-300">
+                  <span class="font-mono text-violet-400">302</span> Masteries
+                </a>
+                <a href="./class303/index.html" class="block hover:text-cyan-300">
+                  <span class="font-mono text-violet-400">303</span> Currencies
+                </a>
+                <a href="./class304/index.html" class="block hover:text-cyan-300">
+                  <span class="font-mono text-violet-400">304</span> Wizard's Vault
+                </a>
+                <a href="./class305/index.html" class="block hover:text-cyan-300">
+                  <span class="font-mono text-violet-400">305</span> Fractals
+                </a>
+                <a href="./class306/index.html" class="block hover:text-cyan-300">
+                  <span class="font-mono text-violet-400">306</span> Fractal Walkthroughs
+                </a>
+              </div>
+            </div>
+
+            <a
+              href="./class301/index.html"
+              class="terminal-button mt-6 rounded-sm px-4 py-3 text-xs font-black uppercase tracking-wider"
+            >
+              Enter Expert Terminal
+              <span aria-hidden="true">→</span>
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         QUICK ACCESS
+         ======================================================= -->
+    <section
+      id="quick-access"
+      class="scroll-mt-24 border-y border-cyan-500/10 bg-slate-900/20"
+    >
+      <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
+
+        <div class="mb-6">
+          <div class="flex items-center gap-3">
+            <span class="text-xl text-amber-400" aria-hidden="true">»</span>
+
+            <div>
+              <div
+                class="section-label text-[10px] font-bold uppercase text-cyan-400"
+              >
+                Quick Access
+              </div>
+
+              <h2 class="mt-1 text-2xl font-black text-white sm:text-3xl">
+                Find What You Need
+              </h2>
+            </div>
+          </div>
+
+          <p class="mt-3 max-w-3xl text-sm leading-6 text-slate-400 sm:text-base">
+            You don't need to know the course number. Start with the question
+            you're trying to answer.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+
+          <!-- ATTRIBUTES -->
+          <a
+            href="./class205/index.html"
+            class="terminal-panel group rounded-sm p-4 active:scale-[0.99]"
+          >
+            <div class="flex items-start gap-3">
+              <div
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-cyan-400/20 bg-cyan-400/5 text-cyan-300"
+              >
+                ⚔
+              </div>
+
+              <div>
+                <h3 class="text-sm font-black uppercase tracking-wide text-white">
+                  Attributes & Builds
+                </h3>
+
+                <p class="mt-1 text-xs leading-5 text-slate-400">
+                  Power, condition damage, support, stats and playstyle.
+                </p>
+
+                <span
+                  class="mt-2 inline-block text-[10px] font-bold uppercase tracking-wider text-cyan-400"
+                >
+                  Start with 205 →
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <!-- BOONS -->
+          <a
+            href="./class201/index.html"
+            class="terminal-panel group rounded-sm p-4 active:scale-[0.99]"
+          >
+            <div class="flex items-start gap-3">
+              <div
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-cyan-400/20 bg-cyan-400/5 text-cyan-300"
+              >
+                ✦
+              </div>
+
+              <div>
+                <h3 class="text-sm font-black uppercase tracking-wide text-white">
+                  Boons & Breakbars
+                </h3>
+
+                <p class="mt-1 text-xs leading-5 text-slate-400">
+                  Buffs, conditions, crowd control and the blue bar.
+                </p>
+
+                <span
+                  class="mt-2 inline-block text-[10px] font-bold uppercase tracking-wider text-cyan-400"
+                >
+                  Open 201 →
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <!-- GEAR -->
+          <a
+            href="./class103/index.html"
+            class="terminal-panel group rounded-sm p-4 active:scale-[0.99]"
+          >
+            <div class="flex items-start gap-3">
+              <div
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-cyan-400/20 bg-cyan-400/5 text-cyan-300"
+              >
+                ◈
+              </div>
+
+              <div>
+                <h3 class="text-sm font-black uppercase tracking-wide text-white">
+                  Gear & Inventory
+                </h3>
+
+                <p class="mt-1 text-xs leading-5 text-slate-400">
+                  Salvage, storage, equipment and what to keep.
+                </p>
+
+                <span
+                  class="mt-2 inline-block text-[10px] font-bold uppercase tracking-wider text-cyan-400"
+                >
+                  Start with 103 →
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <!-- MAPS -->
+          <a
+            href="./class102/index.html"
+            class="terminal-panel group rounded-sm p-4 active:scale-[0.99]"
+          >
+            <div class="flex items-start gap-3">
+              <div
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-cyan-400/20 bg-cyan-400/5 text-cyan-300"
+              >
+                △
+              </div>
+
+              <div>
+                <h3 class="text-sm font-black uppercase tracking-wide text-white">
+                  Maps & Travel
+                </h3>
+
+                <p class="mt-1 text-xs leading-5 text-slate-400">
+                  Waypoints, exploration, maps, mounts and getting around.
+                </p>
+
+                <span
+                  class="mt-2 inline-block text-[10px] font-bold uppercase tracking-wider text-cyan-400"
+                >
+                  Start with 102 →
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <!-- GROUPS -->
+          <a
+            href="./class202/index.html"
+            class="terminal-panel group rounded-sm p-4 active:scale-[0.99]"
+          >
+            <div class="flex items-start gap-3">
+              <div
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-cyan-400/20 bg-cyan-400/5 text-cyan-300"
+              >
+                ◉
+              </div>
+
+              <div>
+                <h3 class="text-sm font-black uppercase tracking-wide text-white">
+                  Groups & Chat
+                </h3>
+
+                <p class="mt-1 text-xs leading-5 text-slate-400">
+                  Parties, squads, chat tools and playing with others.
+                </p>
+
+                <span
+                  class="mt-2 inline-block text-[10px] font-bold uppercase tracking-wider text-cyan-400"
+                >
+                  Open 202 →
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <!-- CRAFTING -->
+          <a
+            href="./class203/index.html"
+            class="terminal-panel group rounded-sm p-4 active:scale-[0.99]"
+          >
+            <div class="flex items-start gap-3">
+              <div
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-cyan-400/20 bg-cyan-400/5 text-cyan-300"
+              >
+                ⚒
+              </div>
+
+              <div>
+                <h3 class="text-sm font-black uppercase tracking-wide text-white">
+                  Crafting
+                </h3>
+
+                <p class="mt-1 text-xs leading-5 text-slate-400">
+                  Disciplines, materials, recipes and when crafting matters.
+                </p>
+
+                <span
+                  class="mt-2 inline-block text-[10px] font-bold uppercase tracking-wider text-cyan-400"
+                >
+                  Open 203 →
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <!-- FRACTALS -->
+          <a
+            href="./class305/index.html"
+            class="terminal-panel group rounded-sm p-4 active:scale-[0.99]"
+          >
+            <div class="flex items-start gap-3">
+              <div
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-cyan-400/20 bg-cyan-400/5 text-cyan-300"
+              >
+                ◎
+              </div>
+
+              <div>
+                <h3 class="text-sm font-black uppercase tracking-wide text-white">
+                  Fractals
+                </h3>
+
+                <p class="mt-1 text-xs leading-5 text-slate-400">
+                  Progression, mechanics, Agony Resistance and walkthroughs.
+                </p>
+
+                <span
+                  class="mt-2 inline-block text-[10px] font-bold uppercase tracking-wider text-cyan-400"
+                >
+                  Open 305 →
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <!-- RESOURCES -->
+          <a
+            href="./adventure/index.html"
+            class="terminal-panel group rounded-sm p-4 active:scale-[0.99]"
+          >
+            <div class="flex items-start gap-3">
+              <div
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-cyan-400/20 bg-cyan-400/5 text-cyan-300"
+              >
+                ▣
+              </div>
+
+              <div>
+                <h3 class="text-sm font-black uppercase tracking-wide text-white">
+                  Resources
+                </h3>
+
+                <p class="mt-1 text-xs leading-5 text-slate-400">
+                  Useful references, tools and additional Tyrian resources.
+                </p>
+
+                <span
+                  class="mt-2 inline-block text-[10px] font-bold uppercase tracking-wider text-cyan-400"
+                >
+                  Open Resources →
+                </span>
+              </div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         BUILD PATH
+         ======================================================= -->
+    <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
+
+      <div class="terminal-panel rounded-sm p-5 sm:p-7">
+        <div class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+
+          <div>
+            <div
+              class="section-label text-[10px] font-bold uppercase text-violet-300"
+            >
+              Character Development
+            </div>
+
+            <h2 class="mt-2 text-2xl font-black text-white sm:text-3xl">
+              Want to Understand Your Build?
+            </h2>
+
+            <p class="mt-3 max-w-3xl text-sm leading-6 text-slate-300 sm:text-base">
+              Terminal 77-B does not ask you to copy somebody else's character.
+              Start by learning what your equipment, attributes and traits are
+              trying to accomplish, then shape the build around the way you
+              actually enjoy playing.
+            </p>
+
+            <div
+              class="mt-5 flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-wider"
+            >
+              <a
+                href="./class106/index.html"
+                class="rounded border border-slate-700 bg-slate-950 px-3 py-2 text-slate-300 hover:border-cyan-500 hover:text-cyan-300"
+              >
+                106 Traits
+              </a>
+
+              <span class="text-slate-600">→</span>
+
+              <a
+                href="./class205/index.html"
+                class="rounded border border-slate-700 bg-slate-950 px-3 py-2 text-slate-300 hover:border-cyan-500 hover:text-cyan-300"
+              >
+                205 Attributes
+              </a>
+
+              <span class="text-slate-600">→</span>
+
+              <a
+                href="./class301/index.html"
+                class="rounded border border-violet-400/30 bg-violet-400/5 px-3 py-2 text-violet-200 hover:border-violet-300"
+              >
+                301 Build Theory
+              </a>
+            </div>
+          </div>
+
+          <a
+            href="./class301/index.html"
+            class="terminal-button w-full rounded-sm px-5 py-3 text-xs font-black uppercase tracking-wider lg:w-auto"
+          >
+            Explore Build Theory
+            <span aria-hidden="true">→</span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         ABOUT / CREDITS
+         ======================================================= -->
+    <section id="about" class="scroll-mt-24 pb-10">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6">
+
+        <div class="border-t border-slate-800 pt-8">
+          <div class="grid gap-8 md:grid-cols-2">
+
+            <div>
+              <div
+                class="section-label text-[10px] font-bold uppercase text-cyan-400"
+              >
+                About Terminal 77-B
+              </div>
+
+              <h2 class="mt-2 text-xl font-black text-white">
+                Built by players, for players.
+              </h2>
+
+              <p class="mt-3 text-sm leading-6 text-slate-400">
+                Terminal 77-B is a Guild Wars 2 community resource written by
+                members of <strong class="text-slate-200">[Liar]</strong>.
+                The archive is meant to make the game easier to understand
+                without turning exploration into homework.
+              </p>
+            </div>
+
+            <div>
+              <div
+                class="section-label text-[10px] font-bold uppercase text-amber-400"
+              >
+                Archive Credits
+              </div>
+
+              <div class="mt-3 space-y-2 text-sm text-slate-400">
+                <p>
+                  Community writers:
+                  <a
+                    href="https://liar.fyi"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="font-bold text-cyan-300 underline decoration-cyan-500/40 underline-offset-4"
+                  >
+                    [Liar] Community
+                  </a>
+                </p>
+
+                <p>
+                  Site built by:
+                  <a
+                    href="https://qkommand.github.io/home/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="font-bold text-cyan-300 underline decoration-cyan-500/40 underline-offset-4"
+                  >
+                    Commander Q
+                  </a>
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
 
   </main>
 
-  <!-- CATEGORY: FOOTER WITH CENTERED MOBILE FLOW -->
-  <footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-3 sm:px-6 py-2.5 sm:py-3">
-    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
-      
-      <!-- DESKTOP DISCLAIMER PARAGRAPH -->
-      <p class="hidden md:block text-xs text-slate-400 max-w-3xl leading-normal">
-        This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
+  <footer class="border-t border-slate-800 bg-slate-950">
+    <div
+      class="mx-auto max-w-7xl px-4 py-6 text-center sm:px-6"
+    >
+      <p
+        class="text-[10px] font-bold uppercase tracking-[0.22em] text-cyan-500"
+      >
+        Terminal 77-B // Tyrian Strategy Guidebook
       </p>
 
-      <!-- CREDITS LINKS -->
-      <div class="flex items-center justify-center space-x-2 sm:space-x-4 text-xs">
-        <span class="text-slate-300">
-          Written by <a href="https://liar.fyi" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 font-bold">The Liars Guild</a>
-        </span>
-        <span class="text-slate-700">|</span>
-        <span class="text-slate-300">
-          Site Builder: <a href="https://qkommand.github.io/home/" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 font-bold">Commander Q</a>
-        </span>
-      </div>
+      <p class="mx-auto mt-3 max-w-4xl text-xs leading-5 text-slate-500">
+        Terminal 77-B is an unofficial Guild Wars 2 community fansite and is
+        not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation.
+        Guild Wars, Guild Wars 2, ArenaNet, and associated names and marks are
+        the property of their respective owners.
+      </p>
 
-      <!-- MOBILE DISCLAIMER MODAL TRIGGER -->
-      <button 
-        onclick="toggleDisclaimer('on')"
-        class="md:hidden text-xs text-slate-400 hover:text-cyan-400 underline cursor-pointer font-semibold uppercase tracking-wider"
-      >
-        [Disclaimer]
-      </button>
-
+      <p class="mt-4 text-[11px] text-slate-600">
+        Explore. Learn. Adapt. Return when you need another answer.
+      </p>
     </div>
   </footer>
 
-  <!-- CATEGORY: DISCLAIMER OVERLAY MODAL -->
-  <div 
-    id="disclaimer-modal" 
-    class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4"
-  >
-    <div class="bg-slate-900 border border-cyan-500/40 rounded p-5 max-w-md w-full space-y-4 glow-cyan">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-        <h3 class="text-sm font-bold text-cyan-400 tracking-wider uppercase font-mono">
-          /// LEGAL DISCLAIMER
-        </h3>
-        <button 
-          onclick="toggleDisclaimer('off')" 
-          class="text-slate-400 hover:text-white font-bold text-base px-2 cursor-pointer"
-        >
-          ✕
-        </button>
-      </div>
-
-      <p class="text-sm text-slate-300 leading-relaxed">
-        This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
-      </p>
-
-      <button 
-        onclick="toggleDisclaimer('off')" 
-        class="w-full py-2.5 bg-slate-950 border border-cyan-500/50 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all text-center block cursor-pointer"
-      >
-        Acknowledge
-      </button>
-    </div>
-  </div>
-
-  <!-- CATEGORY: LOGIC ENGINE -->
+  <!-- =========================================================
+       MOBILE NAV SCRIPT
+       ========================================================= -->
   <script>
-    /* CATEGORY: DISCLAIMER MODAL CONTROLLER */
-    function toggleDisclaimer(state) {
-      const modal = document.getElementById('disclaimer-modal');
-      if (!modal) return;
-      if (state === 'on') {
-        modal.classList.remove('hidden');
+    const menuButton = document.getElementById("menuButton");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    function closeMobileMenu() {
+      if (!menuButton || !mobileMenu) return;
+
+      mobileMenu.classList.add("hidden");
+      menuButton.setAttribute("aria-expanded", "false");
+      menuButton.setAttribute("aria-label", "Open navigation menu");
+    }
+
+    function toggleMobileMenu() {
+      if (!menuButton || !mobileMenu) return;
+
+      const isOpen = !mobileMenu.classList.contains("hidden");
+
+      if (isOpen) {
+        closeMobileMenu();
       } else {
-        modal.classList.add('hidden');
+        mobileMenu.classList.remove("hidden");
+        menuButton.setAttribute("aria-expanded", "true");
+        menuButton.setAttribute("aria-label", "Close navigation menu");
       }
     }
 
-    /* CATEGORY: TOAST NOTIFICATION ENGINE */
-    let toastTimeout = null;
-    let lastHandledUtcMinute = -1;
-
-    function triggerToast(title, message) {
-      const toast = document.getElementById('toast-notification');
-      const titleEl = document.getElementById('toast-title');
-      const msgEl = document.getElementById('toast-message');
-
-      if (!toast || !titleEl || !msgEl) return;
-
-      titleEl.innerText = title;
-      msgEl.innerText = message;
-      toast.classList.remove('hidden');
-
-      if (toastTimeout) clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        dismissToast();
-      }, 9000);
+    if (menuButton) {
+      menuButton.addEventListener("click", toggleMobileMenu);
     }
 
-    function dismissToast() {
-      const toast = document.getElementById('toast-notification');
-      if (toast) toast.classList.add('hidden');
-    }
-
-    /* CATEGORY: TAB STATE MANAGEMENT */
-    const TAB_STORAGE_KEY = 'archive_active_tab';
-    let tabState = {
-      basics: 'on',
-      advanced: 'off',
-      expert: 'off'
-    };
-
-    /* CATEGORY: GUIDE DATA STORES */
-    const basicGuides = [
-      {
-        code: "MANUAL 101",
-        title: "Keybinds & Controls",
-        desc: "Set up comfortable movement, strafing keys, and simple single-button dodges.",
-        url: "./class101/index.html"
-      },
-      {
-        code: "MANUAL 102",
-        title: "Map Exploration",
-        desc: "Learn waypoints, renown hearts, and simple map completion tricks.",
-        url: "./class102/index.html"
-      },
-      {
-        code: "MANUAL 103",
-        title: "Managing Inventory",
-        desc: "Set up auto-deposit, invisible bags, and quick salvage steps.",
-        url: "./class103/index.html"
-      },
-      {
-        code: "MANUAL 104",
-        title: "Fast Travel & Mounts",
-        desc: "Travel maps fast using mount abilities and waypoint tricks.",
-        url: "./class104/index.html"
-      },
-      {
-        code: "MANUAL 105",
-        title: "Gold & Trading Post",
-        desc: "Buy gear cheap, set custom orders, and make gold easily.",
-        url: "./class105/index.html"
-      },
-      {
-        code: "MANUAL 106",
-        title: "Hero Points & Builds",
-        desc: "Gather Hero Points fast and swap your build templates on the fly.",
-        url: "./class106/index.html"
-      },
-      {
-        code: "MANUAL 107",
-        title: "Choosing Your Class",
-        desc: "Explore all 9 classes and pick the playstyle that fits your vibe.",
-        url: "./class107/index.html"
-      }
-    ];
-
-    const advancedGuides = [
-      {
-        code: "COURSE 201",
-        title: "Boons & Breakbars",
-        desc: "Understand team buffs, conditions, and how blue breakbars work.",
-        url: "./class201/index.html"
-      },
-      {
-        code: "COURSE 202",
-        title: "Group Play & Chat",
-        desc: "Learn map markers, squad basics, and quick chat shortcuts.",
-        url: "./class202/index.html"
-      },
-      {
-        code: "COURSE 203",
-        title: "Crafting Essentials",
-        desc: "Learn crafting disciplines, material tiers, and recipe discovery.",
-        url: "./class203/index.html"
-      },
-      {
-        code: "COURSE 204",
-        title: "Boss Fights & Timing",
-        desc: "Master dodge timing, boss signals, and active combat rhythm.",
-        url: "./class204/index.html"
-      },
-      {
-        code: "COURSE 205",
-        title: "Armor & Gear Stats",
-        desc: "Learn armor weight classes, defense ratings, and stat prefixes.",
-        url: "./class205/index.html"
-      },
-      {
-        code: "COURSE 206",
-        title: "Fluid Combat & Combos",
-        desc: "Master active movement, barrier shields, and elemental combo fields.",
-        url: "./class206/index.html"
-      },
-      {
-        code: "COURSE 207",
-        title: "Beyond Level 80",
-        desc: "Explore horizontal progression, masteries, and endgame goals.",
-        url: "./class207/index.html"
-      }
-    ];
-
-    const expertGuides = [
-      {
-        code: "COURSE 301",
-        title: "Build Theory & Stats",
-        desc: "Learn core attributes, stat mixing, and customize your setup with an interactive tool.",
-        url: "./class301/index.html"
-      },
-      {
-        code: "COURSE 302",
-        title: "Masteries & Account Progression",
-        desc: "Unlock account-wide perks like mounts, gliders, housing, and auto-loot.",
-        url: "./class302/index.html"
-      },
-      {
-        code: "COURSE 303",
-        title: "Currencies & Account Wallet",
-        desc: "Organize Tyria's economy across wallet funds, competitive rewards, and map tokens.",
-        url: "./class303/index.html"
-      },
-      {
-        code: "COURSE 304",
-        title: "Wizard's Vault & Acclaim",
-        desc: "Master the customizable battle pass, weekly income math, and legacy vault preservation.",
-        url: "./class304/index.html"
-      },
-      {
-        code: "COURSE 305",
-        title: "Fractals of the Mists",
-        desc: "Learn fractal progression, Agony Resistance, daily rotations, Mistlock Instabilities, and combat fundamentals.",
-        url: "./class305/index.html"
-      },
-      {
-        code: "COURSE 306",
-        title: "Fractal Walkthroughs",
-        desc: "Field guides for Fractals of the Mists with mechanics, boss strategies, and encounter walkthroughs.",
-        url: "./class306/index.html"
-      }
-    ];
-
-    /* CATEGORY: DYNAMIC RENDER ENGINE */
-    function renderGrid(containerId, list) {
-      const container = document.getElementById(containerId);
-      if (!container) return;
-
-      let html = '';
-      list.forEach(g => {
-        html += `
-          <div class="p-4 sm:p-5 border border-slate-800/80 bg-slate-900/40 rounded-sm flex flex-col justify-between space-y-3 sm:space-y-4 glow-cyan hover:border-cyan-500/40 transition-all">
-            <div>
-              <div class="text-xs font-mono mb-1.5 sm:mb-2">
-                <span class="text-amber-400 font-bold bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">${g.code}</span>
-              </div>
-              <div class="text-base sm:text-lg font-bold text-white mb-1 tracking-wide">${g.title}</div>
-              <p class="text-sm text-slate-300 leading-relaxed font-normal">${g.desc}</p>
-            </div>
-            <a 
-              href="${g.url}" 
-              class="w-full py-2.5 bg-slate-900 border border-cyan-500/40 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs sm:text-sm uppercase tracking-wider rounded-sm transition-all text-center block cursor-pointer"
-            >
-              Open Manual
-            </a>
-          </div>
-        `;
-      });
-      container.innerHTML = html;
-    }
-
-    function renderAllGrids() {
-      renderGrid('grid-basics', basicGuides);
-      renderGrid('grid-advanced', advancedGuides);
-      renderGrid('grid-expert', expertGuides);
-    }
-
-    /* CATEGORY: TAB NAVIGATION ENGINE */
-    const VALID_TABS = ['basics', 'advanced', 'expert'];
-
-    function normalizeTabName(tabName) {
-      const aliases = {
-        beginner: 'basics',
-        beginners: 'basics',
-        basic: 'basics',
-        basics: 'basics',
-        advanced: 'advanced',
-        expert: 'expert'
-      };
-
-      return aliases[String(tabName || '').toLowerCase()] || null;
-    }
-
-    function switchTab(selectedTab, updateUrl = true) {
-      const normalizedTab = normalizeTabName(selectedTab);
-      if (!normalizedTab || !VALID_TABS.includes(normalizedTab)) return;
-
-      Object.keys(tabState).forEach(key => {
-        tabState[key] = (key === normalizedTab) ? 'on' : 'off';
-      });
-
-      localStorage.setItem(TAB_STORAGE_KEY, normalizedTab);
-      renderTabViews();
-
-      if (updateUrl) {
-        const newHash = `#${normalizedTab}`;
-        if (window.location.hash !== newHash) {
-          history.pushState({ tab: normalizedTab }, '', newHash);
-        }
-      }
-    }
-
-    function renderTabViews() {
-      const tabs = ['basics', 'advanced', 'expert'];
-      
-      tabs.forEach(tab => {
-        const viewEl = document.getElementById(`view-${tab}`);
-        const btnEl = document.getElementById(`tab-btn-${tab}`);
-
-        if (viewEl && btnEl) {
-          if (tabState[tab] === 'on') {
-            viewEl.classList.remove('hidden');
-            btnEl.className = 'flex items-center justify-center text-center px-3 sm:px-6 py-2 sm:py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/80 transition-all cursor-pointer rounded-t-sm shrink-0';
-            btnEl.querySelector('span:first-child').className = 'text-xs mr-1.5 sm:mr-2 text-cyan-500 font-mono';
-          } else {
-            viewEl.classList.add('hidden');
-            btnEl.className = 'flex items-center justify-center text-center px-3 sm:px-6 py-2 sm:py-2.5 border-b-2 border-transparent text-slate-400 hover:text-cyan-300 transition-all cursor-pointer rounded-t-sm shrink-0';
-            btnEl.querySelector('span:first-child').className = 'text-xs mr-1.5 sm:mr-2 text-slate-600 font-mono';
-          }
-        }
+    if (mobileMenu) {
+      mobileMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", closeMobileMenu);
       });
     }
 
-    /* CATEGORY: UNIVERSAL CLOCKS & RESET DETECTOR ENGINE */
-    function updateClocks() {
-      const now = new Date();
-      
-      const utcHours = now.getUTCHours();
-      const utcMins = now.getUTCMinutes();
-      const utcSecs = now.getUTCSeconds();
-      const utcDay = now.getUTCDay();
-
-      const strUtcHours = String(utcHours).padStart(2, '0');
-      const strUtcMins = String(utcMins).padStart(2, '0');
-      const strUtcSecs = String(utcSecs).padStart(2, '0');
-
-      document.getElementById('server-clock').innerText = `${strUtcHours}:${strUtcMins}:${strUtcSecs} UTC`;
-
-      /* RESET DETECTION LOGIC (DAILY: 00:00:00 UTC | WEEKLY: MON 07:30:00 UTC) */
-      if (utcSecs === 0 && utcMins !== lastHandledUtcMinute) {
-        lastHandledUtcMinute = utcMins;
-
-        if (utcHours === 0 && utcMins === 0) {
-          triggerToast("DAILY RESET DETECTED", "GW2 server daily reset is live! Daily achievements & wizards vault updated.");
-        } else if (utcDay === 1 && utcHours === 7 && utcMins === 30) {
-          triggerToast("WEEKLY RESET DETECTED", "GW2 server weekly reset is live! Raids, strikes, and weekly tasks refreshed.");
-        }
+    window.addEventListener("resize", () => {
+      if (window.innerWidth >= 768) {
+        closeMobileMenu();
       }
-
-      /* TYRIAN TIME CALCULATOR */
-      const totalUtcSec = (utcHours * 3600) + (utcMins * 60) + utcSecs;
-      const cycleOffset = 1500;
-      const secondsInto2HrCycle = (totalUtcSec - cycleOffset + 720000) % 7200;
-
-      const tyrianSecFromMidnight = (secondsInto2HrCycle * 12 + 21600) % 86400;
-      const tyrianHour = Math.floor(tyrianSecFromMidnight / 3600);
-      const tyrianMin = Math.floor((tyrianSecFromMidnight % 3600) / 60);
-
-      const formattedTyrianHour = String(tyrianHour).padStart(2, '0');
-      const formattedTyrianMin = String(tyrianMin).padStart(2, '0');
-
-      let icon = '☀️';
-      if (tyrianHour >= 5 && tyrianHour < 6) icon = '🌅';
-      else if (tyrianHour >= 6 && tyrianHour < 20) icon = '☀️';
-      else if (tyrianHour >= 20 && tyrianHour < 21) icon = '🌆';
-      else icon = '🌙';
-
-      document.getElementById('tyria-clock-time').innerHTML = `${icon} <span>${formattedTyrianHour}:${formattedTyrianMin}</span>`;
-    }
-
-    /* CATEGORY: URL HASH & BROWSER HISTORY SUPPORT */
-    function getTabFromUrl() {
-      return normalizeTabName(window.location.hash.replace('#', ''));
-    }
-
-    function loadTabFromUrlOrStorage() {
-      const urlTab = getTabFromUrl();
-      const savedTab = normalizeTabName(localStorage.getItem(TAB_STORAGE_KEY));
-      const initialTab = urlTab || savedTab || 'basics';
-
-      switchTab(initialTab, false);
-
-      if (!urlTab) {
-        history.replaceState({ tab: initialTab }, '', `#${initialTab}`);
-      }
-    }
-
-    window.addEventListener('popstate', () => {
-      const tab = getTabFromUrl() || 'basics';
-      switchTab(tab, false);
-    });
-
-    window.addEventListener('hashchange', () => {
-      const tab = getTabFromUrl();
-      if (tab) switchTab(tab, false);
-    });
-
-    /* CATEGORY: INITIALIZATION */
-    document.addEventListener('DOMContentLoaded', () => {
-      renderAllGrids();
-      updateClocks();
-      loadTabFromUrlOrStorage();
-      setInterval(updateClocks, 1000);
     });
   </script>
+
 </body>
 </html>
