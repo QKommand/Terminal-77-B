@@ -1,856 +1,1634 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-slate-950 text-white">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Course 107 // [LIAR] Tyrian Field Archives</title>
-  
-  <!-- CATEGORY: EXTERNAL DEPENDENCIES -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+  <meta name="theme-color" content="#020617" />
+
+  <title>107 // Choosing Your Tyrian Identity // Terminal 77-B</title>
+
+  <meta
+    name="description"
+    content="Terminal 77-B Field Archive 107 helps new and returning Guild Wars 2 players choose a profession based on playstyle, feel, and class fantasy."
+  />
+
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- CATEGORY: STYLES & ANIMATIONS -->
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     html {
-      scroll-behavior: smooth;
+      background: #020617;
     }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, rgba(34, 211, 238, 0.07), transparent 28rem),
+        #020617;
+      color: white;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Text",
+        "SF Pro Display",
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.14;
+      background-image:
+        linear-gradient(rgba(34, 211, 238, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34, 211, 238, 0.025) 1px, transparent 1px);
+      background-size: 28px 28px;
+      z-index: -1;
     }
 
-    .animate-fade-in {
-      animation: fadeIn 0.4s ease-out forwards;
+    a,
+    button {
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .glow-cyan {
-      box-shadow: 0 0 14px rgba(34, 211, 238, 0.10);
+    .terminal-panel {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(15, 23, 42, 0.92),
+          rgba(2, 6, 23, 0.96)
+        );
+      border: 1px solid rgba(34, 211, 238, 0.17);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.025),
+        0 12px 40px rgba(0, 0, 0, 0.16);
     }
-    .glow-cyan:hover {
-      box-shadow: 0 0 22px rgba(34, 211, 238, 0.25);
+
+    .section-label {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      letter-spacing: 0.15em;
+    }
+
+    .terminal-button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(251, 191, 36, 0.45);
+      background: rgba(251, 191, 36, 0.06);
+      color: #fbbf24;
+      transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .terminal-button:hover,
+    .terminal-button:focus-visible {
+      background: #fbbf24;
+      border-color: #fbbf24;
+      color: #020617;
+    }
+
+    .terminal-button:active {
+      transform: scale(0.985);
+    }
+
+    .profession-card {
+      scroll-margin-top: 90px;
+    }
+
+    ::selection {
+      background: #22d3ee;
+      color: #020617;
     }
 
     ::-webkit-scrollbar {
-      width: 6px;
+      width: 7px;
     }
+
     ::-webkit-scrollbar-track {
       background: #020617;
     }
+
     ::-webkit-scrollbar-thumb {
-      background: #0f172a;
-      border: 1px solid #22d3ee;
-      border-radius: 2px;
+      background: #164e63;
+      border-radius: 99px;
     }
 
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-
-    @keyframes slideDown {
-      from { transform: translateY(-100%); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .animate-slide-down {
-      animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
     }
   </style>
 </head>
-<body class="h-screen flex flex-col overflow-hidden relative bg-slate-950 text-white selection:bg-cyan-500 selection:text-slate-950">
 
-  <!-- CATEGORY: TOAST NOTIFICATION CONTAINER -->
-  <div 
-    id="toast-notification" 
-    class="hidden fixed top-3 right-3 left-3 sm:left-auto sm:max-w-md z-50 bg-slate-900/95 border border-cyan-400 text-white p-3.5 rounded shadow-2xl backdrop-blur glow-cyan animate-slide-down"
+<body class="min-h-screen text-white">
+
+  <!-- HEADER -->
+  <header
+    class="sticky top-0 z-50 border-b border-cyan-500/20 bg-slate-950/95 backdrop-blur-xl"
   >
-    <div class="flex items-start justify-between gap-3">
-      <div class="flex items-start gap-2.5">
-        <span class="text-amber-400 text-lg">🔔</span>
-        <div>
-          <h4 id="toast-title" class="text-xs font-bold text-cyan-400 uppercase font-mono tracking-wider">
-            RESET DETECTED
-          </h4>
-          <p id="toast-message" class="text-xs text-slate-200 mt-0.5 leading-snug">
-            Daily reset has occurred!
-          </p>
-        </div>
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="flex min-h-[64px] items-center justify-between gap-3">
+
+        <a
+          href="../index.html"
+          class="flex min-w-0 items-center gap-3"
+          aria-label="Return to Terminal 77-B"
+        >
+          <div
+            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-cyan-400/30 bg-cyan-400/5 text-cyan-300"
+            aria-hidden="true"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              class="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+            >
+              <path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6l-8-4Z"/>
+              <path d="m8 13 2.5-6 1.5 4 1.5-4L16 13"/>
+            </svg>
+          </div>
+
+          <div class="min-w-0">
+            <div
+              class="truncate text-xs font-black uppercase tracking-[0.18em] text-cyan-300 sm:text-sm"
+            >
+              Terminal 77-B
+            </div>
+
+            <div
+              class="hidden text-[9px] font-semibold uppercase tracking-[0.18em] text-white sm:block"
+            >
+              Tyrian Strategy Guidebook
+            </div>
+          </div>
+        </a>
+
+        <a
+          href="../index.html#archives"
+          class="flex min-h-[42px] items-center justify-center rounded border border-slate-700 bg-slate-900 px-3 text-[10px] font-bold uppercase tracking-wider text-white hover:border-cyan-500/50 hover:text-cyan-300 sm:px-4 sm:text-xs"
+        >
+          ← Archives
+        </a>
+
       </div>
-      <button 
-        onclick="dismissToast()" 
-        class="text-slate-400 hover:text-white text-xs font-bold px-1.5 py-0.5 cursor-pointer rounded bg-slate-950/60"
-      >
-        ✕
-      </button>
-    </div>
-  </div>
-
-  <!-- CATEGORY: MINIMAL HEADER & COMPACT TELEMETRY BAR -->
-  <header class="shrink-0 border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-3 sm:px-6 py-2 sm:py-3 space-y-1.5 sm:space-y-3">
-    <div class="max-w-[1600px] mx-auto text-center space-y-0.5">
-      <h1 class="text-base sm:text-2xl font-black text-cyan-400 tracking-wider uppercase drop-shadow-[0_0_10px_rgba(34,211,238,0.2)]">
-        Course 107: Choosing Your Tyrian Identity
-      </h1>
-      <p class="hidden sm:block text-xs sm:text-sm text-slate-300 tracking-wide font-medium">
-        Simple guides, field manuals, and operational tools for your Guild Wars 2 journey.
-      </p>
-    </div>
-
-    <!-- CATEGORY: TIME DISPLAY MONITOR -->
-    <div class="max-w-[1600px] mx-auto flex items-center justify-around sm:grid sm:grid-cols-3 gap-2 pt-1.5 sm:pt-3 border-t border-slate-800/80 text-xs sm:text-sm overflow-x-auto no-scrollbar whitespace-nowrap">
-      
-      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50 shrink-0">
-        <span class="text-slate-400 font-bold uppercase tracking-wider">Tyria:</span>
-        <span id="tyria-clock-time" class="text-amber-400 font-bold flex items-center gap-1 font-mono">--:--</span>
-      </div>
-
-      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50 shrink-0">
-        <span class="text-slate-400 font-bold uppercase tracking-wider">Server:</span>
-        <span id="server-clock" class="text-cyan-400 font-bold font-mono">--:--:-- UTC</span>
-      </div>
-
-      <div class="hidden sm:flex items-center justify-center gap-2 bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50">
-        <span class="text-slate-400 font-bold uppercase tracking-wider">Location:</span>
-        <span class="text-cyan-400 font-bold tracking-wider">DURMAND PRIORY // TERMINAL 77-B</span>
-      </div>
-
     </div>
   </header>
 
-  <!-- CATEGORY: RETURN BAR -->
-  <nav class="shrink-0 bg-slate-950 max-w-[1600px] w-full mx-auto px-2 sm:px-6 pt-2 sm:pt-4 pb-1">
-    <div class="flex justify-start sm:justify-center overflow-x-auto no-scrollbar border-b border-slate-800/80 gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold whitespace-nowrap">
-      <a 
-        href="../index.html" 
-        class="flex items-center justify-center text-center px-3 sm:px-6 py-2 sm:py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/80 transition-all cursor-pointer rounded-t-sm shrink-0"
-      >
-        <span class="text-xs mr-1.5 sm:mr-2 text-cyan-500 font-mono">&larr;</span>
-        <span>RETURN TO MAIN DIRECTORY</span>
-      </a>
-    </div>
-  </nav>
+  <main>
 
-  <!-- CATEGORY: MAIN CONTENT AREA -->
-  <main class="flex-1 overflow-y-auto max-w-[1600px] w-full mx-auto p-3 sm:p-6 pb-32 sm:pb-40 space-y-4 sm:space-y-6">
+    <!-- HERO -->
+    <section class="border-b border-cyan-500/10">
+      <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
 
-    <div class="animate-fade-in space-y-4 sm:space-y-6">
-      
-      <!-- CATEGORY: LESSON OVERVIEW -->
-      <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-2 sm:space-y-3">
-        <div class="border-b border-slate-800 pb-2 sm:pb-3 flex justify-between items-center">
-          <h2 class="text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-wider">
-            Find Your Playstyle
-          </h2>
-          <span class="text-xs text-amber-400 font-bold">[CLASS GUIDE]</span>
+        <div
+          class="section-label text-[10px] font-bold uppercase text-cyan-400 sm:text-xs"
+        >
+          Field Archive // 107
         </div>
-        <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
-          Picking a class in Guild Wars 2 isn't about crunching math. It's about finding the fight style that feels right for you. Scroll through the 9 professions below, check out how they play, and pick the one that fits your vibe.
+
+        <h1
+          class="mt-3 text-3xl font-black tracking-tight text-white sm:text-5xl"
+        >
+          Choosing Your Tyrian Identity
+        </h1>
+
+        <p
+          class="mt-3 max-w-3xl text-base leading-7 text-white sm:text-lg"
+        >
+          Picking a profession isn't about finding the one perfect class.
+          It's about finding the kind of fight that sounds fun to you.
         </p>
-      </section>
 
-      <!-- CATEGORY: QUICK NAVIGATION INDEX -->
-      <section class="border border-slate-800/80 bg-slate-950/80 p-4 sm:p-5 rounded-sm glow-cyan space-y-3">
-        <h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider font-mono">
-          Quick Class Links
-        </h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 text-xs">
-          <div class="p-3 bg-slate-900/60 border border-slate-800/80 rounded space-y-2">
-            <span class="font-bold text-cyan-400 uppercase block">The Soldiers (Heavy Armor)</span>
-            <div class="flex flex-wrap gap-1.5 sm:gap-2">
-              <a href="#guardian" class="px-2 py-1 bg-slate-950 border border-slate-700 text-slate-200 hover:text-cyan-300 hover:border-cyan-400 rounded transition-all">🛡️ Guardian</a>
-              <a href="#revenant" class="px-2 py-1 bg-slate-950 border border-slate-700 text-slate-200 hover:text-cyan-300 hover:border-cyan-400 rounded transition-all">🌀 Revenant</a>
-              <a href="#warrior" class="px-2 py-1 bg-slate-950 border border-slate-700 text-slate-200 hover:text-cyan-300 hover:border-cyan-400 rounded transition-all">⚔️ Warrior</a>
+        <div class="mt-6 flex flex-wrap gap-2">
+
+          <span
+            class="rounded border border-cyan-500/20 bg-cyan-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-cyan-300"
+          >
+            Professions
+          </span>
+
+          <span
+            class="rounded border border-cyan-500/20 bg-cyan-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-cyan-300"
+          >
+            Playstyle
+          </span>
+
+          <span
+            class="rounded border border-cyan-500/20 bg-cyan-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-cyan-300"
+          >
+            Specializations
+          </span>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTENT -->
+    <div class="mx-auto max-w-6xl space-y-6 px-4 py-8 sm:px-6 sm:py-10">
+
+      <!-- AT A GLANCE -->
+      <section>
+
+        <div class="mb-4">
+
+          <div
+            class="section-label text-[10px] font-bold uppercase text-cyan-400"
+          >
+            At a Glance
+          </div>
+
+          <h2 class="mt-1 text-2xl font-black text-white">
+            Start with the feel, not the math
+          </h2>
+
+        </div>
+
+        <div class="grid gap-3 md:grid-cols-3">
+
+          <article class="terminal-panel rounded-sm p-5">
+
+            <div
+              class="section-label text-[10px] font-black uppercase text-cyan-400"
+            >
+              Heavy Armor
             </div>
-          </div>
 
-          <div class="p-3 bg-slate-900/60 border border-slate-800/80 rounded space-y-2">
-            <span class="font-bold text-amber-400 uppercase block">The Adventurers (Medium Armor)</span>
-            <div class="flex flex-wrap gap-1.5 sm:gap-2">
-              <a href="#engineer" class="px-2 py-1 bg-slate-950 border border-slate-700 text-slate-200 hover:text-amber-300 hover:border-amber-400 rounded transition-all">⚙️ Engineer</a>
-              <a href="#ranger" class="px-2 py-1 bg-slate-950 border border-slate-700 text-slate-200 hover:text-amber-300 hover:border-amber-400 rounded transition-all">🏹 Ranger</a>
-              <a href="#thief" class="px-2 py-1 bg-slate-950 border border-slate-700 text-slate-200 hover:text-amber-300 hover:border-amber-400 rounded transition-all">🗡️ Thief</a>
+            <h3 class="mt-2 text-lg font-bold text-white">
+              Soldiers
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Guardian, Revenant, and Warrior. Big weapons, frontline presence,
+              strong class mechanics, and plenty of ways to protect yourself or
+              your group.
+            </p>
+
+          </article>
+
+          <article class="terminal-panel rounded-sm p-5">
+
+            <div
+              class="section-label text-[10px] font-black uppercase text-amber-400"
+            >
+              Medium Armor
             </div>
-          </div>
 
-          <div class="p-3 bg-slate-900/60 border border-slate-800/80 rounded space-y-2">
-            <span class="font-bold text-emerald-400 uppercase block">The Scholars (Light Armor)</span>
-            <div class="flex flex-wrap gap-1.5 sm:gap-2">
-              <a href="#elementalist" class="px-2 py-1 bg-slate-950 border border-slate-700 text-slate-200 hover:text-emerald-300 hover:border-emerald-400 rounded transition-all">🌋 Elementalist</a>
-              <a href="#mesmer" class="px-2 py-1 bg-slate-950 border border-slate-700 text-slate-200 hover:text-emerald-300 hover:border-emerald-400 rounded transition-all">🔮 Mesmer</a>
-              <a href="#necromancer" class="px-2 py-1 bg-slate-950 border border-slate-700 text-slate-200 hover:text-emerald-300 hover:border-emerald-400 rounded transition-all">💀 Necromancer</a>
+            <h3 class="mt-2 text-lg font-bold text-white">
+              Adventurers
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Engineer, Ranger, and Thief. Gadgets, pets, mobility, tricks, and
+              flexible ways to approach a fight.
+            </p>
+
+          </article>
+
+          <article class="terminal-panel rounded-sm p-5">
+
+            <div
+              class="section-label text-[10px] font-black uppercase text-green-300"
+            >
+              Light Armor
             </div>
-          </div>
+
+            <h3 class="mt-2 text-lg font-bold text-white">
+              Scholars
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Elementalist, Mesmer, and Necromancer. Magic-heavy professions
+              with very different ways of controlling the battlefield.
+            </p>
+
+          </article>
+
         </div>
+
       </section>
 
-      <!-- CATEGORY: PROFESSION 1 - GUARDIAN -->
-      <section id="guardian" class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4 pt-6 sm:pt-8 hover:border-cyan-500/40 transition-all">
-        <div class="border-b border-slate-800 pb-3 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+      <!-- CORE LESSON -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-amber-400"
+        >
+          Core Lesson
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Pick the fantasy that makes you want to log in
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Every Guild Wars 2 profession can be built in different ways.
+          Damage, support, survivability, ranged combat, melee combat, and
+          group utility aren't locked to one armor type.
+        </p>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          So don't worry too much about picking the “best” profession.
+          Start with what sounds fun. You can make more characters later,
+          and elite specializations can change how a profession feels in
+          pretty dramatic ways.
+        </p>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          If one of the battle descriptions below makes you think
+          <strong>“Yeah, I want to do that”</strong>, that's a good place to start.
+        </p>
+
+      </section>
+
+      <!-- QUICK LINKS -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-6">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-cyan-400"
+        >
+          Quick Jump
+        </div>
+
+        <h2 class="mt-2 text-xl font-black text-white">
+          Pick a profession
+        </h2>
+
+        <div class="mt-5 grid gap-3 md:grid-cols-3">
+
+          <!-- SOLDIERS -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-400"
+            >
+              Soldiers
+            </div>
+
+            <div class="mt-3 flex flex-wrap gap-2">
+
+              <a
+                href="#guardian"
+                class="rounded border border-slate-700 px-3 py-2 text-xs font-bold text-white hover:border-cyan-400 hover:text-cyan-300"
+              >
+                🛡️ Guardian
+              </a>
+
+              <a
+                href="#revenant"
+                class="rounded border border-slate-700 px-3 py-2 text-xs font-bold text-white hover:border-cyan-400 hover:text-cyan-300"
+              >
+                🌀 Revenant
+              </a>
+
+              <a
+                href="#warrior"
+                class="rounded border border-slate-700 px-3 py-2 text-xs font-bold text-white hover:border-cyan-400 hover:text-cyan-300"
+              >
+                ⚔️ Warrior
+              </a>
+
+            </div>
+
+          </div>
+
+          <!-- ADVENTURERS -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-amber-400"
+            >
+              Adventurers
+            </div>
+
+            <div class="mt-3 flex flex-wrap gap-2">
+
+              <a
+                href="#engineer"
+                class="rounded border border-slate-700 px-3 py-2 text-xs font-bold text-white hover:border-amber-400 hover:text-amber-300"
+              >
+                ⚙️ Engineer
+              </a>
+
+              <a
+                href="#ranger"
+                class="rounded border border-slate-700 px-3 py-2 text-xs font-bold text-white hover:border-amber-400 hover:text-amber-300"
+              >
+                🏹 Ranger
+              </a>
+
+              <a
+                href="#thief"
+                class="rounded border border-slate-700 px-3 py-2 text-xs font-bold text-white hover:border-amber-400 hover:text-amber-300"
+              >
+                🗡️ Thief
+              </a>
+
+            </div>
+
+          </div>
+
+          <!-- SCHOLARS -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-green-300"
+            >
+              Scholars
+            </div>
+
+            <div class="mt-3 flex flex-wrap gap-2">
+
+              <a
+                href="#elementalist"
+                class="rounded border border-slate-700 px-3 py-2 text-xs font-bold text-white hover:border-green-400 hover:text-green-300"
+              >
+                🌋 Elementalist
+              </a>
+
+              <a
+                href="#mesmer"
+                class="rounded border border-slate-700 px-3 py-2 text-xs font-bold text-white hover:border-green-400 hover:text-green-300"
+              >
+                🔮 Mesmer
+              </a>
+
+              <a
+                href="#necromancer"
+                class="rounded border border-slate-700 px-3 py-2 text-xs font-bold text-white hover:border-green-400 hover:text-green-300"
+              >
+                💀 Necromancer
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           GUARDIAN
+           ===================================================== -->
+      <section id="guardian" class="profession-card terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div class="flex flex-col gap-3 border-b border-slate-800 pb-4 sm:flex-row sm:items-center sm:justify-between">
+
           <div>
-            <span class="text-xs text-cyan-400 font-bold uppercase tracking-wider block font-mono">Heavy Armor (Soldier)</span>
-            <h3 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2 tracking-wide">🛡️ GUARDIAN</h3>
+            <div
+              class="section-label text-[10px] font-bold uppercase text-cyan-400"
+            >
+              Heavy Armor // Soldier
+            </div>
+
+            <h2 class="mt-1 text-2xl font-black text-white">
+              🛡️ Guardian
+            </h2>
           </div>
-          <div class="text-xs bg-slate-950 border border-slate-800 px-3 py-1.5 rounded text-slate-300 font-mono">
-            <strong>Core Mechanic:</strong> Virtues (Justice, Resolve, Courage)
+
+          <div
+            class="rounded border border-slate-800 bg-slate-950 px-3 py-2 text-xs font-mono text-white"
+          >
+            Virtues: Justice // Resolve // Courage
           </div>
+
         </div>
 
-        <div class="text-xs text-amber-400 font-bold uppercase tracking-wider font-mono">
-          Vibe: Paladin, Team Protector, Holy Smiter
+        <div
+          class="mt-4 text-xs font-bold uppercase tracking-wider text-amber-400"
+        >
+          Vibe: Paladin // Team Protector // Holy Smiter
         </div>
 
-        <blockquote class="p-3.5 sm:p-4 border-l-4 border-cyan-400 bg-slate-950/80 rounded-r-sm text-xs sm:text-sm text-slate-200 space-y-1">
-          <strong class="text-cyan-400 font-bold block mb-1">🔥 Picture Yourself in Battle:</strong>
-          <p class="italic leading-relaxed">
-            "You stand in the middle of a chaotic fight. A wave of fiery arrows flies at your team, so you drop a glowing spirit wall that blocks them all. You leap right into the crowd, bursting into golden flames and keeping your allies healed while you fight."
-          </p>
-        </blockquote>
-
-        <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-          <h4 class="font-bold text-white uppercase font-mono">How It Plays</h4>
-          <p class="text-slate-300 leading-relaxed font-normal">
-            Guardians use divine Virtues to protect allies and burn enemies. You might have a slightly lower base health pool, but you stay alive easily through constant passive healing, shield blocks, and defensive ground symbols.
-          </p>
-        </div>
-
-        <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-          <h4 class="font-bold text-cyan-400 uppercase font-mono">Specialization Options</h4>
-          <ul class="text-slate-300 space-y-1.5 list-disc list-inside font-normal">
-            <li><strong class="text-white font-semibold">Dragonhunter:</strong> Grab a Longbow and set traps. You pull enemies in with light spears and blast them from range.</li>
-            <li><strong class="text-white font-semibold">Firebrand:</strong> Swap your virtues for magical Tomes. You use an axe and chant mantras to burn foes or heal squadmates.</li>
-            <li><strong class="text-white font-semibold">Willbender:</strong> A fast martial artist in heavy plate. You dash around with dual swords and leave fire tracks on the ground.</li>
-            <li><strong class="text-white font-semibold">Luminary:</strong> Enter the Radiant Forge to use weapons made of pure light, burning enemies and shielding allies with holy radiance.</li>
-          </ul>
-        </div>
-
-        <div class="p-2.5 sm:p-3 bg-slate-950 border border-cyan-500/40 rounded text-xs sm:text-sm text-cyan-300 font-bold">
-          👉 Pick Guardian if you want: Glowing holy fire, high team defense, and big clutch saves.
-        </div>
-      </section>
-
-      <!-- CATEGORY: PROFESSION 2 - REVENANT -->
-      <section id="revenant" class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4 pt-6 sm:pt-8 hover:border-cyan-500/40 transition-all">
-        <div class="border-b border-slate-800 pb-3 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
-          <div>
-            <span class="text-xs text-cyan-400 font-bold uppercase tracking-wider block font-mono">Heavy Armor (Soldier)</span>
-            <h3 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2 tracking-wide">🌀 REVENANT</h3>
+        <div
+          class="mt-4 rounded-sm border-l-4 border-cyan-400 bg-slate-950 p-4"
+        >
+          <div
+            class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-400"
+          >
+            Picture Yourself in Battle
           </div>
-          <div class="text-xs bg-slate-950 border border-slate-800 px-3 py-1.5 rounded text-slate-300 font-mono">
-            <strong>Core Mechanic:</strong> Legend Channeling & Energy
-          </div>
-        </div>
 
-        <div class="text-xs text-amber-400 font-bold uppercase tracking-wider font-mono">
-          Vibe: Mists Knight, Hero Channeler, Stance Swapper
-        </div>
-
-        <blockquote class="p-3.5 sm:p-4 border-l-4 border-cyan-400 bg-slate-950/80 rounded-r-sm text-xs sm:text-sm text-slate-200 space-y-1">
-          <strong class="text-cyan-400 font-bold block mb-1">🔥 Picture Yourself in Battle:</strong>
-          <p class="italic leading-relaxed">
-            "Pulsing with Mists magic, you switch stances mid-fight. One second you channel Mallyx to pull bad conditions off teammates and throw them onto enemies. The next second, you switch to Shiro, popping behind a dragon to unleash a lightning-fast flurry of sword strikes!"
-          </p>
-        </blockquote>
-
-        <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-          <h4 class="font-bold text-white uppercase font-mono">How It Plays</h4>
-          <p class="text-slate-300 leading-relaxed font-normal">
-            Revenants channel legendary figures from history. Instead of standard skill cooldowns, your abilities cost Energy. Swapping between your two chosen Legends resets your Energy bar so you can keep going.
+          <p class="mt-2 text-sm italic leading-6 text-white">
+            You jump into the middle of a fight wrapped in blue and golden
+            magic, block attacks for your team, burn enemies with holy fire,
+            and pull off a clutch save when things start going bad.
           </p>
         </div>
 
-        <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-          <h4 class="font-bold text-cyan-400 uppercase font-mono">Specialization Options</h4>
-          <ul class="text-slate-300 space-y-1.5 list-disc list-inside font-normal">
-            <li><strong class="text-white font-semibold">Herald:</strong> Channel the dragon Glint to pulse constant speed, damage, and crit buffs to your group with an off-hand Shield.</li>
-            <li><strong class="text-white font-semibold">Renegade:</strong> Channel the Charr rebel Kalla to fire shortbow arrows through Mists portals and summon ghost warbands.</li>
-            <li><strong class="text-white font-semibold">Vindicator:</strong> Channel two rival heroes at once. You swing a heavy Greatsword and turn your dodge into a giant leap attack.</li>
-            <li><strong class="text-white font-semibold">Conduit:</strong> Channel Razah to deepen your bond with spirits, using cosmic energy to unlock new fight forms.</li>
-          </ul>
-        </div>
-
-        <div class="p-2.5 sm:p-3 bg-slate-950 border border-cyan-500/40 rounded text-xs sm:text-sm text-cyan-300 font-bold">
-          👉 Pick Revenant if you want: Energy management, shifting playstyles mid-fight, and cool spirit lore.
-        </div>
-      </section>
-
-      <!-- CATEGORY: PROFESSION 3 - WARRIOR -->
-      <section id="warrior" class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4 pt-6 sm:pt-8 hover:border-cyan-500/40 transition-all">
-        <div class="border-b border-slate-800 pb-3 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
-          <div>
-            <span class="text-xs text-cyan-400 font-bold uppercase tracking-wider block font-mono">Heavy Armor (Soldier)</span>
-            <h3 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2 tracking-wide">⚔️ WARRIOR</h3>
-          </div>
-          <div class="text-xs bg-slate-950 border border-slate-800 px-3 py-1.5 rounded text-slate-300 font-mono">
-            <strong>Core Mechanic:</strong> Adrenaline & Weapon Mastery
-          </div>
-        </div>
-
-        <div class="text-xs text-amber-400 font-bold uppercase tracking-wider font-mono">
-          Vibe: Weapon Master, Frontline Bruiser, Unstoppable Force
-        </div>
-
-        <blockquote class="p-3.5 sm:p-4 border-l-4 border-cyan-400 bg-slate-950/80 rounded-r-sm text-xs sm:text-sm text-slate-200 space-y-1">
-          <strong class="text-cyan-400 font-bold block mb-1">🔥 Picture Yourself in Battle:</strong>
-          <p class="italic leading-relaxed">
-            "You slice through the front line with a big Greatsword, building up rage with every swing. Once your bar is full, you unleash a massive attack that knocks enemies down and rallies your team with a loud battle cry!"
-          </p>
-        </blockquote>
-
-        <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-          <h4 class="font-bold text-white uppercase font-mono">How It Plays</h4>
-          <p class="text-slate-300 leading-relaxed font-normal">
-            Warriors are direct physical fighters. They have high base health, heavy armor, and access to more weapon choices than anyone else. You build Adrenaline by landing hits, then spend it on huge Burst attacks.
-          </p>
-        </div>
-
-        <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-          <h4 class="font-bold text-cyan-400 uppercase font-mono">Specialization Options</h4>
-          <ul class="text-slate-300 space-y-1.5 list-disc list-inside font-normal">
-            <li><strong class="text-white font-semibold">Berserker:</strong> Go into pure rage mode, swinging off-hand Torches and smashing enemies with rapid-fire Primal Bursts.</li>
-            <li><strong class="text-white font-semibold">Spellbreaker:</strong> Dual-wield daggers to strip magic off enemies, using Full Counter to absorb incoming hits and strike back.</li>
-            <li><strong class="text-white font-semibold">Bladesworn:</strong> Use technology and swords together. Charge up your Flow bar to draw a Gunsaber and deliver a massive Dragon Slash.</li>
-            <li><strong class="text-white font-semibold">Paragon:</strong> Grab a spear and shield, using chants and commands to inspire allies with barrier shields.</li>
-          </ul>
-        </div>
-
-        <div class="p-2.5 sm:p-3 bg-slate-950 border border-cyan-500/40 rounded text-xs sm:text-sm text-cyan-300 font-bold">
-          👉 Pick Warrior if you want: Raw physical power, tons of weapon choices, and heavy strikes.
-        </div>
-      </section>
-
-      <!-- CATEGORY: PROFESSION 4 - ENGINEER -->
-      <section id="engineer" class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4 pt-6 sm:pt-8 hover:border-cyan-500/40 transition-all">
-        <div class="border-b border-slate-800 pb-3 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
-          <div>
-            <span class="text-xs text-amber-400 font-bold uppercase tracking-wider block font-mono">Medium Armor (Adventurer)</span>
-            <h3 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2 tracking-wide">⚙️ ENGINEER</h3>
-          </div>
-          <div class="text-xs bg-slate-950 border border-slate-800 px-3 py-1.5 rounded text-slate-300 font-mono">
-            <strong>Core Mechanic:</strong> Tool Belt & Engineering Kits
-          </div>
-        </div>
-
-        <div class="text-xs text-amber-400 font-bold uppercase tracking-wider font-mono">
-          Vibe: Tech Specialist, Gadgeteer, Invention Master
-        </div>
-
-        <blockquote class="p-3.5 sm:p-4 border-l-4 border-amber-400 bg-slate-950/80 rounded-r-sm text-xs sm:text-sm text-slate-200 space-y-1">
-          <strong class="text-amber-400 font-bold block mb-1">🔥 Picture Yourself in Battle:</strong>
-          <p class="italic leading-relaxed">
-            "You pull out a Flamethrower to burn a group of bad guys, instantly swap to toss grenades over a wall, drop a healing turret, and blast off with Rocket Boots without waiting for weapon cooldowns."
-          </p>
-        </blockquote>
-
-        <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-          <h4 class="font-bold text-white uppercase font-mono">How It Plays</h4>
-          <p class="text-slate-300 leading-relaxed font-normal">
-            Engineers use tech gadgets instead of spells. Rather than standard weapon swaps, you carry utility Kits like Grenades, Bombs, or Flamethrowers alongside a Tool Belt that adds extra skill buttons above your bar.
-          </p>
-        </div>
-
-        <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-          <h4 class="font-bold text-amber-400 uppercase font-mono">Specialization Options</h4>
-          <ul class="text-slate-300 space-y-1.5 list-disc list-inside font-normal">
-            <li><strong class="text-white font-semibold">Scrapper:</strong> Swing a Hammer and build flying Gyro drones to speed up allies and revive downed friends from afar.</li>
-            <li><strong class="text-white font-semibold">Holosmith:</strong> Activate the Photon Forge to craft hard-light weapons made of solid sunlight, burning foes with high heat.</li>
-            <li><strong class="text-white font-semibold">Mechanist:</strong> Command your own giant Jade Mech battle-bot that tanks, shoots lasers, and fights right beside you.</li>
-            <li><strong class="text-white font-semibold">Amalgam:</strong> Bond with a strange ooze mold, using Morph skills to change form and trigger powerful Evolve bursts.</li>
-          </ul>
-        </div>
-
-        <div class="p-2.5 sm:p-3 bg-slate-950 border border-amber-500/40 rounded text-xs sm:text-sm text-amber-300 font-bold">
-          👉 Pick Engineer if you want: Flexible toolkits, futuristic gadgets, and fast button pacing.
-        </div>
-      </section>
-
-      <!-- CATEGORY: PROFESSION 5 - RANGER -->
-      <section id="ranger" class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4 pt-6 sm:pt-8 hover:border-cyan-500/40 transition-all">
-        <div class="border-b border-slate-800 pb-3 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
-          <div>
-            <span class="text-xs text-amber-400 font-bold uppercase tracking-wider block font-mono">Medium Armor (Adventurer)</span>
-            <h3 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2 tracking-wide">🏹 RANGER</h3>
-          </div>
-          <div class="text-xs bg-slate-950 border border-slate-800 px-3 py-1.5 rounded text-slate-300 font-mono">
-            <strong>Core Mechanic:</strong> Companion Pets & Wilderness Survival
-          </div>
-        </div>
-
-        <div class="text-xs text-amber-400 font-bold uppercase tracking-wider font-mono">
-          Vibe: Marksman, Beast Tamer, Nature Guardian
-        </div>
-
-        <blockquote class="p-3.5 sm:p-4 border-l-4 border-amber-400 bg-slate-950/80 rounded-r-sm text-xs sm:text-sm text-slate-200 space-y-1">
-          <strong class="text-amber-400 font-bold block mb-1">🔥 Picture Yourself in Battle:</strong>
-          <p class="italic leading-relaxed">
-            "From way across the field, you rain arrows down with your Longbow while your pet tiger jumps at the target. When an enemy gets close, you swap to a Greatsword, dodge their attack, and call on nature to heal your team."
-          </p>
-        </blockquote>
-
-        <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-          <h4 class="font-bold text-white uppercase font-mono">How It Plays</h4>
-          <p class="text-slate-300 leading-relaxed font-normal">
-            Rangers fight alongside tame animal companions. You tame pets all across the world, swapping between two in combat to deal extra damage, stun enemies, or shield your party.
-          </p>
-        </div>
-
-        <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-          <h4 class="font-bold text-amber-400 uppercase font-mono">Specialization Options</h4>
-          <ul class="text-slate-300 space-y-1.5 list-disc list-inside font-normal">
-            <li><strong class="text-white font-semibold">Druid:</strong> Transform into a Celestial Avatar using a Staff and Glyphs to provide big team heals and offensive buffs.</li>
-            <li><strong class="text-white font-semibold">Soulbeast:</strong> Merge spirits with your pet to absorb its stats, gaining unique skills while fighting up close with Daggers.</li>
-            <li><strong class="text-white font-semibold">Untamed:</strong> Juggle raw power back and forth between you and your pet, using a Hammer to control the battlefield.</li>
-            <li><strong class="text-white font-semibold">Galeshot:</strong> Master wind magic and Tengu archery with a Cyclone Bow, pinning foes down with gust-infused arrows.</li>
-          </ul>
-        </div>
-
-        <div class="p-2.5 sm:p-3 bg-slate-950 border border-amber-500/40 rounded text-xs sm:text-sm text-amber-300 font-bold">
-          👉 Pick Ranger if you want: A loyal pet, long-range archery, or green nature magic.
-        </div>
-      </section>
-
-      <!-- CATEGORY: PROFESSION 6 - THIEF -->
-      <section id="thief" class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4 pt-6 sm:pt-8 hover:border-cyan-500/40 transition-all">
-        <div class="border-b border-slate-800 pb-3 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
-          <div>
-            <span class="text-xs text-amber-400 font-bold uppercase tracking-wider block font-mono">Medium Armor (Adventurer)</span>
-            <h3 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2 tracking-wide">🗡️ THIEF</h3>
-          </div>
-          <div class="text-xs bg-slate-950 border border-slate-800 px-3 py-1.5 rounded text-slate-300 font-mono">
-            <strong>Core Mechanic:</strong> Initiative & Steal
-          </div>
-        </div>
-
-        <div class="text-xs text-amber-400 font-bold uppercase tracking-wider font-mono">
-          Vibe: Shadow Assassin, Nimble Acrobat, Sniper
-        </div>
-
-        <blockquote class="p-3.5 sm:p-4 border-l-4 border-amber-400 bg-slate-950/80 rounded-r-sm text-xs sm:text-sm text-slate-200 space-y-1">
-          <strong class="text-amber-400 font-bold block mb-1">🔥 Picture Yourself in Battle:</strong>
-          <p class="italic leading-relaxed">
-            "You teleport through shadow, appearing right behind an enemy. You blend into stealth, line up a huge hit, and step away before they know what happened. Low on health? Steal an item straight from your target to flip the fight."
-          </p>
-        </blockquote>
-
-        <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-          <h4 class="font-bold text-white uppercase font-mono">How It Plays</h4>
-          <p class="text-slate-300 leading-relaxed font-normal">
-            Thieves don't wait on standard skill cooldowns. Instead, you use Initiative, a fast-refilling energy pool that lets you use your favorite weapon skills several times in a row. You stay safe using stealth, dodges, and shadow teleports.
-          </p>
-        </div>
-
-        <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-          <h4 class="font-bold text-amber-400 uppercase font-mono">Specialization Options</h4>
-          <ul class="text-slate-300 space-y-1.5 list-disc list-inside font-normal">
-            <li><strong class="text-white font-semibold">Daredevil:</strong> An agile martial artist with three dodge bars. You vault over attacks and smash foes with a melee Staff.</li>
-            <li><strong class="text-white font-semibold">Deadeye:</strong> A sniper with a Rifle. Kneel down, mark your target, build up Malice, and land a massive stealth headshot.</li>
-            <li><strong class="text-white font-semibold">Specter:</strong> A shadow mage using a Scepter. Tether your shadow to an ally to give them huge barrier shields, then enter Shadow Shroud.</li>
-            <li><strong class="text-white font-semibold">Antiquary:</strong> Team up with a Skritt assistant! Swipe rare items off foes and use risky Double Edge skills.</li>
-          </ul>
-        </div>
-
-        <div class="p-2.5 sm:p-3 bg-slate-950 border border-amber-500/40 rounded text-xs sm:text-sm text-amber-300 font-bold">
-          👉 Pick Thief if you want: Shadow teleports, stealth gameplay, and super fast movement.
-        </div>
-      </section>
-
-      <!-- CATEGORY: PROFESSION 7 - ELEMENTALIST -->
-      <section id="elementalist" class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4 pt-6 sm:pt-8 hover:border-cyan-500/40 transition-all">
-        <div class="border-b border-slate-800 pb-3 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
-          <div>
-            <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider block font-mono">Light Armor (Scholar)</span>
-            <h3 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2 tracking-wide">🌋 ELEMENTALIST</h3>
-          </div>
-          <div class="text-xs bg-slate-950 border border-slate-800 px-3 py-1.5 rounded text-slate-300 font-mono">
-            <strong>Core Mechanic:</strong> 4 Elemental Attunements
-          </div>
-        </div>
-
-        <div class="text-xs text-amber-400 font-bold uppercase tracking-wider font-mono">
-          Vibe: Spell Caster, Stance Dancer, Elemental Wizard
-        </div>
-
-        <blockquote class="p-3.5 sm:p-4 border-l-4 border-emerald-400 bg-slate-950/80 rounded-r-sm text-xs sm:text-sm text-slate-200 space-y-1">
-          <strong class="text-emerald-400 font-bold block mb-1">🔥 Picture Yourself in Battle:</strong>
-          <p class="italic leading-relaxed">
-            "You rain down meteors in Fire, swap to Air to shock and stun foes, jump into Water to heal your group, and drop into Earth to turn your skin to stone, all in ten seconds!"
-          </p>
-        </blockquote>
-
-        <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-          <h4 class="font-bold text-white uppercase font-mono">How It Plays</h4>
-          <p class="text-slate-300 leading-relaxed font-normal">
-            Elementalists can't swap weapons in combat, but they don't need to. You switch between 4 Attunements (Fire, Water, Air, Earth) on the fly, giving you 20 different weapon skills on a single set.
-          </p>
-        </div>
-
-        <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-          <h4 class="font-bold text-emerald-400 uppercase font-mono">Specialization Options</h4>
-          <ul class="text-slate-300 space-y-1.5 list-disc list-inside font-normal">
-            <li><strong class="text-white font-semibold">Tempest:</strong> Overload your attunements to create elemental whirlwinds and tornadoes around yourself while buffing your team.</li>
-            <li><strong class="text-white font-semibold">Weaver:</strong> Hold two elements at once (like Fire in one hand, Air in the other) to weave unique dual-element attacks with a Sword.</li>
-            <li><strong class="text-white font-semibold">Catalyst:</strong> Summon an elemental Jade Sphere to place combo fields while swinging a heavy Hammer.</li>
-            <li><strong class="text-white font-semibold">Evoker:</strong> Partner with spirit animal familiars (Fox, Otter, Hare, Toad) to charge up empowered elemental attacks.</li>
-          </ul>
-        </div>
-
-        <div class="p-2.5 sm:p-3 bg-slate-950 border border-emerald-500/40 rounded text-xs sm:text-sm text-emerald-300 font-bold">
-          👉 Pick Elementalist if you want: Flashy magic spells, lots of skills, and high fast-paced action.
-        </div>
-      </section>
-
-      <!-- CATEGORY: PROFESSION 8 - MESMER -->
-      <section id="mesmer" class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4 pt-6 sm:pt-8 hover:border-cyan-500/40 transition-all">
-        <div class="border-b border-slate-800 pb-3 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
-          <div>
-            <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider block font-mono">Light Armor (Scholar)</span>
-            <h3 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2 tracking-wide">🔮 MESMER</h3>
-          </div>
-          <div class="text-xs bg-slate-950 border border-slate-800 px-3 py-1.5 rounded text-slate-300 font-mono">
-            <strong>Core Mechanic:</strong> Illusions (Clones & Phantasms) & Shatters
-          </div>
-        </div>
-
-        <div class="text-xs text-amber-400 font-bold uppercase tracking-wider font-mono">
-          Vibe: Trickster Duelist, Illusionist, Time & Space Master
-        </div>
-
-        <blockquote class="p-3.5 sm:p-4 border-l-4 border-emerald-400 bg-slate-950/80 rounded-r-sm text-xs sm:text-sm text-slate-200 space-y-1">
-          <strong class="text-emerald-400 font-bold block mb-1">🔥 Picture Yourself in Battle:</strong>
-          <p class="italic leading-relaxed">
-            "You strike an enemy and instantly create three clone copies of yourself. While the boss swings at your illusions, you explode them into purple glass shards for huge damage, then open a portal to warp your whole team across the room."
-          </p>
-        </blockquote>
-
-        <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-          <h4 class="font-bold text-white uppercase font-mono">How It Plays</h4>
-          <p class="text-slate-300 leading-relaxed font-normal">
-            Mesmers use mind magic, clones, and portals. You spawn Clones to confuse enemies and draw attention away from yourself, then explode those copies on command using Shatter skills for big burst damage.
-          </p>
-        </div>
-
-        <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-          <h4 class="font-bold text-emerald-400 uppercase font-mono">Specialization Options</h4>
-          <ul class="text-slate-300 space-y-1.5 list-disc list-inside font-normal">
-            <li><strong class="text-white font-semibold">Chronomancer:</strong> Control time! Open a time rift with Continuum Split, throw all your skills out, and snap back in time with full health and reset cooldowns.</li>
-            <li><strong class="text-white font-semibold">Mirage:</strong> A fast desert duelist using Axes. You dodge while casting uninterrupted and trigger quick ambush attacks.</li>
-            <li><strong class="text-white font-semibold">Virtuoso:</strong> Float psionic mental blades over your head, firing psychic daggers from range with a Dagger.</li>
-            <li><strong class="text-white font-semibold">Troubadour:</strong> Replace clones with musical notes and phantasms with lingering instruments, buffing allies with ethereal music.</li>
-          </ul>
-        </div>
-
-        <div class="p-2.5 sm:p-3 bg-slate-950 border border-emerald-500/40 rounded text-xs sm:text-sm text-emerald-300 font-bold">
-          👉 Pick Mesmer if you want: Clone illusions, portal utility, time tricks, and purple magic effects.
-        </div>
-      </section>
-
-      <!-- CATEGORY: PROFESSION 9 - NECROMANCER -->
-      <section id="necromancer" class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4 pt-6 sm:pt-8 hover:border-cyan-500/40 transition-all">
-        <div class="border-b border-slate-800 pb-3 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
-          <div>
-            <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider block font-mono">Light Armor (Scholar)</span>
-            <h3 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2 tracking-wide">💀 NECROMANCER</h3>
-          </div>
-          <div class="text-xs bg-slate-950 border border-slate-800 px-3 py-1.5 rounded text-slate-300 font-mono">
-            <strong>Core Mechanic:</strong> Life Force & Death Shroud
-          </div>
-        </div>
-
-        <div class="text-xs text-amber-400 font-bold uppercase tracking-wider font-mono">
-          Vibe: Dark Sorcerer, Minion Commander, Tough Tank
-        </div>
-
-        <blockquote class="p-3.5 sm:p-4 border-l-4 border-emerald-400 bg-slate-950/80 rounded-r-sm text-xs sm:text-sm text-slate-200 space-y-1">
-          <strong class="text-emerald-400 font-bold block mb-1">🔥 Picture Yourself in Battle:</strong>
-          <p class="italic leading-relaxed">
-            "Enemies surround you, but as they fall, you harvest their Life Force. You pop Death Shroud, turning into a shadowy reaper with a fresh second health bar, chilling enemies and stealing their health for yourself."
-          </p>
-        </blockquote>
-
-        <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-          <h4 class="font-bold text-white uppercase font-mono">How It Plays</h4>
-          <p class="text-slate-300 leading-relaxed font-normal">
-            Necromancers are dark magic users who are tough to take down. Gathering Life Force from fallen foes lets you enter Death Shroud, giving you a full second health bar and a new set of attacks.
-          </p>
-        </div>
-
-        <div class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-          <h4 class="font-bold text-emerald-400 uppercase font-mono">Specialization Options</h4>
-          <ul class="text-slate-300 space-y-1.5 list-disc list-inside font-normal">
-            <li><strong class="text-white font-semibold">Reaper:</strong> A heavy melee fighter. Enter Reaper's Shroud with a dark scythe and swing a big Greatsword through crowds.</li>
-            <li><strong class="text-white font-semibold">Scourge:</strong> Trade your shroud for desert Sand Shades, shielding allies with barriers while putting dark conditions on enemies.</li>
-            <li><strong class="text-white font-semibold">Harbinger:</strong> A dark alchemist with a Pistol. Drink volatile potions to gain huge speed and damage at the cost of some max health.</li>
-            <li><strong class="text-white font-semibold">Ritualist:</strong> Enter Ritualist's Shroud to summon ancestral spirits and cast weapon spells that haunt enemies.</li>
-          </ul>
-        </div>
-
-        <div class="p-2.5 sm:p-3 bg-slate-950 border border-emerald-500/40 rounded text-xs sm:text-sm text-emerald-300 font-bold">
-          👉 Pick Necromancer if you want: Double health bars, undead minion pets, and strong solo survival.
-        </div>
-      </section>
-
-      <!-- CATEGORY: SUMMARY DECISION MATRIX TABLE -->
-      <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
-        <div class="border-b border-slate-800 pb-2 sm:pb-3 flex justify-between items-center">
-          <h3 class="text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-wider">
-            Quick Class Picker
+        <div class="mt-5">
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-white">
+            How It Plays
           </h3>
+
+          <p class="mt-2 text-sm leading-6 text-white">
+            Guardians use Virtues, symbols, blocks, and defensive magic while
+            still hitting hard. They naturally lean into protecting allies,
+            burning enemies, and controlling dangerous moments in a fight.
+          </p>
         </div>
 
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs sm:text-sm border-collapse">
-            <thead>
-              <tr class="bg-slate-950 text-cyan-400 border-b border-slate-800/80 font-mono">
-                <th class="p-2.5 sm:p-3 font-bold">If you like...</th>
-                <th class="p-2.5 sm:p-3 font-bold">Try this Class!</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-800/60 text-slate-300 font-normal">
-              <tr class="hover:bg-slate-900/40"><td class="p-2.5 sm:p-3 font-semibold text-white">Protecting friends with shields and holy fire.</td><td class="p-2.5 sm:p-3 text-cyan-300 font-bold">🛡️ Guardian</td></tr>
-              <tr class="hover:bg-slate-900/40"><td class="p-2.5 sm:p-3 font-semibold text-white">Channeling spirit legends and managing energy.</td><td class="p-2.5 sm:p-3 text-cyan-300 font-bold">🌀 Revenant</td></tr>
-              <tr class="hover:bg-slate-900/40"><td class="p-2.5 sm:p-3 font-semibold text-white">Hitting things hard with big physical weapons.</td><td class="p-2.5 sm:p-3 text-cyan-300 font-bold">⚔️ Warrior</td></tr>
-              <tr class="hover:bg-slate-900/40"><td class="p-2.5 sm:p-3 font-semibold text-white">Flamethrowers, giant robots, and tech gadgets.</td><td class="p-2.5 sm:p-3 text-amber-300 font-bold">⚙️ Engineer</td></tr>
-              <tr class="hover:bg-slate-900/40"><td class="p-2.5 sm:p-3 font-semibold text-white">A pet companion, longbows, and nature magic.</td><td class="p-2.5 sm:p-3 text-amber-300 font-bold">🏹 Ranger</td></tr>
-              <tr class="hover:bg-slate-900/40"><td class="p-2.5 sm:p-3 font-semibold text-white">Stealth, shadow teleports, and fast moves.</td><td class="p-2.5 sm:p-3 text-amber-300 font-bold">🗡️ Thief</td></tr>
-              <tr class="hover:bg-slate-900/40"><td class="p-2.5 sm:p-3 font-semibold text-white">Casting fireballs and swapping 4 elements.</td><td class="p-2.5 sm:p-3 text-emerald-300 font-bold">🌋 Elementalist</td></tr>
-              <tr class="hover:bg-slate-900/40"><td class="p-2.5 sm:p-3 font-semibold text-white">Clones, purple magic, and group portals.</td><td class="p-2.5 sm:p-3 text-emerald-300 font-bold">🔮 Mesmer</td></tr>
-              <tr class="hover:bg-slate-900/40"><td class="p-2.5 sm:p-3 font-semibold text-white">Two health bars, undead minions, and dark magic.</td><td class="p-2.5 sm:p-3 text-emerald-300 font-bold">💀 Necromancer</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- CATEGORY: FIELD PRACTICE CHECKLIST -->
-      <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
-        <div class="flex justify-between items-center border-b border-slate-800 pb-2 sm:pb-3">
-          <h3 class="text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-wider">
-            Class Decision Checklist
+        <div class="mt-5">
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-400">
+            Specialization Options
           </h3>
-          <span id="checklist-status" class="text-xs sm:text-sm text-amber-400 font-bold">[0 / 2 DONE]</span>
+
+          <ul class="mt-2 space-y-2 text-sm leading-6 text-white">
+            <li><strong>Dragonhunter:</strong> Longbow, traps, ranged pressure, and powerful control.</li>
+            <li><strong>Firebrand:</strong> Magical tomes, mantras, burning, healing, and strong group support.</li>
+            <li><strong>Willbender:</strong> Fast martial movement, aggressive dashes, and close-range pressure.</li>
+            <li><strong>Luminary:</strong> Radiant Forge abilities built around weapons of light, damage, and protection.</li>
+          </ul>
         </div>
 
-        <ul class="space-y-2.5 sm:space-y-3 text-sm text-slate-300 font-normal">
-          <li class="flex items-center gap-3 p-3 sm:p-3.5 bg-slate-950 border border-slate-800/80 rounded-sm">
-            <input type="checkbox" onchange="updateChecklist()" class="id-check w-4 h-4 sm:w-5 sm:h-5 accent-cyan-400 cursor-pointer" data-id="drill-1" />
-            <span><strong>Review Armor Types:</strong> Check out Heavy, Medium, and Light armor classes to find the look and feel you prefer.</span>
-          </li>
-          <li class="flex items-center gap-3 p-3 sm:p-3.5 bg-slate-950 border border-slate-800/80 rounded-sm">
-            <input type="checkbox" onchange="updateChecklist()" class="id-check w-4 h-4 sm:w-5 sm:h-5 accent-cyan-400 cursor-pointer" data-id="drill-2" />
-            <span><strong>Pick Your Hero:</strong> Match your favorite battle scenario against the picker table and create your new character in game.</span>
-          </li>
-        </ul>
+        <div
+          class="mt-5 rounded-sm border border-cyan-400/30 bg-cyan-400/[0.04] p-4 text-sm font-bold text-cyan-300"
+        >
+          Pick Guardian if you want: holy fire, strong team defense, and big clutch saves.
+        </div>
+
       </section>
+
+      <!-- =====================================================
+           REVENANT
+           ===================================================== -->
+      <section id="revenant" class="profession-card terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div class="flex flex-col gap-3 border-b border-slate-800 pb-4 sm:flex-row sm:items-center sm:justify-between">
+
+          <div>
+            <div
+              class="section-label text-[10px] font-bold uppercase text-cyan-400"
+            >
+              Heavy Armor // Soldier
+            </div>
+
+            <h2 class="mt-1 text-2xl font-black text-white">
+              🌀 Revenant
+            </h2>
+          </div>
+
+          <div
+            class="rounded border border-slate-800 bg-slate-950 px-3 py-2 text-xs font-mono text-white"
+          >
+            Legends // Energy
+          </div>
+
+        </div>
+
+        <div
+          class="mt-4 text-xs font-bold uppercase tracking-wider text-amber-400"
+        >
+          Vibe: Mists Knight // Hero Channeler // Stance Swapper
+        </div>
+
+        <div
+          class="mt-4 rounded-sm border-l-4 border-cyan-400 bg-slate-950 p-4"
+        >
+          <div
+            class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-400"
+          >
+            Picture Yourself in Battle
+          </div>
+
+          <p class="mt-2 text-sm italic leading-6 text-white">
+            You channel legendary figures from Tyria's past, swap between them
+            in the middle of battle, and completely change what your character
+            is doing without changing professions.
+          </p>
+        </div>
+
+        <div class="mt-5">
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-white">
+            How It Plays
+          </h3>
+
+          <p class="mt-2 text-sm leading-6 text-white">
+            Revenants use Energy to power their skills and swap between two
+            chosen Legends. Each Legend brings its own utility skills and
+            personality, so learning when to switch is a big part of the class.
+          </p>
+        </div>
+
+        <div class="mt-5">
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-400">
+            Specialization Options
+          </h3>
+
+          <ul class="mt-2 space-y-2 text-sm leading-6 text-white">
+            <li><strong>Herald:</strong> Channel Glint and provide powerful boons to yourself and allies.</li>
+            <li><strong>Renegade:</strong> Channel Kalla, use a shortbow, and summon members of a ghostly warband.</li>
+            <li><strong>Vindicator:</strong> Greatsword combat, legendary alliance abilities, and a powerful leap-style dodge.</li>
+            <li><strong>Conduit:</strong> Channel Razah and lean deeper into spirit-based combat and shifting forms.</li>
+          </ul>
+        </div>
+
+        <div
+          class="mt-5 rounded-sm border border-cyan-400/30 bg-cyan-400/[0.04] p-4 text-sm font-bold text-cyan-300"
+        >
+          Pick Revenant if you want: energy management, swapping playstyles, and strong Mists lore.
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           WARRIOR
+           ===================================================== -->
+      <section id="warrior" class="profession-card terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div class="flex flex-col gap-3 border-b border-slate-800 pb-4 sm:flex-row sm:items-center sm:justify-between">
+
+          <div>
+            <div
+              class="section-label text-[10px] font-bold uppercase text-cyan-400"
+            >
+              Heavy Armor // Soldier
+            </div>
+
+            <h2 class="mt-1 text-2xl font-black text-white">
+              ⚔️ Warrior
+            </h2>
+          </div>
+
+          <div
+            class="rounded border border-slate-800 bg-slate-950 px-3 py-2 text-xs font-mono text-white"
+          >
+            Adrenaline // Burst Skills
+          </div>
+
+        </div>
+
+        <div
+          class="mt-4 text-xs font-bold uppercase tracking-wider text-amber-400"
+        >
+          Vibe: Weapon Master // Frontline Bruiser // Unstoppable Force
+        </div>
+
+        <div
+          class="mt-4 rounded-sm border-l-4 border-cyan-400 bg-slate-950 p-4"
+        >
+          <div
+            class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-400"
+          >
+            Picture Yourself in Battle
+          </div>
+
+          <p class="mt-2 text-sm italic leading-6 text-white">
+            You wade into the front line with a huge weapon, build Adrenaline
+            with every hit, then cash it in on a powerful burst attack that
+            changes the momentum of the fight.
+          </p>
+        </div>
+
+        <div class="mt-5">
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-white">
+            How It Plays
+          </h3>
+
+          <p class="mt-2 text-sm leading-6 text-white">
+            Warrior is direct, physical, and flexible. You get a huge weapon
+            selection, high durability, and Burst skills powered by Adrenaline.
+          </p>
+        </div>
+
+        <div class="mt-5">
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-400">
+            Specialization Options
+          </h3>
+
+          <ul class="mt-2 space-y-2 text-sm leading-6 text-white">
+            <li><strong>Berserker:</strong> Enter Berserk mode and unleash rapid Primal Bursts.</li>
+            <li><strong>Spellbreaker:</strong> Strip boons, duel enemies, and punish attacks with Full Counter.</li>
+            <li><strong>Bladesworn:</strong> Mix martial combat with a Gunsaber and massive Dragon Slash attacks.</li>
+            <li><strong>Paragon:</strong> Use spear, shield, chants, and commands to support allies while staying in the fight.</li>
+          </ul>
+        </div>
+
+        <div
+          class="mt-5 rounded-sm border border-cyan-400/30 bg-cyan-400/[0.04] p-4 text-sm font-bold text-cyan-300"
+        >
+          Pick Warrior if you want: raw physical power, lots of weapons, and heavy hits.
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           ENGINEER
+           ===================================================== -->
+      <section id="engineer" class="profession-card terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div class="flex flex-col gap-3 border-b border-slate-800 pb-4 sm:flex-row sm:items-center sm:justify-between">
+
+          <div>
+            <div
+              class="section-label text-[10px] font-bold uppercase text-amber-400"
+            >
+              Medium Armor // Adventurer
+            </div>
+
+            <h2 class="mt-1 text-2xl font-black text-white">
+              ⚙️ Engineer
+            </h2>
+          </div>
+
+          <div
+            class="rounded border border-slate-800 bg-slate-950 px-3 py-2 text-xs font-mono text-white"
+          >
+            Tool Belt // Kits
+          </div>
+
+        </div>
+
+        <div
+          class="mt-4 text-xs font-bold uppercase tracking-wider text-amber-400"
+        >
+          Vibe: Tech Specialist // Gadgeteer // Invention Master
+        </div>
+
+        <div
+          class="mt-4 rounded-sm border-l-4 border-amber-400 bg-slate-950 p-4"
+        >
+          <div
+            class="font-mono text-xs font-bold uppercase tracking-wider text-amber-400"
+          >
+            Picture Yourself in Battle
+          </div>
+
+          <p class="mt-2 text-sm italic leading-6 text-white">
+            You swap from grenades to flamethrowers, drop gadgets around the
+            battlefield, fire off Tool Belt skills, and always seem to have one
+            more weird invention ready.
+          </p>
+        </div>
+
+        <div class="mt-5">
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-white">
+            How It Plays
+          </h3>
+
+          <p class="mt-2 text-sm leading-6 text-white">
+            Engineers use gadgets, kits, turrets, elixirs, and Tool Belt skills.
+            They can feel simple or extremely busy depending on how many tools
+            you decide to bring.
+          </p>
+        </div>
+
+        <div class="mt-5">
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-amber-400">
+            Specialization Options
+          </h3>
+
+          <ul class="mt-2 space-y-2 text-sm leading-6 text-white">
+            <li><strong>Scrapper:</strong> Hammer combat, gyros, barrier, and strong close-range utility.</li>
+            <li><strong>Holosmith:</strong> Enter the Photon Forge and fight with hard-light weapons while managing heat.</li>
+            <li><strong>Mechanist:</strong> Fight beside a large Jade Mech companion.</li>
+            <li><strong>Amalgam:</strong> Bond with a strange ooze and use Morph and Evolve abilities.</li>
+          </ul>
+        </div>
+
+        <div
+          class="mt-5 rounded-sm border border-amber-400/30 bg-amber-400/[0.04] p-4 text-sm font-bold text-amber-300"
+        >
+          Pick Engineer if you want: gadgets, flexible toolkits, robots, and lots of buttons to experiment with.
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           RANGER
+           ===================================================== -->
+      <section id="ranger" class="profession-card terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div class="flex flex-col gap-3 border-b border-slate-800 pb-4 sm:flex-row sm:items-center sm:justify-between">
+
+          <div>
+            <div
+              class="section-label text-[10px] font-bold uppercase text-amber-400"
+            >
+              Medium Armor // Adventurer
+            </div>
+
+            <h2 class="mt-1 text-2xl font-black text-white">
+              🏹 Ranger
+            </h2>
+          </div>
+
+          <div
+            class="rounded border border-slate-800 bg-slate-950 px-3 py-2 text-xs font-mono text-white"
+          >
+            Pets // Nature
+          </div>
+
+        </div>
+
+        <div
+          class="mt-4 text-xs font-bold uppercase tracking-wider text-amber-400"
+        >
+          Vibe: Marksman // Beast Tamer // Nature Guardian
+        </div>
+
+        <div
+          class="mt-4 rounded-sm border-l-4 border-amber-400 bg-slate-950 p-4"
+        >
+          <div
+            class="font-mono text-xs font-bold uppercase tracking-wider text-amber-400"
+          >
+            Picture Yourself in Battle
+          </div>
+
+          <p class="mt-2 text-sm italic leading-6 text-white">
+            Your pet charges ahead while you fire from range. When the enemy
+            closes in, you swap weapons, fight beside your companion, and call
+            on nature to keep the pressure going.
+          </p>
+        </div>
+
+        <div class="mt-5">
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-white">
+            How It Plays
+          </h3>
+
+          <p class="mt-2 text-sm leading-6 text-white">
+            Rangers fight alongside animal companions found throughout Tyria.
+            Pets add damage, control, utility, and personality while you decide
+            whether to fight from range or get up close.
+          </p>
+        </div>
+
+        <div class="mt-5">
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-amber-400">
+            Specialization Options
+          </h3>
+
+          <ul class="mt-2 space-y-2 text-sm leading-6 text-white">
+            <li><strong>Druid:</strong> Staff, Celestial Avatar, healing, and strong group support.</li>
+            <li><strong>Soulbeast:</strong> Merge with your pet and gain abilities from its archetype.</li>
+            <li><strong>Untamed:</strong> Shift unleashed power between yourself and your pet for aggressive control.</li>
+            <li><strong>Galeshot:</strong> Use wind magic and specialized archery to control enemies from range.</li>
+          </ul>
+        </div>
+
+        <div
+          class="mt-5 rounded-sm border border-amber-400/30 bg-amber-400/[0.04] p-4 text-sm font-bold text-amber-300"
+        >
+          Pick Ranger if you want: pets, bows, nature magic, and a strong outdoorsy class fantasy.
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           THIEF
+           ===================================================== -->
+      <section id="thief" class="profession-card terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div class="flex flex-col gap-3 border-b border-slate-800 pb-4 sm:flex-row sm:items-center sm:justify-between">
+
+          <div>
+            <div
+              class="section-label text-[10px] font-bold uppercase text-amber-400"
+            >
+              Medium Armor // Adventurer
+            </div>
+
+            <h2 class="mt-1 text-2xl font-black text-white">
+              🗡️ Thief
+            </h2>
+          </div>
+
+          <div
+            class="rounded border border-slate-800 bg-slate-950 px-3 py-2 text-xs font-mono text-white"
+          >
+            Initiative // Steal
+          </div>
+
+        </div>
+
+        <div
+          class="mt-4 text-xs font-bold uppercase tracking-wider text-amber-400"
+        >
+          Vibe: Shadow Assassin // Nimble Acrobat // Sniper
+        </div>
+
+        <div
+          class="mt-4 rounded-sm border-l-4 border-amber-400 bg-slate-950 p-4"
+        >
+          <div
+            class="font-mono text-xs font-bold uppercase tracking-wider text-amber-400"
+          >
+            Picture Yourself in Battle
+          </div>
+
+          <p class="mt-2 text-sm italic leading-6 text-white">
+            You teleport through shadow, disappear into stealth, unload several
+            quick attacks in a row, then slip away before the enemy can pin you
+            down.
+          </p>
+        </div>
+
+        <div class="mt-5">
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-white">
+            How It Plays
+          </h3>
+
+          <p class="mt-2 text-sm leading-6 text-white">
+            Thieves use Initiative instead of normal weapon-skill cooldowns,
+            letting you repeat the skills you need while managing a shared
+            resource. Mobility, stealth, dodges, and shadowsteps are a big part
+            of staying alive.
+          </p>
+        </div>
+
+        <div class="mt-5">
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-amber-400">
+            Specialization Options
+          </h3>
+
+          <ul class="mt-2 space-y-2 text-sm leading-6 text-white">
+            <li><strong>Daredevil:</strong> Extra dodging, staff combat, and highly mobile melee gameplay.</li>
+            <li><strong>Deadeye:</strong> Mark targets, build Malice, and fight like a deliberate sniper.</li>
+            <li><strong>Specter:</strong> Shadow magic, barrier, ally support, and Shadow Shroud.</li>
+            <li><strong>Antiquary:</strong> Fight alongside a Skritt helper and use risky Double Edge skills.</li>
+          </ul>
+        </div>
+
+        <div
+          class="mt-5 rounded-sm border border-amber-400/30 bg-amber-400/[0.04] p-4 text-sm font-bold text-amber-300"
+        >
+          Pick Thief if you want: stealth, shadow movement, quick attacks, and high mobility.
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           ELEMENTALIST
+           ===================================================== -->
+      <section id="elementalist" class="profession-card terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div class="flex flex-col gap-3 border-b border-slate-800 pb-4 sm:flex-row sm:items-center sm:justify-between">
+
+          <div>
+            <div
+              class="section-label text-[10px] font-bold uppercase text-green-300"
+            >
+              Light Armor // Scholar
+            </div>
+
+            <h2 class="mt-1 text-2xl font-black text-white">
+              🌋 Elementalist
+            </h2>
+          </div>
+
+          <div
+            class="rounded border border-slate-800 bg-slate-950 px-3 py-2 text-xs font-mono text-white"
+          >
+            Fire // Water // Air // Earth
+          </div>
+
+        </div>
+
+        <div
+          class="mt-4 text-xs font-bold uppercase tracking-wider text-amber-400"
+        >
+          Vibe: Spell Caster // Element Dancer // Elemental Wizard
+        </div>
+
+        <div
+          class="mt-4 rounded-sm border-l-4 border-green-400 bg-slate-950 p-4"
+        >
+          <div
+            class="font-mono text-xs font-bold uppercase tracking-wider text-green-300"
+          >
+            Picture Yourself in Battle
+          </div>
+
+          <p class="mt-2 text-sm italic leading-6 text-white">
+            You rain fire on a group, switch to Air for speed and lightning,
+            move into Water when your team needs help, then use Earth when you
+            need control or defense.
+          </p>
+        </div>
+
+        <div class="mt-5">
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-white">
+            How It Plays
+          </h3>
+
+          <p class="mt-2 text-sm leading-6 text-white">
+            Elementalists swap between four elemental attunements instead of
+            swapping weapons normally in combat. That gives you a lot of skills
+            and rewards players who enjoy changing tools constantly.
+          </p>
+        </div>
+
+        <div class="mt-5">
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-green-300">
+            Specialization Options
+          </h3>
+
+          <ul class="mt-2 space-y-2 text-sm leading-6 text-white">
+            <li><strong>Tempest:</strong> Overload your attunements and lean into powerful elemental support.</li>
+            <li><strong>Weaver:</strong> Blend two elements together for fast, layered combat.</li>
+            <li><strong>Catalyst:</strong> Use a Jade Sphere and combo fields while fighting with a hammer.</li>
+            <li><strong>Evoker:</strong> Work with elemental familiars and charge empowered elemental attacks.</li>
+          </ul>
+        </div>
+
+        <div
+          class="mt-5 rounded-sm border border-green-400/30 bg-green-400/[0.04] p-4 text-sm font-bold text-green-300"
+        >
+          Pick Elementalist if you want: flashy magic, lots of skills, and fast-paced decision making.
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           MESMER
+           ===================================================== -->
+      <section id="mesmer" class="profession-card terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div class="flex flex-col gap-3 border-b border-slate-800 pb-4 sm:flex-row sm:items-center sm:justify-between">
+
+          <div>
+            <div
+              class="section-label text-[10px] font-bold uppercase text-green-300"
+            >
+              Light Armor // Scholar
+            </div>
+
+            <h2 class="mt-1 text-2xl font-black text-white">
+              🔮 Mesmer
+            </h2>
+          </div>
+
+          <div
+            class="rounded border border-slate-800 bg-slate-950 px-3 py-2 text-xs font-mono text-white"
+          >
+            Illusions // Shatters
+          </div>
+
+        </div>
+
+        <div
+          class="mt-4 text-xs font-bold uppercase tracking-wider text-amber-400"
+        >
+          Vibe: Trickster Duelist // Illusionist // Time & Space Mage
+        </div>
+
+        <div
+          class="mt-4 rounded-sm border-l-4 border-green-400 bg-slate-950 p-4"
+        >
+          <div
+            class="font-mono text-xs font-bold uppercase tracking-wider text-green-300"
+          >
+            Picture Yourself in Battle
+          </div>
+
+          <p class="mt-2 text-sm italic leading-6 text-white">
+            Copies of you fill the battlefield, purple magic flashes
+            everywhere, and just when the group thinks they're stuck, you open
+            a portal and move everyone somewhere they shouldn't be able to go.
+          </p>
+        </div>
+
+        <div class="mt-5">
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-white">
+            How It Plays
+          </h3>
+
+          <p class="mt-2 text-sm leading-6 text-white">
+            Mesmers create clones and phantasms, then use Shatter skills to
+            turn those illusions into offense or defense. They also bring some
+            of the game's most unusual utility through portals and other tricks.
+          </p>
+        </div>
+
+        <div class="mt-5">
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-green-300">
+            Specialization Options
+          </h3>
+
+          <ul class="mt-2 space-y-2 text-sm leading-6 text-white">
+            <li><strong>Chronomancer:</strong> Manipulate time, cooldowns, and Continuum Split.</li>
+            <li><strong>Mirage:</strong> Dodge and attack through ambushes while playing like a slippery duelist.</li>
+            <li><strong>Virtuoso:</strong> Replace traditional clones with floating psionic blades.</li>
+            <li><strong>Troubadour:</strong> Shift toward musical magic, notes, instruments, and ally support.</li>
+          </ul>
+        </div>
+
+        <div
+          class="mt-5 rounded-sm border border-green-400/30 bg-green-400/[0.04] p-4 text-sm font-bold text-green-300"
+        >
+          Pick Mesmer if you want: illusions, portals, time tricks, and purple magic everywhere.
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           NECROMANCER
+           ===================================================== -->
+      <section id="necromancer" class="profession-card terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div class="flex flex-col gap-3 border-b border-slate-800 pb-4 sm:flex-row sm:items-center sm:justify-between">
+
+          <div>
+            <div
+              class="section-label text-[10px] font-bold uppercase text-green-300"
+            >
+              Light Armor // Scholar
+            </div>
+
+            <h2 class="mt-1 text-2xl font-black text-white">
+              💀 Necromancer
+            </h2>
+          </div>
+
+          <div
+            class="rounded border border-slate-800 bg-slate-950 px-3 py-2 text-xs font-mono text-white"
+          >
+            Life Force // Shroud
+          </div>
+
+        </div>
+
+        <div
+          class="mt-4 text-xs font-bold uppercase tracking-wider text-amber-400"
+        >
+          Vibe: Dark Sorcerer // Minion Master // Durable Caster
+        </div>
+
+        <div
+          class="mt-4 rounded-sm border-l-4 border-green-400 bg-slate-950 p-4"
+        >
+          <div
+            class="font-mono text-xs font-bold uppercase tracking-wider text-green-300"
+          >
+            Picture Yourself in Battle
+          </div>
+
+          <p class="mt-2 text-sm italic leading-6 text-white">
+            Enemies fall around you and feed your Life Force. When things get
+            dangerous, you enter Shroud, gain a new set of abilities, and keep
+            fighting while dark magic spreads through the battlefield.
+          </p>
+        </div>
+
+        <div class="mt-5">
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-white">
+            How It Plays
+          </h3>
+
+          <p class="mt-2 text-sm leading-6 text-white">
+            Necromancers build Life Force and spend it through their Shroud
+            mechanic. They tend to feel durable, forgiving, and comfortable in
+            messy fights while still bringing conditions, control, minions, or
+            support depending on the build.
+          </p>
+        </div>
+
+        <div class="mt-5">
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-green-300">
+            Specialization Options
+          </h3>
+
+          <ul class="mt-2 space-y-2 text-sm leading-6 text-white">
+            <li><strong>Reaper:</strong> Greatsword, close-range pressure, and a powerful scythe-themed Shroud.</li>
+            <li><strong>Scourge:</strong> Sand Shades, conditions, barriers, and strong support tools.</li>
+            <li><strong>Harbinger:</strong> Pistol, elixirs, high mobility, and aggressive risk-versus-reward gameplay.</li>
+            <li><strong>Ritualist:</strong> Ritualist's Shroud, ancestral spirits, and weapon-spell style abilities.</li>
+          </ul>
+        </div>
+
+        <div
+          class="mt-5 rounded-sm border border-green-400/30 bg-green-400/[0.04] p-4 text-sm font-bold text-green-300"
+        >
+          Pick Necromancer if you want: dark magic, strong survival, Shroud gameplay, and undead flavor.
+        </div>
+
+      </section>
+
+      <!-- QUICK CLASS PICKER -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-cyan-400"
+        >
+          Quick Class Picker
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Still not sure?
+        </h2>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Find the sentence that sounds closest to what you want to do.
+        </p>
+
+        <div class="mt-5 grid gap-3 md:grid-cols-2">
+
+          <a
+            href="#guardian"
+            class="rounded-sm border border-slate-800 bg-slate-950 p-4 hover:border-cyan-400/50"
+          >
+            <div class="font-bold text-cyan-300">🛡️ Guardian</div>
+            <p class="mt-1 text-sm text-white">
+              “I want to protect people, use holy-looking magic, and still hit hard.”
+            </p>
+          </a>
+
+          <a
+            href="#revenant"
+            class="rounded-sm border border-slate-800 bg-slate-950 p-4 hover:border-cyan-400/50"
+          >
+            <div class="font-bold text-cyan-300">🌀 Revenant</div>
+            <p class="mt-1 text-sm text-white">
+              “I want to channel legendary figures and swap styles during combat.”
+            </p>
+          </a>
+
+          <a
+            href="#warrior"
+            class="rounded-sm border border-slate-800 bg-slate-950 p-4 hover:border-cyan-400/50"
+          >
+            <div class="font-bold text-cyan-300">⚔️ Warrior</div>
+            <p class="mt-1 text-sm text-white">
+              “Give me a big weapon and let me hit things really hard.”
+            </p>
+          </a>
+
+          <a
+            href="#engineer"
+            class="rounded-sm border border-slate-800 bg-slate-950 p-4 hover:border-amber-400/50"
+          >
+            <div class="font-bold text-amber-300">⚙️ Engineer</div>
+            <p class="mt-1 text-sm text-white">
+              “I want gadgets, flamethrowers, robots, and weird tools.”
+            </p>
+          </a>
+
+          <a
+            href="#ranger"
+            class="rounded-sm border border-slate-800 bg-slate-950 p-4 hover:border-amber-400/50"
+          >
+            <div class="font-bold text-amber-300">🏹 Ranger</div>
+            <p class="mt-1 text-sm text-white">
+              “I want an animal companion, bows, and nature magic.”
+            </p>
+          </a>
+
+          <a
+            href="#thief"
+            class="rounded-sm border border-slate-800 bg-slate-950 p-4 hover:border-amber-400/50"
+          >
+            <div class="font-bold text-amber-300">🗡️ Thief</div>
+            <p class="mt-1 text-sm text-white">
+              “I want stealth, teleports, fast attacks, and lots of movement.”
+            </p>
+          </a>
+
+          <a
+            href="#elementalist"
+            class="rounded-sm border border-slate-800 bg-slate-950 p-4 hover:border-green-400/50"
+          >
+            <div class="font-bold text-green-300">🌋 Elementalist</div>
+            <p class="mt-1 text-sm text-white">
+              “I want a ton of magic and don't mind learning lots of buttons.”
+            </p>
+          </a>
+
+          <a
+            href="#mesmer"
+            class="rounded-sm border border-slate-800 bg-slate-950 p-4 hover:border-green-400/50"
+          >
+            <div class="font-bold text-green-300">🔮 Mesmer</div>
+            <p class="mt-1 text-sm text-white">
+              “I want illusions, portals, tricks, and weird purple magic.”
+            </p>
+          </a>
+
+          <a
+            href="#necromancer"
+            class="rounded-sm border border-slate-800 bg-slate-950 p-4 hover:border-green-400/50 md:col-span-2"
+          >
+            <div class="font-bold text-green-300">💀 Necromancer</div>
+            <p class="mt-1 text-sm text-white">
+              “I want dark magic, good survival, Shroud, and maybe some undead friends.”
+            </p>
+          </a>
+
+        </div>
+
+      </section>
+
+      <!-- VETERAN FIELD NOTE -->
+      <section
+        class="rounded-sm border border-amber-400/30 bg-amber-400/[0.04] p-5 sm:p-6"
+      >
+
+        <div
+          class="section-label text-[10px] font-black uppercase text-amber-400"
+        >
+          Veteran Field Note
+        </div>
+
+        <h2 class="mt-2 text-xl font-black text-white">
+          Your first profession doesn't have to be your forever profession
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Guild Wars 2 is very alt-friendly. If a profession looks fun, try it.
+          You don't need to solve your entire account before creating your
+          first character.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Even better, elite specializations can make the same profession feel
+          completely different later on.
+        </p>
+
+      </section>
+
+      <!-- TRY IT -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-green-300"
+        >
+          Try It in Tyria
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Pick three, then narrow it down
+        </h2>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Don't stare at all nine professions until they blur together.
+          Pick the three that sound coolest and compare those.
+        </p>
+
+        <div class="mt-5 grid gap-3 md:grid-cols-3">
+
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="mb-2 font-mono text-xs font-bold uppercase tracking-wider text-cyan-400"
+            >
+              Fantasy
+            </div>
+
+            <p class="text-sm leading-6 text-white">
+              Which profession looks and sounds the coolest to you?
+            </p>
+
+          </div>
+
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="mb-2 font-mono text-xs font-bold uppercase tracking-wider text-cyan-400"
+            >
+              Movement
+            </div>
+
+            <p class="text-sm leading-6 text-white">
+              Do you want something fast and busy, steady and durable, or
+              somewhere in the middle?
+            </p>
+
+          </div>
+
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="mb-2 font-mono text-xs font-bold uppercase tracking-wider text-cyan-400"
+            >
+              Tools
+            </div>
+
+            <p class="text-sm leading-6 text-white">
+              Pets? Big weapons? Magic? Stealth? Gadgets? Pick the thing that
+              makes you want to press buttons.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- KEEP BROWSING -->
+      <section>
+
+        <div class="mb-4">
+
+          <div
+            class="section-label text-[10px] font-bold uppercase text-cyan-400"
+          >
+            Keep Browsing
+          </div>
+
+          <h2 class="mt-1 text-2xl font-black text-white">
+            Related field records
+          </h2>
+
+        </div>
+
+        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+
+          <a
+            href="../class106/index.html"
+            class="terminal-panel group rounded-sm p-5 transition hover:border-cyan-400/40"
+          >
+
+            <div
+              class="section-label text-[10px] font-bold uppercase text-white"
+            >
+              Previous // 106
+            </div>
+
+            <h3
+              class="mt-2 text-lg font-bold text-white group-hover:text-cyan-300"
+            >
+              Traits & Templates
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Learn what all those trait lines and build slots actually do.
+            </p>
+
+          </a>
+
+          <a
+            href="../class201/index.html"
+            class="terminal-panel group rounded-sm p-5 transition hover:border-cyan-400/40"
+          >
+
+            <div
+              class="section-label text-[10px] font-bold uppercase text-cyan-400"
+            >
+              Next // 201
+            </div>
+
+            <h3
+              class="mt-2 text-lg font-bold text-white group-hover:text-cyan-300"
+            >
+              Boons & Breakbars
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Start learning the combat language every profession eventually
+              needs to understand.
+            </p>
+
+          </a>
+
+          <a
+            href="../class301/index.html"
+            class="terminal-panel group rounded-sm p-5 transition hover:border-cyan-400/40 sm:col-span-2 lg:col-span-1"
+          >
+
+            <div
+              class="section-label text-[10px] font-bold uppercase text-amber-400"
+            >
+              Later // 301
+            </div>
+
+            <h3
+              class="mt-2 text-lg font-bold text-white group-hover:text-cyan-300"
+            >
+              Build Theory
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Once you know what you enjoy playing, learn how to shape a build
+              around it.
+            </p>
+
+          </a>
+
+        </div>
+
+      </section>
+
+      <!-- RETURN -->
+      <div class="flex justify-center pt-2">
+
+        <a
+          href="../index.html#archives"
+          class="terminal-button w-full rounded-sm px-5 py-3 text-xs font-black uppercase tracking-wider sm:w-auto"
+        >
+          ← Return to Archives
+        </a>
+
+      </div>
 
     </div>
 
   </main>
 
-  <!-- CATEGORY: FOOTER WITH CENTERED MOBILE FLOW -->
-  <footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-3 sm:px-6 py-2.5 sm:py-3">
-    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
-      
-      <!-- DESKTOP DISCLAIMER PARAGRAPH -->
-      <p class="hidden md:block text-xs text-slate-400 max-w-3xl leading-normal">
-        This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
-      </p>
+  <!-- ABOUT / CREDITS -->
+  <section class="border-t border-slate-800">
 
-      <!-- CREDITS LINKS -->
-      <div class="flex items-center justify-center space-x-2 sm:space-x-4 text-xs">
-        <span class="text-slate-300">
-          Written by <a href="https://liar.fyi" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 font-bold">The Liars Guild</a>
-        </span>
-        <span class="text-slate-700">|</span>
-        <span class="text-slate-300">
-          Site Builder: <a href="https://qkommand.github.io/home/" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 font-bold">Commander Q</a>
-        </span>
+    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+
+      <div class="grid gap-5 sm:grid-cols-2">
+
+        <div>
+
+          <div
+            class="section-label text-[10px] font-bold uppercase text-cyan-400"
+          >
+            Terminal 77-B
+          </div>
+
+          <p class="mt-2 text-xs leading-5 text-white">
+            A Guild Wars 2 community guide for new and returning players.
+          </p>
+
+        </div>
+
+        <div class="text-xs leading-6 text-white sm:text-right">
+
+          <p>
+            Written with help from
+            <a
+              href="https://liar.fyi"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-bold text-cyan-400 underline decoration-cyan-500/30 underline-offset-4"
+            >
+              [Liar]
+            </a>
+          </p>
+
+          <p>
+            Site built by
+            <a
+              href="https://qkommand.github.io/home/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-bold text-cyan-400 underline decoration-cyan-500/30 underline-offset-4"
+            >
+              Commander Q
+            </a>
+          </p>
+
+        </div>
+
       </div>
 
-      <!-- MOBILE DISCLAIMER MODAL TRIGGER -->
-      <button 
-        onclick="toggleDisclaimer('on')"
-        class="md:hidden text-xs text-slate-400 hover:text-cyan-400 underline cursor-pointer font-semibold uppercase tracking-wider"
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800 bg-slate-950">
+
+    <div class="mx-auto max-w-6xl px-4 py-5 text-center sm:px-6">
+
+      <p
+        class="mx-auto max-w-4xl text-[10px] leading-5 text-white sm:text-xs"
       >
-        [Disclaimer]
-      </button>
+        Terminal 77-B is an unofficial Guild Wars 2 community fansite and is
+        not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation.
+        Guild Wars, Guild Wars 2, ArenaNet, and associated names and marks are
+        the property of their respective owners.
+      </p>
 
     </div>
+
   </footer>
 
-  <!-- CATEGORY: DISCLAIMER OVERLAY MODAL -->
-  <div 
-    id="disclaimer-modal" 
-    class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4"
-  >
-    <div class="bg-slate-900 border border-cyan-500/40 rounded p-5 max-w-md w-full space-y-4 glow-cyan">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-        <h3 class="text-sm font-bold text-cyan-400 tracking-wider uppercase font-mono">
-          /// LEGAL DISCLAIMER
-        </h3>
-        <button 
-          onclick="toggleDisclaimer('off')" 
-          class="text-slate-400 hover:text-white font-bold text-base px-2 cursor-pointer"
-        >
-          ✕
-        </button>
-      </div>
-
-      <p class="text-sm text-slate-300 leading-relaxed">
-        This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
-      </p>
-
-      <button 
-        onclick="toggleDisclaimer('off')" 
-        class="w-full py-2.5 bg-slate-950 border border-cyan-500/50 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all text-center block cursor-pointer"
-      >
-        Acknowledge
-      </button>
-    </div>
-  </div>
-
-  <!-- CATEGORY: LOGIC ENGINE -->
-  <script>
-    /* CATEGORY: DISCLAIMER MODAL CONTROLLER */
-    function toggleDisclaimer(state) {
-      const modal = document.getElementById('disclaimer-modal');
-      if (!modal) return;
-      if (state === 'on') {
-        modal.classList.remove('hidden');
-      } else {
-        modal.classList.add('hidden');
-      }
-    }
-
-    /* CATEGORY: TOAST NOTIFICATION ENGINE */
-    let toastTimeout = null;
-    let lastHandledUtcMinute = -1;
-
-    function triggerToast(title, message) {
-      const toast = document.getElementById('toast-notification');
-      const titleEl = document.getElementById('toast-title');
-      const msgEl = document.getElementById('toast-message');
-
-      if (!toast || !titleEl || !msgEl) return;
-
-      titleEl.innerText = title;
-      msgEl.innerText = message;
-      toast.classList.remove('hidden');
-
-      if (toastTimeout) clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        dismissToast();
-      }, 9000);
-    }
-
-    function dismissToast() {
-      const toast = document.getElementById('toast-notification');
-      if (toast) toast.classList.add('hidden');
-    }
-
-    /* CATEGORY: CHECKLIST STATE MANAGEMENT */
-    const STORAGE_KEY = 'priory_class107_checkboxes';
-    let checklistCompletedState = 'off';
-
-    function updateChecklist() {
-      const boxes = document.querySelectorAll('.id-check');
-      let checkedCount = 0;
-      const savedState = {};
-
-      boxes.forEach(box => {
-        const id = box.getAttribute('data-id');
-        if (box.checked) {
-          checkedCount++;
-          savedState[id] = 'on';
-        } else {
-          savedState[id] = 'off';
-        }
-      });
-
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
-
-      const statusEl = document.getElementById('checklist-status');
-      statusEl.innerText = `[${checkedCount} / ${boxes.length} DONE]`;
-
-      if (checkedCount === boxes.length) {
-        checklistCompletedState = 'on';
-        statusEl.className = 'text-xs sm:text-sm text-emerald-400 font-bold';
-      } else {
-        checklistCompletedState = 'off';
-        statusEl.className = 'text-xs sm:text-sm text-amber-400 font-bold';
-      }
-    }
-
-    function loadChecklistState() {
-      const savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-      const boxes = document.querySelectorAll('.id-check');
-
-      boxes.forEach(box => {
-        const id = box.getAttribute('data-id');
-        if (savedState[id] === 'on') {
-          box.checked = true;
-        }
-      });
-
-      updateChecklist();
-    }
-
-    /* CATEGORY: UNIVERSAL CLOCKS & RESET DETECTOR ENGINE */
-    function updateClocks() {
-      const now = new Date();
-      
-      const utcHours = now.getUTCHours();
-      const utcMins = now.getUTCMinutes();
-      const utcSecs = now.getUTCSeconds();
-      const utcDay = now.getUTCDay();
-
-      const strUtcHours = String(utcHours).padStart(2, '0');
-      const strUtcMins = String(utcMins).padStart(2, '0');
-      const strUtcSecs = String(utcSecs).padStart(2, '0');
-
-      document.getElementById('server-clock').innerText = `${strUtcHours}:${strUtcMins}:${strUtcSecs} UTC`;
-
-      /* RESET DETECTION LOGIC (DAILY: 00:00:00 UTC | WEEKLY: MON 07:30:00 UTC) */
-      if (utcSecs === 0 && utcMins !== lastHandledUtcMinute) {
-        lastHandledUtcMinute = utcMins;
-
-        if (utcHours === 0 && utcMins === 0) {
-          triggerToast("DAILY RESET DETECTED", "GW2 server daily reset is live! Daily achievements & wizards vault updated.");
-        } else if (utcDay === 1 && utcHours === 7 && utcMins === 30) {
-          triggerToast("WEEKLY RESET DETECTED", "GW2 server weekly reset is live! Raids, strikes, and weekly tasks refreshed.");
-        }
-      }
-
-      /* TYRIAN TIME CALCULATOR */
-      const totalUtcSec = (utcHours * 3600) + (utcMins * 60) + utcSecs;
-      const cycleOffset = 1500;
-      const secondsInto2HrCycle = (totalUtcSec - cycleOffset + 720000) % 7200;
-
-      const tyrianSecFromMidnight = (secondsInto2HrCycle * 12 + 21600) % 86400;
-      const tyrianHour = Math.floor(tyrianSecFromMidnight / 3600);
-      const tyrianMin = Math.floor((tyrianSecFromMidnight % 3600) / 60);
-
-      const formattedTyrianHour = String(tyrianHour).padStart(2, '0');
-      const formattedTyrianMin = String(tyrianMin).padStart(2, '0');
-
-      let icon = '☀️';
-      if (tyrianHour >= 5 && tyrianHour < 6) icon = '🌅';
-      else if (tyrianHour >= 6 && tyrianHour < 20) icon = '☀️';
-      else if (tyrianHour >= 20 && tyrianHour < 21) icon = '🌆';
-      else icon = '🌙';
-
-      document.getElementById('tyria-clock-time').innerHTML = `${icon} <span>${formattedTyrianHour}:${formattedTyrianMin}</span>`;
-    }
-
-    /* CATEGORY: INITIALIZATION */
-    document.addEventListener('DOMContentLoaded', () => {
-      updateClocks();
-      loadChecklistState();
-      setInterval(updateClocks, 1000);
-    });
-  </script>
 </body>
 </html>
