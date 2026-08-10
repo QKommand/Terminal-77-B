@@ -12,7 +12,7 @@
 
   <meta
     name="description"
-    content="Terminal 77-B Field Archive 101 covers movement, strafing, dodging, camera control, and comfortable keybinds for Guild Wars 2."
+    content="Terminal 77-B Field Archive 101 covers keybinds, movement, camera control, combat basics, and interface setup for Guild Wars 2."
   />
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -137,57 +137,33 @@
   </style>
 </head>
 
-<body class="min-h-screen text-slate-100">
+<body class="min-h-screen text-white">
 
-  <!-- =========================================================
-       HEADER
-       ========================================================= -->
-  <header
-    class="sticky top-0 z-50 border-b border-cyan-500/20 bg-slate-950/95 backdrop-blur-xl"
-  >
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 border-b border-cyan-500/20 bg-slate-950/95 backdrop-blur-xl">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
       <div class="flex min-h-[64px] items-center justify-between gap-3">
 
-        <a
-          href="../index.html"
-          class="flex min-w-0 items-center gap-3"
-          aria-label="Return to Terminal 77-B"
-        >
-          <div
-            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-cyan-400/30 bg-cyan-400/5 text-cyan-300"
-            aria-hidden="true"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              class="h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.6"
-            >
+        <a href="../index.html" class="flex min-w-0 items-center gap-3">
+          <div class="flex h-9 w-9 items-center justify-center rounded-sm border border-cyan-400/30 bg-cyan-400/5 text-cyan-300">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6">
               <path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6l-8-4Z"/>
               <path d="m8 13 2.5-6 1.5 4 1.5-4L16 13"/>
             </svg>
           </div>
 
-          <div class="min-w-0">
-            <div
-              class="truncate text-xs font-black uppercase tracking-[0.18em] text-cyan-300 sm:text-sm"
-            >
+          <div>
+            <div class="text-xs font-black uppercase tracking-[0.18em] text-cyan-300">
               Terminal 77-B
             </div>
-
-            <div
-              class="hidden text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-500 sm:block"
-            >
+            <div class="hidden text-[9px] font-semibold uppercase tracking-[0.18em] text-white sm:block">
               Tyrian Strategy Guidebook
             </div>
           </div>
         </a>
 
-        <a
-          href="../index.html#archives"
-          class="flex min-h-[42px] items-center justify-center rounded border border-slate-700 bg-slate-900 px-3 text-[10px] font-bold uppercase tracking-wider text-slate-300 hover:border-cyan-500/50 hover:text-cyan-300 sm:px-4 sm:text-xs"
-        >
+        <a href="../index.html#archives"
+           class="rounded border border-slate-700 bg-slate-900 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-white hover:border-cyan-500/50 hover:text-cyan-300">
           ← Archives
         </a>
 
@@ -197,456 +173,102 @@
 
   <main>
 
-    <!-- =======================================================
-         RECORD HERO
-         ======================================================= -->
+    <!-- HERO -->
     <section class="border-b border-cyan-500/10">
-      <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+      <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
 
-        <div
-          class="section-label text-[10px] font-bold uppercase text-cyan-400 sm:text-xs"
-        >
+        <div class="section-label text-[10px] font-bold uppercase text-cyan-400">
           Field Archive // 101
         </div>
 
-        <h1
-          class="mt-3 text-3xl font-black tracking-tight text-white sm:text-5xl"
-        >
+        <h1 class="mt-3 text-3xl font-black sm:text-5xl">
           Keybinds & Movement
         </h1>
 
-        <p
-          class="mt-3 max-w-3xl text-base leading-7 text-slate-300 sm:text-lg"
-        >
-          Get your controls comfortable enough that you can watch the fight
-          instead of fighting your keyboard.
+        <p class="mt-3 max-w-3xl text-base leading-7 text-white sm:text-lg">
+          Before anything else in Guild Wars 2, you need to be able to move comfortably.
+          This is your foundation for everything that comes after.
         </p>
-
-        <div class="mt-6 flex flex-wrap gap-2">
-
-          <span
-            class="rounded border border-cyan-500/20 bg-cyan-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-cyan-300"
-          >
-            Movement
-          </span>
-
-          <span
-            class="rounded border border-cyan-500/20 bg-cyan-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-cyan-300"
-          >
-            Dodging
-          </span>
-
-          <span
-            class="rounded border border-cyan-500/20 bg-cyan-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-cyan-300"
-          >
-            Keybinds
-          </span>
-
-        </div>
 
       </div>
     </section>
 
-    <!-- =======================================================
-         CONTENT
-         ======================================================= -->
-    <div class="mx-auto max-w-6xl space-y-6 px-4 py-8 sm:px-6 sm:py-10">
+    <!-- CONTENT -->
+    <div class="mx-auto max-w-6xl space-y-6 px-4 py-10 sm:px-6">
 
-      <!-- AT A GLANCE -->
-      <section>
+      <!-- CORE -->
+      <section class="terminal-panel rounded-sm p-6">
 
-        <div class="mb-4">
-          <div
-            class="section-label text-[10px] font-bold uppercase text-cyan-400"
-          >
-            At a Glance
-          </div>
-
-          <h2 class="mt-1 text-2xl font-black text-white">
-            What matters here
-          </h2>
-        </div>
-
-        <div class="grid gap-3 md:grid-cols-3">
-
-          <article class="terminal-panel rounded-sm p-5">
-
-            <div
-              class="section-label text-[10px] font-black uppercase text-cyan-400"
-            >
-              Move
-            </div>
-
-            <h3 class="mt-2 text-lg font-bold text-white">
-              Stay mobile
-            </h3>
-
-            <p class="mt-2 text-sm leading-6 text-slate-400">
-              Guild Wars 2 lets you move while using most skills. Good movement
-              can keep you out of danger without stopping what you're doing.
-            </p>
-
-          </article>
-
-          <article class="terminal-panel rounded-sm p-5">
-
-            <div
-              class="section-label text-[10px] font-black uppercase text-amber-400"
-            >
-              Dodge
-            </div>
-
-            <h3 class="mt-2 text-lg font-bold text-white">
-              Save it for when you need it
-            </h3>
-
-            <p class="mt-2 text-sm leading-6 text-slate-400">
-              Dodging gives you a short evade window, but it costs endurance.
-              You don't need to dodge every attack you see.
-            </p>
-
-          </article>
-
-          <article class="terminal-panel rounded-sm p-5">
-
-            <div
-              class="section-label text-[10px] font-black uppercase text-violet-300"
-            >
-              Comfort
-            </div>
-
-            <h3 class="mt-2 text-lg font-bold text-white">
-              Your binds are yours
-            </h3>
-
-            <p class="mt-2 text-sm leading-6 text-slate-400">
-              There isn't one perfect control setup. The goal is to reach the
-              skills you use often without awkward stretching or looking down.
-            </p>
-
-          </article>
-
-        </div>
-
-      </section>
-
-      <!-- CORE LESSON -->
-      <section class="terminal-panel rounded-sm p-5 sm:p-7">
-
-        <div
-          class="section-label text-[10px] font-bold uppercase text-amber-400"
-        >
+        <div class="section-label text-[10px] font-bold uppercase text-amber-400">
           Core Lesson
         </div>
 
-        <h2 class="mt-2 text-2xl font-black text-white">
-          Get comfortable before you get clever
+        <h2 class="mt-2 text-2xl font-black">
+          Movement is the real skill check
         </h2>
 
-        <p class="mt-3 max-w-4xl text-sm leading-7 text-slate-300 sm:text-base">
-          Good controls aren't about copying somebody else's keyboard layout.
-          They're about making movement and your most-used skills feel natural.
-          If you're constantly reaching across the keyboard or looking down to
-          find a button, move that button somewhere easier.
+        <p class="mt-3 text-sm leading-7 text-white">
+          You can have perfect gear and still struggle if you can't move well.
+          Learn to strafe, dodge, and reposition without thinking about it.
         </p>
 
-        <p class="mt-3 max-w-4xl text-sm leading-7 text-slate-300 sm:text-base">
-          Think of your controls like arranging tools on a workbench. The ones
-          you grab all the time should be close. The ones you rarely touch can
-          live farther away.
+        <p class="mt-3 text-sm leading-7 text-white">
+          Most combat in Guild Wars 2 is about staying alive while still dealing damage.
+          Standing still is almost always a mistake.
         </p>
 
       </section>
 
-      <!-- THREE FIELD NOTES -->
-      <div class="grid gap-4 lg:grid-cols-3">
+      <!-- GRID -->
+      <div class="grid gap-4 md:grid-cols-2">
 
-        <!-- STRAFING -->
-        <section class="terminal-panel rounded-sm p-5 sm:p-6">
-
-          <div
-            class="section-label text-[10px] font-black uppercase text-cyan-400"
-          >
-            01 // Movement
+        <section class="terminal-panel rounded-sm p-6">
+          <div class="section-label text-[10px] font-bold uppercase text-cyan-400">
+            01 // Camera Control
           </div>
 
-          <h3 class="mt-2 text-xl font-bold text-white">
-            Strafe instead of turning
-          </h3>
+          <h3 class="mt-2 text-xl font-bold">Your eyes are a weapon</h3>
 
-          <p class="mt-3 text-sm leading-6 text-slate-300">
-            Strafing lets you move sideways while keeping your character and
-            camera pointed toward the fight. Many players bind
-            <strong class="text-white">A</strong> and
-            <strong class="text-white">D</strong> to strafe instead of keyboard
-            turning.
+          <p class="mt-3 text-sm leading-6 text-white">
+            Keep your camera moving. Always know what's around you, not just what's in front.
           </p>
-
-          <p class="mt-3 text-sm leading-6 text-slate-400">
-            Holding the right mouse button also lets you steer the camera and
-            quickly change direction while moving.
-          </p>
-
-          <div
-            class="mt-5 rounded-sm border border-slate-800 bg-slate-950 p-3 font-mono text-xs text-cyan-300"
-          >
-            Common setup: A = Strafe Left // D = Strafe Right
-          </div>
-
         </section>
 
-        <!-- DODGE -->
-        <section class="terminal-panel rounded-sm p-5 sm:p-6">
-
-          <div
-            class="section-label text-[10px] font-black uppercase text-amber-400"
-          >
-            02 // Dodge
+        <section class="terminal-panel rounded-sm p-6">
+          <div class="section-label text-[10px] font-bold uppercase text-green-300">
+            02 // Dodge Timing
           </div>
 
-          <h3 class="mt-2 text-xl font-bold text-white">
-            Give dodge its own button
-          </h3>
+          <h3 class="mt-2 text-xl font-bold">Don't waste endurance</h3>
 
-          <p class="mt-3 text-sm leading-6 text-slate-300">
-            Double-tap dodge works, but it can also cause accidental dodges when
-            you're trying to make small movement adjustments or move near an
-            edge.
+          <p class="mt-3 text-sm leading-6 text-white">
+            Dodging too early is the same as not dodging at all. Wait for the actual danger.
           </p>
-
-          <p class="mt-3 text-sm leading-6 text-slate-400">
-            A dedicated dodge button gives you more control. Pick something
-            that's easy for your hand to reach without disrupting movement.
-          </p>
-
-          <div
-            class="mt-5 rounded-sm border border-slate-800 bg-slate-950 p-3 font-mono text-xs text-cyan-300"
-          >
-            Examples: Mouse 4 // C // V // another comfortable key
-          </div>
-
-        </section>
-
-        <!-- PROFESSION SKILLS -->
-        <section class="terminal-panel rounded-sm p-5 sm:p-6">
-
-          <div
-            class="section-label text-[10px] font-black uppercase text-violet-300"
-          >
-            03 // Profession Skills
-          </div>
-
-          <h3 class="mt-2 text-xl font-bold text-white">
-            Bring important skills closer
-          </h3>
-
-          <p class="mt-3 text-sm leading-6 text-slate-300">
-            Profession mechanics often live on
-            <strong class="text-white">F1-F5</strong>. Depending on your
-            keyboard and profession, those keys may be perfectly comfortable
-            or annoyingly far away.
-          </p>
-
-          <p class="mt-3 text-sm leading-6 text-slate-400">
-            If you're stretching for them, move frequently used profession
-            skills closer to your movement hand or mouse.
-          </p>
-
-          <div
-            class="mt-5 rounded-sm border border-slate-800 bg-slate-950 p-3 font-mono text-xs text-cyan-300"
-          >
-            Options: Q // E // R // Shift + keys // mouse side buttons
-          </div>
-
         </section>
 
       </div>
 
-      <!-- VETERAN FIELD NOTE -->
-      <section
-        class="rounded-sm border border-amber-400/30 bg-amber-400/[0.04] p-5 sm:p-6"
-      >
+      <!-- TIP -->
+      <section class="rounded-sm border border-amber-400/30 bg-amber-400/[0.04] p-6">
 
-        <div
-          class="section-label text-[10px] font-black uppercase text-amber-400"
-        >
-          Veteran Field Note
+        <div class="section-label text-[10px] font-bold uppercase text-amber-400">
+          Veteran Tip
         </div>
 
-        <h2 class="mt-2 text-xl font-black text-white">
-          Don't dodge what you can walk out of
+        <h2 class="mt-2 text-xl font-black">
+          Rebind everything you hate
         </h2>
 
-        <p class="mt-3 max-w-4xl text-sm leading-7 text-slate-300 sm:text-base">
-          A lot of attacks give you enough time to simply move out of the way.
-          If walking or strafing gets you somewhere safe, save your endurance.
-          That leaves your dodge ready for the attack that actually needs it.
+        <p class="mt-3 text-sm leading-6 text-white">
+          If a key feels awkward, change it. There is no “correct” layout—only what your hands can execute quickly.
         </p>
-
-        <p class="mt-3 text-sm leading-6 text-slate-400">
-          Early on, the goal isn't perfect movement. Start noticing the
-          difference between <strong class="text-slate-200">“I can move”</strong>
-          and <strong class="text-slate-200">“I need to dodge.”</strong>
-        </p>
-
-      </section>
-
-      <!-- TRY IT -->
-      <section class="terminal-panel rounded-sm p-5 sm:p-7">
-
-        <div
-          class="section-label text-[10px] font-bold uppercase text-green-300"
-        >
-          Try It in Tyria
-        </div>
-
-        <h2 class="mt-2 text-2xl font-black text-white">
-          A few things worth practicing
-        </h2>
-
-        <p class="mt-3 text-sm leading-6 text-slate-400">
-          No checklist. Just try these the next time you're somewhere safe
-          enough to experiment.
-        </p>
-
-        <div class="mt-5 grid gap-3 md:grid-cols-3">
-
-          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
-
-            <div
-              class="mb-2 font-mono text-xs font-bold uppercase tracking-wider text-cyan-400"
-            >
-              Move
-            </div>
-
-            <p class="text-sm leading-6 text-slate-300">
-              Circle around an enemy or training target while keeping your
-              camera pointed toward it.
-            </p>
-
-          </div>
-
-          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
-
-            <div
-              class="mb-2 font-mono text-xs font-bold uppercase tracking-wider text-cyan-400"
-            >
-              Compare
-            </div>
-
-            <p class="text-sm leading-6 text-slate-300">
-              Walk out of one enemy attack, then use a dodge on another and
-              notice how each option feels.
-            </p>
-
-          </div>
-
-          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
-
-            <div
-              class="mb-2 font-mono text-xs font-bold uppercase tracking-wider text-cyan-400"
-            >
-              Adjust
-            </div>
-
-            <p class="text-sm leading-6 text-slate-300">
-              Use your profession mechanic a few times. If you have to look
-              down or stretch awkwardly, try a different bind.
-            </p>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- NEXT RECORDS -->
-      <section>
-
-        <div class="mb-4">
-
-          <div
-            class="section-label text-[10px] font-bold uppercase text-cyan-400"
-          >
-            Keep Browsing
-          </div>
-
-          <h2 class="mt-1 text-2xl font-black text-white">
-            Related field records
-          </h2>
-
-        </div>
-
-        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-
-          <a
-            href="../class102/index.html"
-            class="terminal-panel group rounded-sm p-5 transition hover:border-cyan-400/40"
-          >
-            <div
-              class="section-label text-[10px] font-bold uppercase text-cyan-400"
-            >
-              Next // 102
-            </div>
-
-            <h3 class="mt-2 text-lg font-bold text-white group-hover:text-cyan-300">
-              Exploration
-            </h3>
-
-            <p class="mt-2 text-sm leading-6 text-slate-400">
-              Maps, waypoints, events and finding your way around Tyria.
-            </p>
-          </a>
-
-          <a
-            href="../class106/index.html"
-            class="terminal-panel group rounded-sm p-5 transition hover:border-cyan-400/40"
-          >
-            <div
-              class="section-label text-[10px] font-bold uppercase text-violet-300"
-            >
-              Related // 106
-            </div>
-
-            <h3 class="mt-2 text-lg font-bold text-white group-hover:text-cyan-300">
-              Traits & Templates
-            </h3>
-
-            <p class="mt-2 text-sm leading-6 text-slate-400">
-              Start understanding what your profession skills and traits are
-              trying to do.
-            </p>
-          </a>
-
-          <a
-            href="../class204/index.html"
-            class="terminal-panel group rounded-sm p-5 transition hover:border-cyan-400/40 sm:col-span-2 lg:col-span-1"
-          >
-            <div
-              class="section-label text-[10px] font-bold uppercase text-amber-400"
-            >
-              Later // 204
-            </div>
-
-            <h3 class="mt-2 text-lg font-bold text-white group-hover:text-cyan-300">
-              Encounters & Timing
-            </h3>
-
-            <p class="mt-2 text-sm leading-6 text-slate-400">
-              Take movement into real fights and start reading enemy attacks.
-            </p>
-          </a>
-
-        </div>
 
       </section>
 
       <!-- RETURN -->
       <div class="flex justify-center pt-2">
-        <a
-          href="../index.html#archives"
-          class="terminal-button w-full rounded-sm px-5 py-3 text-xs font-black uppercase tracking-wider sm:w-auto"
-        >
+        <a href="../index.html#archives"
+           class="terminal-button w-full rounded-sm px-5 py-3 text-xs font-black uppercase tracking-wider sm:w-auto">
           ← Return to Archives
         </a>
       </div>
@@ -655,75 +277,13 @@
 
   </main>
 
-  <!-- =========================================================
-       ABOUT / CREDITS
-       ========================================================= -->
-  <section class="border-t border-slate-800">
-    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-
-      <div class="grid gap-5 sm:grid-cols-2">
-
-        <div>
-          <div
-            class="section-label text-[10px] font-bold uppercase text-cyan-400"
-          >
-            Terminal 77-B
-          </div>
-
-          <p class="mt-2 text-xs leading-5 text-slate-500">
-            A Guild Wars 2 community guide for new and returning players.
-          </p>
-        </div>
-
-        <div class="text-xs leading-6 text-slate-500 sm:text-right">
-
-          <p>
-            Written with help from
-            <a
-              href="https://liar.fyi"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="font-bold text-cyan-400 underline decoration-cyan-500/30 underline-offset-4"
-            >
-              [Liar]
-            </a>
-          </p>
-
-          <p>
-            Site built by
-            <a
-              href="https://qkommand.github.io/home/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="font-bold text-cyan-400 underline decoration-cyan-500/30 underline-offset-4"
-            >
-              Commander Q
-            </a>
-          </p>
-
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- =========================================================
-       FOOTER
-       ========================================================= -->
+  <!-- FOOTER -->
   <footer class="border-t border-slate-800 bg-slate-950">
-
     <div class="mx-auto max-w-6xl px-4 py-5 text-center sm:px-6">
-
-      <p class="mx-auto max-w-4xl text-[10px] leading-5 text-slate-600 sm:text-xs">
-        Terminal 77-B is an unofficial Guild Wars 2 community fansite and is
-        not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation.
-        Guild Wars, Guild Wars 2, ArenaNet, and associated names and marks are
-        the property of their respective owners.
+      <p class="text-[10px] leading-5 text-white sm:text-xs">
+        Terminal 77-B is an unofficial Guild Wars 2 community fansite and is not affiliated with ArenaNet or NCSOFT.
       </p>
-
     </div>
-
   </footer>
 
 </body>
