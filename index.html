@@ -18,10 +18,8 @@
     :root {
       --terminal-bg: #020617;
       --terminal-panel: #0f172a;
-      --terminal-panel-soft: rgba(15, 23, 42, 0.72);
       --terminal-cyan: #22d3ee;
       --terminal-amber: #fbbf24;
-      --terminal-green: #86efac;
     }
 
     * {
@@ -155,16 +153,13 @@
 
 <body class="min-h-screen text-slate-100">
 
-  <!-- =========================================================
-       HEADER
-       ========================================================= -->
+  <!-- HEADER -->
   <header
     class="sticky top-0 z-50 border-b border-cyan-500/20 bg-slate-950/95 backdrop-blur-xl"
   >
     <div class="mx-auto max-w-7xl px-4 sm:px-6">
       <div class="flex min-h-[68px] items-center justify-between gap-4">
 
-        <!-- BRAND -->
         <a
           href="./index.html"
           class="flex min-w-0 items-center gap-3"
@@ -192,6 +187,7 @@
             >
               Terminal 77-B
             </div>
+
             <div
               class="hidden truncate text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500 sm:block"
             >
@@ -201,10 +197,8 @@
         </a>
 
         <!-- DESKTOP NAV -->
-        <nav
-          class="hidden items-center gap-1 md:flex"
-          aria-label="Main Navigation"
-        >
+        <nav class="hidden items-center gap-1 md:flex" aria-label="Main Navigation">
+
           <a
             href="#home"
             class="rounded px-3 py-2 text-xs font-bold uppercase tracking-wider text-amber-300 hover:bg-slate-900"
@@ -239,6 +233,7 @@
           >
             About
           </a>
+
         </nav>
 
         <!-- MOBILE MENU BUTTON -->
@@ -251,7 +246,6 @@
           aria-controls="mobileMenu"
         >
           <svg
-            id="menuIcon"
             viewBox="0 0 24 24"
             class="h-6 w-6"
             fill="none"
@@ -271,6 +265,7 @@
         class="mobile-menu hidden border-t border-slate-800 pb-4 pt-3 md:hidden"
       >
         <nav class="grid grid-cols-2 gap-2" aria-label="Mobile Navigation">
+
           <a
             href="#home"
             class="rounded border border-slate-800 bg-slate-900/70 px-4 py-3 text-center text-xs font-bold uppercase tracking-wider text-cyan-300"
@@ -303,28 +298,23 @@
             href="#about"
             class="col-span-2 rounded border border-slate-800 bg-slate-900/70 px-4 py-3 text-center text-xs font-bold uppercase tracking-wider text-slate-200"
           >
-            About Terminal
+            About
           </a>
+
         </nav>
       </div>
     </div>
   </header>
 
-  <!-- =========================================================
-       MAIN
-       ========================================================= -->
   <main id="home">
 
-    <!-- =======================================================
-         HERO
-         ======================================================= -->
+    <!-- HERO -->
     <section class="border-b border-cyan-500/10">
       <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:py-16">
 
         <div
           class="relative overflow-hidden rounded-sm border border-cyan-400/25 bg-slate-900"
         >
-          <!-- Atmospheric Background -->
           <div
             class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-cyan-950/30"
           ></div>
@@ -336,6 +326,7 @@
           <div
             class="relative max-w-4xl px-5 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16"
           >
+
             <div
               class="section-label mb-4 text-[10px] font-bold uppercase text-cyan-400 sm:text-xs"
             >
@@ -364,23 +355,25 @@
             <p
               class="mt-6 max-w-2xl text-base leading-relaxed text-slate-200 sm:text-lg"
             >
-              A community field guide for new and returning Guild Wars 2 players.
-              Learn the systems that matter, understand your character, and find
-              your next step in Tyria.
+              New to Guild Wars 2? Coming back after a long break?
+              Terminal 77-B is here to help you get your bearings without
+              drowning you in information.
             </p>
 
             <p
-              class="mt-5 text-sm font-semibold italic text-cyan-200 sm:text-base"
+              class="mt-4 max-w-2xl text-sm leading-6 text-slate-400 sm:text-base"
             >
-              Learn. Connect. Fight. Thrive in Tyria.
+              Look something up, learn how a system works, or just figure out
+              what you should probably do next.
             </p>
 
             <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+
               <a
                 href="#archives"
                 class="terminal-button rounded-sm px-5 py-3 text-xs font-black uppercase tracking-wider"
               >
-                Enter Training Archives
+                Browse the Guides
                 <span aria-hidden="true">→</span>
               </a>
 
@@ -390,17 +383,18 @@
               >
                 Find a Topic
               </a>
+
             </div>
+
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- =======================================================
-         TERMINAL ACCESS / INTRO
-         ======================================================= -->
+    <!-- INTRO -->
     <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10">
+
       <div class="terminal-panel rounded-sm p-5 sm:p-7">
 
         <div class="flex flex-col gap-5 sm:flex-row sm:items-start">
@@ -423,6 +417,7 @@
           </div>
 
           <div>
+
             <div
               class="section-label text-[10px] font-bold uppercase text-green-300"
             >
@@ -433,32 +428,36 @@
               Welcome, Commander.
             </h2>
 
-            <p class="mt-3 max-w-4xl text-sm leading-7 text-slate-300 sm:text-base">
-              Terminal 77-B is a living Guild Wars 2 strategy archive written by
-              members of the <strong class="text-white">[Liar] community</strong>.
-              It is designed as a reference, not a test. Start at the beginning,
-              jump directly to what you need, or return whenever Tyria throws
-              something unfamiliar at you.
+            <p
+              class="mt-3 max-w-4xl text-sm leading-7 text-slate-300 sm:text-base"
+            >
+              Terminal 77-B is a Guild Wars 2 reference put together by players
+              from the <strong class="text-white">[Liar] community</strong>.
+              You don't need to read everything in order and there's nothing
+              here to complete.
             </p>
 
             <p
-              class="mt-4 border-l-2 border-cyan-400 pl-4 text-sm italic leading-6 text-cyan-200"
+              class="mt-3 max-w-4xl text-sm leading-7 text-slate-300 sm:text-base"
             >
-              Knowledge turns confusion into options.
+              If something in Tyria isn't making sense, find the guide that
+              covers it, grab what you need, and get back to playing.
             </p>
+
           </div>
 
         </div>
+
       </div>
     </section>
 
-    <!-- =======================================================
-         THREE ARCHIVE PATHS
-         ======================================================= -->
+    <!-- ARCHIVES -->
     <section id="archives" class="scroll-mt-24">
+
       <div class="mx-auto max-w-7xl px-4 pb-8 sm:px-6 sm:pb-12">
 
         <div class="mb-6">
+
           <div
             class="section-label text-[10px] font-bold uppercase text-cyan-400"
           >
@@ -466,20 +465,25 @@
           </div>
 
           <h2 class="mt-2 text-2xl font-black text-white sm:text-3xl">
-            Choose Your Entry Point
+            Pick Where You Want to Start
           </h2>
 
-          <p class="mt-2 max-w-3xl text-sm leading-6 text-slate-400 sm:text-base">
-            The numbers organize the archive. They are not prerequisites.
-            Returning players can jump directly to the system they need.
+          <p
+            class="mt-2 max-w-3xl text-sm leading-6 text-slate-400 sm:text-base"
+          >
+            The numbers just keep everything organized. Start at 101 if you're
+            brand new, or jump straight to whatever you're trying to figure out.
           </p>
+
         </div>
 
         <div class="grid gap-4 lg:grid-cols-3">
 
-          <!-- FIELD ARCHIVES -->
+          <!-- 100 -->
           <article class="terminal-panel flex flex-col rounded-sm p-5 sm:p-6">
+
             <div>
+
               <div
                 class="section-label text-[10px] font-black uppercase text-cyan-400"
               >
@@ -490,53 +494,74 @@
                 Field Archives
               </h3>
 
-              <p class="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-cyan-300">
-                Learn to exist in Tyria
+              <p
+                class="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-cyan-300"
+              >
+                Get comfortable in Tyria
               </p>
 
               <p class="mt-4 text-sm leading-6 text-slate-300">
-                Core knowledge for new and returning players: controls,
-                exploration, inventory, travel, the Trading Post, traits,
-                templates, and finding a profession that feels right.
+                The everyday stuff. Controls, maps, inventory, getting around,
+                using the Trading Post, setting up traits, and figuring out what
+                kind of character you want to play.
               </p>
 
               <div class="mt-5 space-y-2 text-sm text-slate-400">
+
                 <a href="./class101/index.html" class="block hover:text-cyan-300">
-                  <span class="font-mono text-cyan-500">101</span> Keybinds & Controls
+                  <span class="font-mono text-cyan-500">101</span>
+                  Keybinds & Controls
                 </a>
+
                 <a href="./class102/index.html" class="block hover:text-cyan-300">
-                  <span class="font-mono text-cyan-500">102</span> Exploration
+                  <span class="font-mono text-cyan-500">102</span>
+                  Exploration
                 </a>
+
                 <a href="./class103/index.html" class="block hover:text-cyan-300">
-                  <span class="font-mono text-cyan-500">103</span> Inventory
+                  <span class="font-mono text-cyan-500">103</span>
+                  Inventory
                 </a>
+
                 <a href="./class104/index.html" class="block hover:text-cyan-300">
-                  <span class="font-mono text-cyan-500">104</span> Travel & Mounts
+                  <span class="font-mono text-cyan-500">104</span>
+                  Travel & Mounts
                 </a>
+
                 <a href="./class105/index.html" class="block hover:text-cyan-300">
-                  <span class="font-mono text-cyan-500">105</span> Trading Post
+                  <span class="font-mono text-cyan-500">105</span>
+                  Trading Post
                 </a>
+
                 <a href="./class106/index.html" class="block hover:text-cyan-300">
-                  <span class="font-mono text-cyan-500">106</span> Traits & Templates
+                  <span class="font-mono text-cyan-500">106</span>
+                  Traits & Templates
                 </a>
+
                 <a href="./class107/index.html" class="block hover:text-cyan-300">
-                  <span class="font-mono text-cyan-500">107</span> Choosing Your Tyrian Identity
+                  <span class="font-mono text-cyan-500">107</span>
+                  Choosing Your Tyrian Identity
                 </a>
+
               </div>
+
             </div>
 
             <a
               href="./class101/index.html"
               class="terminal-button mt-6 rounded-sm px-4 py-3 text-xs font-black uppercase tracking-wider"
             >
-              Enter Field Archives
+              Start Here
               <span aria-hidden="true">→</span>
             </a>
+
           </article>
 
-          <!-- ADVANCED -->
+          <!-- 200 -->
           <article class="terminal-panel flex flex-col rounded-sm p-5 sm:p-6">
+
             <div>
+
               <div
                 class="section-label text-[10px] font-black uppercase text-amber-400"
               >
@@ -544,56 +569,77 @@
               </div>
 
               <h3 class="mt-3 text-2xl font-black uppercase text-white">
-                Advanced Courses
+                Advanced Guides
               </h3>
 
-              <p class="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-amber-300">
-                Learn to operate in Tyria
+              <p
+                class="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-amber-300"
+              >
+                Understand how the game works
               </p>
 
               <p class="mt-4 text-sm leading-6 text-slate-300">
-                Learn how Guild Wars 2 communicates combat and group mechanics,
-                how gear works, how encounters flow, and what progression looks
-                like after level 80.
+                Once you're comfortable moving around, this section gets into
+                combat, groups, gear, encounters, crafting, and what opens up
+                once you reach level 80.
               </p>
 
               <div class="mt-5 space-y-2 text-sm text-slate-400">
+
                 <a href="./class201/index.html" class="block hover:text-cyan-300">
-                  <span class="font-mono text-amber-500">201</span> Boons & Breakbars
+                  <span class="font-mono text-amber-500">201</span>
+                  Boons & Breakbars
                 </a>
+
                 <a href="./class202/index.html" class="block hover:text-cyan-300">
-                  <span class="font-mono text-amber-500">202</span> Groups & Chat
+                  <span class="font-mono text-amber-500">202</span>
+                  Groups & Chat
                 </a>
+
                 <a href="./class203/index.html" class="block hover:text-cyan-300">
-                  <span class="font-mono text-amber-500">203</span> Crafting
+                  <span class="font-mono text-amber-500">203</span>
+                  Crafting
                 </a>
+
                 <a href="./class204/index.html" class="block hover:text-cyan-300">
-                  <span class="font-mono text-amber-500">204</span> Encounters & Timing
+                  <span class="font-mono text-amber-500">204</span>
+                  Encounters & Timing
                 </a>
+
                 <a href="./class205/index.html" class="block hover:text-cyan-300">
-                  <span class="font-mono text-amber-500">205</span> Armor & Attributes
+                  <span class="font-mono text-amber-500">205</span>
+                  Armor & Attributes
                 </a>
+
                 <a href="./class206/index.html" class="block hover:text-cyan-300">
-                  <span class="font-mono text-amber-500">206</span> Advanced Combat
+                  <span class="font-mono text-amber-500">206</span>
+                  Advanced Combat
                 </a>
+
                 <a href="./class207/index.html" class="block hover:text-cyan-300">
-                  <span class="font-mono text-amber-500">207</span> Life After 80
+                  <span class="font-mono text-amber-500">207</span>
+                  Life After 80
                 </a>
+
               </div>
+
             </div>
 
             <a
               href="./class201/index.html"
               class="terminal-button mt-6 rounded-sm px-4 py-3 text-xs font-black uppercase tracking-wider"
             >
-              Enter Advanced Courses
+              Browse Advanced Guides
               <span aria-hidden="true">→</span>
             </a>
+
           </article>
 
-          <!-- EXPERT -->
+          <!-- 300 -->
           <article class="terminal-panel flex flex-col rounded-sm p-5 sm:p-6">
+
             <div>
+
               <div
                 class="section-label text-[10px] font-black uppercase text-violet-300"
               >
@@ -604,64 +650,84 @@
                 Expert Terminal
               </h3>
 
-              <p class="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-violet-300">
-                Learn to understand Tyria's systems
+              <p
+                class="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-violet-300"
+              >
+                Put the pieces together
               </p>
 
               <p class="mt-4 text-sm leading-6 text-slate-300">
-                Connect the pieces together through build theory, account
-                progression, currencies, rewards, and Fractals of the Mists.
+                This is where we get into builds, masteries, currencies,
+                account progression, the Wizard's Vault, and Fractals.
               </p>
 
               <div class="mt-5 space-y-2 text-sm text-slate-400">
+
                 <a href="./class301/index.html" class="block hover:text-cyan-300">
-                  <span class="font-mono text-violet-400">301</span> Build Theory & Stats
+                  <span class="font-mono text-violet-400">301</span>
+                  Build Theory & Stats
                 </a>
+
                 <a href="./class302/index.html" class="block hover:text-cyan-300">
-                  <span class="font-mono text-violet-400">302</span> Masteries
+                  <span class="font-mono text-violet-400">302</span>
+                  Masteries
                 </a>
+
                 <a href="./class303/index.html" class="block hover:text-cyan-300">
-                  <span class="font-mono text-violet-400">303</span> Currencies
+                  <span class="font-mono text-violet-400">303</span>
+                  Currencies
                 </a>
+
                 <a href="./class304/index.html" class="block hover:text-cyan-300">
-                  <span class="font-mono text-violet-400">304</span> Wizard's Vault
+                  <span class="font-mono text-violet-400">304</span>
+                  Wizard's Vault
                 </a>
+
                 <a href="./class305/index.html" class="block hover:text-cyan-300">
-                  <span class="font-mono text-violet-400">305</span> Fractals
+                  <span class="font-mono text-violet-400">305</span>
+                  Fractals
                 </a>
+
                 <a href="./class306/index.html" class="block hover:text-cyan-300">
-                  <span class="font-mono text-violet-400">306</span> Fractal Walkthroughs
+                  <span class="font-mono text-violet-400">306</span>
+                  Fractal Walkthroughs
                 </a>
+
               </div>
+
             </div>
 
             <a
               href="./class301/index.html"
               class="terminal-button mt-6 rounded-sm px-4 py-3 text-xs font-black uppercase tracking-wider"
             >
-              Enter Expert Terminal
+              Browse Expert Guides
               <span aria-hidden="true">→</span>
             </a>
+
           </article>
 
         </div>
+
       </div>
     </section>
 
-    <!-- =======================================================
-         QUICK ACCESS
-         ======================================================= -->
+    <!-- QUICK ACCESS -->
     <section
       id="quick-access"
       class="scroll-mt-24 border-y border-cyan-500/10 bg-slate-900/20"
     >
+
       <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
 
         <div class="mb-6">
+
           <div class="flex items-center gap-3">
+
             <span class="text-xl text-amber-400" aria-hidden="true">»</span>
 
             <div>
+
               <div
                 class="section-label text-[10px] font-bold uppercase text-cyan-400"
               >
@@ -669,15 +735,20 @@
               </div>
 
               <h2 class="mt-1 text-2xl font-black text-white sm:text-3xl">
-                Find What You Need
+                Just Looking for an Answer?
               </h2>
+
             </div>
+
           </div>
 
-          <p class="mt-3 max-w-3xl text-sm leading-6 text-slate-400 sm:text-base">
-            You don't need to know the course number. Start with the question
-            you're trying to answer.
+          <p
+            class="mt-3 max-w-3xl text-sm leading-6 text-slate-400 sm:text-base"
+          >
+            Skip the course numbers. Pick what you're having trouble with and
+            jump right in.
           </p>
+
         </div>
 
         <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -685,9 +756,10 @@
           <!-- ATTRIBUTES -->
           <a
             href="./class205/index.html"
-            class="terminal-panel group rounded-sm p-4 active:scale-[0.99]"
+            class="terminal-panel rounded-sm p-4 active:scale-[0.99]"
           >
             <div class="flex items-start gap-3">
+
               <div
                 class="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-cyan-400/20 bg-cyan-400/5 text-cyan-300"
               >
@@ -695,6 +767,7 @@
               </div>
 
               <div>
+
                 <h3 class="text-sm font-black uppercase tracking-wide text-white">
                   Attributes & Builds
                 </h3>
@@ -708,16 +781,19 @@
                 >
                   Start with 205 →
                 </span>
+
               </div>
+
             </div>
           </a>
 
           <!-- BOONS -->
           <a
             href="./class201/index.html"
-            class="terminal-panel group rounded-sm p-4 active:scale-[0.99]"
+            class="terminal-panel rounded-sm p-4 active:scale-[0.99]"
           >
             <div class="flex items-start gap-3">
+
               <div
                 class="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-cyan-400/20 bg-cyan-400/5 text-cyan-300"
               >
@@ -725,12 +801,13 @@
               </div>
 
               <div>
+
                 <h3 class="text-sm font-black uppercase tracking-wide text-white">
                   Boons & Breakbars
                 </h3>
 
                 <p class="mt-1 text-xs leading-5 text-slate-400">
-                  Buffs, conditions, crowd control and the blue bar.
+                  Buffs, conditions, crowd control and that blue bar.
                 </p>
 
                 <span
@@ -738,16 +815,19 @@
                 >
                   Open 201 →
                 </span>
+
               </div>
+
             </div>
           </a>
 
           <!-- GEAR -->
           <a
             href="./class103/index.html"
-            class="terminal-panel group rounded-sm p-4 active:scale-[0.99]"
+            class="terminal-panel rounded-sm p-4 active:scale-[0.99]"
           >
             <div class="flex items-start gap-3">
+
               <div
                 class="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-cyan-400/20 bg-cyan-400/5 text-cyan-300"
               >
@@ -755,12 +835,13 @@
               </div>
 
               <div>
+
                 <h3 class="text-sm font-black uppercase tracking-wide text-white">
                   Gear & Inventory
                 </h3>
 
                 <p class="mt-1 text-xs leading-5 text-slate-400">
-                  Salvage, storage, equipment and what to keep.
+                  What to keep, salvage, store or equip.
                 </p>
 
                 <span
@@ -768,16 +849,19 @@
                 >
                   Start with 103 →
                 </span>
+
               </div>
+
             </div>
           </a>
 
           <!-- MAPS -->
           <a
             href="./class102/index.html"
-            class="terminal-panel group rounded-sm p-4 active:scale-[0.99]"
+            class="terminal-panel rounded-sm p-4 active:scale-[0.99]"
           >
             <div class="flex items-start gap-3">
+
               <div
                 class="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-cyan-400/20 bg-cyan-400/5 text-cyan-300"
               >
@@ -785,12 +869,13 @@
               </div>
 
               <div>
+
                 <h3 class="text-sm font-black uppercase tracking-wide text-white">
                   Maps & Travel
                 </h3>
 
                 <p class="mt-1 text-xs leading-5 text-slate-400">
-                  Waypoints, exploration, maps, mounts and getting around.
+                  Waypoints, maps, mounts and getting around Tyria.
                 </p>
 
                 <span
@@ -798,16 +883,19 @@
                 >
                   Start with 102 →
                 </span>
+
               </div>
+
             </div>
           </a>
 
           <!-- GROUPS -->
           <a
             href="./class202/index.html"
-            class="terminal-panel group rounded-sm p-4 active:scale-[0.99]"
+            class="terminal-panel rounded-sm p-4 active:scale-[0.99]"
           >
             <div class="flex items-start gap-3">
+
               <div
                 class="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-cyan-400/20 bg-cyan-400/5 text-cyan-300"
               >
@@ -815,12 +903,13 @@
               </div>
 
               <div>
+
                 <h3 class="text-sm font-black uppercase tracking-wide text-white">
                   Groups & Chat
                 </h3>
 
                 <p class="mt-1 text-xs leading-5 text-slate-400">
-                  Parties, squads, chat tools and playing with others.
+                  Parties, squads, chat and finding people to play with.
                 </p>
 
                 <span
@@ -828,16 +917,19 @@
                 >
                   Open 202 →
                 </span>
+
               </div>
+
             </div>
           </a>
 
           <!-- CRAFTING -->
           <a
             href="./class203/index.html"
-            class="terminal-panel group rounded-sm p-4 active:scale-[0.99]"
+            class="terminal-panel rounded-sm p-4 active:scale-[0.99]"
           >
             <div class="flex items-start gap-3">
+
               <div
                 class="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-cyan-400/20 bg-cyan-400/5 text-cyan-300"
               >
@@ -845,12 +937,13 @@
               </div>
 
               <div>
+
                 <h3 class="text-sm font-black uppercase tracking-wide text-white">
                   Crafting
                 </h3>
 
                 <p class="mt-1 text-xs leading-5 text-slate-400">
-                  Disciplines, materials, recipes and when crafting matters.
+                  Disciplines, recipes, materials and why you'd bother.
                 </p>
 
                 <span
@@ -858,16 +951,19 @@
                 >
                   Open 203 →
                 </span>
+
               </div>
+
             </div>
           </a>
 
           <!-- FRACTALS -->
           <a
             href="./class305/index.html"
-            class="terminal-panel group rounded-sm p-4 active:scale-[0.99]"
+            class="terminal-panel rounded-sm p-4 active:scale-[0.99]"
           >
             <div class="flex items-start gap-3">
+
               <div
                 class="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-cyan-400/20 bg-cyan-400/5 text-cyan-300"
               >
@@ -875,12 +971,13 @@
               </div>
 
               <div>
+
                 <h3 class="text-sm font-black uppercase tracking-wide text-white">
                   Fractals
                 </h3>
 
                 <p class="mt-1 text-xs leading-5 text-slate-400">
-                  Progression, mechanics, Agony Resistance and walkthroughs.
+                  How they work, what you need and what to expect.
                 </p>
 
                 <span
@@ -888,16 +985,19 @@
                 >
                   Open 305 →
                 </span>
+
               </div>
+
             </div>
           </a>
 
           <!-- RESOURCES -->
           <a
             href="./adventure/index.html"
-            class="terminal-panel group rounded-sm p-4 active:scale-[0.99]"
+            class="terminal-panel rounded-sm p-4 active:scale-[0.99]"
           >
             <div class="flex items-start gap-3">
+
               <div
                 class="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-cyan-400/20 bg-cyan-400/5 text-cyan-300"
               >
@@ -905,12 +1005,13 @@
               </div>
 
               <div>
+
                 <h3 class="text-sm font-black uppercase tracking-wide text-white">
                   Resources
                 </h3>
 
                 <p class="mt-1 text-xs leading-5 text-slate-400">
-                  Useful references, tools and additional Tyrian resources.
+                  Handy tools, references and other useful stuff.
                 </p>
 
                 <span
@@ -918,92 +1019,28 @@
                 >
                   Open Resources →
                 </span>
+
               </div>
+
             </div>
           </a>
 
         </div>
+
       </div>
     </section>
 
-    <!-- =======================================================
-         BUILD PATH
-         ======================================================= -->
-    <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
+    <!-- ABOUT -->
+    <section id="about" class="scroll-mt-24">
 
-      <div class="terminal-panel rounded-sm p-5 sm:p-7">
-        <div class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
-
-          <div>
-            <div
-              class="section-label text-[10px] font-bold uppercase text-violet-300"
-            >
-              Character Development
-            </div>
-
-            <h2 class="mt-2 text-2xl font-black text-white sm:text-3xl">
-              Want to Understand Your Build?
-            </h2>
-
-            <p class="mt-3 max-w-3xl text-sm leading-6 text-slate-300 sm:text-base">
-              Terminal 77-B does not ask you to copy somebody else's character.
-              Start by learning what your equipment, attributes and traits are
-              trying to accomplish, then shape the build around the way you
-              actually enjoy playing.
-            </p>
-
-            <div
-              class="mt-5 flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-wider"
-            >
-              <a
-                href="./class106/index.html"
-                class="rounded border border-slate-700 bg-slate-950 px-3 py-2 text-slate-300 hover:border-cyan-500 hover:text-cyan-300"
-              >
-                106 Traits
-              </a>
-
-              <span class="text-slate-600">→</span>
-
-              <a
-                href="./class205/index.html"
-                class="rounded border border-slate-700 bg-slate-950 px-3 py-2 text-slate-300 hover:border-cyan-500 hover:text-cyan-300"
-              >
-                205 Attributes
-              </a>
-
-              <span class="text-slate-600">→</span>
-
-              <a
-                href="./class301/index.html"
-                class="rounded border border-violet-400/30 bg-violet-400/5 px-3 py-2 text-violet-200 hover:border-violet-300"
-              >
-                301 Build Theory
-              </a>
-            </div>
-          </div>
-
-          <a
-            href="./class301/index.html"
-            class="terminal-button w-full rounded-sm px-5 py-3 text-xs font-black uppercase tracking-wider lg:w-auto"
-          >
-            Explore Build Theory
-            <span aria-hidden="true">→</span>
-          </a>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- =======================================================
-         ABOUT / CREDITS
-         ======================================================= -->
-    <section id="about" class="scroll-mt-24 pb-10">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12">
 
         <div class="border-t border-slate-800 pt-8">
+
           <div class="grid gap-8 md:grid-cols-2">
 
             <div>
+
               <div
                 class="section-label text-[10px] font-bold uppercase text-cyan-400"
               >
@@ -1011,39 +1048,49 @@
               </div>
 
               <h2 class="mt-2 text-xl font-black text-white">
-                Built by players, for players.
+                A guide made by people who play the game.
               </h2>
 
               <p class="mt-3 text-sm leading-6 text-slate-400">
                 Terminal 77-B is a Guild Wars 2 community resource written by
                 members of <strong class="text-slate-200">[Liar]</strong>.
-                The archive is meant to make the game easier to understand
-                without turning exploration into homework.
+                We wanted somewhere players could look things up without having
+                to dig through a dozen tabs or feel like they needed to study
+                the game before they could enjoy it.
               </p>
+
+              <p class="mt-3 text-sm leading-6 text-slate-400">
+                It's especially aimed at new players, returning players, and
+                anyone who's ever looked at something in Guild Wars 2 and
+                thought, “Okay... what does that actually mean?”
+              </p>
+
             </div>
 
             <div>
+
               <div
                 class="section-label text-[10px] font-bold uppercase text-amber-400"
               >
-                Archive Credits
+                Credits
               </div>
 
               <div class="mt-3 space-y-2 text-sm text-slate-400">
+
                 <p>
-                  Community writers:
+                  Written with help from the
                   <a
                     href="https://liar.fyi"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="font-bold text-cyan-300 underline decoration-cyan-500/40 underline-offset-4"
                   >
-                    [Liar] Community
+                    [Liar] community
                   </a>
                 </p>
 
                 <p>
-                  Site built by:
+                  Site built by
                   <a
                     href="https://qkommand.github.io/home/"
                     target="_blank"
@@ -1053,23 +1100,25 @@
                     Commander Q
                   </a>
                 </p>
+
               </div>
+
             </div>
 
           </div>
+
         </div>
+
       </div>
     </section>
 
   </main>
 
-  <!-- =========================================================
-       FOOTER
-       ========================================================= -->
+  <!-- FOOTER -->
   <footer class="border-t border-slate-800 bg-slate-950">
-    <div
-      class="mx-auto max-w-7xl px-4 py-6 text-center sm:px-6"
-    >
+
+    <div class="mx-auto max-w-7xl px-4 py-6 text-center sm:px-6">
+
       <p
         class="text-[10px] font-bold uppercase tracking-[0.22em] text-cyan-500"
       >
@@ -1083,15 +1132,11 @@
         the property of their respective owners.
       </p>
 
-      <p class="mt-4 text-[11px] text-slate-600">
-        Explore. Learn. Adapt. Return when you need another answer.
-      </p>
     </div>
+
   </footer>
 
-  <!-- =========================================================
-       MOBILE NAV SCRIPT
-       ========================================================= -->
+  <!-- MOBILE NAV -->
   <script>
     const menuButton = document.getElementById("menuButton");
     const mobileMenu = document.getElementById("mobileMenu");
