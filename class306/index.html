@@ -1,177 +1,2691 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-slate-950 text-white">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Course 306 // [LIAR] Tyrian Field Archives</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+  <meta name="theme-color" content="#020617" />
+
+  <title>306 // Fractal Field Manual // Terminal 77-B</title>
+
+  <meta
+    name="description"
+    content="Terminal 77-B Fractal Field Manual with searchable Guild Wars 2 fractal walkthroughs, encounter calls, suggested utility, and common mistakes."
+  />
+
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-    @keyframes fadeIn { from {opacity:0; transform:translateY(6px)} to {opacity:1; transform:translateY(0)} }
-    @keyframes slideUp { from {opacity:0; transform:translateY(28px)} to {opacity:1; transform:translateY(0)} }
-    .animate-fade-in { animation: fadeIn .4s ease-out forwards; }
-    .animate-slide-up { animation: slideUp .28s cubic-bezier(.16,1,.3,1) forwards; }
-    .glow-cyan { box-shadow:0 0 14px rgba(34,211,238,.10); }
-    .glow-cyan:hover { box-shadow:0 0 22px rgba(34,211,238,.25); }
-    ::-webkit-scrollbar { width:6px; height:6px; }
-    ::-webkit-scrollbar-track { background:#020617; }
-    ::-webkit-scrollbar-thumb { background:#0f172a; border:1px solid #22d3ee; border-radius:2px; }
-    .no-scrollbar::-webkit-scrollbar { display:none; }
-    .no-scrollbar { scrollbar-width:none; }
-    details summary::-webkit-details-marker { display:none; }
-    details[open] .chevron { transform:rotate(90deg); }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: #020617;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(
+          circle at top,
+          rgba(34, 211, 238, 0.07),
+          transparent 28rem
+        ),
+        #020617;
+      color: white;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Text",
+        "SF Pro Display",
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.14;
+      background-image:
+        linear-gradient(
+          rgba(34, 211, 238, 0.025) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(34, 211, 238, 0.025) 1px,
+          transparent 1px
+        );
+      background-size: 28px 28px;
+      z-index: -1;
+    }
+
+    a,
+    button,
+    summary {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .terminal-panel {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(15, 23, 42, 0.92),
+          rgba(2, 6, 23, 0.96)
+        );
+      border: 1px solid rgba(34, 211, 238, 0.17);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.025),
+        0 12px 40px rgba(0, 0, 0, 0.16);
+    }
+
+    .section-label {
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+      letter-spacing: 0.15em;
+    }
+
+    .terminal-button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(251, 191, 36, 0.45);
+      background: rgba(251, 191, 36, 0.06);
+      color: #fbbf24;
+      transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .terminal-button:hover,
+    .terminal-button:focus-visible {
+      background: #fbbf24;
+      border-color: #fbbf24;
+      color: #020617;
+    }
+
+    .terminal-button:active {
+      transform: scale(0.985);
+    }
+
+    .guide-card {
+      transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .guide-card:hover {
+      border-color: rgba(34, 211, 238, 0.6);
+      background: rgba(15, 23, 42, 0.96);
+    }
+
+    .guide-card:active {
+      transform: scale(0.99);
+    }
+
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details[open] .chevron {
+      transform: rotate(90deg);
+    }
+
+    ::selection {
+      background: #22d3ee;
+      color: #020617;
+    }
+
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #164e63;
+      border-radius: 99px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
-<body class="h-screen flex flex-col overflow-hidden relative bg-slate-950 text-white selection:bg-cyan-500 selection:text-slate-950">
 
-<header class="shrink-0 border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-3 sm:px-6 py-2 sm:py-3 space-y-1.5 sm:space-y-3">
-  <div class="max-w-[1600px] mx-auto text-center space-y-0.5">
-    <h1 class="text-base sm:text-2xl font-black text-cyan-400 tracking-wider uppercase drop-shadow-[0_0_10px_rgba(34,211,238,0.2)]">Course 306: Fractal Walkthroughs</h1>
-    <p class="hidden sm:block text-xs sm:text-sm text-slate-300 tracking-wide font-medium">Mechanics, boss calls, and field-ready walkthroughs for Fractals of the Mists.</p>
-  </div>
-  <div class="max-w-[1600px] mx-auto flex items-center justify-around sm:grid sm:grid-cols-3 gap-2 pt-1.5 sm:pt-3 border-t border-slate-800/80 text-xs sm:text-sm overflow-x-auto no-scrollbar whitespace-nowrap">
-    <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50 shrink-0"><span class="text-slate-400 font-bold uppercase tracking-wider">Tyria:</span><span id="tyria-clock-time" class="text-amber-400 font-bold flex items-center gap-1 font-mono">--:--</span></div>
-    <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50 shrink-0"><span class="text-slate-400 font-bold uppercase tracking-wider">Server:</span><span id="server-clock" class="text-cyan-400 font-bold font-mono">--:--:-- UTC</span></div>
-    <div class="hidden sm:flex items-center justify-center gap-2 bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50"><span class="text-slate-400 font-bold uppercase tracking-wider">Location:</span><span class="text-cyan-400 font-bold tracking-wider">DURMAND PRIORY // TERMINAL 77-B</span></div>
-  </div>
-</header>
+<body class="min-h-screen text-white">
 
-<nav class="shrink-0 bg-slate-950 max-w-[1600px] w-full mx-auto px-2 sm:px-6 pt-2 sm:pt-4 pb-1">
-  <div class="flex justify-start sm:justify-center overflow-x-auto no-scrollbar border-b border-slate-800/80 gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold whitespace-nowrap">
-    <a href="../index.html" class="flex items-center justify-center text-center px-3 sm:px-6 py-2 sm:py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/80 transition-all cursor-pointer rounded-t-sm shrink-0"><span class="text-xs mr-1.5 sm:mr-2 text-cyan-500 font-mono">&larr;</span><span>RETURN TO MAIN DIRECTORY</span></a>
-  </div>
-</nav>
+  <!-- =========================================================
+       HEADER
+       ========================================================= -->
+  <header
+    class="sticky top-0 z-40 border-b border-cyan-500/20 bg-slate-950/95 backdrop-blur-xl"
+  >
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
 
-<main class="flex-1 overflow-y-auto max-w-[1600px] w-full mx-auto p-3 sm:p-6 space-y-4 sm:space-y-6">
-  <div class="animate-fade-in space-y-4 sm:space-y-6">
-    <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-2 sm:space-y-3">
-      <div class="flex justify-between items-center border-b border-slate-800 pb-2 sm:pb-3"><h2 class="text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-wider">Lesson Goal</h2><span class="text-xs text-amber-400 font-bold">[FIELD MANUAL]</span></div>
-      <p class="text-sm sm:text-base text-slate-300 leading-relaxed">Open the fractal you are running, scan the preparation notes, and follow the encounter calls without digging through a full wiki article. Each guide uses the same structure so the important mechanics are always in the same place.</p>
-    </section>
+      <div class="flex min-h-[64px] items-center justify-between gap-3">
 
-    <section class="border border-slate-800/80 bg-slate-950/60 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
-      <div class="border-b border-slate-800 pb-2 sm:pb-3"><div class="text-amber-400 font-bold text-xs uppercase tracking-wider font-mono">Module 01</div><h3 class="text-base sm:text-lg font-bold text-white tracking-wide">Using the Walkthrough Terminal</h3></div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 text-xs sm:text-sm">
-        <div class="p-3.5 sm:p-4 bg-slate-900/60 border border-slate-800/80 rounded-sm"><div class="font-bold text-cyan-400 uppercase text-xs font-mono mb-2">Prepare</div><p class="text-slate-300 leading-relaxed">Check the suggested utility before entering. These are encounter tools, not required professions.</p></div>
-        <div class="p-3.5 sm:p-4 bg-slate-900/60 border border-slate-800/80 rounded-sm"><div class="font-bold text-amber-400 uppercase text-xs font-mono mb-2">Execute</div><p class="text-slate-300 leading-relaxed">Open only the section you are currently running. Boss phases and failure conditions are separated for fast scanning.</p></div>
-        <div class="p-3.5 sm:p-4 bg-slate-900/60 border border-slate-800/80 rounded-sm"><div class="font-bold text-emerald-400 uppercase text-xs font-mono mb-2">Recover</div><p class="text-slate-300 leading-relaxed">The Common Mistakes panel highlights the few errors most likely to cause a wipe or force a reset.</p></div>
+        <a
+          href="../index.html"
+          class="flex min-w-0 items-center gap-3"
+          aria-label="Return to Terminal 77-B"
+        >
+
+          <div
+            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-cyan-400/30 bg-cyan-400/5 text-cyan-300"
+            aria-hidden="true"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              class="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+            >
+              <path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6l-8-4Z"/>
+              <path d="m8 13 2.5-6 1.5 4 1.5-4L16 13"/>
+            </svg>
+          </div>
+
+          <div class="min-w-0">
+            <div
+              class="truncate text-xs font-black uppercase tracking-[0.18em] text-cyan-300 sm:text-sm"
+            >
+              Terminal 77-B
+            </div>
+
+            <div
+              class="hidden text-[9px] font-semibold uppercase tracking-[0.18em] text-white sm:block"
+            >
+              Tyrian Strategy Guidebook
+            </div>
+          </div>
+
+        </a>
+
+        <a
+          href="../index.html#archives"
+          class="flex min-h-[42px] items-center justify-center rounded border border-slate-700 bg-slate-900 px-3 text-[10px] font-bold uppercase tracking-wider text-white hover:border-cyan-500/50 hover:text-cyan-300 sm:px-4 sm:text-xs"
+        >
+          ← Archives
+        </a>
+
       </div>
-    </section>
 
-    <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-4">
-      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-3 border-b border-slate-800 pb-3">
-        <div><div class="text-amber-400 font-bold text-xs uppercase tracking-wider font-mono">Module 02</div><h3 class="text-base sm:text-lg font-bold text-white tracking-wide">Fractal Directory</h3><p id="guide-count" class="text-xs text-slate-400 mt-1"></p></div>
-        <div class="flex flex-col sm:flex-row gap-2 w-full lg:w-auto">
-          <input id="search-input" type="search" placeholder="Search fractal or mechanic..." class="w-full lg:w-80 bg-slate-950 border border-slate-700 focus:border-cyan-400 outline-none rounded-sm px-3 py-2 text-sm text-white placeholder:text-slate-500" />
-          <button onclick="clearSearch()" class="px-3 py-2 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-300 text-xs font-bold uppercase tracking-wider rounded-sm">Clear</button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- =======================================================
+         HERO
+         ======================================================= -->
+    <section class="border-b border-cyan-500/10">
+
+      <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-amber-400 sm:text-xs"
+        >
+          Advanced Guide // 306
         </div>
+
+        <h1
+          class="mt-3 text-3xl font-black tracking-tight text-white sm:text-5xl"
+        >
+          Fractal Field Manual
+        </h1>
+
+        <p
+          class="mt-3 max-w-3xl text-base leading-7 text-white sm:text-lg"
+        >
+          Open the fractal you're running, scan the important mechanics, and
+          get back into the fight.
+        </p>
+
+        <div class="mt-6 flex flex-wrap gap-2">
+
+          <span
+            class="rounded border border-amber-500/20 bg-amber-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-amber-300"
+          >
+            Walkthroughs
+          </span>
+
+          <span
+            class="rounded border border-amber-500/20 bg-amber-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-amber-300"
+          >
+            Boss Calls
+          </span>
+
+          <span
+            class="rounded border border-amber-500/20 bg-amber-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-amber-300"
+          >
+            Utility
+          </span>
+
+          <span
+            class="rounded border border-amber-500/20 bg-amber-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-amber-300"
+          >
+            Mobile Reference
+          </span>
+
+        </div>
+
       </div>
-      <div id="fractal-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3"></div>
-      <div id="empty-state" class="hidden p-8 border border-dashed border-slate-700 text-center text-slate-400 text-sm">No walkthrough matches that search.</div>
+
     </section>
 
-    <section class="border border-slate-800/80 bg-slate-950/60 p-4 sm:p-6 rounded-sm glow-cyan space-y-3">
-      <div class="border-b border-slate-800 pb-2"><div class="text-amber-400 font-bold text-xs uppercase tracking-wider font-mono">Module 03</div><h3 class="text-base sm:text-lg font-bold text-white tracking-wide">Universal Field Calls</h3></div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs sm:text-sm">
-        <div class="p-3 bg-slate-900/60 border border-slate-800"><strong class="text-cyan-400 block mb-1">BREAK</strong><span class="text-slate-300">Use crowd control on the blue defiance bar now.</span></div>
-        <div class="p-3 bg-slate-900/60 border border-slate-800"><strong class="text-amber-400 block mb-1">SPREAD</strong><span class="text-slate-300">Create space so targeted attacks do not overlap.</span></div>
-        <div class="p-3 bg-slate-900/60 border border-slate-800"><strong class="text-emerald-400 block mb-1">STACK</strong><span class="text-slate-300">Group tightly for shared defense, healing, or split damage.</span></div>
-        <div class="p-3 bg-slate-900/60 border border-slate-800"><strong class="text-rose-400 block mb-1">DROP OUT</strong><span class="text-slate-300">Carry the targeted field away from the group before it lands.</span></div>
+    <!-- =======================================================
+         CONTENT
+         ======================================================= -->
+    <div class="mx-auto max-w-6xl space-y-6 px-4 py-8 sm:px-6 sm:py-10">
+
+      <!-- =====================================================
+           FIELD MANUAL PURPOSE
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-cyan-400"
+        >
+          Field Manual
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          This page is built for the middle of a run
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          305 teaches the Fractal system. This page is the quick-reference
+          manual you open when your party is already standing in the
+          Observatory or inside an encounter.
+        </p>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Search the Fractal name, open the guide, and focus on the section
+          you're currently running.
+        </p>
+
+      </section>
+
+      <!-- =====================================================
+           HOW TO USE
+           ===================================================== -->
+      <section>
+
+        <div class="mb-4">
+
+          <div
+            class="section-label text-[10px] font-bold uppercase text-amber-400"
+          >
+            How to Use It
+          </div>
+
+          <h2 class="mt-1 text-2xl font-black text-white">
+            Prepare → Execute → Recover
+          </h2>
+
+        </div>
+
+        <div class="grid gap-3 md:grid-cols-3">
+
+          <!-- PREPARE -->
+          <article class="terminal-panel rounded-sm p-5">
+
+            <div
+              class="section-label text-[10px] font-black uppercase text-cyan-400"
+            >
+              Prepare
+            </div>
+
+            <h3 class="mt-2 text-lg font-bold text-white">
+              Check the useful tools
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Each guide lists useful utility such as Stability, cleanse,
+              crowd control, projectile defense, or movement.
+            </p>
+
+            <p class="mt-2 text-xs leading-5 text-white">
+              These are encounter tools, not required professions.
+            </p>
+
+          </article>
+
+          <!-- EXECUTE -->
+          <article class="terminal-panel rounded-sm p-5">
+
+            <div
+              class="section-label text-[10px] font-black uppercase text-amber-400"
+            >
+              Execute
+            </div>
+
+            <h3 class="mt-2 text-lg font-bold text-white">
+              Open only what you need
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Encounter phases are separated into expandable sections so you
+              don't have to scroll through an entire guide.
+            </p>
+
+          </article>
+
+          <!-- RECOVER -->
+          <article class="terminal-panel rounded-sm p-5">
+
+            <div
+              class="section-label text-[10px] font-black uppercase text-green-300"
+            >
+              Recover
+            </div>
+
+            <h3 class="mt-2 text-lg font-bold text-white">
+              Check common mistakes
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              If the group wipes or something suddenly goes wrong, check the
+              mistakes panel first.
+            </p>
+
+          </article>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           UNIVERSAL CALLS
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-green-300"
+        >
+          Universal Field Calls
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Short words, quick reactions
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          These calls show up across Fractals and other organized group
+          content.
+        </p>
+
+        <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+
+          <!-- BREAK -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-sm font-black uppercase tracking-wider text-cyan-300"
+            >
+              BREAK
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Use crowd control on the active blue Defiance Bar.
+            </p>
+
+          </div>
+
+          <!-- SPREAD -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-sm font-black uppercase tracking-wider text-amber-300"
+            >
+              SPREAD
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Create space so targeted attacks don't overlap.
+            </p>
+
+          </div>
+
+          <!-- STACK -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-sm font-black uppercase tracking-wider text-green-300"
+            >
+              STACK
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Group tightly for shared healing, boons, defense, or split
+              damage.
+            </p>
+
+          </div>
+
+          <!-- DROP -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-sm font-black uppercase tracking-wider text-red-300"
+            >
+              DROP OUT
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Carry a targeted field or bomb away from the party before it
+              lands.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           FRACTAL DIRECTORY
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="flex flex-col gap-4 border-b border-slate-800 pb-5 lg:flex-row lg:items-end lg:justify-between"
+        >
+
+          <div>
+
+            <div
+              class="section-label text-[10px] font-bold uppercase text-cyan-400"
+            >
+              Walkthrough Directory
+            </div>
+
+            <h2 class="mt-2 text-2xl font-black text-white">
+              Find your Fractal
+            </h2>
+
+            <p
+              id="guide-count"
+              class="mt-2 font-mono text-xs font-bold uppercase tracking-wider text-white"
+            >
+              Loading guides...
+            </p>
+
+          </div>
+
+          <div class="flex w-full flex-col gap-2 sm:flex-row lg:w-auto">
+
+            <label class="sr-only" for="search-input">
+              Search Fractal walkthroughs
+            </label>
+
+            <input
+              id="search-input"
+              type="search"
+              placeholder="Search fractal or mechanic..."
+              autocomplete="off"
+              class="min-h-[46px] w-full rounded-sm border border-slate-700 bg-slate-950 px-4 text-sm text-white outline-none placeholder:text-white/60 focus:border-cyan-400 lg:w-80"
+            />
+
+            <button
+              type="button"
+              onclick="clearSearch()"
+              class="min-h-[46px] rounded-sm border border-slate-700 bg-slate-900 px-4 text-xs font-black uppercase tracking-wider text-white hover:border-cyan-400 hover:text-cyan-300"
+            >
+              Clear
+            </button>
+
+          </div>
+
+        </div>
+
+        <div
+          id="fractal-grid"
+          class="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3"
+        ></div>
+
+        <div
+          id="empty-state"
+          class="mt-5 hidden rounded-sm border border-dashed border-slate-700 bg-slate-950 p-8 text-center text-sm text-white"
+        >
+          No walkthrough matches that search.
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           MOBILE NOTE
+           ===================================================== -->
+      <section
+        class="rounded-sm border border-cyan-400/30 bg-cyan-400/[0.04] p-5 sm:p-6"
+      >
+
+        <div
+          class="section-label text-[10px] font-black uppercase text-cyan-400"
+        >
+          Mobile Use
+        </div>
+
+        <h2 class="mt-2 text-xl font-black text-white">
+          Search, scan, close
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          The walkthrough opens over the page so you can quickly check one
+          mechanic without losing your place in the directory.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Only the first encounter section opens automatically. Everything else
+          stays collapsed until you need it.
+        </p>
+
+      </section>
+
+      <!-- =====================================================
+           VETERAN FIELD NOTE
+           ===================================================== -->
+      <section
+        class="rounded-sm border border-amber-400/30 bg-amber-400/[0.04] p-5 sm:p-6"
+      >
+
+        <div
+          class="section-label text-[10px] font-black uppercase text-amber-400"
+        >
+          Veteran Field Note
+        </div>
+
+        <h2 class="mt-2 text-xl font-black text-white">
+          Don't read the whole guide during combat
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          If your group is waiting at a boss, look for the phase you're about
+          to do.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          The manual is a pocket card, not a textbook.
+        </p>
+
+      </section>
+
+      <!-- =====================================================
+           KEEP BROWSING
+           ===================================================== -->
+      <section>
+
+        <div class="mb-4">
+
+          <div
+            class="section-label text-[10px] font-bold uppercase text-cyan-400"
+          >
+            Keep Browsing
+          </div>
+
+          <h2 class="mt-1 text-2xl font-black text-white">
+            Related records
+          </h2>
+
+        </div>
+
+        <div class="grid gap-3 sm:grid-cols-2">
+
+          <a
+            href="../class305/index.html"
+            class="terminal-panel group rounded-sm p-5 transition hover:border-cyan-400/40"
+          >
+
+            <div
+              class="section-label text-[10px] font-bold uppercase text-white"
+            >
+              Previous // 305
+            </div>
+
+            <h3
+              class="mt-2 text-lg font-bold text-white group-hover:text-cyan-300"
+            >
+              Fractals of the Mists
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Learn the Fractal system, tiers, Agony Resistance, instabilities,
+              and five-player fundamentals.
+            </p>
+
+          </a>
+
+          <a
+            href="../index.html#archives"
+            class="terminal-panel group rounded-sm p-5 transition hover:border-cyan-400/40"
+          >
+
+            <div
+              class="section-label text-[10px] font-bold uppercase text-amber-400"
+            >
+              Directory
+            </div>
+
+            <h3
+              class="mt-2 text-lg font-bold text-white group-hover:text-cyan-300"
+            >
+              Training Archives
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Return to Terminal 77-B and choose another field guide.
+            </p>
+
+          </a>
+
+        </div>
+
+      </section>
+
+      <div class="flex justify-center pt-2">
+
+        <a
+          href="../index.html#archives"
+          class="terminal-button w-full rounded-sm px-5 py-3 text-xs font-black uppercase tracking-wider sm:w-auto"
+        >
+          ← Return to Archives
+        </a>
+
       </div>
-    </section>
-  </div>
-</main>
 
-<footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-3 sm:px-6 py-2.5 sm:py-3">
-  <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
-    <p class="hidden md:block text-xs text-slate-400 max-w-3xl leading-normal">This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.</p>
-    <div class="flex items-center justify-center space-x-2 sm:space-x-4 text-xs"><span class="text-slate-300">Written by <a href="https://liar.fyi" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 font-bold">The Liars Guild</a></span><span class="text-slate-700">|</span><span class="text-slate-300">Site Builder: <a href="https://qkommand.github.io/home/" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 font-bold">Commander Q</a></span></div>
-    <button onclick="toggleDisclaimer(true)" class="md:hidden text-xs text-slate-400 hover:text-cyan-400 underline font-semibold uppercase tracking-wider">[Disclaimer]</button>
-  </div>
-</footer>
-
-<div id="guide-modal" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-sm p-2 sm:p-5" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-  <div class="animate-slide-up max-w-5xl h-full mx-auto bg-slate-950 border border-cyan-500/40 shadow-2xl glow-cyan flex flex-col rounded-sm overflow-hidden">
-    <div class="shrink-0 bg-slate-900/95 border-b border-slate-800 p-3 sm:p-4 flex items-start justify-between gap-4">
-      <div><div id="modal-tag" class="text-xs text-amber-400 font-bold uppercase tracking-wider font-mono"></div><h2 id="modal-title" class="text-lg sm:text-2xl font-black text-cyan-400 tracking-wide"></h2></div>
-      <button onclick="closeGuide()" class="shrink-0 px-3 py-2 bg-slate-950 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-white text-xs font-bold rounded-sm">CLOSE ✕</button>
     </div>
-    <div id="modal-body" class="flex-1 overflow-y-auto p-3 sm:p-6 space-y-4"></div>
-    <div class="shrink-0 border-t border-slate-800 bg-slate-900/90 p-2.5 flex items-center justify-between gap-2">
-      <button id="prev-guide" class="px-3 py-2 border border-slate-700 hover:border-cyan-400 text-xs font-bold text-slate-300 hover:text-cyan-300">← PREVIOUS</button>
-      <span id="modal-position" class="text-xs text-slate-500 font-mono"></span>
-      <button id="next-guide" class="px-3 py-2 border border-slate-700 hover:border-cyan-400 text-xs font-bold text-slate-300 hover:text-cyan-300">NEXT →</button>
+
+  </main>
+
+  <!-- =========================================================
+       GUIDE MODAL
+       ========================================================= -->
+  <div
+    id="guide-modal"
+    class="hidden fixed inset-0 z-50 bg-slate-950/95 p-2 backdrop-blur-sm sm:p-5"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+  >
+
+    <div
+      class="mx-auto flex h-full max-w-5xl flex-col overflow-hidden rounded-sm border border-cyan-500/40 bg-slate-950 shadow-2xl"
+    >
+
+      <!-- MODAL HEADER -->
+      <div
+        class="shrink-0 border-b border-slate-800 bg-slate-900/95 p-3 sm:p-4"
+      >
+
+        <div class="flex items-start justify-between gap-4">
+
+          <div class="min-w-0">
+
+            <div
+              id="modal-tag"
+              class="section-label text-[10px] font-bold uppercase text-amber-400"
+            ></div>
+
+            <h2
+              id="modal-title"
+              class="mt-1 text-xl font-black text-cyan-300 sm:text-2xl"
+            ></h2>
+
+          </div>
+
+          <button
+            type="button"
+            onclick="closeGuide()"
+            class="shrink-0 rounded-sm border border-slate-700 bg-slate-950 px-3 py-2 text-xs font-black uppercase tracking-wider text-white hover:border-cyan-400 hover:text-cyan-300"
+          >
+            Close ✕
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- MODAL CONTENT -->
+      <div
+        id="modal-body"
+        class="flex-1 space-y-4 overflow-y-auto p-3 sm:p-6"
+      ></div>
+
+      <!-- MODAL NAV -->
+      <div
+        class="shrink-0 border-t border-slate-800 bg-slate-900/95 p-2.5"
+      >
+
+        <div class="flex items-center justify-between gap-2">
+
+          <button
+            id="prev-guide"
+            type="button"
+            class="min-h-[42px] rounded-sm border border-slate-700 bg-slate-950 px-3 text-xs font-bold uppercase text-white hover:border-cyan-400 hover:text-cyan-300"
+          >
+            ← Previous
+          </button>
+
+          <span
+            id="modal-position"
+            class="font-mono text-xs font-bold text-white"
+          ></span>
+
+          <button
+            id="next-guide"
+            type="button"
+            class="min-h-[42px] rounded-sm border border-slate-700 bg-slate-950 px-3 text-xs font-bold uppercase text-white hover:border-cyan-400 hover:text-cyan-300"
+          >
+            Next →
+          </button>
+
+        </div>
+
+      </div>
+
     </div>
+
   </div>
-</div>
 
-<div id="disclaimer-modal" class="hidden fixed inset-0 z-[60] bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-  <div class="bg-slate-900 border border-cyan-500/40 rounded p-5 max-w-md w-full space-y-4 glow-cyan"><div class="flex justify-between border-b border-slate-800 pb-2"><h3 class="text-sm font-bold text-cyan-400 uppercase font-mono">/// LEGAL DISCLAIMER</h3><button onclick="toggleDisclaimer(false)" class="text-slate-400 hover:text-white">✕</button></div><p class="text-sm text-slate-300 leading-relaxed">This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.</p><button onclick="toggleDisclaimer(false)" class="w-full py-2.5 bg-slate-950 border border-cyan-500/50 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider">Acknowledge</button></div>
-</div>
+  <!-- =========================================================
+       ABOUT / CREDITS
+       ========================================================= -->
+  <section class="border-t border-slate-800">
 
-<script>
-const guides = [{"name":"Aetherblade","tag":"Scarlet Alliance","utility":["Stability","Movement skills","Condition cleanse","Crowd control"],"overview":"Infiltrate the hidden Aetherblade base with Inspector Kiel, cross lethal traps, survive a cannon barrage, and defeat Frizz.","sections":[["Mined Passage",["Swim through the underwater tunnel without touching any mines.","Check the ceiling, algae, and scenery because some mines are hidden from the normal camera angle.","Touching a mine is instantly lethal."]],["Aetherblade Traps",["Move only onto floor tiles that remain dark during each lighting cycle.","After crossing, defeat the Inquest guard without letting its knockback send anyone into the lethal floor.","Use the terminals beyond each trap room to disable it. Both rooms must be disabled so Inspector Kiel can continue.","In the rotating-forcefield room, run in the open spaces. Dodges, blocks, and invulnerability help."]],["Cannon Barrage",["Defeat the waves of Aetherblades while avoiding cannon fire.","Stay mobile and group enemies for cleave damage."]],["Frizz",["Phase 1: a fast, half-height forcefield circles the room. Jump onto crate stacks or outrun it near the center.","Phase 2: a slow, full-height forcefield circles the room. Keep moving together in one half of the arena.","Phase 3: both forcefields activate. Outrun the tall field and use crates for the low field.","Kill the defense golems to advance each phase. Forcefields cannot be dodged through."]]],"mistakes":["Touching hidden underwater mines.","Crossing traps but forgetting to disable them.","Trying to dodge through Frizz’s forcefields."]},{"name":"Uncategorized","tag":"Asuran Structure","utility":["Projectile reflect","Stability","Movement skills","Ranged damage"],"overview":"Climb an unstable asuran structure, clear escaped prisoners, survive lethal turrets, and defeat Old Tom and the Raving Asura’s golems.","sections":[["Harpies and Platforms",["Kill harpies before difficult jumps so combat speed does not shorten your leap.","At higher scales, harpies fire knockback projectiles. Use reflects, Stability, or position with no floor directly behind you.","Mesmer or thief portals can skip the climb for the group."]],["Holding Area",["Destroy the power generator to open the cells.","Recommended kill order: Rabbit, Bandit Saboteur, Flame Legion Fire Shaman, then Ettin."]],["Deadly Stairs",["The four turrets fire pulses that instantly down players. Dodge, teleport, reflect, or destroy the projectiles.","Three players activate the consoles at the top simultaneously to disable the turrets."]],["Old Tom",["At higher levels, carry Tears of Dwayna to both fan batteries before starting.","Use the far console to activate the fan and clear poison gas.","Fight at range to reduce hits from Old Tom’s circular projectile volley."]],["Raving Asura",["Ignore the invulnerable asura and defeat the four golems one at a time, then all four together.","Stand near players with the same charge. Opposite charges damage each other when too close.","Reflect or block the asura’s slow lightning projectiles, especially once they apply Agony."]]],"mistakes":["Jumping while still in combat.","Entering Old Tom without charging the fan.","Standing next to an opposite electrical charge."]},{"name":"Snowblind","tag":"Sons of Svanir","utility":["Stability","Projectile reflect","Crowd control","Light source"],"overview":"Manage freezing temperatures with bonfires, defeat the Elemental Source, follow tracks through the forest, and kill the Legendary Shaman.","sections":[["Warmth and Hypothermia",["Stand near lit bonfires to gain Warmth.","Warmth clears Hypothermia and temporarily prevents new stacks.","Use the Ignite special action skill to light bonfires."]],["Ice Wall",["Keep the main bonfire fueled with firewood while it melts the wall.","Kill Ice Elementals before they reach and extinguish the fire.","A well-fed fire completes the section faster."]],["Elemental Source",["Light and maintain the five fire pits.","The boss depletes fires at 75%, 50%, and 25%. If all go out, relight one quickly to end the blizzard.","Use Stability and reflects against knockbacks and projectiles."]],["Forest",["Take a torch and follow footprints toward the village.","Stay together because the forest is dark and easy to navigate incorrectly."]],["Legendary Shaman",["Destroy Corrupted Ice Crystals so they cannot grant Rime Shield. Their projectiles can be reflected.","At 75% and 50%, kill the Elite Icebrood Effigy and break its defiance bar.","At 25%, the shaman transforms into a bear. Avoid the leap and extended knockdown."]]],"mistakes":["Leaving bonfires unfueled.","Ignoring crystals during the shaman fight.","Running around allies while targeted by Icy Breath."]},{"name":"Urban Battleground","tag":"Ascalon","utility":["Stability","Projectile reflect","Blind","Crowd control"],"overview":"Relive the fall of an Ascalonian city as Flame Legion charr, breach the gate, defend a shaman, and defeat Captain Ashym.","sections":[["Gate and Dulfy",["Destroy the burning oil first with ranged attacks. Its danger area is larger than the animation.","Then defeat Siegemaster Dulfy and break the gate.","Stability helps against ballista knockdowns."]],["Courtyard",["Follow the open route around the city; barricades change the available path.","Pull enemies away from siege weapons, group them behind cover, and use Blind and projectile defense.","Defend the Flame Shaman while waves spawn clockwise around the courtyard."]],["Captain Ashym",["Do not spend burst damage during his opening block.","Kill the summoned squire for a rally target and to reduce Ashym’s Might support.","Watch his feet for the flare before the powerful fire wave and dodge.","Below 25%, stay at range unless his defiance bar is broken."]]],"mistakes":["Standing under burning oil.","Fighting the courtyard in the middle of every siege weapon.","Bursting into Ashym’s opening block."]},{"name":"Swampland","tag":"Swamp Spirits","utility":["Swiftness","Stability","Condition cleanse","Portals","AoE damage"],"overview":"Return three timed wisps, defeat Mossman, and rotate through safe circles while fighting Bloomhunger.","sections":[["Wisps",["Assign one runner to each wisp and confirm everyone is ready before the first pickup.","Jump over traps or use Stability and condition cleanse. Walls appear after pickup.","Let the farthest runner start first and leave the nearest matching cleft open for them.","Portals can carry a wisp runner."]],["Mossman",["Track him on the mini-map when he enters stealth. Dodge when he reappears with the charged attack.","Use heavy crowd control and cleave the summoned wolves."]],["Bloomhunger",["Fight inside the active green circle so Bloomhunger and spirits are vulnerable.","Move clockwise as the safe circle changes.","Break the boss during Pound and Poison Rain when possible.","At 75% and 50%, kill spirit animals inside the green ring.","At 25%, assign one player to each corner wisp and return all four before the charge completes."]]],"mistakes":["Picking up a wisp before runners are ready.","Depositing into the far runner’s nearest cleft.","Fighting Bloomhunger outside the green circle."]},{"name":"Cliffside","tag":"Cultist Hammer","utility":["Condition cleanse","Stability","Swiftness","Portals","Crowd control"],"overview":"Use a corrupting cultist hammer to break the Colossus seals, cross trapped scaffolding, and defeat the Legendary Archdiviner.","sections":[["Cultist Hammer",["Kill an enemy near the hammer to charge Seal Breaker. The wielder must tag the enemy.","Dropping the hammer removes the charge and allows Corruption stacks to fall.","At 30 Corruption the wielder is stunned; at 40 they are downed. Rotate carriers or use the hammer shield around 26 stacks."]],["Knee and Chest Seals",["Charge the hammer and strike each knee seal twice. Avoid excessive AoE if preserving the original enemies for charges.","Cross spike and wind traps. Stability, Aegis, dodges, and cleanse help.","At the chest, move to the single safe floor section, charge the hammer, and strike the seal."]],["Arm Seals",["Alternate between north and south seals because striking one shields it and exposes the other.","Move as a group, kill a cultist for charge, strike, then rotate.","Drop the hammer in the hallway when Corruption becomes dangerous."]],["Legendary Archdiviner",["Break the defiance bar during the cone slam or corrupted ground channel.","At 75%, 50%, 25%, and 0%, kill a Chanter to charge the hammer and strike the center seal.","From 50%, free caged allies and control spawned devourers.","The final transition requires one last charged hammer strike."]]],"mistakes":["Holding the hammer to 40 Corruption.","Trying to hit the same arm seal twice in a row.","Ignoring condition pressure from Chanters."]},{"name":"Aquatic Ruins","tag":"Underwater","utility":["Underwater Agony Resistance","Stability","Swiftness","Aegis"],"overview":"Free fishermen, navigate either the Deep or Dolphin route, and defeat the Jellyfish Beast underwater.","sections":[["Preparation",["Check Aquatic Headgear and underwater weapons for enough Agony Resistance."]],["Deep Path",["Stay near Luminous Plants because darkness contains lethal piranhas.","Follow mushrooms on the ocean floor and avoid unnecessary krait fights.","A carried plant provides mobile light and can heal nearby allies."]],["Dolphin Path",["Apply useful boons before transforming.","Use Echo to reveal the route and hidden krait.","Move through water spirals to reduce Stealth recharge. Only one player needs to reach the checkpoint."]],["Jellyfish Beast",["Open with Stability because the boss begins with a repeated stunning spin.","When eaten, use Struggle repeatedly to escape and stop its healing.","Dodge to break out of rising bubbles.","At 75%, 50%, and 25%, kill the Elite Krait Diviners to remove invulnerability."]]],"mistakes":["Entering with insufficient underwater AR.","Summoning a minion that cannot escape being eaten.","Ignoring Stability during the opening spin."]},{"name":"Underground Facility","tag":"Dredge","utility":["Swiftness","Stealth","Blind","Portals","Crowd control"],"overview":"Operate pressure plates, complete one of two random breach routes, defeat Rabsovich, and use molten ore against the final boss.","sections":[["Pressure Plate Room",["One player holds the first plate, then another holds the second while the group enters the central cage.","Two players hold the inner plates while another channels the control panel for about 20 seconds.","Protect the plate holders and panel user from continuously spawning dredge."]],["Mining Laser Route",["Carry mining lasers up the ramp while avoiding orange bombardment zones.","You cannot dodge while holding a laser. Hug the walls and use safe pockets.","Fire at the reinforced door, then return for a fresh laser until it breaks."]],["Bomb Route",["Pick up bombs before dredge do, then pass through both clouds of concealing dust.","Avoid detection zones while stealthed and deposit nine bombs before their timers expire.","Regroup at the detonator before destroying the door."]],["Rabsovich",["Avoid the frontal orange rectangle.","Stop attacking while his shield is raised because attacks are blocked and can daze you."]],["Final Boss",["Kite the boss beneath a molten ore bucket and activate the control to apply Superheated.","Deal damage while Superheated is active and interrupt healing.","Assign a primary and backup bucket operator.","For the Ice Elemental version, manage respawning adds and interrupt its visible heal."]]],"mistakes":["Leaving a pressure plate during the panel channel.","Attempting to dodge while holding a mining laser.","Damaging the final boss without Superheated."]},{"name":"Molten Furnace","tag":"Molten Alliance","utility":["Crowd control","Projectile reflect","Knockback or pull","Movement skills"],"overview":"Escort Rox and Braham’s drill, survive weapons tests, destroy the thermal core, and defeat the Weapons Test Engineer.","sections":[["Drill Tunnel",["Stay away from the burning area directly behind the drill.","Avoid cave-in circles and close optional steam geysers with nearby boulders.","Wait for the steam wall to fall before crossing."]],["Thermal Core",["Survive a weapon test while the core is invulnerable, then damage it during the open phase.","Move Molten Protectors away from the core before their invulnerability ring activates.","Save major damage cooldowns for the final combined phase."]],["Weapon Tests",["Fireballs: move into open safe spaces or reflect them.","Shockwaves: jump, dodge, or move beyond their range.","Fire tornadoes: stand between lanes, dodge, reflect, or use the core as cover."]],["Weapons Test Engineer",["Avoid the same tornado and shockwave mechanics while damaging the engineer."]]],"mistakes":["Standing behind the drill.","Leaving a Molten Protector beside the core.","Spending all burst damage before the Full Monty phase."]},{"name":"Molten Boss","tag":"Molten Alliance","utility":["Cleave","Crowd control","Projectile defense","Positioning"],"overview":"Fight through Molten Alliance packs, rescue prisoners, and defeat the Molten Berserker and Molten Firestorm.","sections":[["Enemy Packs",["Kill Molten Protectors or stun them to break their invulnerability link.","Move out of Smoke Shaman bombs and kill Resonators before protected Flame Shamans.","Use cleave against dense groups and rescue prisoners when safe."]],["Twin Bosses",["White ground shockwaves can be jumped or dodged. Blue airborne shockwaves punish jumping.","Firestorm covers the platform with persistent fire fields.","When one boss loses 25%, the other enrages. Remove the effect by landing repeated hits or focus one boss and manage the enraged partner."]],["Combined Tech",["After one boss dies, the survivor heals completely and upgrades its attacks.","Berserker adds falling debris and stronger stomps.","Firestorm creates an outer wind zone that pushes players toward the edge.","At 50%, kill or control the summoned Veteran Molten Mining Suits."]]],"mistakes":["Attacking a protected enemy instead of its Protector.","Jumping over the blue airborne shockwave.","Fighting inside Firestorm’s outer wind."]},{"name":"Deepstone","tag":"Dwarven Ruins","utility":["Crowd control","Movement skills","Condition cleanse","Light of Deldrimor"],"overview":"Clear two branching chambers, gain the Light of Deldrimor, reveal hidden paths, and defeat The Voice.","sections":[["Eastern Route",["Cross the windy bridge between yellow strips and avoid sticky spider nests.","Two players stand on the runestones to disable the wind.","Kill the Broodmothers and Brood Queen while moving to avoid stacking poison."]],["Western Route",["Move between cascading Tetris-like AoE patterns. At higher scales they apply Agony.","Two players activate the far runestones to disable the trap.","Break tornado defiance bars during the Deepstone Sentinel fight to rescue captured players."]],["Light of Deldrimor",["Use both collected orbs on the Vibrant Crystal.","Use the special action to expose the Shadow Minotaur and reveal hidden tiles and objects."]],["Abyss Chamber",["Reveal tiles before stepping onto them and activate all four lights.","Kill Spectral Flames before they destroy the revealed path behind the group."]],["The Voice",["At 80% and 40%, break the bar to interrupt the damaging red beam.","At 61% and 21%, kill ten Spectral Flames before they reach the boss.","Keep revealing tiles because boss attacks make floor sections disappear."]]],"mistakes":["Standing still in the spider room.","Ignoring tornado breakbars.","Failing to reveal safe tiles during The Voice."]},{"name":"Siren’s Reef","tag":"Cursed Pirates","utility":["Projectile defense","Boon strip","Condition cleanse","AoE damage","Stability"],"overview":"Clear a shipwreck, move cursed treasure through a maze, defend the Kraken’s Pride, and defeat Captain Crowe.","sections":[["Shipwreck and Peter",["Use projectile defense against Bristlebacks.","Use the cannon to destroy mines and open the route.","During Blasting Black Peter, keep one player on the upper cannon clearing lethal mines while the group fights below."]],["Treasure Maze",["Move one bag at a time and pass it between players at corridor junctions.","Avoid sentry circles; triggering one summons ghost enemies.","Catching the bag grants Lighten Curse. Keep it off the ground when possible.","Stage all three bags near the chest, then deposit them together."]],["Kraken’s Pride",["Pass treasure forward while ship cannons clear ghosts.","Keep Veteran Ghostly Swindlers away from the treasure.","During boss fights, move with the progressing wind zones so you are not blown overboard."]],["Captain Crowe",["Drop Grim Lagoon fields in unused deck corners.","Stack inside the shrinking green circle to split Teeth from the Deep damage.","Group and cleave ghost pirates, strip their boons, and cleanse conditions."]]],"mistakes":["Leaving the cannon unmanned during Peter.","Dropping treasure where a sentry can return it.","Spreading out during Captain Crowe’s green circle."]},{"name":"Chaos","tag":"Mist Mashup","utility":["Stability","Crowd control","Movement skills","Condition cleanse"],"overview":"Navigate fragments of multiple fractals, defeat the Chaos Anomaly, light bonfires through a deadly blizzard, and kill the Brazen Gladiator.","sections":[["Opening",["Defeat transformed Cliffside enemies and cross the knockback-heavy golem platforms.","Use Stability or projectile defense against blue knockback orbs."]],["Chaos Anomaly",["Defeat the four named golems, then the anomaly.","The last golem killed in a phase is removed from the next phase. Focus a desired golem first if controlling the final champion.","Move Flux Bombs away from the group before they detonate."]],["Blizzard Room",["Move from bonfire to bonfire as a group. Frostbite deals severe damage.","Avoid Jade Maw Tentacle knockbacks and the Flame Devourer that extinguishes fires.","Lighting the fourth fire ends Frostbite in the area."]],["Brazen Gladiator",["Use electrified floor tiles to remove Protective Shielding.","Below 55%, leave the highlighted pull-and-spin area or break the defiance bar.","At higher scales, avoid falling weights and their knockdown shockwaves."]]],"mistakes":["Dropping Flux Bombs in the fight.","Moving alone between bonfires.","Attacking the Gladiator before disrupting the shield."]},{"name":"Thaumanova Reactor","tag":"Inquest Disaster","utility":["Mobility","Condition cleanse","Projectile defense","Crowd control"],"overview":"Disable four reactor colliders through specialized rooms, then fight the Thaumanova Anomaly on disappearing platforms.","sections":[["Subject 6",["Stop attacking immediately when Subject 6 enters Shield Form. Blocked attacks build Overload and can wipe the party.","Kill repairing oozes, especially golden Veterans at higher tiers. Break their defiance bars."]],["Dormitories",["Split up and destroy doors quickly to rescue Chibb and Greeza.","Some rooms require destroying an internal portal. Successful rescues weaken the final boss."]],["Repulsor Lab",["Use safety shields to block turret attacks and activate consoles in sequence.","The final pair of consoles can be handled by two players or one player with mobility or cleanse."]],["Cooling Chamber",["Carry cooling rods to receptacles to create safe zones.","Use the Heat Shield and movement or survival skills to reach the far side."]],["Thaumanova Anomaly",["Use Hex Shield to protect the platform beneath you.","Spread out so one attack does not erase several players’ tiles.","Move immediately when a hex begins fading. Outer platforms permanently disappear at 75%, 50%, and 25%."]]],"mistakes":["Continuing to attack Subject 6’s shield.","Bunching together on the final platforms.","Entering the cooling room without using its tools or mobility."]},{"name":"Twilight Oasis","tag":"Sunspear Assault","utility":["Crowd control","Boon strip","Condition cleanse","Special action mobility"],"overview":"Infiltrate Palawa Joko’s vision of the Sunspear assault, master Enhanced Reflexes, and defeat High Priestess Amala through five divine phases.","sections":[["Approach",["Break the Sandbinder during Wall of Earth when possible.","After becoming Awakened, use Enhanced Reflexes to cross rooftops and kill the two barrier Sandbinders."]],["Lyssa and Melandru",["Find the real Amala by targeting the Legendary-ranked clone.","Dodge the expanding polymorph circle.","Break Mystic Detonation to expose each priestess.","During Melandru, kite the fixated Champion Earth Elemental away from the group. Use Enhanced Reflexes to avoid Mystic Wave."]],["Dwayna and Grenth",["Spread during Dwayna’s tracking lightning so paths do not overlap.","In Grenth, avoid Claim Soul because it instantly downs players.","Jump over fear walls with Enhanced Reflexes or attack from range."]],["Balthazar",["Strip Protection, Swiftness, and Might when possible.","Move out of meteor circles and jump over the outgoing shockwave.","Avoid the two moving fire tornadoes.","For the Balthazar priestess, kill the four tethered Sunspears to remove her health."]]],"mistakes":["Forgetting the special action skill.","Failing to break Amala’s repeated channel.","Dropping tracking attacks through the group."]},{"name":"Kinfall","tag":"Dragon Whispers","utility":["Stacking discipline","Crowd control","Movement awareness"],"overview":"Share Life-Fire to survive Deathly Rime, open doors through sacrifice, and defeat the Legendary Whispering Shadow.","sections":[["Life-Fire",["Life-Fire protects its owner and nearby allies from Deathly Rime.","As players sacrifice their light to open doors, those without it must remain near a player who still has Life-Fire.","This is especially important during jumps because Deathly Rime reduces movement and increases recharge."]],["Whispering Shadow",["Avoid the expanding Frozen Teeth arrow lanes.","Cryoflash alternates between ground-safe and air-safe responses. Watch the orb and shockwave cues, then use the marked launch circles only when the safe zone is airborne.","Walk through the boss to avoid the wide Freezing Fan.","Avoid spiraling Freezing Vortex circles and line up Gorefrost spears away from allies."]],["Breakbar Phases",["At 80%, 50%, and 20%, break the defiance bar to interrupt Guttering Light or Glacial Midnight.","Successful interruption prevents Life-Fire loss and stops the boss from gaining damage stacks."]]],"mistakes":["Separating from the remaining Life-Fire carriers.","Reading Cryoflash incorrectly.","Missing the phase breakbar."]},{"name":"Captain Mai Trin Boss","tag":"Aetherblade Boss","utility":["Condition cleanse","Crowd control","Pulls and cleave","Protection"],"overview":"Use Horrik’s electrostatic cannon shots to strip Mai Trin’s shield, survive artillery phases, and defeat the Aetherblade leadership.","sections":[["Captain’s Shield",["Mai begins with ten shield stacks and is nearly invulnerable.","The player marked for the blue electrostatic shot should position so Mai stands in the field.","Break Mai’s defiance bar inside the blue field to keep her there and remove more stacks.","Stay relatively close together so Mai does not shadowstep far from the mechanic."]],["Survival",["Cleanse her frequent conditions.","Avoid standing near Horrik because his melee knockdown stops cannon fire.","Protect players reviving allies because Mai favors stationary and distant targets."]],["Artillery Phases",["At 75%, 50%, and 25%, Mai leaves and the group damages Horrik by another 25%.","Group and cleave the spawned pirates before Mai returns so they do not gain Captain’s Inspiration.","At T4 after the third barrage, prioritize the Elite Sharpshooter and other additional elites."]]],"mistakes":["Fighting Mai outside blue cannon fields.","Standing too far apart.","Leaving artillery-phase adds alive."]},{"name":"Volcanic","tag":"Grawl Cult","utility":["Stability","Movement skills","Condition cleanse","Projectile defense","Crowd control"],"overview":"Fight through a grawl cult, survive lethal boulders, protect captives, and defeat the Legendary Imbued Shaman.","sections":[["Grawl Assault",["Defeat waves of grawl while avoiding falling rocks marked by orange circles.","After the event bar fills, the remaining grawl retreat and the route forward opens."]],["Boulder Corridor",["Avoid falling rocks and rolling flaming boulders.","Boulders are lethal and leave burning trails.","Use side alcoves, speed boosts, mobility skills, and condition cleanse to reach the checkpoint."]],["Champion Grawl Shaman",["Throw Infused Stones from certain falling-rock impacts to remove Protective Bubble stacks.","Stop Veteran Grawl Shamans before they sacrifice all four captives.","Split the party between shield removal and veteran control.","After the shield breaks, avoid the boss's melee knockback and ranged fireballs."]],["Broken Tracks",["Cross the abandoned mineshaft while avoiding lava and Veteran Vampire Bats.","Use nearby rocks and platforms to recover from a fall.","Reach the final Mistlock Singularity to unlock the checkpoint."]],["Legendary Imbued Shaman",["Keep moving because Hot Foot applies Burning when players stand still.","Avoid flaming arrows, Firestorm, dives, and wing attacks.","At each 25% interval, remove the shield with rapid hits before the boss reaches a captive and heals.","Use projectile defense, cleanse, and AoE damage against elemental grubs."]]],"mistakes":["Running into rolling boulders.","Ignoring veteran shamans near captives.","Using slow attacks during shield phases.","Standing still during Hot Foot."]},{"name":"Solid Ocean","tag":"Jade Maw","utility":["Stability","Reflecting Crystals","Crowd control","Projectile awareness"],"overview":"Cross floating jade platforms, defeat tentacles and Jade Colossi, and use Reflecting Crystals to destroy the Jade Maw.","sections":[["Floating Jade Platforms",["Cross carefully to reach the Jade Maw arena.","Irukandji may be fought or skipped, but falling can separate you from the party."]],["Reflecting Crystals",["The Jade Maw cannot be damaged normally.","When a red skull appears, hold a Reflecting Crystal to absorb the death ray.","Throw the charged crystal at the Maw to remove 5% of its health.","A beam without a crystal is usually lethal."]],["Tentacles",["Kill tentacles to damage the Maw and create more crystals.","A tentacle may finish its final attack after reaching zero health.","Use daze or stun to stop dangerous sweeps and knockdowns."]],["Jade Colossi",["Kill Jade Colossi to advance the event bar.","Stun them to remove projectile reflection.","Use Stability against knockdowns while handling laser targets."]],["Final Laser",["Near death, the Maw targets every surviving player.","Hold a crystal before the beam fires.","At least one player must survive or the encounter resets."]]],"mistakes":["Ignoring the red skull target marker.","Throwing charged crystals simultaneously.","Standing near tentacles without control.","Missing the final crystal check."]},{"name":"Silent Surf","tag":"Jade Sea Rescue","utility":["Grappling Hook","Parachute","Crowd control","Condition cleanse","Movement awareness"],"overview":"Use survey gear to traverse a deep cavern, defeat corrupted Luxons, and face Kanaxai on a fractured platform.","sections":[["Survey Gear",["Use the special action skill to equip Grappling Hook, Parachute, Black Powder Charge, and Flare.","Refill movement charges from Leftover Supplies at each checkpoint.","Weapon swap to return to normal combat skills."]],["Checkpoint Traversal",["Use Parachute for long drops and Grappling Hook to reach jade platforms.","Aim the Grappling Hook toward the middle of a surface rather than its edge.","Use mushrooms, wind cannons, and zip lines to progress.","Once enough players reach a checkpoint, fallen allies can respawn there."]],["Corrupted First Mate Dolus",["Turn your character away when Dread Visage appears.","Spread when numbered targets appear because Dolus dashes through them in order."]],["Kanaxai: Core Attacks",["Turn away from Kanaxai and the Aspects during Dread Visage.","Drop Rending Storm axe fields near the edge.","Move out of Harrowshot circles; this attack cannot be blocked, dodged, or avoided with invulnerability.","Break Gathering Shadows when the defiance bar appears."]],["Aspects and World Cleaver",["Phantasmagoria reveals a tether to a personal Aspect.","Use Grappling Hook to reach the marked island, kill the Aspect, and return by mushroom.","At 66% and 33%, handle all Aspects before World Cleaver completes."]],["Frightening Speed",["Players are numbered one through five.","Spread so the dash slashes do not overlap.","The attack deals percentage-based damage and cannot be blocked or dodged."]]],"mistakes":["Aiming Grappling Hook at platform edges.","Looking during Dread Visage.","Dropping Rending Storm in the group.","Overlapping numbered circles.","Missing an assigned Aspect."]},{"name":"Nightmare","tag":"Toxic Nightmare","utility":["Crowd control","Condition cleanse","Projectile defense","Stability","Spread awareness"],"overview":"Climb a toxic tower, defeat MAMA and Siax, capture corrupted altars, and survive Ensolyss.","sections":[["MAMA",["Avoid projectile fire, flamethrower sweeps, and summoned Twisted Watchwork.","Stand beneath Arkk's shield during the room-wide blast.","At 33%, MAMA becomes mobile and uses powerful jumps and AoE slams."]],["Altars",["Capture each altar while handling Hallucinations.","Strafe around the edge to avoid red damaging spheres.","Collect blue spheres for healing."]],["Siax the Unclean",["Break Siax during the room-wide explosion channel.","Players infected with toxin vomit in a cone after a delay.","Turn away from allies to prevent reinfection."]],["Ensolyss",["At 66% and 33%, capture the five outer orbs.","Jump or dodge center shockwaves.","Successful completion revives the party.","At 15%, move inside Arkk's shield and avoid charging hallucinations."]],["Challenge Mode Notes",["MAMA summons Assault Knights at 75%, 50%, and 25%.","Siax requires coordinated CC and fast Echo kills.","Ensolyss attacks faster and requires a break immediately after altar phases."]]],"mistakes":["Missing MAMA's shield.","Vomiting toward allies.","Failing Siax's breakbar.","Trying to revive inside altar circles.","Standing outside Arkk's shield at 15%."]},{"name":"Shattered Observatory","tag":"Fractured Cosmos","utility":["Crowd control","Nova Launch","Projectile defense","Stability","Positioning"],"overview":"Defeat Skorvald, traverse cosmic islands, overcome Artsariiv, and destroy Arkk's reactors.","sections":[["Skorvald",["Stay close to move between cone-shaped safe areas.","Push Solar Blooms toward the edge.","Turn away from the eye.","At 66% and 33%, kill outer-island Flux Anomalies before the wipe attack completes."]],["Cosmic Islands",["Use Nova Launch and ley winds to cross.","Bounce silver Globolla Marbles by standing beneath their marked circles."]],["Artsariiv",["Kill the Temporal Anomaly to create a shelter.","The red-skull player must detonate inside the shelter.","Break clone defiance bars at 66% and 33%.","Keep the silver marble bouncing to unlock Artsariiv's defiance bar."]],["Arkk",["Move Solar Blooms into the four reactors.","Handle Corporeal Reassignment and turn away from the eye.","Repeat reactor phases at 80%, 50%, and 30%.","Defeat the Archdiviner at 70% and Brazen Gladiator at 40%.","Below 40%, use Hypernova Launch around missing floor tiles."]],["Challenge Mode Notes",["Bring heavy CC and Stability.","Assign an Artsariiv marble catcher.","Arkk adds green split damage, dangerous lasers, bombs, and floor loss."]]],"mistakes":["Looking at the eye.","Missing an island anomaly.","Detonating outside the shelter.","Dropping the marble.","Knocking blooms away from reactors.","Greeding damage during floor loss."]},{"name":"Sunqua Peak","tag":"Elemental Mountain","utility":["Crowd control","Charged Leap","Condition cleanse","Spread awareness","Tether management"],"overview":"Climb an elemental mountain, learn air, fire, and water mechanics, and bring peace to Ai.","sections":[["Voice of the Mountain",["Collect lightning orbs for Charged Leap.","At 66% and 33%, gain three stacks and jump into the clouds."]],["Water Elemental",["Speak to the three frightened elementals.","Wait for rushing water to weaken before crossing.","Share the dark-orb tether before anyone reaches ten Tidal Bargain stacks."]],["Fury of the Mountain",["Avoid meteors and jump their shockwaves.","Hide behind an intact meteor before the arena-wide blast."]],["Ai: Air Phase",["Spread targeted circles and avoid dashes.","Collect Charged Leap orbs and dispel every energy source.","Break her defiance bar."]],["Ai: Fire Phase",["Avoid meteor impacts and jump shockwaves.","Hide behind the one intact meteor."]],["Ai: Water Phase",["Share dark-orb tethers.","Stack in green circles to split damage.","Avoid enlarged water arrows and the center pull."]],["Challenge Mode Notes",["The Light phase repeats stricter elemental mechanics.","The Dark phase adds Fears, Sorrows, and Guilt.","Boons are stripped on engagement."]]],"mistakes":["Jumping without three Charged Leap stacks.","Hiding behind a destroyed meteor.","Holding the water tether too long.","Failing Sorrow breakbars.","Letting Fear enemies reach the group."]},{"name":"Lonely Tower","tag":"Demon Incursion","utility":["Stability","Crowd control","Boon awareness","Orb assignment","Positioning"],"overview":"Activate Astral Purifiers, separate Cerus and Deimos, and manage Eparch's emotional attunements.","sections":[["Astral Purifiers",["Complete ten correct channel inputs at each node.","Kill or control Avatars of Spite before they interrupt the channel.","Stability can prevent the interruption."]],["Cerus and Deimos",["The closest player to each boss receives its fixate.","Keep the bosses separated to prevent Brothers United.","Move Cerus's timed bomb away.","Watch Deimos's hands, oil, and shockwaves."]],["Eparch: Attack Cycle",["Watch for spirals, fire shockwaves, arrows, pull, and purple shard circles.","Keep moving during repeated shard hits.","Dodge through arrows or stay far enough away.","Stability can be corrupted into Fear."]],["Emotion Globules",["Each attack drops a matching emotion.","A new color removes one stack of the current attunement before applying the new one.","Downing removes all player stacks.","Assign colors deliberately."]],["Consume and Breakbar",["Break Eparch quickly before Consume strips the target.","The highest-toughness player in line of sight is targeted.","Uncollected globules empower Eparch."]],["Challenge Mode Notes",["At 65%, kill champions and close two rifts.","At 35%, repeat with three rifts.","Breaking the bar no longer removes empowerment.","Assign attunements and bait Consume with a player holding no stacks."]]],"mistakes":["Failing purifier inputs.","Keeping Cerus and Deimos together.","Standing still during shard circles.","Collecting the wrong globule.","Ignoring rift enemies.","Missing the Consume breakbar."]}];
-let filteredGuides = [...guides];
-let activeIndex = -1;
+    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
 
-function escapeHtml(value) { return value.replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
-function renderCards(list = guides) {
-  filteredGuides = list;
-  const grid = document.getElementById('fractal-grid');
-  const empty = document.getElementById('empty-state');
-  document.getElementById('guide-count').textContent = `${list.length} of ${guides.length} walkthroughs available`;
-  grid.innerHTML = list.map((g, i) => `
-    <button onclick="openGuideByName('${g.name.replace(/'/g,"\\'")}')" class="text-left group p-4 bg-slate-950 border border-slate-800 hover:border-cyan-400 rounded-sm transition-all glow-cyan min-h-[170px] flex flex-col">
-      <div class="text-[10px] text-amber-400 font-bold uppercase tracking-wider font-mono">${escapeHtml(g.tag)}</div>
-      <h4 class="mt-1 text-base font-bold text-white group-hover:text-cyan-300">${escapeHtml(g.name)}</h4>
-      <p class="mt-2 text-xs text-slate-400 leading-relaxed line-clamp-3">${escapeHtml(g.overview)}</p>
-      <div class="mt-auto pt-3 flex flex-wrap gap-1">${g.utility.slice(0,3).map(u=>`<span class="px-2 py-1 text-[10px] bg-slate-900 border border-slate-800 text-slate-300">${escapeHtml(u)}</span>`).join('')}</div>
-      <div class="mt-3 text-xs text-cyan-400 font-bold uppercase tracking-wider">Open Guide →</div>
-    </button>`).join('');
-  empty.classList.toggle('hidden', list.length !== 0);
-}
-function runSearch() {
-  const q = document.getElementById('search-input').value.trim().toLowerCase();
-  if (!q) return renderCards(guides);
-  renderCards(guides.filter(g => JSON.stringify(g).toLowerCase().includes(q)));
-}
-function clearSearch() { document.getElementById('search-input').value=''; renderCards(guides); }
-function openGuideByName(name) { const idx = guides.findIndex(g=>g.name===name); if(idx>=0) openGuide(idx); }
-function openGuide(index) {
-  activeIndex = index;
-  const g = guides[index];
-  document.getElementById('modal-tag').textContent = g.tag;
-  document.getElementById('modal-title').textContent = g.name + ' Fractal';
-  document.getElementById('modal-position').textContent = `${index+1} / ${guides.length}`;
-  document.getElementById('prev-guide').onclick = () => openGuide((index-1+guides.length)%guides.length);
-  document.getElementById('next-guide').onclick = () => openGuide((index+1)%guides.length);
-  document.getElementById('modal-body').innerHTML = `
-    <section class="p-4 bg-slate-900/50 border border-slate-800"><div class="text-xs text-cyan-400 font-bold uppercase font-mono mb-2">Mission Brief</div><p class="text-sm text-slate-300 leading-relaxed">${escapeHtml(g.overview)}</p></section>
-    <section class="p-4 bg-slate-900/30 border border-slate-800"><div class="text-xs text-amber-400 font-bold uppercase font-mono mb-3">Suggested Utility</div><div class="flex flex-wrap gap-2">${g.utility.map(u=>`<span class="px-2.5 py-1.5 text-xs bg-slate-950 border border-slate-700 text-slate-200">${escapeHtml(u)}</span>`).join('')}</div></section>
-    <section class="space-y-2"><div class="text-xs text-cyan-400 font-bold uppercase font-mono px-1">Walkthrough</div>${g.sections.map((s,idx)=>`
-      <details ${idx===0?'open':''} class="bg-slate-900/40 border border-slate-800 rounded-sm overflow-hidden">
-        <summary class="cursor-pointer select-none p-3.5 flex items-center justify-between gap-3 hover:bg-slate-900/80"><span class="text-sm font-bold text-white"><span class="text-cyan-500 font-mono mr-2">${String(idx+1).padStart(2,'0')}</span>${escapeHtml(s[0])}</span><span class="chevron text-cyan-400 transition-transform">›</span></summary>
-        <div class="border-t border-slate-800 p-3.5"><ul class="space-y-2 text-sm text-slate-300">${s[1].map(x=>`<li class="flex gap-2"><span class="text-cyan-500 mt-0.5">•</span><span>${escapeHtml(x)}</span></li>`).join('')}</ul></div>
-      </details>`).join('')}</section>
-    <section class="p-4 border-l-4 border-rose-500 bg-rose-950/10"><div class="text-xs text-rose-400 font-bold uppercase font-mono mb-2">Common Mistakes</div><ul class="space-y-2 text-sm text-slate-300">${g.mistakes.map(x=>`<li class="flex gap-2"><span class="text-rose-400">×</span><span>${escapeHtml(x)}</span></li>`).join('')}</ul></section>`;
-  document.getElementById('guide-modal').classList.remove('hidden');
-  document.body.classList.add('overflow-hidden');
-  history.replaceState(null,'',`#${slugify(g.name)}`);
-}
-function closeGuide() { document.getElementById('guide-modal').classList.add('hidden'); document.body.classList.remove('overflow-hidden'); history.replaceState(null,'',location.pathname+location.search); }
-function slugify(v){return v.toLowerCase().replace(/[’']/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}
-function toggleDisclaimer(show){document.getElementById('disclaimer-modal').classList.toggle('hidden',!show);}
-function updateClocks(){
-  const now=new Date(), h=now.getUTCHours(), m=now.getUTCMinutes(), s=now.getUTCSeconds();
-  document.getElementById('server-clock').textContent=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} UTC`;
-  const total=h*3600+m*60+s, into=(total-1500+720000)%7200, tyria=(into*12+21600)%86400, th=Math.floor(tyria/3600), tm=Math.floor((tyria%3600)/60);
-  let icon='🌙'; if(th>=5&&th<6)icon='🌅'; else if(th>=6&&th<20)icon='☀️'; else if(th>=20&&th<21)icon='🌆';
-  document.getElementById('tyria-clock-time').innerHTML=`${icon} <span>${String(th).padStart(2,'0')}:${String(tm).padStart(2,'0')}</span>`;
-}
-document.getElementById('search-input').addEventListener('input',runSearch);
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeGuide();toggleDisclaimer(false)} if(!document.getElementById('guide-modal').classList.contains('hidden') && e.key==='ArrowLeft') openGuide((activeIndex-1+guides.length)%guides.length); if(!document.getElementById('guide-modal').classList.contains('hidden') && e.key==='ArrowRight') openGuide((activeIndex+1)%guides.length);});
-document.getElementById('guide-modal').addEventListener('click',e=>{if(e.target.id==='guide-modal')closeGuide();});
-document.addEventListener('DOMContentLoaded',()=>{renderCards();updateClocks();setInterval(updateClocks,1000);const hash=location.hash.slice(1);if(hash){const i=guides.findIndex(g=>slugify(g.name)===hash);if(i>=0)openGuide(i);}});
-</script>
+      <div class="grid gap-5 sm:grid-cols-2">
+
+        <div>
+
+          <div
+            class="section-label text-[10px] font-bold uppercase text-cyan-400"
+          >
+            Terminal 77-B
+          </div>
+
+          <p class="mt-2 text-xs leading-5 text-white">
+            A Guild Wars 2 community guide for new and returning players.
+          </p>
+
+        </div>
+
+        <div class="text-xs leading-6 text-white sm:text-right">
+
+          <p>
+            Written with help from
+            <a
+              href="https://liar.fyi"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-bold text-cyan-400 underline decoration-cyan-500/30 underline-offset-4"
+            >
+              [Liar]
+            </a>
+          </p>
+
+          <p>
+            Site built by
+            <a
+              href="https://qkommand.github.io/home/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-bold text-cyan-400 underline decoration-cyan-500/30 underline-offset-4"
+            >
+              Commander Q
+            </a>
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
+  <footer class="border-t border-slate-800 bg-slate-950">
+
+    <div class="mx-auto max-w-6xl px-4 py-5 text-center sm:px-6">
+
+      <p
+        class="mx-auto max-w-4xl text-[10px] leading-5 text-white sm:text-xs"
+      >
+        Terminal 77-B is an unofficial Guild Wars 2 community fansite and is
+        not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation.
+        Guild Wars, Guild Wars 2, ArenaNet, and associated names and marks are
+        the property of their respective owners.
+      </p>
+
+    </div>
+
+  </footer>
+
+  <!-- =========================================================
+       WALKTHROUGH DATABASE
+       ========================================================= -->
+  <script>
+    const guides = [
+      {
+        name: "Aetherblade",
+        tag: "Scarlet Alliance",
+        utility: [
+          "Stability",
+          "Movement skills",
+          "Condition cleanse",
+          "Crowd control"
+        ],
+        overview:
+          "Infiltrate the hidden Aetherblade base with Inspector Kiel, cross lethal traps, survive a cannon barrage, and defeat Frizz.",
+        sections: [
+          [
+            "Mined Passage",
+            [
+              "Swim through the underwater tunnel without touching any mines.",
+              "Check the ceiling, algae, and scenery because some mines are hidden from the normal camera angle.",
+              "Touching a mine is instantly lethal."
+            ]
+          ],
+          [
+            "Aetherblade Traps",
+            [
+              "Move only onto floor tiles that remain dark during each lighting cycle.",
+              "After crossing, defeat the Inquest guard without letting its knockback send anyone into the lethal floor.",
+              "Use the terminals beyond each trap room to disable it. Both rooms must be disabled so Inspector Kiel can continue.",
+              "In the rotating-forcefield room, run in the open spaces. Dodges, blocks, and invulnerability help."
+            ]
+          ],
+          [
+            "Cannon Barrage",
+            [
+              "Defeat the waves of Aetherblades while avoiding cannon fire.",
+              "Stay mobile and group enemies for cleave damage."
+            ]
+          ],
+          [
+            "Frizz",
+            [
+              "Phase 1: a fast, half-height forcefield circles the room. Jump onto crate stacks or outrun it near the center.",
+              "Phase 2: a slow, full-height forcefield circles the room. Keep moving together in one half of the arena.",
+              "Phase 3: both forcefields activate. Outrun the tall field and use crates for the low field.",
+              "Kill the defense golems to advance each phase. Forcefields cannot be dodged through."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Touching hidden underwater mines.",
+          "Crossing traps but forgetting to disable them.",
+          "Trying to dodge through Frizz’s forcefields."
+        ]
+      },
+
+      {
+        name: "Uncategorized",
+        tag: "Asuran Structure",
+        utility: [
+          "Projectile reflect",
+          "Stability",
+          "Movement skills",
+          "Ranged damage"
+        ],
+        overview:
+          "Climb an unstable asuran structure, clear escaped prisoners, survive lethal turrets, and defeat Old Tom and the Raving Asura’s golems.",
+        sections: [
+          [
+            "Harpies and Platforms",
+            [
+              "Kill harpies before difficult jumps so combat speed does not shorten your leap.",
+              "At higher scales, harpies fire knockback projectiles. Use reflects, Stability, or position with no floor directly behind you.",
+              "Mesmer or thief portals can skip the climb for the group."
+            ]
+          ],
+          [
+            "Holding Area",
+            [
+              "Destroy the power generator to open the cells.",
+              "Recommended kill order: Rabbit, Bandit Saboteur, Flame Legion Fire Shaman, then Ettin."
+            ]
+          ],
+          [
+            "Deadly Stairs",
+            [
+              "The four turrets fire pulses that instantly down players. Dodge, teleport, reflect, or destroy the projectiles.",
+              "Three players activate the consoles at the top simultaneously to disable the turrets."
+            ]
+          ],
+          [
+            "Old Tom",
+            [
+              "At higher levels, carry Tears of Dwayna to both fan batteries before starting.",
+              "Use the far console to activate the fan and clear poison gas.",
+              "Fight at range to reduce hits from Old Tom’s circular projectile volley."
+            ]
+          ],
+          [
+            "Raving Asura",
+            [
+              "Ignore the invulnerable asura and defeat the four golems one at a time, then all four together.",
+              "Stand near players with the same charge. Opposite charges damage each other when too close.",
+              "Reflect or block the asura’s slow lightning projectiles, especially once they apply Agony."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Jumping while still in combat.",
+          "Entering Old Tom without charging the fan.",
+          "Standing next to an opposite electrical charge."
+        ]
+      },
+
+      {
+        name: "Snowblind",
+        tag: "Sons of Svanir",
+        utility: [
+          "Stability",
+          "Projectile reflect",
+          "Crowd control",
+          "Light source"
+        ],
+        overview:
+          "Manage freezing temperatures with bonfires, defeat the Elemental Source, follow tracks through the forest, and kill the Legendary Shaman.",
+        sections: [
+          [
+            "Warmth and Hypothermia",
+            [
+              "Stand near lit bonfires to gain Warmth.",
+              "Warmth clears Hypothermia and temporarily prevents new stacks.",
+              "Use the Ignite special action skill to light bonfires."
+            ]
+          ],
+          [
+            "Ice Wall",
+            [
+              "Keep the main bonfire fueled with firewood while it melts the wall.",
+              "Kill Ice Elementals before they reach and extinguish the fire.",
+              "A well-fed fire completes the section faster."
+            ]
+          ],
+          [
+            "Elemental Source",
+            [
+              "Light and maintain the five fire pits.",
+              "The boss depletes fires at 75%, 50%, and 25%. If all go out, relight one quickly to end the blizzard.",
+              "Use Stability and reflects against knockbacks and projectiles."
+            ]
+          ],
+          [
+            "Forest",
+            [
+              "Take a torch and follow footprints toward the village.",
+              "Stay together because the forest is dark and easy to navigate incorrectly."
+            ]
+          ],
+          [
+            "Legendary Shaman",
+            [
+              "Destroy Corrupted Ice Crystals so they cannot grant Rime Shield. Their projectiles can be reflected.",
+              "At 75% and 50%, kill the Elite Icebrood Effigy and break its defiance bar.",
+              "At 25%, the shaman transforms into a bear. Avoid the leap and extended knockdown."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Leaving bonfires unfueled.",
+          "Ignoring crystals during the shaman fight.",
+          "Running around allies while targeted by Icy Breath."
+        ]
+      },
+
+      {
+        name: "Urban Battleground",
+        tag: "Ascalon",
+        utility: [
+          "Stability",
+          "Projectile reflect",
+          "Blind",
+          "Crowd control"
+        ],
+        overview:
+          "Relive the fall of an Ascalonian city as Flame Legion charr, breach the gate, defend a shaman, and defeat Captain Ashym.",
+        sections: [
+          [
+            "Gate and Dulfy",
+            [
+              "Destroy the burning oil first with ranged attacks. Its danger area is larger than the animation.",
+              "Then defeat Siegemaster Dulfy and break the gate.",
+              "Stability helps against ballista knockdowns."
+            ]
+          ],
+          [
+            "Courtyard",
+            [
+              "Follow the open route around the city; barricades change the available path.",
+              "Pull enemies away from siege weapons, group them behind cover, and use Blind and projectile defense.",
+              "Defend the Flame Shaman while waves spawn clockwise around the courtyard."
+            ]
+          ],
+          [
+            "Captain Ashym",
+            [
+              "Do not spend burst damage during his opening block.",
+              "Kill the summoned squire for a rally target and to reduce Ashym’s Might support.",
+              "Watch his feet for the flare before the powerful fire wave and dodge.",
+              "Below 25%, stay at range unless his defiance bar is broken."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Standing under burning oil.",
+          "Fighting the courtyard in the middle of every siege weapon.",
+          "Bursting into Ashym’s opening block."
+        ]
+      },
+
+      {
+        name: "Swampland",
+        tag: "Swamp Spirits",
+        utility: [
+          "Swiftness",
+          "Stability",
+          "Condition cleanse",
+          "Portals",
+          "AoE damage"
+        ],
+        overview:
+          "Return three timed wisps, defeat Mossman, and rotate through safe circles while fighting Bloomhunger.",
+        sections: [
+          [
+            "Wisps",
+            [
+              "Assign one runner to each wisp and confirm everyone is ready before the first pickup.",
+              "Jump over traps or use Stability and condition cleanse. Walls appear after pickup.",
+              "Let the farthest runner start first and leave the nearest matching cleft open for them.",
+              "Portals can carry a wisp runner."
+            ]
+          ],
+          [
+            "Mossman",
+            [
+              "Track him on the mini-map when he enters stealth. Dodge when he reappears with the charged attack.",
+              "Use heavy crowd control and cleave the summoned wolves."
+            ]
+          ],
+          [
+            "Bloomhunger",
+            [
+              "Fight inside the active green circle so Bloomhunger and spirits are vulnerable.",
+              "Move clockwise as the safe circle changes.",
+              "Break the boss during Pound and Poison Rain when possible.",
+              "At 75% and 50%, kill spirit animals inside the green ring.",
+              "At 25%, assign one player to each corner wisp and return all four before the charge completes."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Picking up a wisp before runners are ready.",
+          "Depositing into the far runner’s nearest cleft.",
+          "Fighting Bloomhunger outside the green circle."
+        ]
+      },
+
+      {
+        name: "Cliffside",
+        tag: "Cultist Hammer",
+        utility: [
+          "Condition cleanse",
+          "Stability",
+          "Swiftness",
+          "Portals",
+          "Crowd control"
+        ],
+        overview:
+          "Use a corrupting cultist hammer to break the Colossus seals, cross trapped scaffolding, and defeat the Legendary Archdiviner.",
+        sections: [
+          [
+            "Cultist Hammer",
+            [
+              "Kill an enemy near the hammer to charge Seal Breaker. The wielder must tag the enemy.",
+              "Dropping the hammer removes the charge and allows Corruption stacks to fall.",
+              "At 30 Corruption the wielder is stunned; at 40 they are downed. Rotate carriers or use the hammer shield around 26 stacks."
+            ]
+          ],
+          [
+            "Knee and Chest Seals",
+            [
+              "Charge the hammer and strike each knee seal twice. Avoid excessive AoE if preserving the original enemies for charges.",
+              "Cross spike and wind traps. Stability, Aegis, dodges, and cleanse help.",
+              "At the chest, move to the single safe floor section, charge the hammer, and strike the seal."
+            ]
+          ],
+          [
+            "Arm Seals",
+            [
+              "Alternate between north and south seals because striking one shields it and exposes the other.",
+              "Move as a group, kill a cultist for charge, strike, then rotate.",
+              "Drop the hammer in the hallway when Corruption becomes dangerous."
+            ]
+          ],
+          [
+            "Legendary Archdiviner",
+            [
+              "Break the defiance bar during the cone slam or corrupted ground channel.",
+              "At 75%, 50%, 25%, and 0%, kill a Chanter to charge the hammer and strike the center seal.",
+              "From 50%, free caged allies and control spawned devourers.",
+              "The final transition requires one last charged hammer strike."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Holding the hammer to 40 Corruption.",
+          "Trying to hit the same arm seal twice in a row.",
+          "Ignoring condition pressure from Chanters."
+        ]
+      },
+
+      {
+        name: "Aquatic Ruins",
+        tag: "Underwater",
+        utility: [
+          "Underwater Agony Resistance",
+          "Stability",
+          "Swiftness",
+          "Aegis"
+        ],
+        overview:
+          "Free fishermen, navigate either the Deep or Dolphin route, and defeat the Jellyfish Beast underwater.",
+        sections: [
+          [
+            "Preparation",
+            [
+              "Check Aquatic Headgear and underwater weapons for enough Agony Resistance."
+            ]
+          ],
+          [
+            "Deep Path",
+            [
+              "Stay near Luminous Plants because darkness contains lethal piranhas.",
+              "Follow mushrooms on the ocean floor and avoid unnecessary krait fights.",
+              "A carried plant provides mobile light and can heal nearby allies."
+            ]
+          ],
+          [
+            "Dolphin Path",
+            [
+              "Apply useful boons before transforming.",
+              "Use Echo to reveal the route and hidden krait.",
+              "Move through water spirals to reduce Stealth recharge. Only one player needs to reach the checkpoint."
+            ]
+          ],
+          [
+            "Jellyfish Beast",
+            [
+              "Open with Stability because the boss begins with a repeated stunning spin.",
+              "When eaten, use Struggle repeatedly to escape and stop its healing.",
+              "Dodge to break out of rising bubbles.",
+              "At 75%, 50%, and 25%, kill the Elite Krait Diviners to remove invulnerability."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Entering with insufficient underwater AR.",
+          "Summoning a minion that cannot escape being eaten.",
+          "Ignoring Stability during the opening spin."
+        ]
+      },
+
+      {
+        name: "Underground Facility",
+        tag: "Dredge",
+        utility: [
+          "Swiftness",
+          "Stealth",
+          "Blind",
+          "Portals",
+          "Crowd control"
+        ],
+        overview:
+          "Operate pressure plates, complete one of two random breach routes, defeat Rabsovich, and use molten ore against the final boss.",
+        sections: [
+          [
+            "Pressure Plate Room",
+            [
+              "One player holds the first plate, then another holds the second while the group enters the central cage.",
+              "Two players hold the inner plates while another channels the control panel for about 20 seconds.",
+              "Protect the plate holders and panel user from continuously spawning dredge."
+            ]
+          ],
+          [
+            "Mining Laser Route",
+            [
+              "Carry mining lasers up the ramp while avoiding orange bombardment zones.",
+              "You cannot dodge while holding a laser. Hug the walls and use safe pockets.",
+              "Fire at the reinforced door, then return for a fresh laser until it breaks."
+            ]
+          ],
+          [
+            "Bomb Route",
+            [
+              "Pick up bombs before dredge do, then pass through both clouds of concealing dust.",
+              "Avoid detection zones while stealthed and deposit nine bombs before their timers expire.",
+              "Regroup at the detonator before destroying the door."
+            ]
+          ],
+          [
+            "Rabsovich",
+            [
+              "Avoid the frontal orange rectangle.",
+              "Stop attacking while his shield is raised because attacks are blocked and can daze you."
+            ]
+          ],
+          [
+            "Final Boss",
+            [
+              "Kite the boss beneath a molten ore bucket and activate the control to apply Superheated.",
+              "Deal damage while Superheated is active and interrupt healing.",
+              "Assign a primary and backup bucket operator.",
+              "For the Ice Elemental version, manage respawning adds and interrupt its visible heal."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Leaving a pressure plate during the panel channel.",
+          "Attempting to dodge while holding a mining laser.",
+          "Damaging the final boss without Superheated."
+        ]
+      },
+
+      {
+        name: "Molten Furnace",
+        tag: "Molten Alliance",
+        utility: [
+          "Crowd control",
+          "Projectile reflect",
+          "Knockback or pull",
+          "Movement skills"
+        ],
+        overview:
+          "Escort Rox and Braham’s drill, survive weapons tests, destroy the thermal core, and defeat the Weapons Test Engineer.",
+        sections: [
+          [
+            "Drill Tunnel",
+            [
+              "Stay away from the burning area directly behind the drill.",
+              "Avoid cave-in circles and close optional steam geysers with nearby boulders.",
+              "Wait for the steam wall to fall before crossing."
+            ]
+          ],
+          [
+            "Thermal Core",
+            [
+              "Survive a weapon test while the core is invulnerable, then damage it during the open phase.",
+              "Move Molten Protectors away from the core before their invulnerability ring activates.",
+              "Save major damage cooldowns for the final combined phase."
+            ]
+          ],
+          [
+            "Weapon Tests",
+            [
+              "Fireballs: move into open safe spaces or reflect them.",
+              "Shockwaves: jump, dodge, or move beyond their range.",
+              "Fire tornadoes: stand between lanes, dodge, reflect, or use the core as cover."
+            ]
+          ],
+          [
+            "Weapons Test Engineer",
+            [
+              "Avoid the same tornado and shockwave mechanics while damaging the engineer."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Standing behind the drill.",
+          "Leaving a Molten Protector beside the core.",
+          "Spending all burst damage before the Full Monty phase."
+        ]
+      },
+
+      {
+        name: "Molten Boss",
+        tag: "Molten Alliance",
+        utility: [
+          "Cleave",
+          "Crowd control",
+          "Projectile defense",
+          "Positioning"
+        ],
+        overview:
+          "Fight through Molten Alliance packs, rescue prisoners, and defeat the Molten Berserker and Molten Firestorm.",
+        sections: [
+          [
+            "Enemy Packs",
+            [
+              "Kill Molten Protectors or stun them to break their invulnerability link.",
+              "Move out of Smoke Shaman bombs and kill Resonators before protected Flame Shamans.",
+              "Use cleave against dense groups and rescue prisoners when safe."
+            ]
+          ],
+          [
+            "Twin Bosses",
+            [
+              "White ground shockwaves can be jumped or dodged. Blue airborne shockwaves punish jumping.",
+              "Firestorm covers the platform with persistent fire fields.",
+              "When one boss loses 25%, the other enrages. Remove the effect by landing repeated hits or focus one boss and manage the enraged partner."
+            ]
+          ],
+          [
+            "Combined Tech",
+            [
+              "After one boss dies, the survivor heals completely and upgrades its attacks.",
+              "Berserker adds falling debris and stronger stomps.",
+              "Firestorm creates an outer wind zone that pushes players toward the edge.",
+              "At 50%, kill or control the summoned Veteran Molten Mining Suits."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Attacking a protected enemy instead of its Protector.",
+          "Jumping over the blue airborne shockwave.",
+          "Fighting inside Firestorm’s outer wind."
+        ]
+      },
+
+      {
+        name: "Deepstone",
+        tag: "Dwarven Ruins",
+        utility: [
+          "Crowd control",
+          "Movement skills",
+          "Condition cleanse",
+          "Light of Deldrimor"
+        ],
+        overview:
+          "Clear two branching chambers, gain the Light of Deldrimor, reveal hidden paths, and defeat The Voice.",
+        sections: [
+          [
+            "Eastern Route",
+            [
+              "Cross the windy bridge between yellow strips and avoid sticky spider nests.",
+              "Two players stand on the runestones to disable the wind.",
+              "Kill the Broodmothers and Brood Queen while moving to avoid stacking poison."
+            ]
+          ],
+          [
+            "Western Route",
+            [
+              "Move between cascading Tetris-like AoE patterns. At higher scales they apply Agony.",
+              "Two players activate the far runestones to disable the trap.",
+              "Break tornado defiance bars during the Deepstone Sentinel fight to rescue captured players."
+            ]
+          ],
+          [
+            "Light of Deldrimor",
+            [
+              "Use both collected orbs on the Vibrant Crystal.",
+              "Use the special action to expose the Shadow Minotaur and reveal hidden tiles and objects."
+            ]
+          ],
+          [
+            "Abyss Chamber",
+            [
+              "Reveal tiles before stepping onto them and activate all four lights.",
+              "Kill Spectral Flames before they destroy the revealed path behind the group."
+            ]
+          ],
+          [
+            "The Voice",
+            [
+              "At 80% and 40%, break the bar to interrupt the damaging red beam.",
+              "At 61% and 21%, kill ten Spectral Flames before they reach the boss.",
+              "Keep revealing tiles because boss attacks make floor sections disappear."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Standing still in the spider room.",
+          "Ignoring tornado breakbars.",
+          "Failing to reveal safe tiles during The Voice."
+        ]
+      },
+
+      {
+        name: "Siren’s Reef",
+        tag: "Cursed Pirates",
+        utility: [
+          "Projectile defense",
+          "Boon strip",
+          "Condition cleanse",
+          "AoE damage",
+          "Stability"
+        ],
+        overview:
+          "Clear a shipwreck, move cursed treasure through a maze, defend the Kraken’s Pride, and defeat Captain Crowe.",
+        sections: [
+          [
+            "Shipwreck and Peter",
+            [
+              "Use projectile defense against Bristlebacks.",
+              "Use the cannon to destroy mines and open the route.",
+              "During Blasting Black Peter, keep one player on the upper cannon clearing lethal mines while the group fights below."
+            ]
+          ],
+          [
+            "Treasure Maze",
+            [
+              "Move one bag at a time and pass it between players at corridor junctions.",
+              "Avoid sentry circles; triggering one summons ghost enemies.",
+              "Catching the bag grants Lighten Curse. Keep it off the ground when possible.",
+              "Stage all three bags near the chest, then deposit them together."
+            ]
+          ],
+          [
+            "Kraken’s Pride",
+            [
+              "Pass treasure forward while ship cannons clear ghosts.",
+              "Keep Veteran Ghostly Swindlers away from the treasure.",
+              "During boss fights, move with the progressing wind zones so you are not blown overboard."
+            ]
+          ],
+          [
+            "Captain Crowe",
+            [
+              "Drop Grim Lagoon fields in unused deck corners.",
+              "Stack inside the shrinking green circle to split Teeth from the Deep damage.",
+              "Group and cleave ghost pirates, strip their boons, and cleanse conditions."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Leaving the cannon unmanned during Peter.",
+          "Dropping treasure where a sentry can return it.",
+          "Spreading out during Captain Crowe’s green circle."
+        ]
+      },
+
+      {
+        name: "Chaos",
+        tag: "Mist Mashup",
+        utility: [
+          "Stability",
+          "Crowd control",
+          "Movement skills",
+          "Condition cleanse"
+        ],
+        overview:
+          "Navigate fragments of multiple fractals, defeat the Chaos Anomaly, light bonfires through a deadly blizzard, and kill the Brazen Gladiator.",
+        sections: [
+          [
+            "Opening",
+            [
+              "Defeat transformed Cliffside enemies and cross the knockback-heavy golem platforms.",
+              "Use Stability or projectile defense against blue knockback orbs."
+            ]
+          ],
+          [
+            "Chaos Anomaly",
+            [
+              "Defeat the four named golems, then the anomaly.",
+              "The last golem killed in a phase is removed from the next phase. Focus a desired golem first if controlling the final champion.",
+              "Move Flux Bombs away from the group before they detonate."
+            ]
+          ],
+          [
+            "Blizzard Room",
+            [
+              "Move from bonfire to bonfire as a group. Frostbite deals severe damage.",
+              "Avoid Jade Maw Tentacle knockbacks and the Flame Devourer that extinguishes fires.",
+              "Lighting the fourth fire ends Frostbite in the area."
+            ]
+          ],
+          [
+            "Brazen Gladiator",
+            [
+              "Use electrified floor tiles to remove Protective Shielding.",
+              "Below 55%, leave the highlighted pull-and-spin area or break the defiance bar.",
+              "At higher scales, avoid falling weights and their knockdown shockwaves."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Dropping Flux Bombs in the fight.",
+          "Moving alone between bonfires.",
+          "Attacking the Gladiator before disrupting the shield."
+        ]
+      },
+
+      {
+        name: "Thaumanova Reactor",
+        tag: "Inquest Disaster",
+        utility: [
+          "Mobility",
+          "Condition cleanse",
+          "Projectile defense",
+          "Crowd control"
+        ],
+        overview:
+          "Disable four reactor colliders through specialized rooms, then fight the Thaumanova Anomaly on disappearing platforms.",
+        sections: [
+          [
+            "Subject 6",
+            [
+              "Stop attacking immediately when Subject 6 enters Shield Form. Blocked attacks build Overload and can wipe the party.",
+              "Kill repairing oozes, especially golden Veterans at higher tiers. Break their defiance bars."
+            ]
+          ],
+          [
+            "Dormitories",
+            [
+              "Split up and destroy doors quickly to rescue Chibb and Greeza.",
+              "Some rooms require destroying an internal portal. Successful rescues weaken the final boss."
+            ]
+          ],
+          [
+            "Repulsor Lab",
+            [
+              "Use safety shields to block turret attacks and activate consoles in sequence.",
+              "The final pair of consoles can be handled by two players or one player with mobility or cleanse."
+            ]
+          ],
+          [
+            "Cooling Chamber",
+            [
+              "Carry cooling rods to receptacles to create safe zones.",
+              "Use the Heat Shield and movement or survival skills to reach the far side."
+            ]
+          ],
+          [
+            "Thaumanova Anomaly",
+            [
+              "Use Hex Shield to protect the platform beneath you.",
+              "Spread out so one attack does not erase several players’ tiles.",
+              "Move immediately when a hex begins fading. Outer platforms permanently disappear at 75%, 50%, and 25%."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Continuing to attack Subject 6’s shield.",
+          "Bunching together on the final platforms.",
+          "Entering the cooling room without using its tools or mobility."
+        ]
+      },
+
+      {
+        name: "Twilight Oasis",
+        tag: "Sunspear Assault",
+        utility: [
+          "Crowd control",
+          "Boon strip",
+          "Condition cleanse",
+          "Special action mobility"
+        ],
+        overview:
+          "Infiltrate Palawa Joko’s vision of the Sunspear assault, master Enhanced Reflexes, and defeat High Priestess Amala through five divine phases.",
+        sections: [
+          [
+            "Approach",
+            [
+              "Break the Sandbinder during Wall of Earth when possible.",
+              "After becoming Awakened, use Enhanced Reflexes to cross rooftops and kill the two barrier Sandbinders."
+            ]
+          ],
+          [
+            "Lyssa and Melandru",
+            [
+              "Find the real Amala by targeting the Legendary-ranked clone.",
+              "Dodge the expanding polymorph circle.",
+              "Break Mystic Detonation to expose each priestess.",
+              "During Melandru, kite the fixated Champion Earth Elemental away from the group. Use Enhanced Reflexes to avoid Mystic Wave."
+            ]
+          ],
+          [
+            "Dwayna and Grenth",
+            [
+              "Spread during Dwayna’s tracking lightning so paths do not overlap.",
+              "In Grenth, avoid Claim Soul because it instantly downs players.",
+              "Jump over fear walls with Enhanced Reflexes or attack from range."
+            ]
+          ],
+          [
+            "Balthazar",
+            [
+              "Strip Protection, Swiftness, and Might when possible.",
+              "Move out of meteor circles and jump over the outgoing shockwave.",
+              "Avoid the two moving fire tornadoes.",
+              "For the Balthazar priestess, kill the four tethered Sunspears to remove her health."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Forgetting the special action skill.",
+          "Failing to break Amala’s repeated channel.",
+          "Dropping tracking attacks through the group."
+        ]
+      },
+
+      {
+        name: "Kinfall",
+        tag: "Dragon Whispers",
+        utility: [
+          "Stacking discipline",
+          "Crowd control",
+          "Movement awareness"
+        ],
+        overview:
+          "Share Life-Fire to survive Deathly Rime, open doors through sacrifice, and defeat the Legendary Whispering Shadow.",
+        sections: [
+          [
+            "Life-Fire",
+            [
+              "Life-Fire protects its owner and nearby allies from Deathly Rime.",
+              "As players sacrifice their light to open doors, those without it must remain near a player who still has Life-Fire.",
+              "This is especially important during jumps because Deathly Rime reduces movement and increases recharge."
+            ]
+          ],
+          [
+            "Whispering Shadow",
+            [
+              "Avoid the expanding Frozen Teeth arrow lanes.",
+              "Cryoflash alternates between ground-safe and air-safe responses. Watch the orb and shockwave cues, then use the marked launch circles only when the safe zone is airborne.",
+              "Walk through the boss to avoid the wide Freezing Fan.",
+              "Avoid spiraling Freezing Vortex circles and line up Gorefrost spears away from allies."
+            ]
+          ],
+          [
+            "Breakbar Phases",
+            [
+              "At 80%, 50%, and 20%, break the defiance bar to interrupt Guttering Light or Glacial Midnight.",
+              "Successful interruption prevents Life-Fire loss and stops the boss from gaining damage stacks."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Separating from the remaining Life-Fire carriers.",
+          "Reading Cryoflash incorrectly.",
+          "Missing the phase breakbar."
+        ]
+      },
+
+      {
+        name: "Captain Mai Trin Boss",
+        tag: "Aetherblade Boss",
+        utility: [
+          "Condition cleanse",
+          "Crowd control",
+          "Pulls and cleave",
+          "Protection"
+        ],
+        overview:
+          "Use Horrik’s electrostatic cannon shots to strip Mai Trin’s shield, survive artillery phases, and defeat the Aetherblade leadership.",
+        sections: [
+          [
+            "Captain’s Shield",
+            [
+              "Mai begins with ten shield stacks and is nearly invulnerable.",
+              "The player marked for the blue electrostatic shot should position so Mai stands in the field.",
+              "Break Mai’s defiance bar inside the blue field to keep her there and remove more stacks.",
+              "Stay relatively close together so Mai does not shadowstep far from the mechanic."
+            ]
+          ],
+          [
+            "Survival",
+            [
+              "Cleanse her frequent conditions.",
+              "Avoid standing near Horrik because his melee knockdown stops cannon fire.",
+              "Protect players reviving allies because Mai favors stationary and distant targets."
+            ]
+          ],
+          [
+            "Artillery Phases",
+            [
+              "At 75%, 50%, and 25%, Mai leaves and the group damages Horrik by another 25%.",
+              "Group and cleave the spawned pirates before Mai returns so they do not gain Captain’s Inspiration.",
+              "At T4 after the third barrage, prioritize the Elite Sharpshooter and other additional elites."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Fighting Mai outside blue cannon fields.",
+          "Standing too far apart.",
+          "Leaving artillery-phase adds alive."
+        ]
+      },
+
+      {
+        name: "Volcanic",
+        tag: "Grawl Cult",
+        utility: [
+          "Stability",
+          "Movement skills",
+          "Condition cleanse",
+          "Projectile defense",
+          "Crowd control"
+        ],
+        overview:
+          "Fight through a grawl cult, survive lethal boulders, protect captives, and defeat the Legendary Imbued Shaman.",
+        sections: [
+          [
+            "Grawl Assault",
+            [
+              "Defeat waves of grawl while avoiding falling rocks marked by orange circles.",
+              "After the event bar fills, the remaining grawl retreat and the route forward opens."
+            ]
+          ],
+          [
+            "Boulder Corridor",
+            [
+              "Avoid falling rocks and rolling flaming boulders.",
+              "Boulders are lethal and leave burning trails.",
+              "Use side alcoves, speed boosts, mobility skills, and condition cleanse to reach the checkpoint."
+            ]
+          ],
+          [
+            "Champion Grawl Shaman",
+            [
+              "Throw Infused Stones from certain falling-rock impacts to remove Protective Bubble stacks.",
+              "Stop Veteran Grawl Shamans before they sacrifice all four captives.",
+              "Split the party between shield removal and veteran control.",
+              "After the shield breaks, avoid the boss's melee knockback and ranged fireballs."
+            ]
+          ],
+          [
+            "Broken Tracks",
+            [
+              "Cross the abandoned mineshaft while avoiding lava and Veteran Vampire Bats.",
+              "Use nearby rocks and platforms to recover from a fall.",
+              "Reach the final Mistlock Singularity to unlock the checkpoint."
+            ]
+          ],
+          [
+            "Legendary Imbued Shaman",
+            [
+              "Keep moving because Hot Foot applies Burning when players stand still.",
+              "Avoid flaming arrows, Firestorm, dives, and wing attacks.",
+              "At each 25% interval, remove the shield with rapid hits before the boss reaches a captive and heals.",
+              "Use projectile defense, cleanse, and AoE damage against elemental grubs."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Running into rolling boulders.",
+          "Ignoring veteran shamans near captives.",
+          "Using slow attacks during shield phases.",
+          "Standing still during Hot Foot."
+        ]
+      },
+
+      {
+        name: "Solid Ocean",
+        tag: "Jade Maw",
+        utility: [
+          "Stability",
+          "Reflecting Crystals",
+          "Crowd control",
+          "Projectile awareness"
+        ],
+        overview:
+          "Cross floating jade platforms, defeat tentacles and Jade Colossi, and use Reflecting Crystals to destroy the Jade Maw.",
+        sections: [
+          [
+            "Floating Jade Platforms",
+            [
+              "Cross carefully to reach the Jade Maw arena.",
+              "Irukandji may be fought or skipped, but falling can separate you from the party."
+            ]
+          ],
+          [
+            "Reflecting Crystals",
+            [
+              "The Jade Maw cannot be damaged normally.",
+              "When a red skull appears, hold a Reflecting Crystal to absorb the death ray.",
+              "Throw the charged crystal at the Maw to remove 5% of its health.",
+              "A beam without a crystal is usually lethal."
+            ]
+          ],
+          [
+            "Tentacles",
+            [
+              "Kill tentacles to damage the Maw and create more crystals.",
+              "A tentacle may finish its final attack after reaching zero health.",
+              "Use daze or stun to stop dangerous sweeps and knockdowns."
+            ]
+          ],
+          [
+            "Jade Colossi",
+            [
+              "Kill Jade Colossi to advance the event bar.",
+              "Stun them to remove projectile reflection.",
+              "Use Stability against knockdowns while handling laser targets."
+            ]
+          ],
+          [
+            "Final Laser",
+            [
+              "Near death, the Maw targets every surviving player.",
+              "Hold a crystal before the beam fires.",
+              "At least one player must survive or the encounter resets."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Ignoring the red skull target marker.",
+          "Throwing charged crystals simultaneously.",
+          "Standing near tentacles without control.",
+          "Missing the final crystal check."
+        ]
+      },
+
+      {
+        name: "Silent Surf",
+        tag: "Jade Sea Rescue",
+        utility: [
+          "Grappling Hook",
+          "Parachute",
+          "Crowd control",
+          "Condition cleanse",
+          "Movement awareness"
+        ],
+        overview:
+          "Use survey gear to traverse a deep cavern, defeat corrupted Luxons, and face Kanaxai on a fractured platform.",
+        sections: [
+          [
+            "Survey Gear",
+            [
+              "Use the special action skill to equip Grappling Hook, Parachute, Black Powder Charge, and Flare.",
+              "Refill movement charges from Leftover Supplies at each checkpoint.",
+              "Weapon swap to return to normal combat skills."
+            ]
+          ],
+          [
+            "Checkpoint Traversal",
+            [
+              "Use Parachute for long drops and Grappling Hook to reach jade platforms.",
+              "Aim the Grappling Hook toward the middle of a surface rather than its edge.",
+              "Use mushrooms, wind cannons, and zip lines to progress.",
+              "Once enough players reach a checkpoint, fallen allies can respawn there."
+            ]
+          ],
+          [
+            "Corrupted First Mate Dolus",
+            [
+              "Turn your character away when Dread Visage appears.",
+              "Spread when numbered targets appear because Dolus dashes through them in order."
+            ]
+          ],
+          [
+            "Kanaxai: Core Attacks",
+            [
+              "Turn away from Kanaxai and the Aspects during Dread Visage.",
+              "Drop Rending Storm axe fields near the edge.",
+              "Move out of Harrowshot circles; this attack cannot be blocked, dodged, or avoided with invulnerability.",
+              "Break Gathering Shadows when the defiance bar appears."
+            ]
+          ],
+          [
+            "Aspects and World Cleaver",
+            [
+              "Phantasmagoria reveals a tether to a personal Aspect.",
+              "Use Grappling Hook to reach the marked island, kill the Aspect, and return by mushroom.",
+              "At 66% and 33%, handle all Aspects before World Cleaver completes."
+            ]
+          ],
+          [
+            "Frightening Speed",
+            [
+              "Players are numbered one through five.",
+              "Spread so the dash slashes do not overlap.",
+              "The attack deals percentage-based damage and cannot be blocked or dodged."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Aiming Grappling Hook at platform edges.",
+          "Looking during Dread Visage.",
+          "Dropping Rending Storm in the group.",
+          "Overlapping numbered circles.",
+          "Missing an assigned Aspect."
+        ]
+      },
+
+      {
+        name: "Nightmare",
+        tag: "Toxic Nightmare",
+        utility: [
+          "Crowd control",
+          "Condition cleanse",
+          "Projectile defense",
+          "Stability",
+          "Spread awareness"
+        ],
+        overview:
+          "Climb a toxic tower, defeat MAMA and Siax, capture corrupted altars, and survive Ensolyss.",
+        sections: [
+          [
+            "MAMA",
+            [
+              "Avoid projectile fire, flamethrower sweeps, and summoned Twisted Watchwork.",
+              "Stand beneath Arkk's shield during the room-wide blast.",
+              "At 33%, MAMA becomes mobile and uses powerful jumps and AoE slams."
+            ]
+          ],
+          [
+            "Altars",
+            [
+              "Capture each altar while handling Hallucinations.",
+              "Strafe around the edge to avoid red damaging spheres.",
+              "Collect blue spheres for healing."
+            ]
+          ],
+          [
+            "Siax the Unclean",
+            [
+              "Break Siax during the room-wide explosion channel.",
+              "Players infected with toxin vomit in a cone after a delay.",
+              "Turn away from allies to prevent reinfection."
+            ]
+          ],
+          [
+            "Ensolyss",
+            [
+              "At 66% and 33%, capture the five outer orbs.",
+              "Jump or dodge center shockwaves.",
+              "Successful completion revives the party.",
+              "At 15%, move inside Arkk's shield and avoid charging hallucinations."
+            ]
+          ],
+          [
+            "Challenge Mode Notes",
+            [
+              "MAMA summons Assault Knights at 75%, 50%, and 25%.",
+              "Siax requires coordinated CC and fast Echo kills.",
+              "Ensolyss attacks faster and requires a break immediately after altar phases."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Missing MAMA's shield.",
+          "Vomiting toward allies.",
+          "Failing Siax's breakbar.",
+          "Trying to revive inside altar circles.",
+          "Standing outside Arkk's shield at 15%."
+        ]
+      },
+
+      {
+        name: "Shattered Observatory",
+        tag: "Fractured Cosmos",
+        utility: [
+          "Crowd control",
+          "Nova Launch",
+          "Projectile defense",
+          "Stability",
+          "Positioning"
+        ],
+        overview:
+          "Defeat Skorvald, traverse cosmic islands, overcome Artsariiv, and destroy Arkk's reactors.",
+        sections: [
+          [
+            "Skorvald",
+            [
+              "Stay close to move between cone-shaped safe areas.",
+              "Push Solar Blooms toward the edge.",
+              "Turn away from the eye.",
+              "At 66% and 33%, kill outer-island Flux Anomalies before the wipe attack completes."
+            ]
+          ],
+          [
+            "Cosmic Islands",
+            [
+              "Use Nova Launch and ley winds to cross.",
+              "Bounce silver Globolla Marbles by standing beneath their marked circles."
+            ]
+          ],
+          [
+            "Artsariiv",
+            [
+              "Kill the Temporal Anomaly to create a shelter.",
+              "The red-skull player must detonate inside the shelter.",
+              "Break clone defiance bars at 66% and 33%.",
+              "Keep the silver marble bouncing to unlock Artsariiv's defiance bar."
+            ]
+          ],
+          [
+            "Arkk",
+            [
+              "Move Solar Blooms into the four reactors.",
+              "Handle Corporeal Reassignment and turn away from the eye.",
+              "Repeat reactor phases at 80%, 50%, and 30%.",
+              "Defeat the Archdiviner at 70% and Brazen Gladiator at 40%.",
+              "Below 40%, use Hypernova Launch around missing floor tiles."
+            ]
+          ],
+          [
+            "Challenge Mode Notes",
+            [
+              "Bring heavy CC and Stability.",
+              "Assign an Artsariiv marble catcher.",
+              "Arkk adds green split damage, dangerous lasers, bombs, and floor loss."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Looking at the eye.",
+          "Missing an island anomaly.",
+          "Detonating outside the shelter.",
+          "Dropping the marble.",
+          "Knocking blooms away from reactors.",
+          "Greeding damage during floor loss."
+        ]
+      },
+
+      {
+        name: "Sunqua Peak",
+        tag: "Elemental Mountain",
+        utility: [
+          "Crowd control",
+          "Charged Leap",
+          "Condition cleanse",
+          "Spread awareness",
+          "Tether management"
+        ],
+        overview:
+          "Climb an elemental mountain, learn air, fire, and water mechanics, and bring peace to Ai.",
+        sections: [
+          [
+            "Voice of the Mountain",
+            [
+              "Collect lightning orbs for Charged Leap.",
+              "At 66% and 33%, gain three stacks and jump into the clouds."
+            ]
+          ],
+          [
+            "Water Elemental",
+            [
+              "Speak to the three frightened elementals.",
+              "Wait for rushing water to weaken before crossing.",
+              "Share the dark-orb tether before anyone reaches ten Tidal Bargain stacks."
+            ]
+          ],
+          [
+            "Fury of the Mountain",
+            [
+              "Avoid meteors and jump their shockwaves.",
+              "Hide behind an intact meteor before the arena-wide blast."
+            ]
+          ],
+          [
+            "Ai: Air Phase",
+            [
+              "Spread targeted circles and avoid dashes.",
+              "Collect Charged Leap orbs and dispel every energy source.",
+              "Break her defiance bar."
+            ]
+          ],
+          [
+            "Ai: Fire Phase",
+            [
+              "Avoid meteor impacts and jump shockwaves.",
+              "Hide behind the one intact meteor."
+            ]
+          ],
+          [
+            "Ai: Water Phase",
+            [
+              "Share dark-orb tethers.",
+              "Stack in green circles to split damage.",
+              "Avoid enlarged water arrows and the center pull."
+            ]
+          ],
+          [
+            "Challenge Mode Notes",
+            [
+              "The Light phase repeats stricter elemental mechanics.",
+              "The Dark phase adds Fears, Sorrows, and Guilt.",
+              "Boons are stripped on engagement."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Jumping without three Charged Leap stacks.",
+          "Hiding behind a destroyed meteor.",
+          "Holding the water tether too long.",
+          "Failing Sorrow breakbars.",
+          "Letting Fear enemies reach the group."
+        ]
+      },
+
+      {
+        name: "Lonely Tower",
+        tag: "Demon Incursion",
+        utility: [
+          "Stability",
+          "Crowd control",
+          "Boon awareness",
+          "Orb assignment",
+          "Positioning"
+        ],
+        overview:
+          "Activate Astral Purifiers, separate Cerus and Deimos, and manage Eparch's emotional attunements.",
+        sections: [
+          [
+            "Astral Purifiers",
+            [
+              "Complete ten correct channel inputs at each node.",
+              "Kill or control Avatars of Spite before they interrupt the channel.",
+              "Stability can prevent the interruption."
+            ]
+          ],
+          [
+            "Cerus and Deimos",
+            [
+              "The closest player to each boss receives its fixate.",
+              "Keep the bosses separated to prevent Brothers United.",
+              "Move Cerus's timed bomb away.",
+              "Watch Deimos's hands, oil, and shockwaves."
+            ]
+          ],
+          [
+            "Eparch: Attack Cycle",
+            [
+              "Watch for spirals, fire shockwaves, arrows, pull, and purple shard circles.",
+              "Keep moving during repeated shard hits.",
+              "Dodge through arrows or stay far enough away.",
+              "Stability can be corrupted into Fear."
+            ]
+          ],
+          [
+            "Emotion Globules",
+            [
+              "Each attack drops a matching emotion.",
+              "A new color removes one stack of the current attunement before applying the new one.",
+              "Downing removes all player stacks.",
+              "Assign colors deliberately."
+            ]
+          ],
+          [
+            "Consume and Breakbar",
+            [
+              "Break Eparch quickly before Consume strips the target.",
+              "The highest-toughness player in line of sight is targeted.",
+              "Uncollected globules empower Eparch."
+            ]
+          ],
+          [
+            "Challenge Mode Notes",
+            [
+              "At 65%, kill champions and close two rifts.",
+              "At 35%, repeat with three rifts.",
+              "Breaking the bar no longer removes empowerment.",
+              "Assign attunements and bait Consume with a player holding no stacks."
+            ]
+          ]
+        ],
+        mistakes: [
+          "Failing purifier inputs.",
+          "Keeping Cerus and Deimos together.",
+          "Standing still during shard circles.",
+          "Collecting the wrong globule.",
+          "Ignoring rift enemies.",
+          "Missing the Consume breakbar."
+        ]
+      }
+    ];
+
+    let filteredGuides = [...guides];
+    let activeIndex = -1;
+
+    /* =========================================================
+       HELPERS
+       ========================================================= */
+    function escapeHtml(value) {
+      return value.replace(
+        /[&<>'"]/g,
+        (character) =>
+          ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            "'": "&#39;",
+            '"': "&quot;"
+          })[character]
+      );
+    }
+
+    function slugify(value) {
+      return value
+        .toLowerCase()
+        .replace(/[’']/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "");
+    }
+
+    /* =========================================================
+       DIRECTORY
+       ========================================================= */
+    function renderCards(list = guides) {
+      filteredGuides = list;
+
+      const grid = document.getElementById("fractal-grid");
+      const empty = document.getElementById("empty-state");
+      const count = document.getElementById("guide-count");
+
+      count.textContent =
+        `${list.length} of ${guides.length} walkthroughs available`;
+
+      grid.innerHTML = list
+        .map((guide) => {
+          const tags = guide.utility
+            .slice(0, 3)
+            .map(
+              (utility) => `
+                <span
+                  class="rounded border border-slate-800 bg-slate-900 px-2 py-1 text-[10px] font-bold text-white"
+                >
+                  ${escapeHtml(utility)}
+                </span>
+              `
+            )
+            .join("");
+
+          return `
+            <button
+              type="button"
+              onclick="openGuideByName('${guide.name.replace(/'/g, "\\'")}')"
+              class="guide-card flex min-h-[210px] flex-col rounded-sm border border-slate-800 bg-slate-950 p-5 text-left"
+            >
+
+              <div
+                class="section-label text-[10px] font-bold uppercase text-amber-400"
+              >
+                ${escapeHtml(guide.tag)}
+              </div>
+
+              <h3 class="mt-2 text-lg font-black text-white">
+                ${escapeHtml(guide.name)}
+              </h3>
+
+              <p class="mt-2 text-sm leading-6 text-white">
+                ${escapeHtml(guide.overview)}
+              </p>
+
+              <div class="mt-4 flex flex-wrap gap-1.5">
+                ${tags}
+              </div>
+
+              <div
+                class="mt-auto pt-5 text-xs font-black uppercase tracking-wider text-cyan-300"
+              >
+                Open Guide →
+              </div>
+
+            </button>
+          `;
+        })
+        .join("");
+
+      empty.classList.toggle("hidden", list.length !== 0);
+    }
+
+    function runSearch() {
+      const query = document
+        .getElementById("search-input")
+        .value
+        .trim()
+        .toLowerCase();
+
+      if (!query) {
+        renderCards(guides);
+        return;
+      }
+
+      const results = guides.filter((guide) =>
+        JSON.stringify(guide).toLowerCase().includes(query)
+      );
+
+      renderCards(results);
+    }
+
+    function clearSearch() {
+      const input = document.getElementById("search-input");
+
+      input.value = "";
+      renderCards(guides);
+      input.focus();
+    }
+
+    /* =========================================================
+       GUIDE MODAL
+       ========================================================= */
+    function openGuideByName(name) {
+      const index = guides.findIndex(
+        (guide) => guide.name === name
+      );
+
+      if (index >= 0) {
+        openGuide(index);
+      }
+    }
+
+    function openGuide(index) {
+      activeIndex = index;
+
+      const guide = guides[index];
+
+      document.getElementById("modal-tag").textContent =
+        guide.tag;
+
+      document.getElementById("modal-title").textContent =
+        `${guide.name} Fractal`;
+
+      document.getElementById("modal-position").textContent =
+        `${index + 1} / ${guides.length}`;
+
+      document.getElementById("prev-guide").onclick = () =>
+        openGuide((index - 1 + guides.length) % guides.length);
+
+      document.getElementById("next-guide").onclick = () =>
+        openGuide((index + 1) % guides.length);
+
+      const utilityTags = guide.utility
+        .map(
+          (utility) => `
+            <span
+              class="rounded border border-slate-700 bg-slate-950 px-2.5 py-1.5 text-xs font-bold text-white"
+            >
+              ${escapeHtml(utility)}
+            </span>
+          `
+        )
+        .join("");
+
+      const walkthroughSections = guide.sections
+        .map(
+          (section, sectionIndex) => `
+            <details
+              ${sectionIndex === 0 ? "open" : ""}
+              class="overflow-hidden rounded-sm border border-slate-800 bg-slate-900/40"
+            >
+
+              <summary
+                class="flex cursor-pointer select-none items-center justify-between gap-3 p-4 hover:bg-slate-900/80"
+              >
+
+                <span class="text-sm font-bold text-white">
+
+                  <span
+                    class="mr-2 font-mono text-cyan-400"
+                  >
+                    ${String(sectionIndex + 1).padStart(2, "0")}
+                  </span>
+
+                  ${escapeHtml(section[0])}
+
+                </span>
+
+                <span
+                  class="chevron text-lg text-cyan-400 transition-transform"
+                >
+                  ›
+                </span>
+
+              </summary>
+
+              <div class="border-t border-slate-800 p-4">
+
+                <ul class="space-y-3 text-sm text-white">
+
+                  ${section[1]
+                    .map(
+                      (instruction) => `
+                        <li class="flex gap-3">
+
+                          <span
+                            class="mt-0.5 shrink-0 font-bold text-cyan-400"
+                          >
+                            •
+                          </span>
+
+                          <span class="leading-6">
+                            ${escapeHtml(instruction)}
+                          </span>
+
+                        </li>
+                      `
+                    )
+                    .join("")}
+
+                </ul>
+
+              </div>
+
+            </details>
+          `
+        )
+        .join("");
+
+      const mistakes = guide.mistakes
+        .map(
+          (mistake) => `
+            <li class="flex gap-3">
+
+              <span
+                class="shrink-0 font-black text-red-300"
+              >
+                ×
+              </span>
+
+              <span class="leading-6">
+                ${escapeHtml(mistake)}
+              </span>
+
+            </li>
+          `
+        )
+        .join("");
+
+      document.getElementById("modal-body").innerHTML = `
+
+        <section
+          class="rounded-sm border border-cyan-500/20 bg-cyan-400/[0.04] p-4 sm:p-5"
+        >
+
+          <div
+            class="section-label text-[10px] font-bold uppercase text-cyan-400"
+          >
+            Mission Brief
+          </div>
+
+          <p
+            class="mt-2 text-sm leading-7 text-white"
+          >
+            ${escapeHtml(guide.overview)}
+          </p>
+
+        </section>
+
+        <section
+          class="rounded-sm border border-slate-800 bg-slate-900/40 p-4 sm:p-5"
+        >
+
+          <div
+            class="section-label text-[10px] font-bold uppercase text-amber-400"
+          >
+            Suggested Utility
+          </div>
+
+          <div class="mt-3 flex flex-wrap gap-2">
+            ${utilityTags}
+          </div>
+
+          <p class="mt-3 text-xs leading-5 text-white">
+            These are encounter tools, not required professions or a fixed
+            party composition.
+          </p>
+
+        </section>
+
+        <section class="space-y-2">
+
+          <div
+            class="section-label px-1 text-[10px] font-bold uppercase text-cyan-400"
+          >
+            Walkthrough
+          </div>
+
+          ${walkthroughSections}
+
+        </section>
+
+        <section
+          class="rounded-r-sm border-l-4 border-red-400 bg-red-400/[0.04] p-4 sm:p-5"
+        >
+
+          <div
+            class="section-label text-[10px] font-bold uppercase text-red-300"
+          >
+            Common Mistakes
+          </div>
+
+          <ul class="mt-3 space-y-3 text-sm text-white">
+            ${mistakes}
+          </ul>
+
+        </section>
+      `;
+
+      const modal = document.getElementById("guide-modal");
+
+      modal.classList.remove("hidden");
+      document.body.classList.add("overflow-hidden");
+
+      history.replaceState(
+        null,
+        "",
+        `#${slugify(guide.name)}`
+      );
+
+      document
+        .getElementById("modal-body")
+        .scrollTo({ top: 0 });
+    }
+
+    function closeGuide() {
+      const modal = document.getElementById("guide-modal");
+
+      modal.classList.add("hidden");
+      document.body.classList.remove("overflow-hidden");
+
+      history.replaceState(
+        null,
+        "",
+        location.pathname + location.search
+      );
+    }
+
+    /* =========================================================
+       EVENTS
+       ========================================================= */
+    document
+      .getElementById("search-input")
+      .addEventListener("input", runSearch);
+
+    document.addEventListener("keydown", (event) => {
+      const modalOpen =
+        !document
+          .getElementById("guide-modal")
+          .classList.contains("hidden");
+
+      if (event.key === "Escape" && modalOpen) {
+        closeGuide();
+      }
+
+      if (modalOpen && event.key === "ArrowLeft") {
+        openGuide(
+          (activeIndex - 1 + guides.length) %
+          guides.length
+        );
+      }
+
+      if (modalOpen && event.key === "ArrowRight") {
+        openGuide(
+          (activeIndex + 1) %
+          guides.length
+        );
+      }
+    });
+
+    document
+      .getElementById("guide-modal")
+      .addEventListener("click", (event) => {
+        if (event.target.id === "guide-modal") {
+          closeGuide();
+        }
+      });
+
+    /* =========================================================
+       INITIALIZATION
+       ========================================================= */
+    document.addEventListener("DOMContentLoaded", () => {
+      renderCards();
+
+      const hash = location.hash.slice(1);
+
+      if (hash) {
+        const index = guides.findIndex(
+          (guide) => slugify(guide.name) === hash
+        );
+
+        if (index >= 0) {
+          openGuide(index);
+        }
+      }
+    });
+  </script>
+
 </body>
 </html>
