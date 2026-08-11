@@ -2,17 +2,19 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   />
+
   <meta name="theme-color" content="#020617" />
 
   <title>Tyrian Resource Directory // Terminal 77-B</title>
 
   <meta
     name="description"
-    content="A curated Terminal 77-B directory of official Guild Wars 2 services and trusted community resources."
+    content="A curated directory of Guild Wars 2 resources from the [LIAR] community, ArenaNet, and trusted community tools."
   />
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -29,6 +31,7 @@
     body {
       margin: 0;
       min-height: 100vh;
+
       background:
         radial-gradient(
           circle at top,
@@ -36,7 +39,9 @@
           transparent 28rem
         ),
         #020617;
+
       color: white;
+
       font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -51,10 +56,14 @@
 
     body::before {
       content: "";
+
       position: fixed;
       inset: 0;
+
       pointer-events: none;
+
       opacity: 0.14;
+
       background-image:
         linear-gradient(
           rgba(34, 211, 238, 0.025) 1px,
@@ -65,7 +74,9 @@
           rgba(34, 211, 238, 0.025) 1px,
           transparent 1px
         );
+
       background-size: 28px 28px;
+
       z-index: -1;
     }
 
@@ -81,7 +92,9 @@
           rgba(15, 23, 42, 0.92),
           rgba(2, 6, 23, 0.96)
         );
+
       border: 1px solid rgba(34, 211, 238, 0.17);
+
       box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.025),
         0 12px 40px rgba(0, 0, 0, 0.16);
@@ -95,34 +108,8 @@
         Monaco,
         Consolas,
         monospace;
+
       letter-spacing: 0.15em;
-    }
-
-    .terminal-button {
-      min-height: 46px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      border: 1px solid rgba(251, 191, 36, 0.45);
-      background: rgba(251, 191, 36, 0.06);
-      color: #fbbf24;
-      transition:
-        background-color 0.2s ease,
-        border-color 0.2s ease,
-        color 0.2s ease,
-        transform 0.2s ease;
-    }
-
-    .terminal-button:hover,
-    .terminal-button:focus-visible {
-      background: #fbbf24;
-      border-color: #fbbf24;
-      color: #020617;
-    }
-
-    .terminal-button:active {
-      transform: scale(0.985);
     }
 
     .resource-card {
@@ -139,6 +126,47 @@
 
     .resource-card:active {
       transform: scale(0.99);
+    }
+
+    .featured-card {
+      border-color: rgba(251, 191, 36, 0.28);
+    }
+
+    .featured-card:hover {
+      border-color: rgba(251, 191, 36, 0.65);
+    }
+
+    .terminal-button {
+      min-height: 46px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 0.5rem;
+
+      border: 1px solid rgba(251, 191, 36, 0.45);
+
+      background: rgba(251, 191, 36, 0.06);
+      color: #fbbf24;
+
+      transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .terminal-button:hover,
+    .terminal-button:focus-visible {
+      background: #fbbf24;
+      border-color: #fbbf24;
+
+      color: #020617;
+    }
+
+    .terminal-button:active {
+      transform: scale(0.985);
     }
 
     ::selection {
@@ -178,6 +206,7 @@
   <header
     class="sticky top-0 z-50 border-b border-cyan-500/20 bg-slate-950/95 backdrop-blur-xl"
   >
+
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
 
       <div class="flex min-h-[64px] items-center justify-between gap-3">
@@ -192,6 +221,7 @@
             class="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-cyan-400/30 bg-cyan-400/5 text-cyan-300"
             aria-hidden="true"
           >
+
             <svg
               viewBox="0 0 24 24"
               class="h-5 w-5"
@@ -202,6 +232,7 @@
               <path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6l-8-4Z"/>
               <path d="m8 13 2.5-6 1.5 4 1.5-4L16 13"/>
             </svg>
+
           </div>
 
           <div class="min-w-0">
@@ -232,7 +263,9 @@
       </div>
 
     </div>
+
   </header>
+
 
   <main>
 
@@ -258,72 +291,119 @@
         <p
           class="mt-3 max-w-3xl text-base leading-7 text-white sm:text-lg"
         >
-          Trusted places to look when Terminal 77-B doesn't have the answer
-          you're looking for.
+          A short list of useful places to keep exploring Guild Wars 2.
         </p>
-
-        <div class="mt-6 flex flex-wrap gap-2">
-
-          <span
-            class="rounded border border-amber-500/20 bg-amber-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-amber-300"
-          >
-            Official Services
-          </span>
-
-          <span
-            class="rounded border border-amber-500/20 bg-amber-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-amber-300"
-          >
-            Community Tools
-          </span>
-
-          <span
-            class="rounded border border-amber-500/20 bg-amber-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-amber-300"
-          >
-            External Resources
-          </span>
-
-        </div>
 
       </div>
 
     </section>
 
+
     <!-- =======================================================
          CONTENT
          ======================================================= -->
-    <div class="mx-auto max-w-6xl space-y-8 px-4 py-8 sm:px-6 sm:py-10">
+    <div
+      class="mx-auto max-w-6xl space-y-10 px-4 py-8 sm:px-6 sm:py-10"
+    >
 
       <!-- =====================================================
-           DIRECTORY PURPOSE
+           FEATURED LIAR RESOURCES
            ===================================================== -->
-      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+      <section>
 
-        <div
-          class="section-label text-[10px] font-bold uppercase text-cyan-400"
-        >
-          Resource Directory
+        <div class="mb-4">
+
+          <div
+            class="section-label text-[10px] font-bold uppercase text-amber-400"
+          >
+            Featured [LIAR] Resources
+          </div>
+
+          <h2 class="mt-1 text-2xl font-black text-white">
+            Start here
+          </h2>
+
+          <p class="mt-2 max-w-3xl text-sm leading-6 text-white">
+            Community projects built to help players understand Tyria and the
+            game around it.
+          </p>
+
         </div>
 
-        <h2 class="mt-2 text-2xl font-black text-white">
-          Terminal 77-B doesn't need to replace the whole community
-        </h2>
 
-        <p
-          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
-        >
-          This guidebook is meant to explain Guild Wars 2 in a simple,
-          approachable way.
-        </p>
+        <div class="grid gap-3 md:grid-cols-2">
 
-        <p
-          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
-        >
-          When you need deeper information, account tools, market data,
-          crafting calculations, lore, or specialized endgame builds, these are
-          good places to continue looking.
-        </p>
+          <!-- TERMINAL 77-B -->
+          <a
+            href="../index.html"
+            class="resource-card featured-card terminal-panel flex min-h-[230px] flex-col rounded-sm p-5 sm:p-6"
+          >
+
+            <div
+              class="section-label text-[10px] font-bold uppercase text-cyan-400"
+            >
+              New & Returning Players
+            </div>
+
+            <h3 class="mt-2 text-xl font-black text-white">
+              Terminal 77-B
+            </h3>
+
+            <p class="mt-3 text-sm leading-6 text-white">
+              Learn or refresh Guild Wars 2 fundamentals, combat, builds,
+              progression, Fractals, currencies, and other systems.
+            </p>
+
+            <div
+              class="mt-auto pt-6 text-xs font-black uppercase tracking-wider text-cyan-300"
+            >
+              Open Guidebook →
+            </div>
+
+          </a>
+
+
+          <!-- LIVING LORE LIBRARY -->
+          <a
+            href="https://qkommand.github.io/GWlll/#timeline"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="resource-card featured-card terminal-panel flex min-h-[230px] flex-col rounded-sm p-5 sm:p-6"
+          >
+
+            <div
+              class="section-label text-[10px] font-bold uppercase text-amber-400"
+            >
+              Tyrian History
+            </div>
+
+            <h3 class="mt-2 text-xl font-black text-white">
+              Living Lore Library
+            </h3>
+
+            <p class="mt-3 text-sm leading-6 text-white">
+              Follow the history of Tyria from the ancient past through the
+              current era, connecting Guild Wars and Guild Wars 2.
+            </p>
+
+            <p
+              class="mt-3 text-xs font-bold leading-5 text-amber-300"
+            >
+              Story spoilers are discussed throughout the archive.
+            </p>
+
+            <div
+              class="mt-auto pt-6 text-xs font-black uppercase tracking-wider text-amber-300"
+            >
+              Enter the Archive →
+            </div>
+
+          </a>
+
+        </div>
 
       </section>
+
 
       <!-- =====================================================
            OFFICIAL RESOURCES
@@ -339,15 +419,11 @@
           </div>
 
           <h2 class="mt-1 text-2xl font-black text-white">
-            ArenaNet & Guild Wars 2 services
+            ArenaNet & Guild Wars 2
           </h2>
 
-          <p class="mt-2 max-w-3xl text-sm leading-6 text-white">
-            Start here for official news, account management, support, and the
-            Guild Wars 2 Wiki.
-          </p>
-
         </div>
+
 
         <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
 
@@ -356,7 +432,7 @@
             href="https://www.guildwars2.com/"
             target="_blank"
             rel="noopener noreferrer"
-            class="resource-card terminal-panel flex min-h-[230px] flex-col rounded-sm p-5"
+            class="resource-card terminal-panel flex min-h-[180px] flex-col rounded-sm p-5"
           >
 
             <div
@@ -370,24 +446,24 @@
             </h3>
 
             <p class="mt-2 text-sm leading-6 text-white">
-              News, expansion information, release updates, and official game
-              announcements.
+              News, releases, expansions, and game announcements.
             </p>
 
             <div
               class="mt-auto pt-5 text-xs font-black uppercase tracking-wider text-cyan-300"
             >
-              Open Website →
+              Open →
             </div>
 
           </a>
+
 
           <!-- WIKI -->
           <a
             href="https://wiki.guildwars2.com/"
             target="_blank"
             rel="noopener noreferrer"
-            class="resource-card terminal-panel flex min-h-[230px] flex-col rounded-sm p-5"
+            class="resource-card terminal-panel flex min-h-[180px] flex-col rounded-sm p-5"
           >
 
             <div
@@ -401,30 +477,30 @@
             </h3>
 
             <p class="mt-2 text-sm leading-6 text-white">
-              The official player-maintained reference for items, events,
-              achievements, maps, mechanics, and game systems.
+              Items, maps, achievements, mechanics, events, and game systems.
             </p>
 
             <div
               class="mt-auto pt-5 text-xs font-black uppercase tracking-wider text-cyan-300"
             >
-              Open Wiki →
+              Open →
             </div>
 
           </a>
+
 
           <!-- SUPPORT -->
           <a
             href="https://help.guildwars2.com/"
             target="_blank"
             rel="noopener noreferrer"
-            class="resource-card terminal-panel flex min-h-[230px] flex-col rounded-sm p-5"
+            class="resource-card terminal-panel flex min-h-[180px] flex-col rounded-sm p-5"
           >
 
             <div
               class="section-label text-[10px] font-bold uppercase text-amber-400"
             >
-              Customer Support
+              Support
             </div>
 
             <h3 class="mt-2 text-lg font-black text-white">
@@ -432,30 +508,30 @@
             </h3>
 
             <p class="mt-2 text-sm leading-6 text-white">
-              Help with account access, technical issues, purchases, security,
-              and support tickets.
+              Account, technical, purchase, and security support.
             </p>
 
             <div
               class="mt-auto pt-5 text-xs font-black uppercase tracking-wider text-cyan-300"
             >
-              Open Support →
+              Open →
             </div>
 
           </a>
+
 
           <!-- ACCOUNT -->
           <a
             href="https://account.arena.net/"
             target="_blank"
             rel="noopener noreferrer"
-            class="resource-card terminal-panel flex min-h-[230px] flex-col rounded-sm p-5"
+            class="resource-card terminal-panel flex min-h-[180px] flex-col rounded-sm p-5"
           >
 
             <div
               class="section-label text-[10px] font-bold uppercase text-amber-400"
             >
-              Account Services
+              Account
             </div>
 
             <h3 class="mt-2 text-lg font-black text-white">
@@ -463,14 +539,13 @@
             </h3>
 
             <p class="mt-2 text-sm leading-6 text-white">
-              Manage account security, linked services, serial codes, and
-              personal account settings.
+              Security, API keys, linked services, and account settings.
             </p>
 
             <div
               class="mt-auto pt-5 text-xs font-black uppercase tracking-wider text-cyan-300"
             >
-              Manage Account →
+              Open →
             </div>
 
           </a>
@@ -478,6 +553,7 @@
         </div>
 
       </section>
+
 
       <!-- =====================================================
            WIKI TIP
@@ -489,41 +565,25 @@
         <div
           class="section-label text-[10px] font-black uppercase text-cyan-400"
         >
-          Fastest Reference
+          Quick Tip
         </div>
 
         <h2 class="mt-2 text-xl font-black text-white">
-          Don't forget the in-game <code>/wiki</code> command
+          Use <code class="text-cyan-300">/wiki</code> in game
         </h2>
 
         <p
           class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
         >
-          You can open the Guild Wars 2 Wiki directly from game chat.
+          Type <code class="text-cyan-300">/wiki</code> followed by a search,
+          or link an item after the command, to open its Guild Wars 2 Wiki page.
         </p>
-
-        <div
-          class="mt-4 rounded-sm border border-slate-800 bg-slate-950 p-4"
-        >
-
-          <div
-            class="font-mono text-sm font-bold text-cyan-300"
-          >
-            /wiki
-          </div>
-
-          <p class="mt-2 text-sm leading-6 text-white">
-            Type a search after the command or link an item into chat after
-            <code class="text-cyan-300">/wiki</code> to jump directly to its
-            page.
-          </p>
-
-        </div>
 
       </section>
 
+
       <!-- =====================================================
-           COMMUNITY RESOURCES
+           COMMUNITY TOOLS
            ===================================================== -->
       <section>
 
@@ -532,63 +592,24 @@
           <div
             class="section-label text-[10px] font-bold uppercase text-green-300"
           >
-            Community Resources
+            Community Tools
           </div>
 
           <h2 class="mt-1 text-2xl font-black text-white">
-            Tools and projects built by Guild Wars 2 players
+            Go deeper when you need to
           </h2>
-
-          <p class="mt-2 max-w-3xl text-sm leading-6 text-white">
-            These resources go deeper into lore, account tracking, crafting,
-            markets, builds, and other specialized parts of the game.
-          </p>
 
         </div>
 
+
         <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-
-          <!-- LIVING LORE LIBRARY -->
-          <a
-            href="https://qkommand.github.io/GWlll/#timeline"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="resource-card terminal-panel flex min-h-[230px] flex-col rounded-sm p-5"
-          >
-
-            <div
-              class="section-label text-[10px] font-bold uppercase text-amber-400"
-            >
-              Tyrian Lore Archive
-            </div>
-
-            <h3 class="mt-2 text-lg font-black text-white">
-              Living Lore Library
-            </h3>
-
-            <p class="mt-2 text-sm leading-6 text-white">
-              Follow the history of Tyria from the ancient past through the
-              current era, connecting the events of Guild Wars and Guild Wars 2.
-            </p>
-
-            <p class="mt-3 text-xs font-bold leading-5 text-amber-300">
-              Contains Guild Wars and Guild Wars 2 story spoilers.
-            </p>
-
-            <div
-              class="mt-auto pt-5 text-xs font-black uppercase tracking-wider text-cyan-300"
-            >
-              Enter the Archive →
-            </div>
-
-          </a>
 
           <!-- GW2 EFFICIENCY -->
           <a
             href="https://gw2efficiency.com/"
             target="_blank"
             rel="noopener noreferrer"
-            class="resource-card terminal-panel flex min-h-[230px] flex-col rounded-sm p-5"
+            class="resource-card terminal-panel flex min-h-[190px] flex-col rounded-sm p-5"
           >
 
             <div
@@ -602,24 +623,24 @@
             </h3>
 
             <p class="mt-2 text-sm leading-6 text-white">
-              Track account value, achievements, collections, crafting goals,
-              materials, and progression.
+              Account progress, materials, collections, crafting, and goals.
             </p>
 
             <div
               class="mt-auto pt-5 text-xs font-black uppercase tracking-wider text-cyan-300"
             >
-              Open Resource →
+              Open →
             </div>
 
           </a>
+
 
           <!-- GW2BLTC -->
           <a
             href="https://www.gw2bltc.com/"
             target="_blank"
             rel="noopener noreferrer"
-            class="resource-card terminal-panel flex min-h-[230px] flex-col rounded-sm p-5"
+            class="resource-card terminal-panel flex min-h-[190px] flex-col rounded-sm p-5"
           >
 
             <div
@@ -633,30 +654,30 @@
             </h3>
 
             <p class="mt-2 text-sm leading-6 text-white">
-              Research Trading Post prices, item histories, market movement,
-              and crafting profitability.
+              Prices, market history, trading data, and crafting value.
             </p>
 
             <div
               class="mt-auto pt-5 text-xs font-black uppercase tracking-wider text-cyan-300"
             >
-              Open Market Tools →
+              Open →
             </div>
 
           </a>
+
 
           <!-- GW2CRAFTS -->
           <a
             href="https://gw2crafts.net/"
             target="_blank"
             rel="noopener noreferrer"
-            class="resource-card terminal-panel flex min-h-[230px] flex-col rounded-sm p-5"
+            class="resource-card terminal-panel flex min-h-[190px] flex-col rounded-sm p-5"
           >
 
             <div
               class="section-label text-[10px] font-bold uppercase text-green-300"
             >
-              Crafting Guides
+              Crafting
             </div>
 
             <h3 class="mt-2 text-lg font-black text-white">
@@ -664,30 +685,30 @@
             </h3>
 
             <p class="mt-2 text-sm leading-6 text-white">
-              Cost-aware leveling guides for Guild Wars 2 crafting
-              disciplines.
+              Cost-aware guides for leveling crafting disciplines.
             </p>
 
             <div
               class="mt-auto pt-5 text-xs font-black uppercase tracking-wider text-cyan-300"
             >
-              Open Crafting Guides →
+              Open →
             </div>
 
           </a>
+
 
           <!-- GW2.APP -->
           <a
             href="https://gw2.app/"
             target="_blank"
             rel="noopener noreferrer"
-            class="resource-card terminal-panel flex min-h-[230px] flex-col rounded-sm p-5"
+            class="resource-card terminal-panel flex min-h-[190px] flex-col rounded-sm p-5"
           >
 
             <div
               class="section-label text-[10px] font-bold uppercase text-violet-300"
             >
-              Companion Platform
+              Companion
             </div>
 
             <h3 class="mt-2 text-lg font-black text-white">
@@ -695,24 +716,24 @@
             </h3>
 
             <p class="mt-2 text-sm leading-6 text-white">
-              Explore account information, maps, achievements, collections,
-              characters, and other companion tools.
+              Characters, maps, achievements, collections, and account tools.
             </p>
 
             <div
               class="mt-auto pt-5 text-xs font-black uppercase tracking-wider text-cyan-300"
             >
-              Open Companion →
+              Open →
             </div>
 
           </a>
+
 
           <!-- SNOW CROWS -->
           <a
             href="https://snowcrows.com/"
             target="_blank"
             rel="noopener noreferrer"
-            class="resource-card terminal-panel flex min-h-[230px] flex-col rounded-sm p-5"
+            class="resource-card terminal-panel flex min-h-[190px] flex-col rounded-sm p-5"
           >
 
             <div
@@ -726,14 +747,13 @@
             </h3>
 
             <p class="mt-2 text-sm leading-6 text-white">
-              Endgame builds, rotations, encounter information, benchmarks,
-              and organized group-content resources.
+              Builds, rotations, benchmarks, and organized PvE resources.
             </p>
 
             <div
               class="mt-auto pt-5 text-xs font-black uppercase tracking-wider text-cyan-300"
             >
-              Open Snow Crows →
+              Open →
             </div>
 
           </a>
@@ -742,106 +762,6 @@
 
       </section>
 
-      <!-- =====================================================
-           HOW TO USE EXTERNAL RESOURCES
-           ===================================================== -->
-      <section class="terminal-panel rounded-sm p-5 sm:p-7">
-
-        <div
-          class="section-label text-[10px] font-bold uppercase text-amber-400"
-        >
-          Using Community Tools
-        </div>
-
-        <h2 class="mt-2 text-2xl font-black text-white">
-          Use the right tool for the question
-        </h2>
-
-        <div class="mt-5 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
-
-          <!-- WHAT -->
-          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
-
-            <div
-              class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-300"
-            >
-              What is this?
-            </div>
-
-            <h3 class="mt-2 font-bold text-white">
-              Wiki
-            </h3>
-
-            <p class="mt-2 text-sm leading-6 text-white">
-              Best starting point for mechanics, items, achievements, maps, and
-              factual game information.
-            </p>
-
-          </div>
-
-          <!-- ACCOUNT -->
-          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
-
-            <div
-              class="font-mono text-xs font-bold uppercase tracking-wider text-green-300"
-            >
-              What do I own?
-            </div>
-
-            <h3 class="mt-2 font-bold text-white">
-              GW2Efficiency
-            </h3>
-
-            <p class="mt-2 text-sm leading-6 text-white">
-              Useful when the question depends on your account, materials,
-              achievements, or crafting progress.
-            </p>
-
-          </div>
-
-          <!-- MONEY -->
-          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
-
-            <div
-              class="font-mono text-xs font-bold uppercase tracking-wider text-amber-300"
-            >
-              What does it cost?
-            </div>
-
-            <h3 class="mt-2 font-bold text-white">
-              Market Tools
-            </h3>
-
-            <p class="mt-2 text-sm leading-6 text-white">
-              Use market and crafting tools when prices and material costs
-              matter.
-            </p>
-
-          </div>
-
-          <!-- BUILD -->
-          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
-
-            <div
-              class="font-mono text-xs font-bold uppercase tracking-wider text-violet-300"
-            >
-              How is this built?
-            </div>
-
-            <h3 class="mt-2 font-bold text-white">
-              Build Resources
-            </h3>
-
-            <p class="mt-2 text-sm leading-6 text-white">
-              Specialized build sites can show tested combinations for
-              organized endgame content.
-            </p>
-
-          </div>
-
-        </div>
-
-      </section>
 
       <!-- =====================================================
            API SAFETY
@@ -857,132 +777,24 @@
         </div>
 
         <h2 class="mt-2 text-xl font-black text-white">
-          Know what you're connecting
+          Community tools may ask for an API key
         </h2>
 
         <p
           class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
         >
-          Some community tools can use a Guild Wars 2 API key to read selected
-          information from your account.
+          Create Guild Wars 2 API keys through your official ArenaNet account
+          and only grant the permissions a tool needs.
         </p>
-
-        <p class="mt-3 text-sm leading-6 text-white">
-          Generate API keys through your official ArenaNet account page and
-          only give a tool the permissions it actually needs.
-        </p>
-
-        <p class="mt-3 text-sm leading-6 text-white">
-          Never give a community website your ArenaNet account password.
-        </p>
-
-      </section>
-
-      <!-- =====================================================
-           VETERAN FIELD NOTE
-           ===================================================== -->
-      <section
-        class="rounded-sm border border-cyan-400/30 bg-cyan-400/[0.04] p-5 sm:p-6"
-      >
-
-        <div
-          class="section-label text-[10px] font-black uppercase text-cyan-400"
-        >
-          Veteran Field Note
-        </div>
-
-        <h2 class="mt-2 text-xl font-black text-white">
-          More information isn't always more useful
-        </h2>
 
         <p
           class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
         >
-          A new player can open a build site, wiki, account tracker, market
-          calculator, achievement guide, and lore archive at the same time and
-          somehow know less than when they started.
-        </p>
-
-        <p class="mt-3 text-sm leading-6 text-white">
-          Start with the question you're trying to answer. Then open the tool
-          built for that question.
+          Never give a community website your ArenaNet password.
         </p>
 
       </section>
 
-      <!-- =====================================================
-           KEEP BROWSING
-           ===================================================== -->
-      <section>
-
-        <div class="mb-4">
-
-          <div
-            class="section-label text-[10px] font-bold uppercase text-cyan-400"
-          >
-            Keep Browsing
-          </div>
-
-          <h2 class="mt-1 text-2xl font-black text-white">
-            Terminal 77-B
-          </h2>
-
-        </div>
-
-        <div class="grid gap-3 sm:grid-cols-2">
-
-          <!-- ARCHIVES -->
-          <a
-            href="../index.html#archives"
-            class="resource-card terminal-panel group rounded-sm p-5"
-          >
-
-            <div
-              class="section-label text-[10px] font-bold uppercase text-cyan-400"
-            >
-              Guidebook
-            </div>
-
-            <h3
-              class="mt-2 text-lg font-bold text-white group-hover:text-cyan-300"
-            >
-              Training Archives
-            </h3>
-
-            <p class="mt-2 text-sm leading-6 text-white">
-              Return to the main Terminal 77-B guide directory.
-            </p>
-
-          </a>
-
-          <!-- FRACTAL MANUAL -->
-          <a
-            href="../class306/index.html"
-            class="resource-card terminal-panel group rounded-sm p-5"
-          >
-
-            <div
-              class="section-label text-[10px] font-bold uppercase text-amber-400"
-            >
-              Field Reference // 306
-            </div>
-
-            <h3
-              class="mt-2 text-lg font-bold text-white group-hover:text-cyan-300"
-            >
-              Fractal Field Manual
-            </h3>
-
-            <p class="mt-2 text-sm leading-6 text-white">
-              Search quick Fractal walkthroughs, mechanics, utility tools, and
-              common mistakes.
-            </p>
-
-          </a>
-
-        </div>
-
-      </section>
 
       <!-- =====================================================
            RETURN
@@ -1002,8 +814,9 @@
 
   </main>
 
+
   <!-- =========================================================
-       ABOUT / CREDITS
+       ABOUT
        ========================================================= -->
   <section class="border-t border-slate-800">
 
@@ -1024,6 +837,7 @@
           </p>
 
         </div>
+
 
         <div class="text-xs leading-6 text-white sm:text-right">
 
@@ -1059,12 +873,15 @@
 
   </section>
 
+
   <!-- =========================================================
        FOOTER
        ========================================================= -->
   <footer class="border-t border-slate-800 bg-slate-950">
 
-    <div class="mx-auto max-w-6xl px-4 py-5 text-center sm:px-6">
+    <div
+      class="mx-auto max-w-6xl px-4 py-5 text-center sm:px-6"
+    >
 
       <p
         class="mx-auto max-w-4xl text-[10px] leading-5 text-white sm:text-xs"
