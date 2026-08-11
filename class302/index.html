@@ -1,587 +1,1465 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-slate-950 text-white">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Course 302 // [LIAR] Tyrian Field Archives</title>
-  
-  <!-- CATEGORY: EXTERNAL DEPENDENCIES -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+  <meta name="theme-color" content="#020617" />
+
+  <title>302 // Masteries & Account Progression // Terminal 77-B</title>
+
+  <meta
+    name="description"
+    content="Terminal 77-B Advanced Guide 302 explains Guild Wars 2 Masteries, regional Mastery Points, account progression, and what to prioritize after level 80."
+  />
+
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- CATEGORY: STYLES & ANIMATIONS -->
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: #020617;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, rgba(34, 211, 238, 0.07), transparent 28rem),
+        #020617;
+      color: white;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Text",
+        "SF Pro Display",
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.14;
+      background-image:
+        linear-gradient(rgba(34, 211, 238, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34, 211, 238, 0.025) 1px, transparent 1px);
+      background-size: 28px 28px;
+      z-index: -1;
     }
 
-    .animate-fade-in {
-      animation: fadeIn 0.4s ease-out forwards;
+    a,
+    button {
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .glow-cyan {
-      box-shadow: 0 0 14px rgba(34, 211, 238, 0.10);
+    .terminal-panel {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(15, 23, 42, 0.92),
+          rgba(2, 6, 23, 0.96)
+        );
+      border: 1px solid rgba(34, 211, 238, 0.17);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.025),
+        0 12px 40px rgba(0, 0, 0, 0.16);
     }
-    .glow-cyan:hover {
-      box-shadow: 0 0 22px rgba(34, 211, 238, 0.25);
+
+    .section-label {
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+      letter-spacing: 0.15em;
+    }
+
+    .terminal-button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(251, 191, 36, 0.45);
+      background: rgba(251, 191, 36, 0.06);
+      color: #fbbf24;
+      transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .terminal-button:hover,
+    .terminal-button:focus-visible {
+      background: #fbbf24;
+      border-color: #fbbf24;
+      color: #020617;
+    }
+
+    .terminal-button:active {
+      transform: scale(0.985);
+    }
+
+    ::selection {
+      background: #22d3ee;
+      color: #020617;
     }
 
     ::-webkit-scrollbar {
-      width: 6px;
+      width: 7px;
     }
+
     ::-webkit-scrollbar-track {
       background: #020617;
     }
+
     ::-webkit-scrollbar-thumb {
-      background: #0f172a;
-      border: 1px solid #22d3ee;
-      border-radius: 2px;
+      background: #164e63;
+      border-radius: 99px;
     }
 
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-
-    @keyframes slideDown {
-      from { transform: translateY(-100%); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .animate-slide-down {
-      animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
     }
   </style>
 </head>
-<body class="h-screen flex flex-col overflow-hidden relative bg-slate-950 text-white selection:bg-cyan-500 selection:text-slate-950">
 
-  <!-- CATEGORY: TOAST NOTIFICATION CONTAINER -->
-  <div 
-    id="toast-notification" 
-    class="hidden fixed top-3 right-3 left-3 sm:left-auto sm:max-w-md z-50 bg-slate-900/95 border border-cyan-400 text-white p-3.5 rounded shadow-2xl backdrop-blur glow-cyan animate-slide-down"
+<body class="min-h-screen text-white">
+
+  <!-- =========================================================
+       HEADER
+       ========================================================= -->
+  <header
+    class="sticky top-0 z-50 border-b border-cyan-500/20 bg-slate-950/95 backdrop-blur-xl"
   >
-    <div class="flex items-start justify-between gap-3">
-      <div class="flex items-start gap-2.5">
-        <span class="text-amber-400 text-lg">🔔</span>
-        <div>
-          <h4 id="toast-title" class="text-xs font-bold text-cyan-400 uppercase font-mono tracking-wider">
-            RESET DETECTED
-          </h4>
-          <p id="toast-message" class="text-xs text-slate-200 mt-0.5 leading-snug">
-            Daily reset has occurred!
-          </p>
-        </div>
-      </div>
-      <button 
-        onclick="dismissToast()" 
-        class="text-slate-400 hover:text-white text-xs font-bold px-1.5 py-0.5 cursor-pointer rounded bg-slate-950/60"
-      >
-        ✕
-      </button>
-    </div>
-  </div>
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
 
-  <!-- CATEGORY: MINIMAL HEADER & COMPACT TELEMETRY BAR -->
-  <header class="shrink-0 border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-3 sm:px-6 py-2 sm:py-3 space-y-1.5 sm:space-y-3">
-    <div class="max-w-[1600px] mx-auto text-center space-y-0.5">
-      <h1 class="text-base sm:text-2xl font-black text-cyan-400 tracking-wider uppercase drop-shadow-[0_0_10px_rgba(34,211,238,0.2)]">
-        Course 302: Masteries & Account Progression
-      </h1>
-      <p class="hidden sm:block text-xs sm:text-sm text-slate-300 tracking-wide font-medium">
-        Simple guides, field manuals, and operational tools for your Guild Wars 2 journey.
-      </p>
-    </div>
+      <div class="flex min-h-[64px] items-center justify-between gap-3">
 
-    <!-- CATEGORY: TIME DISPLAY MONITOR -->
-    <div class="max-w-[1600px] mx-auto flex items-center justify-around sm:grid sm:grid-cols-3 gap-2 pt-1.5 sm:pt-3 border-t border-slate-800/80 text-xs sm:text-sm overflow-x-auto no-scrollbar whitespace-nowrap">
-      
-      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50 shrink-0">
-        <span class="text-slate-400 font-bold uppercase tracking-wider">Tyria:</span>
-        <span id="tyria-clock-time" class="text-amber-400 font-bold flex items-center gap-1 font-mono">--:--</span>
-      </div>
+        <a
+          href="../index.html"
+          class="flex min-w-0 items-center gap-3"
+          aria-label="Return to Terminal 77-B"
+        >
 
-      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50 shrink-0">
-        <span class="text-slate-400 font-bold uppercase tracking-wider">Server:</span>
-        <span id="server-clock" class="text-cyan-400 font-bold font-mono">--:--:-- UTC</span>
-      </div>
+          <div
+            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-cyan-400/30 bg-cyan-400/5 text-cyan-300"
+            aria-hidden="true"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              class="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+            >
+              <path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6l-8-4Z"/>
+              <path d="m8 13 2.5-6 1.5 4 1.5-4L16 13"/>
+            </svg>
+          </div>
 
-      <div class="hidden sm:flex items-center justify-center gap-2 bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50">
-        <span class="text-slate-400 font-bold uppercase tracking-wider">Location:</span>
-        <span class="text-cyan-400 font-bold tracking-wider">DURMAND PRIORY // TERMINAL 77-B</span>
+          <div class="min-w-0">
+
+            <div
+              class="truncate text-xs font-black uppercase tracking-[0.18em] text-cyan-300 sm:text-sm"
+            >
+              Terminal 77-B
+            </div>
+
+            <div
+              class="hidden text-[9px] font-semibold uppercase tracking-[0.18em] text-white sm:block"
+            >
+              Tyrian Strategy Guidebook
+            </div>
+
+          </div>
+
+        </a>
+
+        <a
+          href="../index.html#archives"
+          class="flex min-h-[42px] items-center justify-center rounded border border-slate-700 bg-slate-900 px-3 text-[10px] font-bold uppercase tracking-wider text-white hover:border-cyan-500/50 hover:text-cyan-300 sm:px-4 sm:text-xs"
+        >
+          ← Archives
+        </a>
+
       </div>
 
     </div>
   </header>
 
-  <!-- CATEGORY: RETURN BAR -->
-  <nav class="shrink-0 bg-slate-950 max-w-[1600px] w-full mx-auto px-2 sm:px-6 pt-2 sm:pt-4 pb-1">
-    <div class="flex justify-start sm:justify-center overflow-x-auto no-scrollbar border-b border-slate-800/80 gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold whitespace-nowrap">
-      <a 
-        href="../index.html" 
-        class="flex items-center justify-center text-center px-3 sm:px-6 py-2 sm:py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/80 transition-all cursor-pointer rounded-t-sm shrink-0"
-      >
-        <span class="text-xs mr-1.5 sm:mr-2 text-cyan-500 font-mono">&larr;</span>
-        <span>RETURN TO MAIN DIRECTORY</span>
-      </a>
-    </div>
-  </nav>
+  <main>
 
-  <!-- CATEGORY: MAIN CONTENT AREA -->
-  <main class="flex-1 overflow-y-auto max-w-[1600px] w-full mx-auto p-3 sm:p-6 pb-32 sm:pb-40 space-y-4 sm:space-y-6">
+    <!-- =======================================================
+         HERO
+         ======================================================= -->
+    <section class="border-b border-cyan-500/10">
 
-    <div class="animate-fade-in space-y-4 sm:space-y-6">
-      
-      <!-- CATEGORY: LESSON GOAL -->
-      <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-2 sm:space-y-3">
-        <div class="border-b border-slate-800 pb-2 sm:pb-3 flex justify-between items-center">
-          <h2 class="text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-wider">
-            Lesson Goal
-          </h2>
-          <span class="text-xs text-amber-400 font-bold">[ACCOUNT SYSTEM OVERHAUL]</span>
+      <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-amber-400 sm:text-xs"
+        >
+          Advanced Guide // 302
         </div>
-        <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
-          Think of the mastery system as upgrading your account operating system. Hitting level 80 shifts your focus from raw character stats to unlocking permanent abilities like gliders, mounts, auto-looting, and housing across every character on your account.
+
+        <h1
+          class="mt-3 text-3xl font-black tracking-tight text-white sm:text-5xl"
+        >
+          Masteries & Account Progression
+        </h1>
+
+        <p
+          class="mt-3 max-w-3xl text-base leading-7 text-white sm:text-lg"
+        >
+          Level 80 stops raising your character level. Masteries start
+          improving what your whole account can do.
         </p>
-      </section>
 
-      <!-- CATEGORY: MODULE 01 -->
-      <section class="border border-slate-800/80 bg-slate-950/60 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
-        <div class="border-b border-slate-800 pb-2 sm:pb-3">
-          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider font-mono">Module 01</div>
-          <h3 class="text-base sm:text-lg font-bold text-white tracking-wide">The 3 Step Mastery Loop</h3>
+        <div class="mt-6 flex flex-wrap gap-2">
+
+          <span
+            class="rounded border border-amber-500/20 bg-amber-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-amber-300"
+          >
+            Masteries
+          </span>
+
+          <span
+            class="rounded border border-amber-500/20 bg-amber-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-amber-300"
+          >
+            Mastery Points
+          </span>
+
+          <span
+            class="rounded border border-amber-500/20 bg-amber-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-amber-300"
+          >
+            Account Wide
+          </span>
+
         </div>
 
-        <p class="text-xs sm:text-sm text-slate-300">Acquiring any account capability follows a clear sequence:</p>
+      </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 text-xs sm:text-sm">
-          <div class="p-3.5 sm:p-4 bg-slate-900/60 border border-slate-800/80 rounded-sm space-y-1.5 sm:space-y-2">
-            <div class="font-bold text-amber-400 uppercase text-xs font-mono">1. Select and Train</div>
-            <p class="text-slate-300 leading-relaxed font-normal">
-              Open the Hero Panel (H) to the Mastery tab and choose a track. Experience earned within that region fills the progress bar.
+    </section>
+
+    <!-- =======================================================
+         CONTENT
+         ======================================================= -->
+    <div class="mx-auto max-w-6xl space-y-6 px-4 py-8 sm:px-6 sm:py-10">
+
+      <!-- =====================================================
+           AT A GLANCE
+           ===================================================== -->
+      <section>
+
+        <div class="mb-4">
+
+          <div
+            class="section-label text-[10px] font-bold uppercase text-cyan-400"
+          >
+            At a Glance
+          </div>
+
+          <h2 class="mt-1 text-2xl font-black text-white">
+            Masteries in three pieces
+          </h2>
+
+        </div>
+
+        <div class="grid gap-3 md:grid-cols-3">
+
+          <!-- XP -->
+          <article class="terminal-panel rounded-sm p-5">
+
+            <div
+              class="section-label text-[10px] font-black uppercase text-cyan-400"
+            >
+              Experience
+            </div>
+
+            <h3 class="mt-2 text-lg font-bold text-white">
+              Train the ability
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Earn level-80 experience in the appropriate region to fill a
+              Mastery training bar.
             </p>
-          </div>
 
-          <div class="p-3.5 sm:p-4 bg-slate-900/60 border border-slate-800/80 rounded-sm space-y-1.5 sm:space-y-2">
-            <div class="font-bold text-cyan-400 uppercase text-xs font-mono">2. Collect Mastery Points</div>
-            <p class="text-slate-300 leading-relaxed font-normal">
-              Gather regional points by communing with open world insights, finishing story chapters, or completing achievements.
+          </article>
+
+          <!-- POINTS -->
+          <article class="terminal-panel rounded-sm p-5">
+
+            <div
+              class="section-label text-[10px] font-black uppercase text-amber-400"
+            >
+              Mastery Points
+            </div>
+
+            <h3 class="mt-2 text-lg font-bold text-white">
+              Pay for the unlock
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Mastery Points come from things like achievements, story
+              progression, and Mastery Insights.
             </p>
-          </div>
 
-          <div class="p-3.5 sm:p-4 bg-slate-900/60 border border-slate-800/80 rounded-sm space-y-1.5 sm:space-y-2">
-            <div class="font-bold text-emerald-400 uppercase text-xs font-mono">3. Spend and Activate</div>
-            <p class="text-slate-300 leading-relaxed font-normal">
-              Once the experience bar fills, spend your accumulated points to permanently unlock the capability across your whole account.
+          </article>
+
+          <!-- ACCOUNT -->
+          <article class="terminal-panel rounded-sm p-5">
+
+            <div
+              class="section-label text-[10px] font-black uppercase text-green-300"
+            >
+              Unlock
+            </div>
+
+            <h3 class="mt-2 text-lg font-bold text-white">
+              Keep it account-wide
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Once purchased, most Mastery abilities become available across
+              your account instead of belonging only to one character.
             </p>
-          </div>
+
+          </article>
+
         </div>
 
-        <blockquote class="p-3 sm:p-4 border-l-4 border-cyan-400 bg-slate-900/80 rounded-r-sm text-xs sm:text-sm text-slate-200">
-          <strong class="text-white font-bold">Pro Tip:</strong> Progress is retained automatically whenever you switch between active training tracks.
-        </blockquote>
       </section>
 
-      <!-- CATEGORY: MODULE 02 -->
-      <section class="border border-slate-800/80 bg-slate-950/60 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
-        <div class="border-b border-slate-800 pb-2 sm:pb-3">
-          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider font-mono">Module 02</div>
-          <h3 class="text-base sm:text-lg font-bold text-white tracking-wide">Regional Isolation</h3>
+      <!-- =====================================================
+           CORE LESSON
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-amber-400"
+        >
+          Core Lesson
         </div>
 
-        <p class="text-xs sm:text-sm text-slate-300">Experience and mastery points remain locked to their origin territory:</p>
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Think account upgrades, not character levels
+        </h2>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 text-xs sm:text-sm">
-          <div class="p-3 bg-slate-900/60 border border-slate-800/80 rounded flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-red-500 inline-block shrink-0"></span>
-            <div>
-              <strong class="text-white block font-semibold">Central Tyria (Red)</strong>
-              <span class="text-slate-400 text-xs">Core maps, dungeons, Fractals</span>
-            </div>
-          </div>
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Masteries are one of Guild Wars 2's main forms of horizontal
+          progression.
+        </p>
 
-          <div class="p-3 bg-slate-900/60 border border-slate-800/80 rounded flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block shrink-0"></span>
-            <div>
-              <strong class="text-white block font-semibold">Heart of Thorns (Green)</strong>
-              <span class="text-slate-400 text-xs">Maguuma Jungle, Season 3</span>
-            </div>
-          </div>
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Instead of turning a level-80 character into level 81, Masteries add
+          abilities and conveniences to your account.
+        </p>
 
-          <div class="p-3 bg-slate-900/60 border border-slate-800/80 rounded flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-purple-500 inline-block shrink-0"></span>
-            <div>
-              <strong class="text-white block font-semibold">Path of Fire (Purple)</strong>
-              <span class="text-slate-400 text-xs">Elonian Desert, Season 4</span>
-            </div>
-          </div>
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Gliding, mount abilities, auto-loot, fishing, Homestead features,
+          regional traversal tools, and other systems all live somewhere
+          inside Mastery progression.
+        </p>
 
-          <div class="p-3 bg-slate-900/60 border border-slate-800/80 rounded flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-blue-500 inline-block shrink-0"></span>
-            <div>
-              <strong class="text-white block font-semibold">Icebrood Saga (Blue)</strong>
-              <span class="text-slate-400 text-xs">Shiverpeaks, Strike Missions</span>
-            </div>
-          </div>
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Think of it like upgrading the operating system instead of replacing
+          the computer.
+        </p>
 
-          <div class="p-3 bg-slate-900/60 border border-slate-800/80 rounded flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-teal-400 inline-block shrink-0"></span>
-            <div>
-              <strong class="text-white block font-semibold">End of Dragons (Teal)</strong>
-              <span class="text-slate-400 text-xs">Cantha region</span>
-            </div>
-          </div>
-
-          <div class="p-3 bg-slate-900/60 border border-slate-800/80 rounded flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-yellow-400 inline-block shrink-0"></span>
-            <div>
-              <strong class="text-white block font-semibold">Secrets of the Obscure (Yellow)</strong>
-              <span class="text-slate-400 text-xs">Horn of Maguuma, Nayos</span>
-            </div>
-          </div>
-
-          <div class="p-3 bg-slate-900/60 border border-slate-800/80 rounded flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-orange-500 inline-block shrink-0"></span>
-            <div>
-              <strong class="text-white block font-semibold">Janthir Wilds (Orange)</strong>
-              <span class="text-slate-400 text-xs">Janthir region</span>
-            </div>
-          </div>
-
-          <div class="p-3 bg-slate-900/60 border border-slate-800/80 rounded flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-cyan-400 inline-block shrink-0"></span>
-            <div>
-              <strong class="text-white block font-semibold">Visions of Eternity (Cyan)</strong>
-              <span class="text-slate-400 text-xs">Castora region</span>
-            </div>
-          </div>
-        </div>
       </section>
 
-      <!-- CATEGORY: MODULE 03 -->
-      <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
-        <div class="border-b border-slate-800 pb-2 sm:pb-3">
-          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider font-mono">Module 03</div>
-          <h3 class="text-base sm:text-lg font-bold text-white tracking-wide">Primary Regional Tracks</h3>
+      <!-- =====================================================
+           THREE STEP LOOP
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-cyan-400"
+        >
+          Part 1 // The Mastery Loop
         </div>
 
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs sm:text-sm border-collapse">
-            <thead>
-              <tr class="bg-slate-950 text-cyan-400 border-b border-slate-800/80 font-mono">
-                <th class="p-2.5 sm:p-3 font-bold">Region</th>
-                <th class="p-2.5 sm:p-3 font-bold">Featured Masteries</th>
-                <th class="p-2.5 sm:p-3 font-bold">Primary Benefit</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-800/60 text-slate-300 font-normal">
-              <tr class="hover:bg-slate-900/40">
-                <td class="p-2.5 sm:p-3 font-semibold text-white">Central Tyria</td>
-                <td class="p-2.5 sm:p-3">Pact Commander, Fractal Attunement, Legendary Crafting</td>
-                <td class="p-2.5 sm:p-3 text-cyan-300">Unlocks automatic loot pickup and high tier recipe access.</td>
-              </tr>
-              <tr class="hover:bg-slate-900/40">
-                <td class="p-2.5 sm:p-3 font-semibold text-white">Heart of Thorns</td>
-                <td class="p-2.5 sm:p-3">Gliding, Native Lore, Raids, Ancient Magics</td>
-                <td class="p-2.5 sm:p-3 text-cyan-300">Aerial mobility, mushroom bouncing, and raid mechanics.</td>
-              </tr>
-              <tr class="hover:bg-slate-900/40">
-                <td class="p-2.5 sm:p-3 font-semibold text-white">Path of Fire</td>
-                <td class="p-2.5 sm:p-3">Raptor, Springer, Skimmer, Jackal, Griffon, Beetle, Skyscale</td>
-                <td class="p-2.5 sm:p-3 text-cyan-300">High speed terrain traversal and flying mounts.</td>
-              </tr>
-              <tr class="hover:bg-slate-900/40">
-                <td class="p-2.5 sm:p-3 font-semibold text-white">Icebrood Saga</td>
-                <td class="p-2.5 sm:p-3">Waystation Synchronization, Essence Manipulation</td>
-                <td class="p-2.5 sm:p-3 text-cyan-300">Portable buff stations and chest opening abilities.</td>
-              </tr>
-              <tr class="hover:bg-slate-900/40">
-                <td class="p-2.5 sm:p-3 font-semibold text-white">End of Dragons</td>
-                <td class="p-2.5 sm:p-3">Fishing, Skiffs, Jade Bots, Siege Turtle</td>
-                <td class="p-2.5 sm:p-3 text-cyan-300">Water travel, personal revive bots, and two player mounts.</td>
-              </tr>
-              <tr class="hover:bg-slate-900/40">
-                <td class="p-2.5 sm:p-3 font-semibold text-white">Secrets of the Obscure</td>
-                <td class="p-2.5 sm:p-3">Flight Training, Rift Hunting, Astral Ward</td>
-                <td class="p-2.5 sm:p-3 text-cyan-300">Updraft mounting and improved flying mount stamina.</td>
-              </tr>
-              <tr class="hover:bg-slate-900/40">
-                <td class="p-2.5 sm:p-3 font-semibold text-white">Janthir Wilds</td>
-                <td class="p-2.5 sm:p-3">Warclaw, Lowland Kodan, Homesteading</td>
-                <td class="p-2.5 sm:p-3 text-cyan-300">Combat mount upgrades and customizable account housing.</td>
-              </tr>
-              <tr class="hover:bg-slate-900/40">
-                <td class="p-2.5 sm:p-3 font-semibold text-white">Visions of Eternity</td>
-                <td class="p-2.5 sm:p-3">Castoran Survival, Skimmer Adaptation</td>
-                <td class="p-2.5 sm:p-3 text-cyan-300">Water speed enhancements and regional magic mechanics.</td>
-              </tr>
-            </tbody>
-          </table>
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Train → Earn Points → Unlock
+        </h2>
+
+        <div class="mt-5 space-y-3">
+
+          <!-- STEP 1 -->
+          <div
+            class="flex gap-4 rounded-sm border border-slate-800 bg-slate-950 p-4"
+          >
+
+            <div
+              class="flex h-9 w-9 shrink-0 items-center justify-center rounded border border-cyan-400/30 font-black text-cyan-300"
+            >
+              1
+            </div>
+
+            <div>
+
+              <h3 class="font-bold text-white">
+                Train a Mastery
+              </h3>
+
+              <p class="mt-1 text-sm leading-6 text-white">
+                Open the Mastery section of your Hero Panel and select an
+                available track. Experience earned in the matching region fills
+                its training bar.
+              </p>
+
+            </div>
+
+          </div>
+
+          <!-- STEP 2 -->
+          <div
+            class="flex gap-4 rounded-sm border border-slate-800 bg-slate-950 p-4"
+          >
+
+            <div
+              class="flex h-9 w-9 shrink-0 items-center justify-center rounded border border-amber-400/30 font-black text-amber-300"
+            >
+              2
+            </div>
+
+            <div>
+
+              <h3 class="font-bold text-white">
+                Collect Mastery Points
+              </h3>
+
+              <p class="mt-1 text-sm leading-6 text-white">
+                Earn points from the same Mastery region through Insights,
+                achievements, story objectives, adventures, and other
+                activities.
+              </p>
+
+            </div>
+
+          </div>
+
+          <!-- STEP 3 -->
+          <div
+            class="flex gap-4 rounded-sm border border-slate-800 bg-slate-950 p-4"
+          >
+
+            <div
+              class="flex h-9 w-9 shrink-0 items-center justify-center rounded border border-green-400/30 font-black text-green-300"
+            >
+              3
+            </div>
+
+            <div>
+
+              <h3 class="font-bold text-white">
+                Spend the Points
+              </h3>
+
+              <p class="mt-1 text-sm leading-6 text-white">
+                Once the training bar is full and you have enough matching
+                Mastery Points, spend them to permanently unlock that ability.
+              </p>
+
+            </div>
+
+          </div>
+
         </div>
+
       </section>
 
-      <!-- CATEGORY: MODULE 04 -->
-      <section class="border border-slate-800/80 bg-slate-950/60 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
-        <div class="border-b border-slate-800 pb-2 sm:pb-3">
-          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider font-mono">Module 04</div>
-          <h3 class="text-base sm:text-lg font-bold text-white tracking-wide">Experience Conversion</h3>
+      <!-- =====================================================
+           TWO CURRENCIES
+           ===================================================== -->
+      <section
+        class="rounded-sm border border-cyan-400/30 bg-cyan-400/[0.04] p-5 sm:p-6"
+      >
+
+        <div
+          class="section-label text-[10px] font-black uppercase text-cyan-400"
+        >
+          Easy Way to Remember It
         </div>
 
-        <p class="text-xs sm:text-sm text-slate-300">Experience earned at level 80 never goes to waste:</p>
+        <h2 class="mt-2 text-xl font-black text-white">
+          Experience trains it. Mastery Points unlock it.
+        </h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
-          <div class="p-3.5 sm:p-4 bg-slate-900/60 border border-slate-800/80 rounded-sm space-y-1.5 sm:space-y-2">
-            <div class="font-bold text-amber-400 uppercase text-xs font-mono">Overflow Routing</div>
-            <p class="text-slate-300 leading-relaxed font-normal">
-              Full experience bars redirect excess progress to the next available untrained track in that region automatically.
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Filling the experience bar does not automatically buy the Mastery.
+          You still need enough Mastery Points from that same region.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          If you've filled a bar but can't unlock the next ability, you're
+          probably missing points rather than experience.
+        </p>
+
+      </section>
+
+      <!-- =====================================================
+           REGIONS
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-violet-300"
+        >
+          Part 2 // Mastery Regions
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Points stay with their region
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Mastery Points aren't one universal pool. Each major Mastery region
+          has its own points and its own progression.
+        </p>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          A Heart of Thorns Mastery Point helps with Heart of Thorns
+          Masteries. It can't be spent on a Path of Fire mount track.
+        </p>
+
+        <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+
+          <!-- CENTRAL TYRIA -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-red-300">
+              Central Tyria
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Core Tyria progression, Pact Commander, Fractal progression, and
+              other core account systems.
             </p>
+
           </div>
 
-          <div class="p-3.5 sm:p-4 bg-slate-900/60 border border-slate-800/80 rounded-sm space-y-1.5 sm:space-y-2">
-            <div class="font-bold text-cyan-400 uppercase text-xs font-mono">Spirit Shard Engine</div>
-            <p class="text-slate-300 leading-relaxed font-normal">
-              Fully completing all regional masteries converts every subsequent 254,000 experience points into a Spirit Shard for high tier crafting.
+          <!-- HOT -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-green-300">
+              Heart of Thorns
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Gliding and traversal tools tied heavily to the Maguuma regions.
             </p>
+
           </div>
+
+          <!-- POF -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-violet-300">
+              Path of Fire
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Major mount progression and movement abilities.
+            </p>
+
+          </div>
+
+          <!-- IBS -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-blue-300">
+              Icebrood Saga
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Regional abilities connected to Icebrood Saga maps and
+              activities.
+            </p>
+
+          </div>
+
+          <!-- EOD -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-teal-300">
+              End of Dragons
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Fishing, Skiffs, Jade Bots, Siege Turtle progression, and Canthan
+              systems.
+            </p>
+
+          </div>
+
+          <!-- SOTO -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-yellow-300">
+              Secrets of the Obscure
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Expanded flight tools, Astral Ward progression, and regional
+              mechanics.
+            </p>
+
+          </div>
+
+          <!-- JANTHIR -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-orange-300">
+              Janthir Wilds
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Warclaw progression, Lowland Kodan systems, Homesteading, and
+              Janthir-specific abilities.
+            </p>
+
+          </div>
+
+          <!-- VOE -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-cyan-300">
+              Visions of Eternity
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Castoran Survivalist, Skimmer Adaptation, Wild Castoran Magic,
+              and Castora-related progression.
+            </p>
+
+          </div>
+
         </div>
+
       </section>
 
-      <!-- CATEGORY: FIELD PRACTICE CHECKLIST -->
-      <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
-        <div class="flex justify-between items-center border-b border-slate-800 pb-2 sm:pb-3">
-          <h3 class="text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-wider">
-            Practice Drill Checklist
-          </h3>
-          <span id="checklist-status" class="text-xs sm:text-sm text-amber-400 font-bold">[0 / 3 DONE]</span>
+      <!-- =====================================================
+           DON'T MEMORIZE REGIONS
+           ===================================================== -->
+      <section
+        class="rounded-sm border border-amber-400/30 bg-amber-400/[0.04] p-5 sm:p-6"
+      >
+
+        <div
+          class="section-label text-[10px] font-black uppercase text-amber-400"
+        >
+          Don't Memorize This
         </div>
 
-        <ul class="space-y-2.5 sm:space-y-3 text-sm text-slate-300 font-normal">
-          <li class="flex items-center gap-3 p-3 sm:p-3.5 bg-slate-950 border border-slate-800/80 rounded-sm">
-            <input type="checkbox" onchange="updateChecklist()" class="id-check w-4 h-4 sm:w-5 sm:h-5 accent-cyan-400 cursor-pointer" data-id="drill-1" />
-            <span><strong>Select a Track:</strong> Open your Hero Panel (H) and confirm a mastery track is currently active.</span>
-          </li>
-          <li class="flex items-center gap-3 p-3 sm:p-3.5 bg-slate-950 border border-slate-800/80 rounded-sm">
-            <input type="checkbox" onchange="updateChecklist()" class="id-check w-4 h-4 sm:w-5 sm:h-5 accent-cyan-400 cursor-pointer" data-id="drill-2" />
-            <span><strong>Find an Insight:</strong> Filter the achievement panel to locate and commune with a nearby open world Mastery Insight.</span>
-          </li>
-          <li class="flex items-center gap-3 p-3 sm:p-3.5 bg-slate-950 border border-slate-800/80 rounded-sm">
-            <input type="checkbox" onchange="updateChecklist()" class="id-check w-4 h-4 sm:w-5 sm:h-5 accent-cyan-400 cursor-pointer" data-id="drill-3" />
-            <span><strong>Automate Looting:</strong> Prioritize the Pact Commander line in Central Tyria to unlock account wide auto-loot.</span>
-          </li>
-        </ul>
+        <h2 class="mt-2 text-xl font-black text-white">
+          Follow the Mastery you're actually working on
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          You don't need to memorize every regional color, track, and expansion
+          before using the system.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          If you're working on a Raptor ability, the game will show you the
+          Path of Fire progression you need. If you're working on Gliding,
+          follow the Heart of Thorns track.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Learn the loop first. The regional details will make sense as you
+          encounter them.
+        </p>
+
       </section>
+
+      <!-- =====================================================
+           WHAT TO PRIORITIZE
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-green-300"
+        >
+          Part 3 // What Should I Train?
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Prioritize what improves your everyday play
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          You can eventually unlock everything available to your account. You
+          don't need to do it in one perfect order.
+        </p>
+
+        <div class="mt-5 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+
+          <!-- AUTO LOOT -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-300"
+            >
+              Convenience
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Auto-Loot
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Pact Commander's Advanced Logistics is a strong quality-of-life
+              goal because defeated enemies can be looted automatically.
+            </p>
+
+          </div>
+
+          <!-- MOVEMENT -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-amber-300"
+            >
+              Movement
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Gliding & Mounts
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Movement Masteries make exploration easier and often open routes
+              you couldn't use before.
+            </p>
+
+          </div>
+
+          <!-- CONTENT -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-green-300"
+            >
+              Content
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              What you're playing
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              If you're spending most of your time in one expansion, its
+              Masteries will naturally be more useful.
+            </p>
+
+          </div>
+
+          <!-- PERSONAL -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-violet-300"
+            >
+              Personal
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              What sounds fun?
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Fishing, Homesteading, mount upgrades, or another system can be
+              perfectly reasonable priorities if that's what you enjoy.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           AUTOLOOT
+           ===================================================== -->
+      <section
+        class="rounded-sm border border-cyan-400/30 bg-cyan-400/[0.04] p-5 sm:p-6"
+      >
+
+        <div
+          class="section-label text-[10px] font-black uppercase text-cyan-400"
+        >
+          Veteran Recommendation
+        </div>
+
+        <h2 class="mt-2 text-xl font-black text-white">
+          Auto-Loot is boring in the best possible way
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Some Masteries unlock flashy ways to travel across the world.
+          Advanced Logistics just stops you from manually looting everything.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          That sounds less exciting, but it's one of those upgrades you notice
+          every time you play once you have it.
+        </p>
+
+      </section>
+
+      <!-- =====================================================
+           FULL BAR
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-violet-300"
+        >
+          Part 4 // Full Training Bar
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          What if my Mastery bar is full?
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Sometimes you'll finish training a Mastery before you've collected
+          enough Mastery Points to purchase it.
+        </p>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          You haven't lost your progress. The trained Mastery stays full until
+          you're ready to unlock it.
+        </p>
+
+        <div class="mt-5 grid gap-3 md:grid-cols-2">
+
+          <!-- SWITCH -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-300"
+            >
+              Option 1
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Train another available track
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              If another unfinished Mastery is available in that region, switch
+              to it so your regional experience can keep filling something
+              useful.
+            </p>
+
+          </div>
+
+          <!-- SPIRIT SHARDS -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-amber-300"
+            >
+              Option 2
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Spirit Shard progress
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              When no unfinished Mastery track is actively receiving that
+              experience, level-80 experience can instead progress toward a
+              Spirit Shard.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           MASTERY POINTS
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-cyan-400"
+        >
+          Part 5 // Finding Mastery Points
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          The game gives you more points than you need
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          You don't need every possible Mastery Point in a region to complete
+          its Mastery tracks.
+        </p>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          If one achievement looks miserable, you can often earn another point
+          somewhere else.
+        </p>
+
+        <div class="mt-5 grid gap-3 md:grid-cols-3">
+
+          <!-- INSIGHTS -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-300"
+            >
+              Insights
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Explore the map
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Some points come from reaching marked locations and communing
+              with Mastery Insights.
+            </p>
+
+          </div>
+
+          <!-- STORY -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-amber-300"
+            >
+              Story
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Keep progressing
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Story chapters and related objectives can award Mastery Points.
+            </p>
+
+          </div>
+
+          <!-- ACHIEVEMENTS -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-green-300"
+            >
+              Achievements
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Follow the point icon
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              The Achievement Panel can help you find other activities that
+              reward points for the region you're working on.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           ACCOUNT-WIDE
+           ===================================================== -->
+      <section
+        class="rounded-sm border border-green-400/30 bg-green-400/[0.04] p-5 sm:p-6"
+      >
+
+        <div
+          class="section-label text-[10px] font-black uppercase text-green-300"
+        >
+          Why Masteries Feel Good
+        </div>
+
+        <h2 class="mt-2 text-xl font-black text-white">
+          Your alts benefit too
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Mastery progression belongs to the account rather than the character
+          that earned it.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Unlock an account-wide movement or convenience ability once, and your
+          other characters can benefit from that progression too.
+        </p>
+
+      </section>
+
+      <!-- =====================================================
+           RETURNING PLAYERS
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-amber-400"
+        >
+          Returning Player Check
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Haven't touched Masteries in years?
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Don't try to reconstruct your entire Mastery history.
+        </p>
+
+        <div class="mt-5 space-y-3">
+
+          <!-- 1 -->
+          <div
+            class="flex gap-4 rounded-sm border border-slate-800 bg-slate-950 p-4"
+          >
+
+            <div
+              class="flex h-8 w-8 shrink-0 items-center justify-center rounded border border-cyan-400/30 font-black text-cyan-300"
+            >
+              1
+            </div>
+
+            <div>
+
+              <h3 class="font-bold text-white">
+                Open the Mastery Panel
+              </h3>
+
+              <p class="mt-1 text-sm leading-6 text-white">
+                See which regions you've unlocked and which tracks you've
+                already completed.
+              </p>
+
+            </div>
+
+          </div>
+
+          <!-- 2 -->
+          <div
+            class="flex gap-4 rounded-sm border border-slate-800 bg-slate-950 p-4"
+          >
+
+            <div
+              class="flex h-8 w-8 shrink-0 items-center justify-center rounded border border-cyan-400/30 font-black text-cyan-300"
+            >
+              2
+            </div>
+
+            <div>
+
+              <h3 class="font-bold text-white">
+                Check what you're currently playing
+              </h3>
+
+              <p class="mt-1 text-sm leading-6 text-white">
+                If you're in Janthir, Cantha, Maguuma, or somewhere else,
+                concentrate on Masteries relevant to that content first.
+              </p>
+
+            </div>
+
+          </div>
+
+          <!-- 3 -->
+          <div
+            class="flex gap-4 rounded-sm border border-slate-800 bg-slate-950 p-4"
+          >
+
+            <div
+              class="flex h-8 w-8 shrink-0 items-center justify-center rounded border border-cyan-400/30 font-black text-cyan-300"
+            >
+              3
+            </div>
+
+            <div>
+
+              <h3 class="font-bold text-white">
+                Pick one useful unlock
+              </h3>
+
+              <p class="mt-1 text-sm leading-6 text-white">
+                Don't solve the whole system. Choose one Mastery you actually
+                want and follow that track.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           VETERAN FIELD NOTE
+           ===================================================== -->
+      <section
+        class="rounded-sm border border-amber-400/30 bg-amber-400/[0.04] p-5 sm:p-6"
+      >
+
+        <div
+          class="section-label text-[10px] font-black uppercase text-amber-400"
+        >
+          Veteran Field Note
+        </div>
+
+        <h2 class="mt-2 text-xl font-black text-white">
+          Mastery rank isn't a skill rating
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          A large Mastery number mostly tells you how much Mastery progression
+          someone has unlocked.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          It doesn't automatically tell you how well they understand their
+          profession, how good they are at an encounter, or whether they know
+          the content you're currently doing.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Treat Masteries as account progression, not a scoreboard for player
+          ability.
+        </p>
+
+      </section>
+
+      <!-- =====================================================
+           TRY IT
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-green-300"
+        >
+          Try It in Tyria
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Follow one Mastery from start to finish
+        </h2>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          You don't need another checklist. Just use the system once
+          deliberately so the loop makes sense.
+        </p>
+
+        <div class="mt-5 grid gap-3 md:grid-cols-3">
+
+          <!-- TRAIN -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="mb-2 font-mono text-xs font-bold uppercase tracking-wider text-cyan-400"
+            >
+              Train
+            </div>
+
+            <p class="text-sm leading-6 text-white">
+              Open your Mastery Panel and choose an unfinished ability you
+              actually want.
+            </p>
+
+          </div>
+
+          <!-- POINT -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="mb-2 font-mono text-xs font-bold uppercase tracking-wider text-cyan-400"
+            >
+              Find
+            </div>
+
+            <p class="text-sm leading-6 text-white">
+              Look at the Achievement Panel and identify one Mastery Point from
+              the matching region.
+            </p>
+
+          </div>
+
+          <!-- UNLOCK -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="mb-2 font-mono text-xs font-bold uppercase tracking-wider text-cyan-400"
+            >
+              Unlock
+            </div>
+
+            <p class="text-sm leading-6 text-white">
+              Once the experience and points are ready, purchase the Mastery
+              and notice what changed on your account.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           KEEP BROWSING
+           ===================================================== -->
+      <section>
+
+        <div class="mb-4">
+
+          <div
+            class="section-label text-[10px] font-bold uppercase text-cyan-400"
+          >
+            Keep Browsing
+          </div>
+
+          <h2 class="mt-1 text-2xl font-black text-white">
+            Related records
+          </h2>
+
+        </div>
+
+        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+
+          <!-- PREVIOUS -->
+          <a
+            href="../class301/index.html"
+            class="terminal-panel group rounded-sm p-5 transition hover:border-cyan-400/40"
+          >
+
+            <div
+              class="section-label text-[10px] font-bold uppercase text-white"
+            >
+              Previous // 301
+            </div>
+
+            <h3
+              class="mt-2 text-lg font-bold text-white group-hover:text-cyan-300"
+            >
+              Build Theory
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Learn how weapons, traits, skills, and attributes work together.
+            </p>
+
+          </a>
+
+          <!-- RELATED -->
+          <a
+            href="../class207/index.html"
+            class="terminal-panel group rounded-sm p-5 transition hover:border-cyan-400/40"
+          >
+
+            <div
+              class="section-label text-[10px] font-bold uppercase text-cyan-400"
+            >
+              Related // 207
+            </div>
+
+            <h3
+              class="mt-2 text-lg font-bold text-white group-hover:text-cyan-300"
+            >
+              Beyond Level 80
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Review the bigger picture of level-80 progression and choose what
+              you want to work toward.
+            </p>
+
+          </a>
+
+          <!-- DIRECTORY -->
+          <a
+            href="../index.html#archives"
+            class="terminal-panel group rounded-sm p-5 transition hover:border-cyan-400/40 sm:col-span-2 lg:col-span-1"
+          >
+
+            <div
+              class="section-label text-[10px] font-bold uppercase text-amber-400"
+            >
+              Directory
+            </div>
+
+            <h3
+              class="mt-2 text-lg font-bold text-white group-hover:text-cyan-300"
+            >
+              Training Archives
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Return to Terminal 77-B and choose another field guide.
+            </p>
+
+          </a>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           RETURN
+           ===================================================== -->
+      <div class="flex justify-center pt-2">
+
+        <a
+          href="../index.html#archives"
+          class="terminal-button w-full rounded-sm px-5 py-3 text-xs font-black uppercase tracking-wider sm:w-auto"
+        >
+          ← Return to Archives
+        </a>
+
+      </div>
 
     </div>
 
   </main>
 
-  <!-- CATEGORY: FOOTER WITH CENTERED MOBILE FLOW -->
-  <footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-3 sm:px-6 py-2.5 sm:py-3">
-    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
-      
-      <!-- DESKTOP DISCLAIMER PARAGRAPH -->
-      <p class="hidden md:block text-xs text-slate-400 max-w-3xl leading-normal">
-        This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
-      </p>
+  <!-- =========================================================
+       ABOUT / CREDITS
+       ========================================================= -->
+  <section class="border-t border-slate-800">
 
-      <!-- CREDITS LINKS -->
-      <div class="flex items-center justify-center space-x-2 sm:space-x-4 text-xs">
-        <span class="text-slate-300">
-          Written by <a href="https://liar.fyi" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 font-bold">The Liars Guild</a>
-        </span>
-        <span class="text-slate-700">|</span>
-        <span class="text-slate-300">
-          Site Builder: <a href="https://qkommand.github.io/home/" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 font-bold">Commander Q</a>
-        </span>
+    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+
+      <div class="grid gap-5 sm:grid-cols-2">
+
+        <div>
+
+          <div
+            class="section-label text-[10px] font-bold uppercase text-cyan-400"
+          >
+            Terminal 77-B
+          </div>
+
+          <p class="mt-2 text-xs leading-5 text-white">
+            A Guild Wars 2 community guide for new and returning players.
+          </p>
+
+        </div>
+
+        <div class="text-xs leading-6 text-white sm:text-right">
+
+          <p>
+            Written with help from
+            <a
+              href="https://liar.fyi"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-bold text-cyan-400 underline decoration-cyan-500/30 underline-offset-4"
+            >
+              [Liar]
+            </a>
+          </p>
+
+          <p>
+            Site built by
+            <a
+              href="https://qkommand.github.io/home/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-bold text-cyan-400 underline decoration-cyan-500/30 underline-offset-4"
+            >
+              Commander Q
+            </a>
+          </p>
+
+        </div>
+
       </div>
 
-      <!-- MOBILE DISCLAIMER MODAL TRIGGER -->
-      <button 
-        onclick="toggleDisclaimer('on')"
-        class="md:hidden text-xs text-slate-400 hover:text-cyan-400 underline cursor-pointer font-semibold uppercase tracking-wider"
+    </div>
+
+  </section>
+
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
+  <footer class="border-t border-slate-800 bg-slate-950">
+
+    <div class="mx-auto max-w-6xl px-4 py-5 text-center sm:px-6">
+
+      <p
+        class="mx-auto max-w-4xl text-[10px] leading-5 text-white sm:text-xs"
       >
-        [Disclaimer]
-      </button>
+        Terminal 77-B is an unofficial Guild Wars 2 community fansite and is
+        not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation.
+        Guild Wars, Guild Wars 2, ArenaNet, and associated names and marks are
+        the property of their respective owners.
+      </p>
 
     </div>
+
   </footer>
 
-  <!-- CATEGORY: DISCLAIMER OVERLAY MODAL -->
-  <div 
-    id="disclaimer-modal" 
-    class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4"
-  >
-    <div class="bg-slate-900 border border-cyan-500/40 rounded p-5 max-w-md w-full space-y-4 glow-cyan">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-        <h3 class="text-sm font-bold text-cyan-400 tracking-wider uppercase font-mono">
-          /// LEGAL DISCLAIMER
-        </h3>
-        <button 
-          onclick="toggleDisclaimer('off')" 
-          class="text-slate-400 hover:text-white font-bold text-base px-2 cursor-pointer"
-        >
-          ✕
-        </button>
-      </div>
-
-      <p class="text-sm text-slate-300 leading-relaxed">
-        This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
-      </p>
-
-      <button 
-        onclick="toggleDisclaimer('off')" 
-        class="w-full py-2.5 bg-slate-950 border border-cyan-500/50 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all text-center block cursor-pointer"
-      >
-        Acknowledge
-      </button>
-    </div>
-  </div>
-
-  <!-- CATEGORY: LOGIC ENGINE -->
-  <script>
-    /* CATEGORY: DISCLAIMER MODAL CONTROLLER */
-    function toggleDisclaimer(state) {
-      const modal = document.getElementById('disclaimer-modal');
-      if (!modal) return;
-      if (state === 'on') {
-        modal.classList.remove('hidden');
-      } else {
-        modal.classList.add('hidden');
-      }
-    }
-
-    /* CATEGORY: TOAST NOTIFICATION ENGINE */
-    let toastTimeout = null;
-    let lastHandledUtcMinute = -1;
-
-    function triggerToast(title, message) {
-      const toast = document.getElementById('toast-notification');
-      const titleEl = document.getElementById('toast-title');
-      const msgEl = document.getElementById('toast-message');
-
-      if (!toast || !titleEl || !msgEl) return;
-
-      titleEl.innerText = title;
-      msgEl.innerText = message;
-      toast.classList.remove('hidden');
-
-      if (toastTimeout) clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        dismissToast();
-      }, 9000);
-    }
-
-    function dismissToast() {
-      const toast = document.getElementById('toast-notification');
-      if (toast) toast.classList.add('hidden');
-    }
-
-    /* CATEGORY: CHECKLIST STATE MANAGEMENT */
-    const STORAGE_KEY = 'priory_class302_checkboxes';
-    let checklistCompletedState = 'off';
-
-    function updateChecklist() {
-      const boxes = document.querySelectorAll('.id-check');
-      let checkedCount = 0;
-      const savedState = {};
-
-      boxes.forEach(box => {
-        const id = box.getAttribute('data-id');
-        if (box.checked) {
-          checkedCount++;
-          savedState[id] = 'on';
-        } else {
-          savedState[id] = 'off';
-        }
-      });
-
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
-
-      const statusEl = document.getElementById('checklist-status');
-      statusEl.innerText = `[${checkedCount} / ${boxes.length} DONE]`;
-
-      if (checkedCount === boxes.length) {
-        checklistCompletedState = 'on';
-        statusEl.className = 'text-xs sm:text-sm text-emerald-400 font-bold';
-      } else {
-        checklistCompletedState = 'off';
-        statusEl.className = 'text-xs sm:text-sm text-amber-400 font-bold';
-      }
-    }
-
-    function loadChecklistState() {
-      const savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-      const boxes = document.querySelectorAll('.id-check');
-
-      boxes.forEach(box => {
-        const id = box.getAttribute('data-id');
-        if (savedState[id] === 'on') {
-          box.checked = true;
-        }
-      });
-
-      updateChecklist();
-    }
-
-    /* CATEGORY: UNIVERSAL CLOCKS & RESET DETECTOR ENGINE */
-    function updateClocks() {
-      const now = new Date();
-      
-      const utcHours = now.getUTCHours();
-      const utcMins = now.getUTCMinutes();
-      const utcSecs = now.getUTCSeconds();
-      const utcDay = now.getUTCDay();
-
-      const strUtcHours = String(utcHours).padStart(2, '0');
-      const strUtcMins = String(utcMins).padStart(2, '0');
-      const strUtcSecs = String(utcSecs).padStart(2, '0');
-
-      document.getElementById('server-clock').innerText = `${strUtcHours}:${strUtcMins}:${strUtcSecs} UTC`;
-
-      /* RESET DETECTION LOGIC (DAILY: 00:00:00 UTC | WEEKLY: MON 07:30:00 UTC) */
-      if (utcSecs === 0 && utcMins !== lastHandledUtcMinute) {
-        lastHandledUtcMinute = utcMins;
-
-        if (utcHours === 0 && utcMins === 0) {
-          triggerToast("DAILY RESET DETECTED", "GW2 server daily reset is live! Daily achievements & wizards vault updated.");
-        } else if (utcDay === 1 && utcHours === 7 && utcMins === 30) {
-          triggerToast("WEEKLY RESET DETECTED", "GW2 server weekly reset is live! Raids, strikes, and weekly tasks refreshed.");
-        }
-      }
-
-      /* TYRIAN TIME CALCULATOR */
-      const totalUtcSec = (utcHours * 3600) + (utcMins * 60) + utcSecs;
-      const cycleOffset = 1500;
-      const secondsInto2HrCycle = (totalUtcSec - cycleOffset + 720000) % 7200;
-
-      const tyrianSecFromMidnight = (secondsInto2HrCycle * 12 + 21600) % 86400;
-      const tyrianHour = Math.floor(tyrianSecFromMidnight / 3600);
-      const tyrianMin = Math.floor((tyrianSecFromMidnight % 3600) / 60);
-
-      const formattedTyrianHour = String(tyrianHour).padStart(2, '0');
-      const formattedTyrianMin = String(tyrianMin).padStart(2, '0');
-
-      let icon = '☀️';
-      if (tyrianHour >= 5 && tyrianHour < 6) icon = '🌅';
-      else if (tyrianHour >= 6 && tyrianHour < 20) icon = '☀️';
-      else if (tyrianHour >= 20 && tyrianHour < 21) icon = '🌆';
-      else icon = '🌙';
-
-      document.getElementById('tyria-clock-time').innerHTML = `${icon} <span>${formattedTyrianHour}:${formattedTyrianMin}</span>`;
-    }
-
-    /* CATEGORY: INITIALIZATION */
-    document.addEventListener('DOMContentLoaded', () => {
-      updateClocks();
-      loadChecklistState();
-      setInterval(updateClocks, 1000);
-    });
-  </script>
 </body>
 </html>
