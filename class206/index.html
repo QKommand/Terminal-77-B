@@ -1,519 +1,1367 @@
+```html
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-slate-950 text-white">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Course 206 // [LIAR] Tyrian Field Archives</title>
-  
-  <!-- CATEGORY: EXTERNAL DEPENDENCIES -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+  <meta name="theme-color" content="#020617" />
+
+  <title>206 // Combat Flow & Awareness // Terminal 77-B</title>
+
+  <meta
+    name="description"
+    content="Terminal 77-B Advanced Guide 206 covers fluid combat, Barrier, combo fields, finishers, UI cues, and battlefield awareness in Guild Wars 2."
+  />
+
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- CATEGORY: STYLES & ANIMATIONS -->
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: #020617;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, rgba(34, 211, 238, 0.07), transparent 28rem),
+        #020617;
+      color: white;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Text",
+        "SF Pro Display",
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.14;
+      background-image:
+        linear-gradient(rgba(34, 211, 238, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34, 211, 238, 0.025) 1px, transparent 1px);
+      background-size: 28px 28px;
+      z-index: -1;
     }
 
-    .animate-fade-in {
-      animation: fadeIn 0.4s ease-out forwards;
+    a,
+    button {
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .glow-cyan {
-      box-shadow: 0 0 14px rgba(34, 211, 238, 0.10);
+    .terminal-panel {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(15, 23, 42, 0.92),
+          rgba(2, 6, 23, 0.96)
+        );
+      border: 1px solid rgba(34, 211, 238, 0.17);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.025),
+        0 12px 40px rgba(0, 0, 0, 0.16);
     }
-    .glow-cyan:hover {
-      box-shadow: 0 0 22px rgba(34, 211, 238, 0.25);
+
+    .section-label {
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+      letter-spacing: 0.15em;
+    }
+
+    .terminal-button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(251, 191, 36, 0.45);
+      background: rgba(251, 191, 36, 0.06);
+      color: #fbbf24;
+      transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .terminal-button:hover,
+    .terminal-button:focus-visible {
+      background: #fbbf24;
+      border-color: #fbbf24;
+      color: #020617;
+    }
+
+    .terminal-button:active {
+      transform: scale(0.985);
+    }
+
+    ::selection {
+      background: #22d3ee;
+      color: #020617;
     }
 
     ::-webkit-scrollbar {
-      width: 6px;
+      width: 7px;
     }
+
     ::-webkit-scrollbar-track {
       background: #020617;
     }
+
     ::-webkit-scrollbar-thumb {
-      background: #0f172a;
-      border: 1px solid #22d3ee;
-      border-radius: 2px;
+      background: #164e63;
+      border-radius: 99px;
     }
 
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-
-    @keyframes slideDown {
-      from { transform: translateY(-100%); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .animate-slide-down {
-      animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
     }
   </style>
 </head>
-<body class="h-screen flex flex-col overflow-hidden relative bg-slate-950 text-white selection:bg-cyan-500 selection:text-slate-950">
 
-  <!-- CATEGORY: TOAST NOTIFICATION CONTAINER -->
-  <div 
-    id="toast-notification" 
-    class="hidden fixed top-3 right-3 left-3 sm:left-auto sm:max-w-md z-50 bg-slate-900/95 border border-cyan-400 text-white p-3.5 rounded shadow-2xl backdrop-blur glow-cyan animate-slide-down"
+<body class="min-h-screen text-white">
+
+  <!-- =========================================================
+       HEADER
+       ========================================================= -->
+  <header
+    class="sticky top-0 z-50 border-b border-cyan-500/20 bg-slate-950/95 backdrop-blur-xl"
   >
-    <div class="flex items-start justify-between gap-3">
-      <div class="flex items-start gap-2.5">
-        <span class="text-amber-400 text-lg">🔔</span>
-        <div>
-          <h4 id="toast-title" class="text-xs font-bold text-cyan-400 uppercase font-mono tracking-wider">
-            RESET DETECTED
-          </h4>
-          <p id="toast-message" class="text-xs text-slate-200 mt-0.5 leading-snug">
-            Daily reset has occurred!
-          </p>
-        </div>
-      </div>
-      <button 
-        onclick="dismissToast()" 
-        class="text-slate-400 hover:text-white text-xs font-bold px-1.5 py-0.5 cursor-pointer rounded bg-slate-950/60"
-      >
-        ✕
-      </button>
-    </div>
-  </div>
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
 
-  <!-- CATEGORY: MINIMAL HEADER & COMPACT TELEMETRY BAR -->
-  <header class="shrink-0 border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-3 sm:px-6 py-2 sm:py-3 space-y-1.5 sm:space-y-3">
-    <div class="max-w-[1600px] mx-auto text-center space-y-0.5">
-      <h1 class="text-base sm:text-2xl font-black text-cyan-400 tracking-wider uppercase drop-shadow-[0_0_10px_rgba(34,211,238,0.2)]">
-        Course 206: Advanced Combat & Fluid Techniques
-      </h1>
-      <p class="hidden sm:block text-xs sm:text-sm text-slate-300 tracking-wide font-medium">
-        Simple guides, field manuals, and operational tools for your Guild Wars 2 journey.
-      </p>
-    </div>
+      <div class="flex min-h-[64px] items-center justify-between gap-3">
 
-    <!-- CATEGORY: TIME DISPLAY MONITOR -->
-    <div class="max-w-[1600px] mx-auto flex items-center justify-around sm:grid sm:grid-cols-3 gap-2 pt-1.5 sm:pt-3 border-t border-slate-800/80 text-xs sm:text-sm overflow-x-auto no-scrollbar whitespace-nowrap">
-      
-      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50 shrink-0">
-        <span class="text-slate-400 font-bold uppercase tracking-wider">Tyria:</span>
-        <span id="tyria-clock-time" class="text-amber-400 font-bold flex items-center gap-1 font-mono">--:--</span>
-      </div>
+        <a
+          href="../index.html"
+          class="flex min-w-0 items-center gap-3"
+          aria-label="Return to Terminal 77-B"
+        >
 
-      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50 shrink-0">
-        <span class="text-slate-400 font-bold uppercase tracking-wider">Server:</span>
-        <span id="server-clock" class="text-cyan-400 font-bold font-mono">--:--:-- UTC</span>
-      </div>
+          <div
+            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-cyan-400/30 bg-cyan-400/5 text-cyan-300"
+            aria-hidden="true"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              class="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+            >
+              <path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6l-8-4Z"/>
+              <path d="m8 13 2.5-6 1.5 4 1.5-4L16 13"/>
+            </svg>
+          </div>
 
-      <div class="hidden sm:flex items-center justify-center gap-2 bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50">
-        <span class="text-slate-400 font-bold uppercase tracking-wider">Location:</span>
-        <span class="text-cyan-400 font-bold tracking-wider">DURMAND PRIORY // TERMINAL 77-B</span>
+          <div class="min-w-0">
+
+            <div
+              class="truncate text-xs font-black uppercase tracking-[0.18em] text-cyan-300 sm:text-sm"
+            >
+              Terminal 77-B
+            </div>
+
+            <div
+              class="hidden text-[9px] font-semibold uppercase tracking-[0.18em] text-white sm:block"
+            >
+              Tyrian Strategy Guidebook
+            </div>
+
+          </div>
+
+        </a>
+
+        <a
+          href="../index.html#archives"
+          class="flex min-h-[42px] items-center justify-center rounded border border-slate-700 bg-slate-900 px-3 text-[10px] font-bold uppercase tracking-wider text-white hover:border-cyan-500/50 hover:text-cyan-300 sm:px-4 sm:text-xs"
+        >
+          ← Archives
+        </a>
+
       </div>
 
     </div>
   </header>
 
-  <!-- CATEGORY: RETURN BAR -->
-  <nav class="shrink-0 bg-slate-950 max-w-[1600px] w-full mx-auto px-2 sm:px-6 pt-2 sm:pt-4 pb-1">
-    <div class="flex justify-start sm:justify-center overflow-x-auto no-scrollbar border-b border-slate-800/80 gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold whitespace-nowrap">
-      <a 
-        href="../index.html" 
-        class="flex items-center justify-center text-center px-3 sm:px-6 py-2 sm:py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/80 transition-all cursor-pointer rounded-t-sm shrink-0"
-      >
-        <span class="text-xs mr-1.5 sm:mr-2 text-cyan-500 font-mono">&larr;</span>
-        <span>RETURN TO MAIN DIRECTORY</span>
-      </a>
-    </div>
-  </nav>
+  <main>
 
-  <!-- CATEGORY: MAIN CONTENT AREA -->
-  <main class="flex-1 overflow-y-auto max-w-[1600px] w-full mx-auto p-3 sm:p-6 pb-32 sm:pb-40 space-y-4 sm:space-y-6">
+    <!-- =======================================================
+         HERO
+         ======================================================= -->
+    <section class="border-b border-cyan-500/10">
 
-    <div class="animate-fade-in space-y-4 sm:space-y-6">
-      
-      <!-- CATEGORY: LESSON OVERVIEW -->
-      <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-2 sm:space-y-3">
-        <div class="border-b border-slate-800 pb-2 sm:pb-3">
-          <h2 class="text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-wider">
-            Lesson Goal
-          </h2>
+      <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-amber-400 sm:text-xs"
+        >
+          Advanced Guide // 206
         </div>
-        <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
-          Combat in Guild Wars 2 is all about staying fluid. Rather than trying to memorize rigid button lists, focus on keeping your eyes on the boss, absorbing big hits with temporary shields (Barrier), and using elemental ground fields to give your entire team free heals, stealth, and damage boosts on the fly.
+
+        <h1
+          class="mt-3 text-3xl font-black tracking-tight text-white sm:text-5xl"
+        >
+          Combat Flow & Awareness
+        </h1>
+
+        <p
+          class="mt-3 max-w-3xl text-base leading-7 text-white sm:text-lg"
+        >
+          Good combat starts feeling less like pressing a list of buttons and
+          more like responding to what's happening around you.
         </p>
-      </section>
 
-      <!-- CATEGORY: MODULES GRID -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+        <div class="mt-6 flex flex-wrap gap-2">
 
-        <!-- MODULE 1 -->
-        <section class="p-4 sm:p-6 border border-slate-800/80 bg-slate-900/40 rounded-sm flex flex-col justify-between space-y-3 sm:space-y-4 glow-cyan hover:border-cyan-500/40 transition-all">
-          <div class="space-y-2 sm:space-y-3">
-            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider font-mono">
-              Module 01
-            </div>
-            <h3 class="text-base sm:text-lg font-bold text-white tracking-wide">
-              Fluidity Over Rotations
-            </h3>
-            <p class="text-sm text-slate-300 leading-relaxed font-normal">
-              Keep your eyes on the fight instead of staring at your skills. Moving out of danger, dodging red circles, and reacting to boss attacks always comes before clicking the next attack.
-            </p>
-          </div>
-          <div class="p-2.5 sm:p-3 bg-slate-950 border border-slate-800/80 rounded text-xs sm:text-sm text-cyan-300 font-mono">
-            Key: Eyes on the fight, not the skill bar
-          </div>
-        </section>
+          <span
+            class="rounded border border-amber-500/20 bg-amber-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-amber-300"
+          >
+            Awareness
+          </span>
 
-        <!-- MODULE 2 -->
-        <section class="p-4 sm:p-6 border border-slate-800/80 bg-slate-900/40 rounded-sm flex flex-col justify-between space-y-3 sm:space-y-4 glow-cyan hover:border-cyan-500/40 transition-all">
-          <div class="space-y-2 sm:space-y-3">
-            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider font-mono">
-              Module 02
-            </div>
-            <h3 class="text-base sm:text-lg font-bold text-white tracking-wide">
-              Barrier Mechanics
-            </h3>
-            <p class="text-sm text-slate-300 leading-relaxed font-normal">
-              Barrier places a temporary yellow cushion over your health bar. It acts like a temporary bumper that absorbs incoming hits before your real health takes a single scratch.
-            </p>
-          </div>
-          <div class="p-2.5 sm:p-3 bg-slate-950 border border-slate-800/80 rounded text-xs sm:text-sm text-cyan-300 font-mono">
-            Key: Absorbs incoming hits, decays in 5s
-          </div>
-        </section>
+          <span
+            class="rounded border border-amber-500/20 bg-amber-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-amber-300"
+          >
+            Barrier
+          </span>
 
-        <!-- MODULE 3 -->
-        <section class="p-4 sm:p-6 border border-slate-800/80 bg-slate-900/40 rounded-sm flex flex-col justify-between space-y-3 sm:space-y-4 glow-cyan hover:border-cyan-500/40 transition-all">
-          <div class="space-y-2 sm:space-y-3">
-            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider font-mono">
-              Module 03
-            </div>
-            <h3 class="text-base sm:text-lg font-bold text-white tracking-wide">
-              Combo Fields & Finishers
-            </h3>
-            <p class="text-sm text-slate-300 leading-relaxed font-normal">
-              Drop an elemental zone on the floor, then hit an attack inside it. Anyone on your team who hits that zone splashes bonus effects to nearby allies automatically.
-            </p>
-          </div>
-          <div class="p-2.5 sm:p-3 bg-slate-950 border border-slate-800/80 rounded text-xs sm:text-sm text-cyan-300 font-mono">
-            Key: Field + Finisher = Free team bonus
-          </div>
-        </section>
+          <span
+            class="rounded border border-amber-500/20 bg-amber-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-amber-300"
+          >
+            Combos
+          </span>
 
-        <!-- MODULE 4 -->
-        <section class="p-4 sm:p-6 border border-slate-800/80 bg-slate-900/40 rounded-sm flex flex-col justify-between space-y-3 sm:space-y-4 glow-cyan hover:border-cyan-500/40 transition-all">
-          <div class="space-y-2 sm:space-y-3">
-            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider font-mono">
-              Module 04
-            </div>
-            <h3 class="text-base sm:text-lg font-bold text-white tracking-wide">
-              Skill Bar Visual Cues
-            </h3>
-            <p class="text-sm text-slate-300 leading-relaxed font-normal">
-              Learn quick visual shortcuts on your UI: red range lines mean you're too far away, pulsing white borders mean an active combo, and blue bars under bosses mean breakbar time.
-            </p>
-          </div>
-          <div class="p-2.5 sm:p-3 bg-slate-950 border border-slate-800/80 rounded text-xs sm:text-sm text-cyan-300 font-mono">
-            Key: Read UI icons without staring
-          </div>
-        </section>
+        </div>
 
       </div>
 
-      <!-- CATEGORY: DEEP DIVE COMBAT, BARRIER & COMBOS -->
-      <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
-        <div class="border-b border-slate-800 pb-2 sm:pb-3">
-          <h3 class="text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-wider">
-            Deep Dive: Barrier, Fluid Flow & Combo Value
-          </h3>
-          <p class="text-xs text-slate-300">Understanding active defense and team synergy in live fights.</p>
+    </section>
+
+    <!-- =======================================================
+         CONTENT
+         ======================================================= -->
+    <div class="mx-auto max-w-6xl space-y-6 px-4 py-8 sm:px-6 sm:py-10">
+
+      <!-- =====================================================
+           AT A GLANCE
+           ===================================================== -->
+      <section>
+
+        <div class="mb-4">
+
+          <div
+            class="section-label text-[10px] font-bold uppercase text-cyan-400"
+          >
+            At a Glance
+          </div>
+
+          <h2 class="mt-1 text-2xl font-black text-white">
+            What combat starts becoming
+          </h2>
+
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 text-xs sm:text-sm">
-          
-          <div class="p-3.5 sm:p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="font-bold text-amber-400 uppercase text-xs font-mono">1. Barrier Essentials</div>
-            <p class="text-slate-300 leading-relaxed font-normal">
-              • <strong class="text-white font-semibold">Yellow Ring Shield:</strong> Appears as a bright yellow ring directly over your red health orb.<br/>
-              • <strong class="text-white font-semibold">Bumper Cushion:</strong> Incoming damage hits your barrier first, protecting your real health from big boss slams.<br/>
-              • <strong class="text-white font-semibold">5-Second Rule:</strong> Barrier slowly disappears after 5 seconds, so pop it right before taking hits.<br/>
-              • <strong class="text-white font-semibold">Max Cap:</strong> Total barrier cannot go higher than 50% of your character's max health.
-            </p>
-          </div>
+        <div class="grid gap-3 md:grid-cols-3">
 
-          <div class="p-3.5 sm:p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="font-bold text-cyan-400 uppercase text-xs font-mono">2. Fluid Reaction vs. Fixed Rotations</div>
-            <p class="text-slate-300 leading-relaxed font-normal">
-              • <strong class="text-white font-semibold">Don't Play Like a Robot:</strong> Staring at a static list of 15 buttons causes players to walk straight into orange damage zones.<br/>
-              • <strong class="text-white font-semibold">Survival First:</strong> A dead character does zero damage. Interrupt your attack string if you need to dodge or shield up.<br/>
-              • <strong class="text-white font-semibold">Natural Rhythm:</strong> Save your big heavy-hitting attacks for when the boss is stunned or sitting still.
-            </p>
-          </div>
+          <!-- EYES UP -->
+          <article class="terminal-panel rounded-sm p-5">
 
-          <div class="p-3.5 sm:p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="font-bold text-emerald-400 uppercase text-xs font-mono">3. Why Combos Are High Value</div>
-            <p class="text-slate-300 leading-relaxed font-normal">
-              Think of a combo field like dropping a puddle of paint on the ground. When anyone on your team attacks through it (a finisher), they splash that paint onto the whole squad for free bonuses!<br/><br/>
-              • <strong class="text-white font-semibold">Water Field + Blast = Free Healing:</strong> Instantly heals nearby teammates without needing a full-time healer.<br/>
-              • <strong class="text-white font-semibold">Light Field + Any Finisher = Cleanses:</strong> Wipes nasty damage-over-time conditions off your team.<br/>
-              • <strong class="text-white font-semibold">Smoke Field + Blast = Team Stealth:</strong> Hides your entire group to bypass dangerous trash mobs.<br/>
-              • <strong class="text-white font-semibold">Fire Field + Blast = Free Damage:</strong> Grants stacks of Might to boost the whole group's attack power.
+            <div
+              class="section-label text-[10px] font-black uppercase text-cyan-400"
+            >
+              Eyes Up
+            </div>
+
+            <h3 class="mt-2 text-lg font-bold text-white">
+              Watch the fight
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Your skills matter, but the enemy, arena, group, and incoming
+              mechanics should get most of your attention.
             </p>
-          </div>
+
+          </article>
+
+          <!-- REACT -->
+          <article class="terminal-panel rounded-sm p-5">
+
+            <div
+              class="section-label text-[10px] font-black uppercase text-amber-400"
+            >
+              React
+            </div>
+
+            <h3 class="mt-2 text-lg font-bold text-white">
+              Break your own rhythm
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Stop attacking when you need to move, dodge, defend, revive, or
+              deal with a mechanic.
+            </p>
+
+          </article>
+
+          <!-- SYNERGY -->
+          <article class="terminal-panel rounded-sm p-5">
+
+            <div
+              class="section-label text-[10px] font-black uppercase text-green-300"
+            >
+              Synergy
+            </div>
+
+            <h3 class="mt-2 text-lg font-bold text-white">
+              Skills can interact
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Combo fields and finishers let certain skills interact to create
+              additional effects during combat.
+            </p>
+
+          </article>
 
         </div>
+
       </section>
 
-      <!-- CATEGORY: NEXT STEPS // ADVENTURER JOURNAL -->
-      <section class="border border-cyan-500/40 bg-slate-900/80 p-4 sm:p-6 rounded-sm glow-cyan space-y-2 sm:space-y-3">
-        <div class="flex justify-between items-center border-b border-slate-800 pb-2 sm:pb-3">
-          <h3 class="text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-wider">
-            Ready to Explore Endgame Builds?
-          </h3>
-          <span class="text-xs text-amber-400 font-bold">[EXTERNAL RESOURCES]</span>
+      <!-- =====================================================
+           CORE LESSON
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-amber-400"
+        >
+          Core Lesson
         </div>
-        <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
-          Once fluid movement, barrier timing, and combo fields feel natural, check out the <a href="../adventure/index.html" class="text-cyan-400 underline font-bold hover:text-cyan-300">Adventurer Journal</a> to explore specialized builds from community sources like Snow Crows.
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          A rotation is a plan, not handcuffs
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Skill rotations can teach you which abilities work well together and
+          help you build good habits.
         </p>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          But combat doesn't always cooperate with the plan. The boss moves.
+          An attack appears under your feet. Someone goes down. A breakbar
+          opens. Suddenly the next button on your list isn't the important one.
+        </p>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Good players don't abandon structure. They know when to interrupt
+          it, handle the fight, and then find their rhythm again.
+        </p>
+
       </section>
 
-      <!-- CATEGORY: FIELD PRACTICE CHECKLIST -->
-      <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
-        <div class="flex justify-between items-center border-b border-slate-800 pb-2 sm:pb-3">
-          <h3 class="text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-wider">
-            Practice Drill Checklist
-          </h3>
-          <span id="checklist-status" class="text-xs sm:text-sm text-amber-400 font-bold">[0 / 3 DONE]</span>
+      <!-- =====================================================
+           EYES-UP COMBAT
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-cyan-400"
+        >
+          Part 1 // Eyes-Up Combat
         </div>
 
-        <ul class="space-y-2.5 sm:space-y-3 text-sm text-slate-300 font-normal">
-          <li class="flex items-center gap-3 p-3 sm:p-3.5 bg-slate-950 border border-slate-800/80 rounded-sm">
-            <input type="checkbox" onchange="updateChecklist()" class="id-check w-4 h-4 sm:w-5 sm:h-5 accent-cyan-400 cursor-pointer" data-id="drill-1" />
-            <span><strong>Time a Barrier Pre-emptively:</strong> Activate a barrier skill right before an enemy hit connects and watch the yellow layer absorb the blow completely.</span>
-          </li>
-          <li class="flex items-center gap-3 p-3 sm:p-3.5 bg-slate-950 border border-slate-800/80 rounded-sm">
-            <input type="checkbox" onchange="updateChecklist()" class="id-check w-4 h-4 sm:w-5 sm:h-5 accent-cyan-400 cursor-pointer" data-id="drill-2" />
-            <span><strong>Practice Eyes-Up Combat:</strong> Fight a group of enemies without staring down at your skill bar, reacting to animations and sound cues instead.</span>
-          </li>
-          <li class="flex items-center gap-3 p-3 sm:p-3.5 bg-slate-950 border border-slate-800/80 rounded-sm">
-            <input type="checkbox" onchange="updateChecklist()" class="id-check w-4 h-4 sm:w-5 sm:h-5 accent-cyan-400 cursor-pointer" data-id="drill-3" />
-            <span><strong>Trigger a Combo Field:</strong> Drop an elemental field (like Fire or Water) and use a Leap or Blast finisher inside it to give your character or group a free bonus effect.</span>
-          </li>
-        </ul>
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Your skill bar should slowly become peripheral vision
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Early on, it's normal to stare at your skills because you're still
+          learning where everything lives.
+        </p>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Over time, your goal is to need fewer glances. The more familiar your
+          keybinds and abilities become, the more attention you can give the
+          battlefield.
+        </p>
+
+        <div class="mt-5 grid gap-3 md:grid-cols-3">
+
+          <!-- ENEMY -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-300"
+            >
+              Enemy
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Watch animations
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Notice movement, attack windups, breakbars, and the direction the
+              enemy is facing.
+            </p>
+
+          </div>
+
+          <!-- GROUND -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-amber-300"
+            >
+              Ground
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Watch your feet
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Dangerous areas, safe zones, combo fields, and encounter
+              mechanics often appear directly in the arena.
+            </p>
+
+          </div>
+
+          <!-- TEAM -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-green-300"
+            >
+              Team
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Notice the group
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Watch where everyone is moving, whether somebody is downed, and
+              whether you've drifted away from support.
+            </p>
+
+          </div>
+
+        </div>
+
       </section>
+
+      <!-- =====================================================
+           FLUID COMBAT
+           ===================================================== -->
+      <section
+        class="rounded-sm border border-amber-400/30 bg-amber-400/[0.04] p-5 sm:p-6"
+      >
+
+        <div
+          class="section-label text-[10px] font-black uppercase text-amber-400"
+        >
+          Fluidity
+        </div>
+
+        <h2 class="mt-2 text-xl font-black text-white">
+          Survive the interruption, then continue
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Imagine you're playing music and somebody suddenly moves the chair.
+          You don't restart the entire song from the beginning. You adjust and
+          find the beat again.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Combat works the same way. Dodge the attack. Move to safety. Use the
+          defensive skill. Handle the mechanic. Then return to whatever your
+          build was trying to accomplish.
+        </p>
+
+      </section>
+
+      <!-- =====================================================
+           BARRIER
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-violet-300"
+        >
+          Part 2 // Barrier
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Temporary health before your real health
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Barrier gives you a temporary layer of protection on top of your
+          normal health.
+        </p>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Incoming damage removes Barrier before it starts taking away your
+          normal health, which makes Barrier useful for preparing for incoming
+          pressure.
+        </p>
+
+        <div class="mt-5 grid gap-3 md:grid-cols-3">
+
+          <!-- TEMPORARY -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-violet-300"
+            >
+              Temporary
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Barrier isn't permanent extra health. Treat it as short-term
+              protection rather than something to hoard.
+            </p>
+
+          </div>
+
+          <!-- BEFORE -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-300"
+            >
+              Before Damage
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Barrier is most useful when it's already present as the damage
+              arrives.
+            </p>
+
+          </div>
+
+          <!-- NOT INVINCIBLE -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-amber-300"
+            >
+              Not Invincibility
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Barrier gives you breathing room. It doesn't make dangerous
+              mechanics safe to ignore.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           COMBO SYSTEM
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-green-300"
+        >
+          Part 3 // Combo Fields
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Some skills leave something behind
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Certain abilities create a <strong>Combo Field</strong> on the
+          battlefield. The field has a type such as Fire, Water, Light, Smoke,
+          or another effect.
+        </p>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Other abilities are marked as <strong>Combo Finishers</strong>.
+          When a compatible finisher interacts with a field, it can create an
+          additional combo effect.
+        </p>
+
+        <div
+          class="mt-5 rounded-sm border border-slate-800 bg-slate-950 p-5"
+        >
+
+          <div
+            class="section-label text-[10px] font-bold uppercase text-cyan-400"
+          >
+            Simple Formula
+          </div>
+
+          <div
+            class="mt-3 flex flex-col items-center justify-center gap-3 text-center sm:flex-row"
+          >
+
+            <div
+              class="w-full rounded border border-green-400/30 bg-green-400/[0.04] px-4 py-3 font-bold text-green-300 sm:w-auto"
+            >
+              Combo Field
+            </div>
+
+            <div class="text-xl font-black text-white">
+              +
+            </div>
+
+            <div
+              class="w-full rounded border border-cyan-400/30 bg-cyan-400/[0.04] px-4 py-3 font-bold text-cyan-300 sm:w-auto"
+            >
+              Finisher
+            </div>
+
+            <div class="text-xl font-black text-white">
+              =
+            </div>
+
+            <div
+              class="w-full rounded border border-amber-400/30 bg-amber-400/[0.04] px-4 py-3 font-bold text-amber-300 sm:w-auto"
+            >
+              Bonus Effect
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           FINISHER TYPES
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-cyan-400"
+        >
+          Combo Finishers
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Look for these words in your skills
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Different finishers interact with fields in different ways. You don't
+          need to memorize every combination. Start by recognizing that your
+          skills may have a finisher attached to them.
+        </p>
+
+        <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+
+          <!-- BLAST -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-cyan-300">
+              Blast
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Creates an area-style combo effect based on the field.
+            </p>
+
+          </div>
+
+          <!-- LEAP -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-cyan-300">
+              Leap
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Creates a combo effect when the leap interacts with the field.
+            </p>
+
+          </div>
+
+          <!-- PROJECTILE -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-cyan-300">
+              Projectile
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Projectiles passing through a field can gain an additional
+              effect.
+            </p>
+
+          </div>
+
+          <!-- WHIRL -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-cyan-300">
+              Whirl
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Whirling attacks inside a field can send out additional effects.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           WHY COMBOS MATTER
+           ===================================================== -->
+      <section
+        class="rounded-sm border border-cyan-400/30 bg-cyan-400/[0.04] p-5 sm:p-6"
+      >
+
+        <div
+          class="section-label text-[10px] font-black uppercase text-cyan-400"
+        >
+          Why Combos Matter
+        </div>
+
+        <h2 class="mt-2 text-xl font-black text-white">
+          They're extra value from skills you're already using
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Combo effects can provide things like healing, boons, conditions,
+          stealth, cleansing, or additional damage depending on the field and
+          finisher involved.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          You don't need to build your entire combat style around combos. The
+          important first step is simply noticing when your skills create a
+          field or act as a finisher.
+        </p>
+
+      </section>
+
+      <!-- =====================================================
+           UI CUES
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-violet-300"
+        >
+          Part 4 // Read the UI
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Your interface is giving you clues
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          You don't have to stop fighting and read every tooltip in the middle
+          of combat. Learn the visual shortcuts that tell you what's happening.
+        </p>
+
+        <div class="mt-5 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+
+          <!-- RANGE -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-red-300"
+            >
+              Range
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Can I reach it?
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Skill icons and range indicators can help show when your target
+              is too far away for an ability.
+            </p>
+
+          </div>
+
+          <!-- COOLDOWN -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-300"
+            >
+              Cooldown
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Is it ready?
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Learn the rough rhythm of your important skills so you don't need
+              to stare at their timers constantly.
+            </p>
+
+          </div>
+
+          <!-- BREAKBAR -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-300"
+            >
+              Breakbar
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Is CC needed?
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              An active blue or teal Defiance Bar is your cue to think about
+              crowd control.
+            </p>
+
+          </div>
+
+          <!-- HEALTH -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-green-300"
+            >
+              Health
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Who needs help?
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Your own health and the state of nearby allies can tell you when
+              offense needs to give way to survival or support.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           PRIORITY SYSTEM
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-amber-400"
+        >
+          Combat Priority
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          When everything happens at once
+        </h2>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          You don't need a perfect rule for every fight. This is a useful
+          starting hierarchy when your brain gets overloaded.
+        </p>
+
+        <div class="mt-5 space-y-3">
+
+          <!-- 1 -->
+          <div
+            class="flex gap-4 rounded-sm border border-slate-800 bg-slate-950 p-4"
+          >
+
+            <div
+              class="flex h-8 w-8 shrink-0 items-center justify-center rounded border border-red-400/30 font-black text-red-300"
+            >
+              1
+            </div>
+
+            <div>
+              <h3 class="font-bold text-white">
+                Don't die
+              </h3>
+
+              <p class="mt-1 text-sm leading-6 text-white">
+                Move, dodge, block, or use the defensive tool you need.
+              </p>
+            </div>
+
+          </div>
+
+          <!-- 2 -->
+          <div
+            class="flex gap-4 rounded-sm border border-slate-800 bg-slate-950 p-4"
+          >
+
+            <div
+              class="flex h-8 w-8 shrink-0 items-center justify-center rounded border border-amber-400/30 font-black text-amber-300"
+            >
+              2
+            </div>
+
+            <div>
+              <h3 class="font-bold text-white">
+                Handle the mechanic
+              </h3>
+
+              <p class="mt-1 text-sm leading-6 text-white">
+                Break the bar, move to the marker, stack, spread, or do whatever
+                the encounter currently needs.
+              </p>
+            </div>
+
+          </div>
+
+          <!-- 3 -->
+          <div
+            class="flex gap-4 rounded-sm border border-slate-800 bg-slate-950 p-4"
+          >
+
+            <div
+              class="flex h-8 w-8 shrink-0 items-center justify-center rounded border border-green-400/30 font-black text-green-300"
+            >
+              3
+            </div>
+
+            <div>
+              <h3 class="font-bold text-white">
+                Help the group
+              </h3>
+
+              <p class="mt-1 text-sm leading-6 text-white">
+                Revive, provide support, or reposition if the situation needs
+                it.
+              </p>
+            </div>
+
+          </div>
+
+          <!-- 4 -->
+          <div
+            class="flex gap-4 rounded-sm border border-slate-800 bg-slate-950 p-4"
+          >
+
+            <div
+              class="flex h-8 w-8 shrink-0 items-center justify-center rounded border border-cyan-400/30 font-black text-cyan-300"
+            >
+              4
+            </div>
+
+            <div>
+              <h3 class="font-bold text-white">
+                Get back to your damage
+              </h3>
+
+              <p class="mt-1 text-sm leading-6 text-white">
+                Once the immediate problem is handled, return to your normal
+                combat flow.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           VETERAN FIELD NOTE
+           ===================================================== -->
+      <section
+        class="rounded-sm border border-amber-400/30 bg-amber-400/[0.04] p-5 sm:p-6"
+      >
+
+        <div
+          class="section-label text-[10px] font-black uppercase text-amber-400"
+        >
+          Veteran Field Note
+        </div>
+
+        <h2 class="mt-2 text-xl font-black text-white">
+          Learn your important buttons before all your buttons
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          You don't need every skill memorized equally.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Start by knowing where your heal is, where your strongest defensive
+          tool is, which skills provide crowd control, and which abilities are
+          central to your damage or support.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Those anchors give you somewhere to return when the fight gets messy.
+        </p>
+
+      </section>
+
+      <!-- =====================================================
+           TRY IT
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-green-300"
+        >
+          Try It in Tyria
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Fight with your eyes up
+        </h2>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Pick a fight you're already comfortable with. The goal isn't better
+          damage. It's reducing how much attention your skill bar needs.
+        </p>
+
+        <div class="mt-5 grid gap-3 md:grid-cols-3">
+
+          <!-- WATCH -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="mb-2 font-mono text-xs font-bold uppercase tracking-wider text-cyan-400"
+            >
+              Watch
+            </div>
+
+            <p class="text-sm leading-6 text-white">
+              Spend more time watching the enemy model and the ground than your
+              cooldowns.
+            </p>
+
+          </div>
+
+          <!-- INTERRUPT -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="mb-2 font-mono text-xs font-bold uppercase tracking-wider text-cyan-400"
+            >
+              Interrupt
+            </div>
+
+            <p class="text-sm leading-6 text-white">
+              Deliberately stop attacking once to dodge or reposition, then
+              return to your normal rhythm.
+            </p>
+
+          </div>
+
+          <!-- NOTICE -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="mb-2 font-mono text-xs font-bold uppercase tracking-wider text-cyan-400"
+            >
+              Notice
+            </div>
+
+            <p class="text-sm leading-6 text-white">
+              Look through your skills afterward and identify any Combo Fields
+              or Combo Finishers you were already using.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           ADVENTURER JOURNAL
+           ===================================================== -->
+      <section
+        class="rounded-sm border border-cyan-400/30 bg-cyan-400/[0.04] p-5 sm:p-7"
+      >
+
+        <div
+          class="section-label text-[10px] font-black uppercase text-cyan-400"
+        >
+          Build Resources
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Ready to look at full builds?
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Once combat starts feeling comfortable, build guides become more
+          useful because you can understand what they're trying to help your
+          character accomplish.
+        </p>
+
+        <a
+          href="../adventure/index.html"
+          class="terminal-button mt-5 w-full rounded-sm px-5 py-3 text-xs font-black uppercase tracking-wider sm:w-auto"
+        >
+          Open Adventurer Journal →
+        </a>
+
+      </section>
+
+      <!-- =====================================================
+           KEEP BROWSING
+           ===================================================== -->
+      <section>
+
+        <div class="mb-4">
+
+          <div
+            class="section-label text-[10px] font-bold uppercase text-cyan-400"
+          >
+            Keep Browsing
+          </div>
+
+          <h2 class="mt-1 text-2xl font-black text-white">
+            Related records
+          </h2>
+
+        </div>
+
+        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+
+          <!-- PREVIOUS -->
+          <a
+            href="../class205/index.html"
+            class="terminal-panel group rounded-sm p-5 transition hover:border-cyan-400/40"
+          >
+
+            <div
+              class="section-label text-[10px] font-bold uppercase text-white"
+            >
+              Previous // 205
+            </div>
+
+            <h3
+              class="mt-2 text-lg font-bold text-white group-hover:text-cyan-300"
+            >
+              Armor & Attributes
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Understand what the numbers on your equipment are actually doing.
+            </p>
+
+          </a>
+
+          <!-- NEXT -->
+          <a
+            href="../class301/index.html"
+            class="terminal-panel group rounded-sm p-5 transition hover:border-cyan-400/40"
+          >
+
+            <div
+              class="section-label text-[10px] font-bold uppercase text-cyan-400"
+            >
+              Next // 301
+            </div>
+
+            <h3
+              class="mt-2 text-lg font-bold text-white group-hover:text-cyan-300"
+            >
+              Build Theory
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Connect your weapons, traits, attributes, and skills into a build
+              with a clear purpose.
+            </p>
+
+          </a>
+
+          <!-- RELATED -->
+          <a
+            href="../class204/index.html"
+            class="terminal-panel group rounded-sm p-5 transition hover:border-cyan-400/40 sm:col-span-2 lg:col-span-1"
+          >
+
+            <div
+              class="section-label text-[10px] font-bold uppercase text-amber-400"
+            >
+              Related // 204
+            </div>
+
+            <h3
+              class="mt-2 text-lg font-bold text-white group-hover:text-cyan-300"
+            >
+              Encounters & Timing
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Review telegraphs, defensive timing, mechanics, and damage
+              windows.
+            </p>
+
+          </a>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           RETURN
+           ===================================================== -->
+      <div class="flex justify-center pt-2">
+
+        <a
+          href="../index.html#archives"
+          class="terminal-button w-full rounded-sm px-5 py-3 text-xs font-black uppercase tracking-wider sm:w-auto"
+        >
+          ← Return to Archives
+        </a>
+
+      </div>
 
     </div>
 
   </main>
 
-  <!-- CATEGORY: FOOTER WITH CENTERED MOBILE FLOW -->
-  <footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-3 sm:px-6 py-2.5 sm:py-3">
-    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
-      
-      <!-- DESKTOP DISCLAIMER PARAGRAPH -->
-      <p class="hidden md:block text-xs text-slate-400 max-w-3xl leading-normal">
-        This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
-      </p>
+  <!-- =========================================================
+       ABOUT / CREDITS
+       ========================================================= -->
+  <section class="border-t border-slate-800">
 
-      <!-- CREDITS LINKS -->
-      <div class="flex items-center justify-center space-x-2 sm:space-x-4 text-xs">
-        <span class="text-slate-300">
-          Written by <a href="https://liar.fyi" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 font-bold">The Liars Guild</a>
-        </span>
-        <span class="text-slate-700">|</span>
-        <span class="text-slate-300">
-          Site Builder: <a href="https://qkommand.github.io/home/" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 font-bold">Commander Q</a>
-        </span>
+    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+
+      <div class="grid gap-5 sm:grid-cols-2">
+
+        <div>
+
+          <div
+            class="section-label text-[10px] font-bold uppercase text-cyan-400"
+          >
+            Terminal 77-B
+          </div>
+
+          <p class="mt-2 text-xs leading-5 text-white">
+            A Guild Wars 2 community guide for new and returning players.
+          </p>
+
+        </div>
+
+        <div class="text-xs leading-6 text-white sm:text-right">
+
+          <p>
+            Written with help from
+            <a
+              href="https://liar.fyi"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-bold text-cyan-400 underline decoration-cyan-500/30 underline-offset-4"
+            >
+              [Liar]
+            </a>
+          </p>
+
+          <p>
+            Site built by
+            <a
+              href="https://qkommand.github.io/home/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-bold text-cyan-400 underline decoration-cyan-500/30 underline-offset-4"
+            >
+              Commander Q
+            </a>
+          </p>
+
+        </div>
+
       </div>
 
-      <!-- MOBILE DISCLAIMER MODAL TRIGGER -->
-      <button 
-        onclick="toggleDisclaimer('on')"
-        class="md:hidden text-xs text-slate-400 hover:text-cyan-400 underline cursor-pointer font-semibold uppercase tracking-wider"
+    </div>
+
+  </section>
+
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
+  <footer class="border-t border-slate-800 bg-slate-950">
+
+    <div class="mx-auto max-w-6xl px-4 py-5 text-center sm:px-6">
+
+      <p
+        class="mx-auto max-w-4xl text-[10px] leading-5 text-white sm:text-xs"
       >
-        [Disclaimer]
-      </button>
+        Terminal 77-B is an unofficial Guild Wars 2 community fansite and is
+        not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation.
+        Guild Wars, Guild Wars 2, ArenaNet, and associated names and marks are
+        the property of their respective owners.
+      </p>
 
     </div>
+
   </footer>
 
-  <!-- CATEGORY: DISCLAIMER OVERLAY MODAL -->
-  <div 
-    id="disclaimer-modal" 
-    class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4"
-  >
-    <div class="bg-slate-900 border border-cyan-500/40 rounded p-5 max-w-md w-full space-y-4 glow-cyan">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-        <h3 class="text-sm font-bold text-cyan-400 tracking-wider uppercase font-mono">
-          /// LEGAL DISCLAIMER
-        </h3>
-        <button 
-          onclick="toggleDisclaimer('off')" 
-          class="text-slate-400 hover:text-white font-bold text-base px-2 cursor-pointer"
-        >
-          ✕
-        </button>
-      </div>
-
-      <p class="text-sm text-slate-300 leading-relaxed">
-        This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
-      </p>
-
-      <button 
-        onclick="toggleDisclaimer('off')" 
-        class="w-full py-2.5 bg-slate-950 border border-cyan-500/50 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all text-center block cursor-pointer"
-      >
-        Acknowledge
-      </button>
-    </div>
-  </div>
-
-  <!-- CATEGORY: LOGIC ENGINE -->
-  <script>
-    /* CATEGORY: DISCLAIMER MODAL CONTROLLER */
-    function toggleDisclaimer(state) {
-      const modal = document.getElementById('disclaimer-modal');
-      if (!modal) return;
-      if (state === 'on') {
-        modal.classList.remove('hidden');
-      } else {
-        modal.classList.add('hidden');
-      }
-    }
-
-    /* CATEGORY: TOAST NOTIFICATION ENGINE */
-    let toastTimeout = null;
-    let lastHandledUtcMinute = -1;
-
-    function triggerToast(title, message) {
-      const toast = document.getElementById('toast-notification');
-      const titleEl = document.getElementById('toast-title');
-      const msgEl = document.getElementById('toast-message');
-
-      if (!toast || !titleEl || !msgEl) return;
-
-      titleEl.innerText = title;
-      msgEl.innerText = message;
-      toast.classList.remove('hidden');
-
-      if (toastTimeout) clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        dismissToast();
-      }, 9000);
-    }
-
-    function dismissToast() {
-      const toast = document.getElementById('toast-notification');
-      if (toast) toast.classList.add('hidden');
-    }
-
-    /* CATEGORY: CHECKLIST STATE MANAGEMENT */
-    const STORAGE_KEY = 'priory_class206_checkboxes';
-    let checklistCompletedState = 'off';
-
-    function updateChecklist() {
-      const boxes = document.querySelectorAll('.id-check');
-      let checkedCount = 0;
-      const savedState = {};
-
-      boxes.forEach(box => {
-        const id = box.getAttribute('data-id');
-        if (box.checked) {
-          checkedCount++;
-          savedState[id] = 'on';
-        } else {
-          savedState[id] = 'off';
-        }
-      });
-
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
-
-      const statusEl = document.getElementById('checklist-status');
-      statusEl.innerText = `[${checkedCount} / ${boxes.length} DONE]`;
-
-      if (checkedCount === boxes.length) {
-        checklistCompletedState = 'on';
-        statusEl.className = 'text-xs sm:text-sm text-emerald-400 font-bold';
-      } else {
-        checklistCompletedState = 'off';
-        statusEl.className = 'text-xs sm:text-sm text-amber-400 font-bold';
-      }
-    }
-
-    function loadChecklistState() {
-      const savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-      const boxes = document.querySelectorAll('.id-check');
-
-      boxes.forEach(box => {
-        const id = box.getAttribute('data-id');
-        if (savedState[id] === 'on') {
-          box.checked = true;
-        }
-      });
-
-      updateChecklist();
-    }
-
-    /* CATEGORY: UNIVERSAL CLOCKS & RESET DETECTOR ENGINE */
-    function updateClocks() {
-      const now = new Date();
-      
-      const utcHours = now.getUTCHours();
-      const utcMins = now.getUTCMinutes();
-      const utcSecs = now.getUTCSeconds();
-      const utcDay = now.getUTCDay();
-
-      const strUtcHours = String(utcHours).padStart(2, '0');
-      const strUtcMins = String(utcMins).padStart(2, '0');
-      const strUtcSecs = String(utcSecs).padStart(2, '0');
-
-      document.getElementById('server-clock').innerText = `${strUtcHours}:${strUtcMins}:${strUtcSecs} UTC`;
-
-      /* RESET DETECTION LOGIC (DAILY: 00:00:00 UTC | WEEKLY: MON 07:30:00 UTC) */
-      if (utcSecs === 0 && utcMins !== lastHandledUtcMinute) {
-        lastHandledUtcMinute = utcMins;
-
-        if (utcHours === 0 && utcMins === 0) {
-          triggerToast("DAILY RESET DETECTED", "GW2 server daily reset is live! Daily achievements & wizards vault updated.");
-        } else if (utcDay === 1 && utcHours === 7 && utcMins === 30) {
-          triggerToast("WEEKLY RESET DETECTED", "GW2 server weekly reset is live! Raids, strikes, and weekly tasks refreshed.");
-        }
-      }
-
-      /* TYRIAN TIME CALCULATOR */
-      const totalUtcSec = (utcHours * 3600) + (utcMins * 60) + utcSecs;
-      const cycleOffset = 1500;
-      const secondsInto2HrCycle = (totalUtcSec - cycleOffset + 720000) % 7200;
-
-      const tyrianSecFromMidnight = (secondsInto2HrCycle * 12 + 21600) % 86400;
-      const tyrianHour = Math.floor(tyrianSecFromMidnight / 3600);
-      const tyrianMin = Math.floor((tyrianSecFromMidnight % 3600) / 60);
-
-      const formattedTyrianHour = String(tyrianHour).padStart(2, '0');
-      const formattedTyrianMin = String(tyrianMin).padStart(2, '0');
-
-      let icon = '☀️';
-      if (tyrianHour >= 5 && tyrianHour < 6) icon = '🌅';
-      else if (tyrianHour >= 6 && tyrianHour < 20) icon = '☀️';
-      else if (tyrianHour >= 20 && tyrianHour < 21) icon = '🌆';
-      else icon = '🌙';
-
-      document.getElementById('tyria-clock-time').innerHTML = `${icon} <span>${formattedTyrianHour}:${formattedTyrianMin}</span>`;
-    }
-
-    /* CATEGORY: INITIALIZATION */
-    document.addEventListener('DOMContentLoaded', () => {
-      updateClocks();
-      loadChecklistState();
-      setInterval(updateClocks, 1000);
-    });
-  </script>
 </body>
 </html>
+```
