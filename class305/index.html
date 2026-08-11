@@ -1,773 +1,1970 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-slate-950 text-white">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Course 305 // [LIAR] Tyrian Field Archives</title>
-  
-  <!-- CATEGORY: EXTERNAL DEPENDENCIES -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+  <meta name="theme-color" content="#020617" />
+
+  <title>305 // Fractals of the Mists // Terminal 77-B</title>
+
+  <meta
+    name="description"
+    content="Terminal 77-B Advanced Guide 305 introduces Guild Wars 2 Fractals of the Mists, difficulty tiers, Agony Resistance, instabilities, daily fractals, and five-player preparation."
+  />
+
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- CATEGORY: STYLES & ANIMATIONS -->
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: #020617;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(
+          circle at top,
+          rgba(34, 211, 238, 0.07),
+          transparent 28rem
+        ),
+        #020617;
+      color: white;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Text",
+        "SF Pro Display",
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.14;
+      background-image:
+        linear-gradient(
+          rgba(34, 211, 238, 0.025) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(34, 211, 238, 0.025) 1px,
+          transparent 1px
+        );
+      background-size: 28px 28px;
+      z-index: -1;
     }
 
-    .animate-fade-in {
-      animation: fadeIn 0.4s ease-out forwards;
+    a,
+    button {
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .glow-cyan {
-      box-shadow: 0 0 14px rgba(34, 211, 238, 0.10);
+    .terminal-panel {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(15, 23, 42, 0.92),
+          rgba(2, 6, 23, 0.96)
+        );
+      border: 1px solid rgba(34, 211, 238, 0.17);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.025),
+        0 12px 40px rgba(0, 0, 0, 0.16);
     }
-    .glow-cyan:hover {
-      box-shadow: 0 0 22px rgba(34, 211, 238, 0.25);
+
+    .section-label {
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+      letter-spacing: 0.15em;
+    }
+
+    .terminal-button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(251, 191, 36, 0.45);
+      background: rgba(251, 191, 36, 0.06);
+      color: #fbbf24;
+      transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .terminal-button:hover,
+    .terminal-button:focus-visible {
+      background: #fbbf24;
+      border-color: #fbbf24;
+      color: #020617;
+    }
+
+    .terminal-button:active {
+      transform: scale(0.985);
+    }
+
+    ::selection {
+      background: #22d3ee;
+      color: #020617;
     }
 
     ::-webkit-scrollbar {
-      width: 6px;
+      width: 7px;
     }
+
     ::-webkit-scrollbar-track {
       background: #020617;
     }
+
     ::-webkit-scrollbar-thumb {
-      background: #0f172a;
-      border: 1px solid #22d3ee;
-      border-radius: 2px;
+      background: #164e63;
+      border-radius: 99px;
     }
 
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-
-    @keyframes slideDown {
-      from { transform: translateY(-100%); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .animate-slide-down {
-      animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
     }
   </style>
 </head>
-<body class="h-screen flex flex-col overflow-hidden relative bg-slate-950 text-white selection:bg-cyan-500 selection:text-slate-950">
 
-  <!-- CATEGORY: TOAST NOTIFICATION CONTAINER -->
-  <div 
-    id="toast-notification" 
-    class="hidden fixed top-3 right-3 left-3 sm:left-auto sm:max-w-md z-50 bg-slate-900/95 border border-cyan-400 text-white p-3.5 rounded shadow-2xl backdrop-blur glow-cyan animate-slide-down"
+<body class="min-h-screen text-white">
+
+  <!-- =========================================================
+       HEADER
+       ========================================================= -->
+  <header
+    class="sticky top-0 z-50 border-b border-cyan-500/20 bg-slate-950/95 backdrop-blur-xl"
   >
-    <div class="flex items-start justify-between gap-3">
-      <div class="flex items-start gap-2.5">
-        <span class="text-amber-400 text-lg">🔔</span>
-        <div>
-          <h4 id="toast-title" class="text-xs font-bold text-cyan-400 uppercase font-mono tracking-wider">
-            RESET DETECTED
-          </h4>
-          <p id="toast-message" class="text-xs text-slate-200 mt-0.5 leading-snug">
-            Daily reset has occurred!
-          </p>
-        </div>
-      </div>
-      <button 
-        onclick="dismissToast()" 
-        class="text-slate-400 hover:text-white text-xs font-bold px-1.5 py-0.5 cursor-pointer rounded bg-slate-950/60"
-      >
-        ✕
-      </button>
-    </div>
-  </div>
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
 
-  <!-- CATEGORY: MINIMAL HEADER & COMPACT TELEMETRY BAR -->
-  <header class="shrink-0 border-b border-cyan-500/30 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-3 sm:px-6 py-2 sm:py-3 space-y-1.5 sm:space-y-3">
-    <div class="max-w-[1600px] mx-auto text-center space-y-0.5">
-      <h1 class="text-base sm:text-2xl font-black text-cyan-400 tracking-wider uppercase drop-shadow-[0_0_10px_rgba(34,211,238,0.2)]">
-        Course 305: Fractals of the Mists
-      </h1>
-      <p class="hidden sm:block text-xs sm:text-sm text-slate-300 tracking-wide font-medium">
-        Simple guides, field manuals, and operational tools for your Guild Wars 2 journey.
-      </p>
-    </div>
+      <div class="flex min-h-[64px] items-center justify-between gap-3">
 
-    <!-- CATEGORY: TIME DISPLAY MONITOR -->
-    <div class="max-w-[1600px] mx-auto flex items-center justify-around sm:grid sm:grid-cols-3 gap-2 pt-1.5 sm:pt-3 border-t border-slate-800/80 text-xs sm:text-sm overflow-x-auto no-scrollbar whitespace-nowrap">
-      
-      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50 shrink-0">
-        <span class="text-slate-400 font-bold uppercase tracking-wider">Tyria:</span>
-        <span id="tyria-clock-time" class="text-amber-400 font-bold flex items-center gap-1 font-mono">--:--</span>
-      </div>
+        <a
+          href="../index.html"
+          class="flex min-w-0 items-center gap-3"
+          aria-label="Return to Terminal 77-B"
+        >
 
-      <div class="flex items-center gap-1.5 bg-slate-950/60 sm:bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50 shrink-0">
-        <span class="text-slate-400 font-bold uppercase tracking-wider">Server:</span>
-        <span id="server-clock" class="text-cyan-400 font-bold font-mono">--:--:-- UTC</span>
-      </div>
+          <div
+            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-cyan-400/30 bg-cyan-400/5 text-cyan-300"
+            aria-hidden="true"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              class="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+            >
+              <path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6l-8-4Z"/>
+              <path d="m8 13 2.5-6 1.5 4 1.5-4L16 13"/>
+            </svg>
+          </div>
 
-      <div class="hidden sm:flex items-center justify-center gap-2 bg-slate-950/40 py-1 px-3 rounded border border-slate-800/50">
-        <span class="text-slate-400 font-bold uppercase tracking-wider">Location:</span>
-        <span class="text-cyan-400 font-bold tracking-wider">DURMAND PRIORY // TERMINAL 77-B</span>
+          <div class="min-w-0">
+
+            <div
+              class="truncate text-xs font-black uppercase tracking-[0.18em] text-cyan-300 sm:text-sm"
+            >
+              Terminal 77-B
+            </div>
+
+            <div
+              class="hidden text-[9px] font-semibold uppercase tracking-[0.18em] text-white sm:block"
+            >
+              Tyrian Strategy Guidebook
+            </div>
+
+          </div>
+
+        </a>
+
+        <a
+          href="../index.html#archives"
+          class="flex min-h-[42px] items-center justify-center rounded border border-slate-700 bg-slate-900 px-3 text-[10px] font-bold uppercase tracking-wider text-white hover:border-cyan-500/50 hover:text-cyan-300 sm:px-4 sm:text-xs"
+        >
+          ← Archives
+        </a>
+
       </div>
 
     </div>
   </header>
 
-  <!-- CATEGORY: RETURN BAR -->
-  <nav class="shrink-0 bg-slate-950 max-w-[1600px] w-full mx-auto px-2 sm:px-6 pt-2 sm:pt-4 pb-1">
-    <div class="flex justify-start sm:justify-center overflow-x-auto no-scrollbar border-b border-slate-800/80 gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold whitespace-nowrap">
-      <a 
-        href="../index.html" 
-        class="flex items-center justify-center text-center px-3 sm:px-6 py-2 sm:py-2.5 border-b-2 border-cyan-400 text-cyan-400 bg-slate-900/80 transition-all cursor-pointer rounded-t-sm shrink-0"
-      >
-        <span class="text-xs mr-1.5 sm:mr-2 text-cyan-500 font-mono">&larr;</span>
-        <span>RETURN TO MAIN DIRECTORY</span>
-      </a>
-    </div>
-  </nav>
+  <main>
 
-  <!-- CATEGORY: MAIN CONTENT AREA -->
-  <main class="flex-1 overflow-y-auto max-w-[1600px] w-full mx-auto p-3 sm:p-6 pb-32 sm:pb-40 space-y-4 sm:space-y-6">
+    <!-- =======================================================
+         HERO
+         ======================================================= -->
+    <section class="border-b border-cyan-500/10">
 
-    <div class="animate-fade-in space-y-4 sm:space-y-6">
-      
-      <!-- CATEGORY: LESSON OVERVIEW -->
-      <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-2 sm:space-y-3">
-        <div class="flex justify-between items-center border-b border-slate-800 pb-2 sm:pb-3">
-          <h2 class="text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-wider">
-            Lesson Goal
+      <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-amber-400 sm:text-xs"
+        >
+          Advanced Guide // 305
+        </div>
+
+        <h1
+          class="mt-3 text-3xl font-black tracking-tight text-white sm:text-5xl"
+        >
+          Fractals of the Mists
+        </h1>
+
+        <p
+          class="mt-3 max-w-3xl text-base leading-7 text-white sm:text-lg"
+        >
+          Fractals are short five-player adventures that grow harder as you
+          climb. Start small, learn the mechanics, and add new tools as the
+          Mists start pushing back.
+        </p>
+
+        <div class="mt-6 flex flex-wrap gap-2">
+
+          <span
+            class="rounded border border-amber-500/20 bg-amber-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-amber-300"
+          >
+            5 Players
+          </span>
+
+          <span
+            class="rounded border border-amber-500/20 bg-amber-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-amber-300"
+          >
+            Scales 1–100
+          </span>
+
+          <span
+            class="rounded border border-amber-500/20 bg-amber-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-amber-300"
+          >
+            Agony
+          </span>
+
+          <span
+            class="rounded border border-amber-500/20 bg-amber-400/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-amber-300"
+          >
+            Daily Content
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =======================================================
+         CONTENT
+         ======================================================= -->
+    <div class="mx-auto max-w-6xl space-y-6 px-4 py-8 sm:px-6 sm:py-10">
+
+      <!-- =====================================================
+           AT A GLANCE
+           ===================================================== -->
+      <section>
+
+        <div class="mb-4">
+
+          <div
+            class="section-label text-[10px] font-bold uppercase text-cyan-400"
+          >
+            At a Glance
+          </div>
+
+          <h2 class="mt-1 text-2xl font-black text-white">
+            What makes Fractals different?
           </h2>
-          <span class="text-xs text-amber-400 font-bold">[ENDGAME TRACK]</span>
-        </div>
-        <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
-          Learn how Fractals of the Mists work, how difficulty scales from 1 to 100, how Agony Resistance keeps you alive, and which combat tools help a five-player party handle daily fractal runs.
-        </p>
-      </section>
 
-      <!-- CATEGORY: MODULE 01 - FRACTAL FUNDAMENTALS -->
-      <section class="border border-slate-800/80 bg-slate-950/60 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
-        <div class="border-b border-slate-800 pb-2 sm:pb-3">
-          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider font-mono">Module 01</div>
-          <h3 class="text-base sm:text-lg font-bold text-white tracking-wide">Understanding Fractals</h3>
         </div>
 
-        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
-          Fractals of the Mists are short, repeatable five-player dungeons. Each fractal has its own map, story, enemies, and mechanics. Your party chooses a difficulty scale from 1 to 100 before entering.
-        </p>
+        <div class="grid gap-3 md:grid-cols-3">
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 text-xs sm:text-sm">
-          <div class="p-3.5 sm:p-4 bg-slate-900/60 border border-slate-800/80 rounded-sm space-y-1.5 sm:space-y-2">
-            <div class="font-bold text-cyan-400 uppercase text-xs font-mono">Personal Fractal Level</div>
-            <p class="text-slate-300 leading-relaxed font-normal">Complete a fractal at your current personal level or higher to increase your account-wide personal fractal level by one.</p>
-          </div>
+          <!-- SHORT -->
+          <article class="terminal-panel rounded-sm p-5">
 
-          <div class="p-3.5 sm:p-4 bg-slate-900/60 border border-slate-800/80 rounded-sm space-y-1.5 sm:space-y-2">
-            <div class="font-bold text-amber-400 uppercase text-xs font-mono">Difficulty Tiers</div>
-            <p class="text-slate-300 leading-relaxed font-normal">T1 covers scales 1-25, T2 covers 26-50, T3 covers 51-75, and T4 covers 76-100.</p>
-          </div>
-
-          <div class="p-3.5 sm:p-4 bg-slate-900/60 border border-slate-800/80 rounded-sm space-y-1.5 sm:space-y-2">
-            <div class="font-bold text-emerald-400 uppercase text-xs font-mono">Mistlock Observatory</div>
-            <p class="text-slate-300 leading-relaxed font-normal">The lobby contains the scale selector, vendors, fractal potions, infusions, training tools, and the portal used to begin a run.</p>
-          </div>
-        </div>
-
-        <blockquote class="p-3.5 sm:p-4 border-l-4 border-cyan-400 bg-slate-900/70 rounded-r-sm text-xs sm:text-sm text-slate-200">
-          <strong class="text-cyan-400 font-bold block mb-1 font-mono">GENERAL RULE:</strong>
-          <p class="leading-relaxed font-normal">There are no normal waypoints inside a fractal. Defeated players must be revived or wait until the party leaves combat before returning to the latest checkpoint.</p>
-        </blockquote>
-      </section>
-
-      <!-- CATEGORY: MODULE 02 - AGONY & DIFFICULTY -->
-      <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
-        <div class="border-b border-slate-800 pb-2 sm:pb-3">
-          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider font-mono">Module 02</div>
-          <h3 class="text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-wider">Agony, Resistance, and Tier Scaling</h3>
-        </div>
-
-        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
-          Agony begins at scale 20. It reduces incoming healing and deals a percentage of your maximum health as repeated damage. Agony Resistance, usually added through infusions in Ascended or Legendary equipment, reduces that damage.
-        </p>
-
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs sm:text-sm border-collapse">
-            <thead>
-              <tr class="border-b border-slate-800/80 text-cyan-400 bg-slate-950 font-mono">
-                <th class="p-2.5 sm:p-3 font-bold">Tier</th>
-                <th class="p-2.5 sm:p-3 font-bold">Scale Range</th>
-                <th class="p-2.5 sm:p-3 font-bold">Instabilities</th>
-                <th class="p-2.5 sm:p-3 font-bold">Maximum AR Needed</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-800/60 text-slate-300 font-normal">
-              <tr class="hover:bg-slate-900/40"><td class="p-2.5 sm:p-3 text-white font-semibold font-mono">T1</td><td class="p-2.5 sm:p-3">1-25</td><td class="p-2.5 sm:p-3">0</td><td class="p-2.5 sm:p-3 text-cyan-300 font-bold font-mono">17 AR</td></tr>
-              <tr class="hover:bg-slate-900/40"><td class="p-2.5 sm:p-3 text-white font-semibold font-mono">T2</td><td class="p-2.5 sm:p-3">26-50</td><td class="p-2.5 sm:p-3">1</td><td class="p-2.5 sm:p-3 text-cyan-300 font-bold font-mono">61 AR</td></tr>
-              <tr class="hover:bg-slate-900/40"><td class="p-2.5 sm:p-3 text-white font-semibold font-mono">T3</td><td class="p-2.5 sm:p-3">51-75</td><td class="p-2.5 sm:p-3">2</td><td class="p-2.5 sm:p-3 text-cyan-300 font-bold font-mono">106 AR</td></tr>
-              <tr class="hover:bg-slate-900/40"><td class="p-2.5 sm:p-3 text-white font-semibold font-mono">T4</td><td class="p-2.5 sm:p-3">76-100</td><td class="p-2.5 sm:p-3">3</td><td class="p-2.5 sm:p-3 text-amber-400 font-bold font-mono">150 AR</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
-          <div class="p-3.5 sm:p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="font-bold text-cyan-400 uppercase text-xs font-mono">Agony Resistance</div>
-            <p class="text-slate-300 leading-relaxed font-normal">AR does not make you generally tougher. It specifically reduces Agony damage. Check the selected scale before entering so your resistance meets the requirement.</p>
-          </div>
-          <div class="p-3.5 sm:p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="font-bold text-amber-400 uppercase text-xs font-mono">Mistlock Instabilities</div>
-            <p class="text-slate-300 leading-relaxed font-normal">Instabilities are rotating modifiers that change how enemies or players behave. Read them before the run because the same fractal can feel very different from one day to the next.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- CATEGORY: MODULE 03 - DAILY OPERATIONS -->
-      <section class="border border-slate-800/80 bg-slate-950/60 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
-        <div class="border-b border-slate-800 pb-2 sm:pb-3">
-          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider font-mono">Module 03</div>
-          <h3 class="text-base sm:text-lg font-bold text-white tracking-wide">Daily Operations</h3>
-        </div>
-
-        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
-          Daily and Recommended Fractals follow the same 15-day rotation. This panel updates automatically at the Guild Wars 2 server reset, <strong class="text-cyan-300">00:00 UTC</strong>.
-        </p>
-
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
-          <div class="p-4 sm:p-5 bg-slate-900/60 border border-slate-800/80 rounded-sm space-y-3">
-            <div class="flex items-center justify-between gap-3 border-b border-slate-800 pb-2.5">
-              <div>
-                <div class="text-cyan-400 font-bold uppercase text-xs font-mono">Today's Daily Fractals</div>
-                <div id="daily-set-label" class="text-[11px] text-slate-500 font-mono mt-1">ROTATION SET --</div>
-              </div>
-              <span class="text-xs text-amber-400 font-bold font-mono">DAILY</span>
+            <div
+              class="section-label text-[10px] font-black uppercase text-cyan-400"
+            >
+              Short
             </div>
-            <ul id="daily-fractal-list" class="space-y-2 text-sm text-slate-200">
-              <li class="p-3 bg-slate-950 border border-slate-800 rounded-sm">Loading rotation…</li>
-            </ul>
-          </div>
 
-          <div class="p-4 sm:p-5 bg-slate-900/60 border border-slate-800/80 rounded-sm space-y-3">
-            <div class="flex items-center justify-between gap-3 border-b border-slate-800 pb-2.5">
-              <div>
-                <div class="text-emerald-400 font-bold uppercase text-xs font-mono">Today's Recommended Fractals</div>
-                <div id="recommended-set-label" class="text-[11px] text-slate-500 font-mono mt-1">ROTATION SET --</div>
-              </div>
-              <span class="text-xs text-amber-400 font-bold font-mono">T1 / T2 / T3</span>
+            <h3 class="mt-2 text-lg font-bold text-white">
+              One contained adventure
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Each fractal has its own setting, enemies, mechanics, and boss
+              encounters.
+            </p>
+
+          </article>
+
+          <!-- SCALING -->
+          <article class="terminal-panel rounded-sm p-5">
+
+            <div
+              class="section-label text-[10px] font-black uppercase text-amber-400"
+            >
+              Scaling
             </div>
-            <ul id="recommended-fractal-list" class="space-y-2 text-sm text-slate-200">
-              <li class="p-3 bg-slate-950 border border-slate-800 rounded-sm">Loading rotation…</li>
-            </ul>
-          </div>
+
+            <h3 class="mt-2 text-lg font-bold text-white">
+              The same system gets harder
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Difficulty increases through scales 1–100, adding stronger
+              enemies, Agony, and eventually Mistlock Instabilities.
+            </p>
+
+          </article>
+
+          <!-- REPEATABLE -->
+          <article class="terminal-panel rounded-sm p-5">
+
+            <div
+              class="section-label text-[10px] font-black uppercase text-green-300"
+            >
+              Repeatable
+            </div>
+
+            <h3 class="mt-2 text-lg font-bold text-white">
+              Learn through repetition
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Daily Fractals give you a reason to revisit encounters and become
+              more comfortable with them over time.
+            </p>
+
+          </article>
+
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs sm:text-sm">
-          <div class="p-3.5 sm:p-4 bg-slate-900/60 border border-slate-800/80 rounded-sm space-y-1.5">
-            <div class="font-bold text-cyan-400 uppercase text-xs font-mono">Server Reset</div>
-            <p class="text-slate-300">The rotation changes every day at <strong class="text-white">00:00 UTC</strong>.</p>
-          </div>
-          <div class="p-3.5 sm:p-4 bg-slate-900/60 border border-slate-800/80 rounded-sm space-y-1.5">
-            <div class="font-bold text-amber-400 uppercase text-xs font-mono">Time Until Reset</div>
-            <p id="fractal-reset-countdown" class="text-white font-bold font-mono">--:--:--</p>
-          </div>
-          <div class="p-3.5 sm:p-4 bg-slate-900/60 border border-slate-800/80 rounded-sm space-y-1.5">
-            <div class="font-bold text-emerald-400 uppercase text-xs font-mono">Next Rotation</div>
-            <p id="next-set-label" class="text-slate-300">Set -- begins at reset.</p>
-          </div>
-        </div>
-
-        <blockquote class="p-3.5 sm:p-4 border-l-4 border-amber-400 bg-slate-900/70 rounded-r-sm text-xs sm:text-sm text-slate-200">
-          <strong class="text-amber-400 font-bold block mb-1 font-mono">DAILY ROUTINE:</strong>
-          <p class="leading-relaxed font-normal">Check today's targets, verify your Agony Resistance, read the active instabilities, equip the needed utility skills, and then enter through the Mistlock Observatory portal.</p>
-        </blockquote>
       </section>
 
-      <!-- CATEGORY: MODULE 04 - COMBAT FUNDAMENTALS -->
-      <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-4">
-        <div class="border-b border-slate-800 pb-2 sm:pb-3">
-          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider font-mono">Module 04</div>
-          <h3 class="text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-wider">Fractal Combat Fundamentals</h3>
+      <!-- =====================================================
+           CORE LESSON
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-amber-400"
+        >
+          Core Lesson
         </div>
 
-        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">Fractals use a lot of shorthand. These terms describe the tools that keep a group alive and make difficult encounters manageable.</p>
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Tier 1 is where you learn the language
+        </h2>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-cyan-400 font-bold uppercase font-mono text-xs">Boons</div>
-            <p class="text-slate-300 leading-relaxed">Boons are positive effects. Might increases damage, Fury raises critical chance, Protection reduces damage, Quickness speeds up skill use, Alacrity shortens recharge time, and Stability prevents many control effects.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-amber-400 font-bold uppercase font-mono text-xs">Boon Strip</div>
-            <p class="text-slate-300 leading-relaxed">Boon strip removes positive effects from enemies. If an enemy gains Protection, removing it restores your party's normal damage. It is especially useful with the No Pain, No Gain instability.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-emerald-400 font-bold uppercase font-mono text-xs">Boon Corruption</div>
-            <p class="text-slate-300 leading-relaxed">Boon corruption removes an enemy boon and replaces it with a harmful condition. It does two jobs at once: the enemy loses a benefit and gains a weakness.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-cyan-400 font-bold uppercase font-mono text-xs">Conditions</div>
-            <p class="text-slate-300 leading-relaxed">Conditions are harmful effects such as Burning, Bleeding, Poison, Chill, Cripple, Immobilize, Fear, Torment, and Confusion. Some deal damage while others limit movement or skill use.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-amber-400 font-bold uppercase font-mono text-xs">Condition Cleanse</div>
-            <p class="text-slate-300 leading-relaxed">A condition cleanse removes harmful conditions from you or your allies. If your health is falling quickly, check whether Burning, Poison, Bleeding, or another condition is active.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-emerald-400 font-bold uppercase font-mono text-xs">Crowd Control (CC)</div>
-            <p class="text-slate-300 leading-relaxed">Crowd control disables or moves enemies. Daze, Stun, Knockback, Pull, Launch, Fear, Float, and Knockdown all count as CC and damage a boss's blue defiance bar.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-cyan-400 font-bold uppercase font-mono text-xs">Defiance Bar</div>
-            <p class="text-slate-300 leading-relaxed">The blue bar beneath a boss is its defiance bar, often called a breakbar. When it appears, use CC. Breaking it interrupts dangerous attacks and usually creates a safer damage window.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-amber-400 font-bold uppercase font-mono text-xs">Projectile Defense</div>
-            <p class="text-slate-300 leading-relaxed">Projectile block stops arrows, bullets, and magical shots. Projectile absorb removes them. Projectile reflect sends them back at the attacker and can turn enemy damage into your own.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-emerald-400 font-bold uppercase font-mono text-xs">Stability</div>
-            <p class="text-slate-300 leading-relaxed">Stability prevents many knockbacks, pulls, launches, knockdowns, fears, and other control effects. It does not reduce damage. Think of it as keeping your feet planted.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-cyan-400 font-bold uppercase font-mono text-xs">Adapt Your Build</div>
-            <p class="text-slate-300 leading-relaxed">A single build will not solve every encounter. Swap utility skills when the group needs more cleanse, Stability, boon strip, projectile defense, or CC.</p>
-          </div>
-        </div>
-
-        <blockquote class="p-3.5 sm:p-4 border-l-4 border-amber-400 bg-slate-950/80 rounded-r-sm text-xs sm:text-sm text-slate-200">
-          <strong class="text-amber-400 font-bold block mb-1 font-mono">FIELD NOTE:</strong>
-          <p class="leading-relaxed font-normal">Damage matters, but preparation is the sharper blade. A party that brings the correct tools will often outperform a party that only brings higher numbers.</p>
-        </blockquote>
-      </section>
-
-      <!-- CATEGORY: MODULE 05 - MISTLOCK INSTABILITIES -->
-      <section class="border border-slate-800/80 bg-slate-900/40 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
-        <div class="border-b border-slate-800 pb-2 sm:pb-3">
-          <div class="text-amber-400 font-bold text-xs uppercase tracking-wider font-mono">Module 05</div>
-          <h3 class="text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-wider">Mistlock Instabilities</h3>
-        </div>
-
-        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
-          Mistlock Instabilities are rotating modifiers that change the rules of a fractal. They begin in Tier 2, increase to two in Tier 3, and increase to three in Tier 4. Read them before entering because the correct response may be more important than raw damage.
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Your first Fractals aren't supposed to be a test of whether you're
+          already an expert.
         </p>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-cyan-400 font-bold uppercase font-mono text-xs">Adrenaline Rush</div>
-            <p class="text-slate-300 leading-relaxed">Enemies deal much more damage while low on health, but they cannot critically hit. Finish weakened enemies quickly and avoid letting several low-health enemies attack at once.</p>
-          </div>
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Tier 1 gives you room to learn how five-player groups move, where
+          mechanics happen, what the bosses do, and which parts of your build
+          are useful.
+        </p>
 
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-amber-400 font-bold uppercase font-mono text-xs">Afflicted</div>
-            <p class="text-slate-300 leading-relaxed">Enemies apply random damaging conditions. Bring condition cleanse and avoid allowing Burning, Bleeding, Poison, or Torment to build up.</p>
-          </div>
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Think of the early scales like learning a course before somebody
+          starts adding rain, darkness, and obstacles.
+        </p>
 
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-emerald-400 font-bold uppercase font-mono text-xs">Boon Overload</div>
-            <p class="text-slate-300 leading-relaxed">Each boon lowers your maximum health, while your outgoing boon duration is increased. Keep useful boons, but avoid covering the party in unnecessary boons when survival is already difficult.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-cyan-400 font-bold uppercase font-mono text-xs">Flux Bomb</div>
-            <p class="text-slate-300 leading-relaxed">A bomb periodically appears beneath a player and leaves a damaging field. Move it away from the group before it drops. Enemies standing in the field can also receive conditions.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-amber-400 font-bold uppercase font-mono text-xs">Fractal Vindicators</div>
-            <p class="text-slate-300 leading-relaxed">Fractal Avengers are replaced by stronger Vindicators when players are downed. Revive quickly, interrupt their finishing attacks, and kill active Vindicators before they overwhelm the group.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-emerald-400 font-bold uppercase font-mono text-xs">Frailty</div>
-            <p class="text-slate-300 leading-relaxed">Players take more damage but move faster. Use the extra movement to avoid attacks, because mistakes are punished more heavily.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-cyan-400 font-bold uppercase font-mono text-xs">Hamstrung</div>
-            <p class="text-slate-300 leading-relaxed">Low health slows your movement, while endurance regenerates faster. Dodge early and recover health before the slow makes escaping dangerous attacks difficult.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-amber-400 font-bold uppercase font-mono text-xs">Last Laugh</div>
-            <p class="text-slate-300 leading-relaxed">Enemies explode when they die unless they were stunned. Move away from defeated enemies, or use crowd control before the finishing blow.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-emerald-400 font-bold uppercase font-mono text-xs">Mists Convergence</div>
-            <p class="text-slate-300 leading-relaxed">Creatures and hazards from other fractals may appear. Stay alert, identify the unexpected threat, and deal with it without losing control of the main encounter.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-cyan-400 font-bold uppercase font-mono text-xs">No Pain, No Gain</div>
-            <p class="text-slate-300 leading-relaxed">Enemies gain boons when struck. Bring boon strip or boon corruption so Protection, Might, and other boons do not make enemies harder to kill.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-amber-400 font-bold uppercase font-mono text-xs">Outflanked</div>
-            <p class="text-slate-300 leading-relaxed">Nearby allies take much more damage when attacked from behind. Face dangerous enemies toward the same direction and avoid surrounding them carelessly.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-emerald-400 font-bold uppercase font-mono text-xs">Social Awkwardness</div>
-            <p class="text-slate-300 leading-relaxed">Players push one another away when standing too close. Spread slightly, avoid narrow ledges, and use Stability when the group must stack tightly.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-cyan-400 font-bold uppercase font-mono text-xs">Stick Together</div>
-            <p class="text-slate-300 leading-relaxed">You take more damage when far from allies and deal slightly more damage while near them. Stay within roughly 300 range of at least one teammate.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-amber-400 font-bold uppercase font-mono text-xs">Sugar Rush</div>
-            <p class="text-slate-300 leading-relaxed">Enemies move and attack faster. Watch animations carefully, react sooner, and avoid assuming normal attack timing.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-emerald-400 font-bold uppercase font-mono text-xs">Toxic Sickness</div>
-            <p class="text-slate-300 leading-relaxed">A player periodically vomits in a cone and can hit allies with conditions. Turn away from the group when the warning appears.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2">
-            <div class="text-cyan-400 font-bold uppercase font-mono text-xs">Toxic Trail</div>
-            <p class="text-slate-300 leading-relaxed">Enemies leave poison trails behind them. Avoid standing in the trail, and block the trail attack when possible to absorb it and help expose nearby enemies.</p>
-          </div>
-
-          <div class="p-4 bg-slate-950 border border-slate-800/80 rounded-sm space-y-2 lg:col-span-2">
-            <div class="text-amber-400 font-bold uppercase font-mono text-xs">Vengeance</div>
-            <p class="text-slate-300 leading-relaxed">When an enemy dies, nearby enemies gain several boons. Focus targets carefully and use boon strip to weaken the survivors.</p>
-          </div>
-        </div>
-
-        <blockquote class="p-3.5 sm:p-4 border-l-4 border-amber-400 bg-slate-950/80 rounded-r-sm text-xs sm:text-sm text-slate-200">
-          <strong class="text-amber-400 font-bold block mb-1 font-mono">INSTABILITY CHECK:</strong>
-          <p class="leading-relaxed font-normal">Before entering, identify the mechanic, name the counter, and make one small build change. Treat instabilities like weather: you cannot remove the storm, but you can dress for it.</p>
-        </blockquote>
       </section>
 
-      <!-- CATEGORY: FIELD PRACTICE CHECKLIST -->
-      <section class="border border-slate-800/80 bg-slate-950/60 p-4 sm:p-6 rounded-sm glow-cyan space-y-3 sm:space-y-4">
-        <div class="flex justify-between items-center border-b border-slate-800 pb-2 sm:pb-3">
-          <h3 class="text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-wider">Pre-Run Checklist</h3>
-          <span id="checklist-status" class="text-xs sm:text-sm text-amber-400 font-bold">[0 / 6 DONE]</span>
+      <!-- =====================================================
+           WHAT IS A FRACTAL
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-cyan-400"
+        >
+          Part 1 // Fractal Basics
         </div>
 
-        <ul class="space-y-2.5 sm:space-y-3 text-sm text-slate-300 font-normal">
-          <li class="flex items-center gap-3 p-3 sm:p-3.5 bg-slate-950 border border-slate-800/80 rounded-sm"><input type="checkbox" onchange="updateChecklist()" class="id-check w-4 h-4 sm:w-5 sm:h-5 accent-cyan-400 cursor-pointer" data-id="fractal-1" /><span><strong>Check the Scale:</strong> Confirm the selected fractal level and required Agony Resistance.</span></li>
-          <li class="flex items-center gap-3 p-3 sm:p-3.5 bg-slate-950 border border-slate-800/80 rounded-sm"><input type="checkbox" onchange="updateChecklist()" class="id-check w-4 h-4 sm:w-5 sm:h-5 accent-cyan-400 cursor-pointer" data-id="fractal-2" /><span><strong>Read Instabilities:</strong> Review the active modifiers before entering.</span></li>
-          <li class="flex items-center gap-3 p-3 sm:p-3.5 bg-slate-950 border border-slate-800/80 rounded-sm"><input type="checkbox" onchange="updateChecklist()" class="id-check w-4 h-4 sm:w-5 sm:h-5 accent-cyan-400 cursor-pointer" data-id="fractal-3" /><span><strong>Prepare Utility:</strong> Equip needed cleanse, Stability, boon strip, projectile defense, or CC.</span></li>
-          <li class="flex items-center gap-3 p-3 sm:p-3.5 bg-slate-950 border border-slate-800/80 rounded-sm"><input type="checkbox" onchange="updateChecklist()" class="id-check w-4 h-4 sm:w-5 sm:h-5 accent-cyan-400 cursor-pointer" data-id="fractal-4" /><span><strong>Check Daily Targets:</strong> Identify today's Daily and Recommended Fractals.</span></li>
-          <li class="flex items-center gap-3 p-3 sm:p-3.5 bg-slate-950 border border-slate-800/80 rounded-sm"><input type="checkbox" onchange="updateChecklist()" class="id-check w-4 h-4 sm:w-5 sm:h-5 accent-cyan-400 cursor-pointer" data-id="fractal-5" /><span><strong>Use Consumables:</strong> Purchase or activate any fractal potions and temporary AR tools you plan to use.</span></li>
-          <li class="flex items-center gap-3 p-3 sm:p-3.5 bg-slate-950 border border-slate-800/80 rounded-sm"><input type="checkbox" onchange="updateChecklist()" class="id-check w-4 h-4 sm:w-5 sm:h-5 accent-cyan-400 cursor-pointer" data-id="fractal-6" /><span><strong>Confirm the Party:</strong> Make sure all five players are inside the Observatory before activating the portal.</span></li>
-        </ul>
+        <h2 class="mt-2 text-2xl font-black text-white">
+          The Mistlock Observatory is your staging area
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Fractals of the Mists are accessed through the Mistlock Observatory.
+          This is the lobby where your party gathers before starting a run.
+        </p>
+
+        <div class="mt-5 grid gap-3 md:grid-cols-3">
+
+          <!-- PARTY -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-300"
+            >
+              Party
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Up to five players
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Fractals are designed around small-group play rather than the
+              large squads used for open-world metas.
+            </p>
+
+          </div>
+
+          <!-- SCALE -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-amber-300"
+            >
+              Scale
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Choose the difficulty
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              The selected scale determines which fractal you enter and how
+              difficult the run will be.
+            </p>
+
+          </div>
+
+          <!-- LEVEL -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-green-300"
+            >
+              Personal Level
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Your account progresses
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Completing Fractals at the appropriate scale raises your
+              account's Personal Fractal Level over time.
+            </p>
+
+          </div>
+
+        </div>
+
       </section>
+
+      <!-- =====================================================
+           TIERS
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-violet-300"
+        >
+          Part 2 // Difficulty Tiers
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Four tiers, one progression path
+        </h2>
+
+        <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+
+          <!-- T1 -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-green-300"
+            >
+              Tier 1
+            </div>
+
+            <h3 class="mt-2 text-xl font-black text-white">
+              1–25
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Learn encounters, basic group movement, bosses, and Fractal
+              mechanics.
+            </p>
+
+          </div>
+
+          <!-- T2 -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-300"
+            >
+              Tier 2
+            </div>
+
+            <h3 class="mt-2 text-xl font-black text-white">
+              26–50
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Agony matters more and one Mistlock Instability changes the rules
+              of the run.
+            </p>
+
+          </div>
+
+          <!-- T3 -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-amber-300"
+            >
+              Tier 3
+            </div>
+
+            <h3 class="mt-2 text-xl font-black text-white">
+              51–75
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Two instabilities are active and mistakes become more expensive.
+            </p>
+
+          </div>
+
+          <!-- T4 -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-red-300"
+            >
+              Tier 4
+            </div>
+
+            <h3 class="mt-2 text-xl font-black text-white">
+              76–100
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Three instabilities, higher incoming pressure, and greater
+              expectations for group preparation.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           FIRST RUN
+           ===================================================== -->
+      <section
+        class="rounded-sm border border-green-400/30 bg-green-400/[0.04] p-5 sm:p-6"
+      >
+
+        <div
+          class="section-label text-[10px] font-black uppercase text-green-300"
+        >
+          First Fractal?
+        </div>
+
+        <h2 class="mt-2 text-xl font-black text-white">
+          Start in Tier 1
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          You don't need to leap immediately into the highest scale your party
+          can enter.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          T1 exists for learning. Tell the group you're new, watch what people
+          do, and ask questions when something doesn't make sense.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Knowing the encounter will eventually matter more than pretending you
+          already know it.
+        </p>
+
+      </section>
+
+      <!-- =====================================================
+           AGONY
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-red-300"
+        >
+          Part 3 // Agony
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          The mechanic that gates higher scales
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Starting at scale 20, certain attacks can apply Agony.
+        </p>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Agony deals heavy damage based on your maximum health and reduces
+          incoming healing. The higher the Fractal scale, the more Agony
+          Resistance you need to reduce its damage.
+        </p>
+
+        <div class="mt-5 grid gap-3 md:grid-cols-3">
+
+          <!-- AR -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-red-300"
+            >
+              Agony Resistance
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Fractal-specific defense
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              AR helps against Agony. It doesn't make you generally tougher
+              against every normal attack.
+            </p>
+
+          </div>
+
+          <!-- INFUSIONS -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-300"
+            >
+              Infusions
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Where AR usually comes from
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Agony Infusions are placed into infusion slots found on Ascended
+              and Legendary equipment.
+            </p>
+
+          </div>
+
+          <!-- SCALE -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-amber-300"
+            >
+              Scale 100
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Up to 150 AR
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              The highest standard scale calls for roughly 150 Agony
+              Resistance.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           AR PROGRESSION
+           ===================================================== -->
+      <section
+        class="rounded-sm border border-amber-400/30 bg-amber-400/[0.04] p-5 sm:p-6"
+      >
+
+        <div
+          class="section-label text-[10px] font-black uppercase text-amber-400"
+        >
+          Don't Overgear Early
+        </div>
+
+        <h2 class="mt-2 text-xl font-black text-white">
+          You don't need 150 AR for Tier 1
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Agony Resistance is something you build as you climb.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Early T1 scales don't use Agony at all. By scale 25, the suggested
+          amount is only around 17 AR.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Gear for the part of the ladder you're actually climbing instead of
+          treating 150 AR like an entrance fee for your first Fractal.
+        </p>
+
+      </section>
+
+      <!-- =====================================================
+           DAILY FRACTALS
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-cyan-400"
+        >
+          Part 4 // Daily Fractals
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          The daily list gives your group a destination
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Each day, three Fractals are selected as Daily Fractals across the
+          difficulty tiers.
+        </p>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Recommended Fractals also provide additional targets in the lower
+          three tiers.
+        </p>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          You don't need to memorize the rotation. Check the current Daily
+          achievements or Fractal interface when you're ready to run.
+        </p>
+
+        <div class="mt-5 grid gap-3 md:grid-cols-3">
+
+          <!-- CHECK -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-300"
+            >
+              Check
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Today's targets
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              See which Fractals are currently giving Daily or Recommended
+              rewards.
+            </p>
+
+          </div>
+
+          <!-- CHOOSE -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-amber-300"
+            >
+              Choose
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Your tier
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Run the difficulty that matches your Personal Fractal Level,
+              equipment, AR, and comfort.
+            </p>
+
+          </div>
+
+          <!-- PREP -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-green-300"
+            >
+              Prepare
+            </div>
+
+            <h3 class="mt-2 font-bold text-white">
+              Read before entering
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              At higher tiers, check the active instabilities and adjust your
+              utility skills if needed.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           GROUP BASICS
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-green-300"
+        >
+          Part 5 // Five-Player Combat
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Stay close enough to help each other
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Fractals start teaching habits that become important throughout
+          organized Guild Wars 2 combat.
+        </p>
+
+        <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+
+          <!-- GROUP -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-cyan-300">
+              Stay With the Group
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Boons, healing, revives, and other support are easier when the
+              party isn't scattered across the room.
+            </p>
+
+          </div>
+
+          <!-- DODGE -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-amber-300">
+              Handle Mechanics
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Damage matters less when the entire group is repeatedly getting
+              hit by avoidable attacks.
+            </p>
+
+          </div>
+
+          <!-- REVIVE -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-green-300">
+              Revive
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Help downed teammates when it's safe. Five players working
+              together are stronger than four players ignoring the floor.
+            </p>
+
+          </div>
+
+          <!-- CC -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-violet-300">
+              Bring CC
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              When a Defiance Bar appears, crowd control can interrupt the
+              encounter and create an opening.
+            </p>
+
+          </div>
+
+          <!-- CLEANSE -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-pink-300">
+              Cleanse Conditions
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Burning, Bleeding, Poison, Torment, and other conditions can
+              create heavy pressure if nobody removes them.
+            </p>
+
+          </div>
+
+          <!-- ADAPT -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-red-300">
+              Adapt
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Swap utility skills when the encounter needs something your
+              normal setup doesn't provide.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           UTILITY TOOLBOX
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-cyan-400"
+        >
+          Fractal Toolbox
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Useful words you'll hear
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          You already learned most of these systems elsewhere in Terminal
+          77-B. Fractals are where you start using them together.
+        </p>
+
+        <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+
+          <!-- CC -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-300"
+            >
+              CC
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Daze, stun, knockback, pull, fear, and other control effects
+              damage active Defiance Bars.
+            </p>
+
+          </div>
+
+          <!-- CLEANSE -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-green-300"
+            >
+              Cleanse
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Removes harmful conditions from yourself or allies.
+            </p>
+
+          </div>
+
+          <!-- STAB -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-amber-300"
+            >
+              Stability
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Helps prevent many crowd-control effects such as knockbacks,
+              launches, pulls, and fears.
+            </p>
+
+          </div>
+
+          <!-- BOON STRIP -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-violet-300"
+            >
+              Boon Strip
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Removes helpful boons from enemies when those boons are making
+              them harder to fight.
+            </p>
+
+          </div>
+
+          <!-- PROJECTILES -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-pink-300"
+            >
+              Projectile Defense
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Blocks, absorbs, or reflects projectiles when the encounter
+              allows it.
+            </p>
+
+          </div>
+
+          <!-- BOONS -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-cyan-300"
+            >
+              Boons
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Might, Fury, Quickness, Alacrity, Protection, Stability, and
+              other boons help the group perform more effectively.
+            </p>
+
+          </div>
+
+          <!-- HEALING -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-green-300"
+            >
+              Sustain
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Healing, Barrier, defensive boons, and positioning keep pressure
+              manageable.
+            </p>
+
+          </div>
+
+          <!-- MOVEMENT -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="font-mono text-xs font-bold uppercase tracking-wider text-amber-300"
+            >
+              Movement
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Sometimes the best defensive skill is simply getting out of the
+              attack before it lands.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           ADAPT BUILD
+           ===================================================== -->
+      <section
+        class="rounded-sm border border-cyan-400/30 bg-cyan-400/[0.04] p-5 sm:p-6"
+      >
+
+        <div
+          class="section-label text-[10px] font-black uppercase text-cyan-400"
+        >
+          Build Theory in Practice
+        </div>
+
+        <h2 class="mt-2 text-xl font-black text-white">
+          Your utility bar isn't carved in stone
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          One of the best habits Fractals can teach you is changing a utility
+          skill because the encounter needs something different.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Need more crowd control? Bring it. Getting buried under conditions?
+          Bring cleanse. Constant knockbacks? Look for Stability.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          A build is a toolbox, not a museum display.
+        </p>
+
+      </section>
+
+      <!-- =====================================================
+           INSTABILITIES
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-red-300"
+        >
+          Part 6 // Mistlock Instabilities
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Higher tiers start changing the rules
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Mistlock Instabilities are additional modifiers that change how a
+          Fractal behaves.
+        </p>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Tier 2 introduces one instability. Tier 3 uses two. Tier 4 can use
+          three.
+        </p>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          You do not need to memorize every instability before starting
+          Fractals. Learn to read the active ones and identify what they want
+          you to change.
+        </p>
+
+        <div class="mt-5 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+
+          <!-- CONDITIONS -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-green-300">
+              More Conditions?
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Think about condition cleanse and defensive positioning.
+            </p>
+
+          </div>
+
+          <!-- ENEMY BOONS -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-violet-300">
+              Enemy Boons?
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Consider boon removal or boon corruption.
+            </p>
+
+          </div>
+
+          <!-- MOVEMENT -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-amber-300">
+              Movement Hazard?
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Give the group room and pay closer attention to positioning.
+            </p>
+
+          </div>
+
+          <!-- DAMAGE -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-red-300">
+              More Damage?
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Respect mechanics sooner instead of trying to absorb every hit.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           INSTABILITY EXAMPLES
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-amber-400"
+        >
+          Common Examples
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Read the problem, then bring the answer
+        </h2>
+
+        <div class="mt-5 grid gap-3 md:grid-cols-2">
+
+          <!-- AFFLICTED -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-green-300">
+              Afflicted
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Enemies apply additional damaging conditions.
+            </p>
+
+            <div
+              class="mt-3 font-mono text-xs font-bold uppercase tracking-wider text-cyan-300"
+            >
+              Think: Condition Cleanse
+            </div>
+
+          </div>
+
+          <!-- NPNG -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-violet-300">
+              No Pain, No Gain
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Enemies gain boons that can make them harder to defeat.
+            </p>
+
+            <div
+              class="mt-3 font-mono text-xs font-bold uppercase tracking-wider text-cyan-300"
+            >
+              Think: Boon Removal
+            </div>
+
+          </div>
+
+          <!-- SOCIAL -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-amber-300">
+              Social Awkwardness
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Players can push each other when standing too close.
+            </p>
+
+            <div
+              class="mt-3 font-mono text-xs font-bold uppercase tracking-wider text-cyan-300"
+            >
+              Think: Positioning
+            </div>
+
+          </div>
+
+          <!-- FLUX -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div class="font-bold text-red-300">
+              Flux Bomb
+            </div>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              A damaging field periodically appears around a player.
+            </p>
+
+            <div
+              class="mt-3 font-mono text-xs font-bold uppercase tracking-wider text-cyan-300"
+            >
+              Think: Move Away From Group
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           INSTABILITY METAPHOR
+           ===================================================== -->
+      <section
+        class="rounded-sm border border-amber-400/30 bg-amber-400/[0.04] p-5 sm:p-6"
+      >
+
+        <div
+          class="section-label text-[10px] font-black uppercase text-amber-400"
+        >
+          Field Note
+        </div>
+
+        <h2 class="mt-2 text-xl font-black text-white">
+          Treat instabilities like weather
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          You don't argue with the rain.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          You see that it's raining and bring a jacket.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Fractal instabilities work the same way. Identify what changed, bring
+          the right tool, and keep moving.
+        </p>
+
+      </section>
+
+      <!-- =====================================================
+           DOWNS AND CHECKPOINTS
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-violet-300"
+        >
+          Part 7 // Defeat & Recovery
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Going down doesn't end the run
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Fractals do not use normal open-world waypoints inside the instance.
+          The party relies on reviving teammates and Fractal checkpoints.
+        </p>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          If somebody goes down, decide whether it's safe to help them instead
+          of automatically abandoning the fight.
+        </p>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          And if you're the person who went down, pay attention to why. That
+          information is often more useful than the death itself.
+        </p>
+
+      </section>
+
+      <!-- =====================================================
+           GROUP EXPECTATIONS
+           ===================================================== -->
+      <section
+        class="rounded-sm border border-green-400/30 bg-green-400/[0.04] p-5 sm:p-6"
+      >
+
+        <div
+          class="section-label text-[10px] font-black uppercase text-green-300"
+        >
+          New Player Etiquette
+        </div>
+
+        <h2 class="mt-2 text-xl font-black text-white">
+          “I'm new” is useful information
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          If you haven't done a Fractal before, saying so gives the party a
+          chance to explain mechanics instead of assuming you already know
+          them.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          You don't need a speech. Something as simple as
+          <strong>“First time here, anything important I should know?”</strong>
+          does the job.
+        </p>
+
+      </section>
+
+      <!-- =====================================================
+           DAILY ROUTINE
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-cyan-400"
+        >
+          Simple Fractal Routine
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Before the portal opens
+        </h2>
+
+        <div class="mt-5 space-y-3">
+
+          <!-- 1 -->
+          <div
+            class="flex gap-4 rounded-sm border border-slate-800 bg-slate-950 p-4"
+          >
+
+            <div
+              class="flex h-8 w-8 shrink-0 items-center justify-center rounded border border-cyan-400/30 font-black text-cyan-300"
+            >
+              1
+            </div>
+
+            <div>
+
+              <h3 class="font-bold text-white">
+                Check the selected scale
+              </h3>
+
+              <p class="mt-1 text-sm leading-6 text-white">
+                Make sure the difficulty matches your Personal Fractal Level,
+                gear, and Agony Resistance.
+              </p>
+
+            </div>
+
+          </div>
+
+          <!-- 2 -->
+          <div
+            class="flex gap-4 rounded-sm border border-slate-800 bg-slate-950 p-4"
+          >
+
+            <div
+              class="flex h-8 w-8 shrink-0 items-center justify-center rounded border border-cyan-400/30 font-black text-cyan-300"
+            >
+              2
+            </div>
+
+            <div>
+
+              <h3 class="font-bold text-white">
+                Read the instabilities
+              </h3>
+
+              <p class="mt-1 text-sm leading-6 text-white">
+                If you're in T2 or higher, see what modifiers are active.
+              </p>
+
+            </div>
+
+          </div>
+
+          <!-- 3 -->
+          <div
+            class="flex gap-4 rounded-sm border border-slate-800 bg-slate-950 p-4"
+          >
+
+            <div
+              class="flex h-8 w-8 shrink-0 items-center justify-center rounded border border-cyan-400/30 font-black text-cyan-300"
+            >
+              3
+            </div>
+
+            <div>
+
+              <h3 class="font-bold text-white">
+                Check your utilities
+              </h3>
+
+              <p class="mt-1 text-sm leading-6 text-white">
+                Decide whether you need extra CC, cleanse, Stability, boon
+                removal, projectile defense, or another tool.
+              </p>
+
+            </div>
+
+          </div>
+
+          <!-- 4 -->
+          <div
+            class="flex gap-4 rounded-sm border border-slate-800 bg-slate-950 p-4"
+          >
+
+            <div
+              class="flex h-8 w-8 shrink-0 items-center justify-center rounded border border-cyan-400/30 font-black text-cyan-300"
+            >
+              4
+            </div>
+
+            <div>
+
+              <h3 class="font-bold text-white">
+                Enter together
+              </h3>
+
+              <p class="mt-1 text-sm leading-6 text-white">
+                Give the party time to arrive and prepare before activating the
+                run.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           FIRST PRIORITY
+           ===================================================== -->
+      <section
+        class="rounded-sm border border-cyan-400/30 bg-cyan-400/[0.04] p-5 sm:p-6"
+      >
+
+        <div
+          class="section-label text-[10px] font-black uppercase text-cyan-400"
+        >
+          First Goal
+        </div>
+
+        <h2 class="mt-2 text-xl font-black text-white">
+          Don't chase perfect damage yet
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          On your first few runs, focus on staying with the party and learning
+          what the encounter is asking you to do.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Once the mechanics become familiar, you'll naturally spend less time
+          reacting late and more time attacking.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Survival and understanding create the space where good damage
+          happens.
+        </p>
+
+      </section>
+
+      <!-- =====================================================
+           TRY IT
+           ===================================================== -->
+      <section class="terminal-panel rounded-sm p-5 sm:p-7">
+
+        <div
+          class="section-label text-[10px] font-bold uppercase text-green-300"
+        >
+          Try It in Tyria
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Run one Tier 1 Fractal
+        </h2>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Don't worry about clearing an entire progression ladder. Learn one
+          instance.
+        </p>
+
+        <div class="mt-5 grid gap-3 md:grid-cols-3">
+
+          <!-- WATCH -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="mb-2 font-mono text-xs font-bold uppercase tracking-wider text-cyan-400"
+            >
+              Watch
+            </div>
+
+            <p class="text-sm leading-6 text-white">
+              Notice where the group moves and what changes when a boss starts
+              a mechanic.
+            </p>
+
+          </div>
+
+          <!-- ASK -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="mb-2 font-mono text-xs font-bold uppercase tracking-wider text-cyan-400"
+            >
+              Ask
+            </div>
+
+            <p class="text-sm leading-6 text-white">
+              If something doesn't make sense, ask the party what happened.
+            </p>
+
+          </div>
+
+          <!-- REMEMBER -->
+          <div class="rounded-sm border border-slate-800 bg-slate-950 p-4">
+
+            <div
+              class="mb-2 font-mono text-xs font-bold uppercase tracking-wider text-cyan-400"
+            >
+              Remember
+            </div>
+
+            <p class="text-sm leading-6 text-white">
+              After the run, name one mechanic or utility tool you understand
+              better than you did before.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           VETERAN NOTE
+           ===================================================== -->
+      <section
+        class="rounded-sm border border-amber-400/30 bg-amber-400/[0.04] p-5 sm:p-6"
+      >
+
+        <div
+          class="section-label text-[10px] font-black uppercase text-amber-400"
+        >
+          Veteran Field Note
+        </div>
+
+        <h2 class="mt-2 text-xl font-black text-white">
+          Preparation beats stubbornness
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          If a run keeps going badly, don't automatically assume the answer is
+          more damage.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Maybe the group needs more crowd control. Maybe conditions are
+          overwhelming everyone. Maybe an instability is being ignored. Maybe
+          one mechanic simply hasn't clicked yet.
+        </p>
+
+        <p class="mt-3 text-sm leading-6 text-white">
+          Fractals reward players who can diagnose the problem and change one
+          thing on purpose.
+        </p>
+
+      </section>
+
+      <!-- =====================================================
+           FINAL LESSON
+           ===================================================== -->
+      <section
+        class="rounded-sm border border-green-400/30 bg-green-400/[0.04] p-5 sm:p-7"
+      >
+
+        <div
+          class="section-label text-[10px] font-black uppercase text-green-300"
+        >
+          Lesson Complete
+        </div>
+
+        <h2 class="mt-2 text-2xl font-black text-white">
+          Climb when you're ready
+        </h2>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Fractals aren't one giant difficulty spike. They're a staircase.
+        </p>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          Learn the fights in Tier 1. Add Agony Resistance as you need it.
+          Start reading instabilities in Tier 2. Keep improving your build and
+          group awareness as you climb.
+        </p>
+
+        <p
+          class="mt-3 max-w-4xl text-sm leading-7 text-white sm:text-base"
+        >
+          You don't need to stand at scale 100 to belong in the Mists.
+        </p>
+
+      </section>
+
+      <!-- =====================================================
+           KEEP BROWSING
+           ===================================================== -->
+      <section>
+
+        <div class="mb-4">
+
+          <div
+            class="section-label text-[10px] font-bold uppercase text-cyan-400"
+          >
+            Keep Browsing
+          </div>
+
+          <h2 class="mt-1 text-2xl font-black text-white">
+            Related records
+          </h2>
+
+        </div>
+
+        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+
+          <!-- PREVIOUS -->
+          <a
+            href="../class304/index.html"
+            class="terminal-panel group rounded-sm p-5 transition hover:border-cyan-400/40"
+          >
+
+            <div
+              class="section-label text-[10px] font-bold uppercase text-white"
+            >
+              Previous // 304
+            </div>
+
+            <h3
+              class="mt-2 text-lg font-bold text-white group-hover:text-cyan-300"
+            >
+              Wizard's Vault
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Review Astral Acclaim, objectives, and account rewards.
+            </p>
+
+          </a>
+
+          <!-- RELATED -->
+          <a
+            href="../class201/index.html"
+            class="terminal-panel group rounded-sm p-5 transition hover:border-cyan-400/40"
+          >
+
+            <div
+              class="section-label text-[10px] font-bold uppercase text-cyan-400"
+            >
+              Related // 201
+            </div>
+
+            <h3
+              class="mt-2 text-lg font-bold text-white group-hover:text-cyan-300"
+            >
+              Boons & Breakbars
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Review boons, crowd control, and Defiance Bars before organized
+              group content.
+            </p>
+
+          </a>
+
+          <!-- RELATED -->
+          <a
+            href="../class204/index.html"
+            class="terminal-panel group rounded-sm p-5 transition hover:border-cyan-400/40 sm:col-span-2 lg:col-span-1"
+          >
+
+            <div
+              class="section-label text-[10px] font-bold uppercase text-amber-400"
+            >
+              Related // 204
+            </div>
+
+            <h3
+              class="mt-2 text-lg font-bold text-white group-hover:text-cyan-300"
+            >
+              Encounters & Timing
+            </h3>
+
+            <p class="mt-2 text-sm leading-6 text-white">
+              Review telegraphs, mechanics, defensive timing, and damage
+              windows.
+            </p>
+
+          </a>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           RETURN
+           ===================================================== -->
+      <div class="flex justify-center pt-2">
+
+        <a
+          href="../index.html#archives"
+          class="terminal-button w-full rounded-sm px-5 py-3 text-xs font-black uppercase tracking-wider sm:w-auto"
+        >
+          ← Return to Archives
+        </a>
+
+      </div>
 
     </div>
 
   </main>
 
-  <!-- CATEGORY: FOOTER WITH CENTERED MOBILE FLOW -->
-  <footer class="shrink-0 border-t border-slate-800 bg-slate-950 sticky bottom-0 z-40 px-3 sm:px-6 py-2.5 sm:py-3">
-    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
-      
-      <!-- DESKTOP DISCLAIMER PARAGRAPH -->
-      <p class="hidden md:block text-xs text-slate-400 max-w-3xl leading-normal">
-        This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
-      </p>
+  <!-- =========================================================
+       ABOUT / CREDITS
+       ========================================================= -->
+  <section class="border-t border-slate-800">
 
-      <!-- CREDITS LINKS -->
-      <div class="flex items-center justify-center space-x-2 sm:space-x-4 text-xs">
-        <span class="text-slate-300">
-          Written by <a href="https://liar.fyi" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 font-bold">The Liars Guild</a>
-        </span>
-        <span class="text-slate-700">|</span>
-        <span class="text-slate-300">
-          Site Builder: <a href="https://qkommand.github.io/home/" target="_blank" class="text-cyan-400 underline hover:text-cyan-300 font-bold">Commander Q</a>
-        </span>
+    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+
+      <div class="grid gap-5 sm:grid-cols-2">
+
+        <div>
+
+          <div
+            class="section-label text-[10px] font-bold uppercase text-cyan-400"
+          >
+            Terminal 77-B
+          </div>
+
+          <p class="mt-2 text-xs leading-5 text-white">
+            A Guild Wars 2 community guide for new and returning players.
+          </p>
+
+        </div>
+
+        <div class="text-xs leading-6 text-white sm:text-right">
+
+          <p>
+            Written with help from
+            <a
+              href="https://liar.fyi"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-bold text-cyan-400 underline decoration-cyan-500/30 underline-offset-4"
+            >
+              [Liar]
+            </a>
+          </p>
+
+          <p>
+            Site built by
+            <a
+              href="https://qkommand.github.io/home/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-bold text-cyan-400 underline decoration-cyan-500/30 underline-offset-4"
+            >
+              Commander Q
+            </a>
+          </p>
+
+        </div>
+
       </div>
 
-      <!-- MOBILE DISCLAIMER MODAL TRIGGER -->
-      <button 
-        onclick="toggleDisclaimer('on')"
-        class="md:hidden text-xs text-slate-400 hover:text-cyan-400 underline cursor-pointer font-semibold uppercase tracking-wider"
+    </div>
+
+  </section>
+
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
+  <footer class="border-t border-slate-800 bg-slate-950">
+
+    <div class="mx-auto max-w-6xl px-4 py-5 text-center sm:px-6">
+
+      <p
+        class="mx-auto max-w-4xl text-[10px] leading-5 text-white sm:text-xs"
       >
-        [Disclaimer]
-      </button>
+        Terminal 77-B is an unofficial Guild Wars 2 community fansite and is
+        not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation.
+        Guild Wars, Guild Wars 2, ArenaNet, and associated names and marks are
+        the property of their respective owners.
+      </p>
 
     </div>
+
   </footer>
 
-  <!-- CATEGORY: DISCLAIMER OVERLAY MODAL -->
-  <div 
-    id="disclaimer-modal" 
-    class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4"
-  >
-    <div class="bg-slate-900 border border-cyan-500/40 rounded p-5 max-w-md w-full space-y-4 glow-cyan">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-        <h3 class="text-sm font-bold text-cyan-400 tracking-wider uppercase font-mono">
-          /// LEGAL DISCLAIMER
-        </h3>
-        <button 
-          onclick="toggleDisclaimer('off')" 
-          class="text-slate-400 hover:text-white font-bold text-base px-2 cursor-pointer"
-        >
-          ✕
-        </button>
-      </div>
-
-      <p class="text-sm text-slate-300 leading-relaxed">
-        This website is an unofficial community fansite and is not affiliated with or endorsed by ArenaNet LLC or NCSOFT Corporation. Guild Wars 2, ArenaNet, and all associated logos are trademarks or registered trademarks of NCSOFT Corporation.
-      </p>
-
-      <button 
-        onclick="toggleDisclaimer('off')" 
-        class="w-full py-2.5 bg-slate-950 border border-cyan-500/50 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs uppercase tracking-wider rounded-sm transition-all text-center block cursor-pointer"
-      >
-        Acknowledge
-      </button>
-    </div>
-  </div>
-
-  <!-- CATEGORY: LOGIC ENGINE -->
-  <script>
-    /* CATEGORY: DISCLAIMER MODAL CONTROLLER */
-    function toggleDisclaimer(state) {
-      const modal = document.getElementById('disclaimer-modal');
-      if (!modal) return;
-      if (state === 'on') {
-        modal.classList.remove('hidden');
-      } else {
-        modal.classList.add('hidden');
-      }
-    }
-
-    /* CATEGORY: TOAST NOTIFICATION ENGINE */
-    let toastTimeout = null;
-    let lastHandledUtcMinute = -1;
-
-    function triggerToast(title, message) {
-      const toast = document.getElementById('toast-notification');
-      const titleEl = document.getElementById('toast-title');
-      const msgEl = document.getElementById('toast-message');
-
-      if (!toast || !titleEl || !msgEl) return;
-
-      titleEl.innerText = title;
-      msgEl.innerText = message;
-      toast.classList.remove('hidden');
-
-      if (toastTimeout) clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        dismissToast();
-      }, 9000);
-    }
-
-    function dismissToast() {
-      const toast = document.getElementById('toast-notification');
-      if (toast) toast.classList.add('hidden');
-    }
-
-    /* CATEGORY: CHECKLIST STATE MANAGEMENT */
-    const STORAGE_KEY = 'priory_course305_fractals_checkboxes';
-    let checklistCompletedState = 'off';
-
-    function updateChecklist() {
-      const boxes = document.querySelectorAll('.id-check');
-      let checkedCount = 0;
-      const savedState = {};
-
-      boxes.forEach(box => {
-        const id = box.getAttribute('data-id');
-        if (box.checked) {
-          checkedCount++;
-          savedState[id] = 'on';
-        } else {
-          savedState[id] = 'off';
-        }
-      });
-
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
-
-      const statusEl = document.getElementById('checklist-status');
-      statusEl.innerText = `[${checkedCount} / ${boxes.length} DONE]`;
-
-      if (checkedCount === boxes.length) {
-        checklistCompletedState = 'on';
-        statusEl.className = 'text-xs sm:text-sm text-emerald-400 font-bold';
-      } else {
-        checklistCompletedState = 'off';
-        statusEl.className = 'text-xs sm:text-sm text-amber-400 font-bold';
-      }
-    }
-
-    function loadChecklistState() {
-      const savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-      const boxes = document.querySelectorAll('.id-check');
-
-      boxes.forEach(box => {
-        const id = box.getAttribute('data-id');
-        if (savedState[id] === 'on') {
-          box.checked = true;
-        }
-      });
-
-      updateChecklist();
-    }
-
-
-    /* CATEGORY: FRACTAL DAILY ROTATION ENGINE */
-    const DAILY_FRACTAL_SETS = [
-      ["Nightmare", "Snowblind", "Volcanic"],
-      ["Aetherblade", "Thaumanova Reactor", "Uncategorized"],
-      ["Chaos", "Cliffside", "Twilight Oasis"],
-      ["Captain Mai Trin Boss", "Deepstone", "Silent Surf"],
-      ["Nightmare", "Snowblind", "Solid Ocean"],
-      ["Chaos", "Uncategorized", "Urban Battleground"],
-      ["Deepstone", "Molten Furnace", "Siren's Reef"],
-      ["Molten Boss", "Twilight Oasis", "Underground Facility"],
-      ["Silent Surf", "Swampland", "Volcanic"],
-      ["Aquatic Ruins", "Lonely Tower", "Thaumanova Reactor"],
-      ["Sunqua Peak", "Underground Facility", "Urban Battleground"],
-      ["Aetherblade", "Chaos", "Nightmare"],
-      ["Cliffside", "Lonely Tower", "Kinfall"],
-      ["Deepstone", "Solid Ocean", "Swampland"],
-      ["Captain Mai Trin Boss", "Molten Boss", "Shattered Observatory"]
-    ];
-
-    const RECOMMENDED_FRACTAL_SETS = [
-      ["2 - Uncategorized", "37 - Siren's Reef", "53 - Underground Facility"],
-      ["6 - Cliffside", "28 - Volcanic", "61 - Aquatic Ruins"],
-      ["10 - Molten Boss", "32 - Swampland", "65 - Aetherblade"],
-      ["14 - Aetherblade", "34 - Thaumanova Reactor", "74 - Sunqua Peak"],
-      ["19 - Volcanic", "50 - Lonely Tower", "70 - Kinfall"],
-      ["15 - Thaumanova Reactor", "48 - Shattered Observatory", "60 - Solid Ocean"],
-      ["24 - Sunqua Peak", "35 - Solid Ocean", "66 - Silent Surf"],
-      ["21 - Silent Surf", "36 - Uncategorized", "75 - Lonely Tower"],
-      ["7 - Aquatic Ruins", "40 - Molten Boss", "67 - Deepstone"],
-      ["8 - Underground Facility", "31 - Urban Battleground", "54 - Siren's Reef"],
-      ["11 - Deepstone", "39 - Molten Furnace", "59 - Twilight Oasis"],
-      ["18 - Captain Mai Trin Boss", "27 - Snowblind", "64 - Thaumanova Reactor"],
-      ["4 - Urban Battleground", "30 - Chaos", "58 - Molten Furnace"],
-      ["16 - Twilight Oasis", "42 - Captain Mai Trin Boss", "62 - Uncategorized"],
-      ["5 - Swampland", "47 - Nightmare", "68 - Cliffside"]
-    ];
-
-    // Anchor: the server day beginning 2026-08-02 00:00 UTC uses rotation Set 5.
-    const FRACTAL_ROTATION_ANCHOR_UTC = Date.UTC(2026, 7, 2);
-    const FRACTAL_ROTATION_ANCHOR_INDEX = 4;
-
-    function getFractalRotationIndex(now = new Date()) {
-      const currentServerDay = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
-      const elapsedDays = Math.floor((currentServerDay - FRACTAL_ROTATION_ANCHOR_UTC) / 86400000);
-      return ((FRACTAL_ROTATION_ANCHOR_INDEX + elapsedDays) % 15 + 15) % 15;
-    }
-
-    function makeRotationItem(text, label = '') {
-      return `<li class="flex items-center gap-3 p-3 bg-slate-950 border border-slate-800 rounded-sm">
-        ${label ? `<span class="shrink-0 min-w-8 text-center text-[10px] font-bold text-amber-400 font-mono border border-amber-400/30 bg-amber-400/5 px-1.5 py-1 rounded-sm">${label}</span>` : '<span class="text-cyan-400 font-bold">◆</span>'}
-        <span class="font-semibold text-white">${text}</span>
-      </li>`;
-    }
-
-    function updateFractalRotation(now = new Date()) {
-      const index = getFractalRotationIndex(now);
-      const setNumber = index + 1;
-      const nextSetNumber = ((index + 1) % 15) + 1;
-
-      const dailyList = document.getElementById('daily-fractal-list');
-      const recommendedList = document.getElementById('recommended-fractal-list');
-      const dailyLabel = document.getElementById('daily-set-label');
-      const recommendedLabel = document.getElementById('recommended-set-label');
-      const nextLabel = document.getElementById('next-set-label');
-      const countdown = document.getElementById('fractal-reset-countdown');
-
-      if (dailyList) dailyList.innerHTML = DAILY_FRACTAL_SETS[index].map(item => makeRotationItem(item)).join('');
-      if (recommendedList) {
-        const tierLabels = ['T1', 'T2', 'T3'];
-        recommendedList.innerHTML = RECOMMENDED_FRACTAL_SETS[index].map((item, i) => makeRotationItem(item, tierLabels[i])).join('');
-      }
-      if (dailyLabel) dailyLabel.innerText = `ROTATION SET ${setNumber}`;
-      if (recommendedLabel) recommendedLabel.innerText = `ROTATION SET ${setNumber}`;
-      if (nextLabel) nextLabel.innerText = `Set ${nextSetNumber} begins at 00:00 UTC.`;
-
-      if (countdown) {
-        const nextReset = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1);
-        const secondsRemaining = Math.max(0, Math.floor((nextReset - now.getTime()) / 1000));
-        const hours = String(Math.floor(secondsRemaining / 3600)).padStart(2, '0');
-        const minutes = String(Math.floor((secondsRemaining % 3600) / 60)).padStart(2, '0');
-        const seconds = String(secondsRemaining % 60).padStart(2, '0');
-        countdown.innerText = `${hours}:${minutes}:${seconds}`;
-      }
-    }
-
-    /* CATEGORY: UNIVERSAL CLOCKS & RESET DETECTOR ENGINE */
-    function updateClocks() {
-      const now = new Date();
-      
-      const utcHours = now.getUTCHours();
-      const utcMins = now.getUTCMinutes();
-      const utcSecs = now.getUTCSeconds();
-      const utcDay = now.getUTCDay();
-
-      const strUtcHours = String(utcHours).padStart(2, '0');
-      const strUtcMins = String(utcMins).padStart(2, '0');
-      const strUtcSecs = String(utcSecs).padStart(2, '0');
-
-      document.getElementById('server-clock').innerText = `${strUtcHours}:${strUtcMins}:${strUtcSecs} UTC`;
-      updateFractalRotation(now);
-
-      /* RESET DETECTION LOGIC (DAILY: 00:00:00 UTC | WEEKLY: MON 07:30:00 UTC) */
-      if (utcSecs === 0 && utcMins !== lastHandledUtcMinute) {
-        lastHandledUtcMinute = utcMins;
-
-        if (utcHours === 0 && utcMins === 0) {
-          triggerToast("DAILY RESET DETECTED", "GW2 server reset is live. Daily and Recommended Fractals have rotated.");
-          updateFractalRotation(now);
-        } else if (utcDay === 1 && utcHours === 7 && utcMins === 30) {
-          triggerToast("WEEKLY RESET DETECTED", "GW2 server weekly reset is live! Raids, strikes, and weekly tasks refreshed.");
-        }
-      }
-
-      /* TYRIAN TIME CALCULATOR */
-      const totalUtcSec = (utcHours * 3600) + (utcMins * 60) + utcSecs;
-      const cycleOffset = 1500;
-      const secondsInto2HrCycle = (totalUtcSec - cycleOffset + 720000) % 7200;
-
-      const tyrianSecFromMidnight = (secondsInto2HrCycle * 12 + 21600) % 86400;
-      const tyrianHour = Math.floor(tyrianSecFromMidnight / 3600);
-      const tyrianMin = Math.floor((tyrianSecFromMidnight % 3600) / 60);
-
-      const formattedTyrianHour = String(tyrianHour).padStart(2, '0');
-      const formattedTyrianMin = String(tyrianMin).padStart(2, '0');
-
-      let icon = '☀️';
-      if (tyrianHour >= 5 && tyrianHour < 6) icon = '🌅';
-      else if (tyrianHour >= 6 && tyrianHour < 20) icon = '☀️';
-      else if (tyrianHour >= 20 && tyrianHour < 21) icon = '🌆';
-      else icon = '🌙';
-
-      document.getElementById('tyria-clock-time').innerHTML = `${icon} <span>${formattedTyrianHour}:${formattedTyrianMin}</span>`;
-    }
-
-    /* CATEGORY: INITIALIZATION */
-    document.addEventListener('DOMContentLoaded', () => {
-      updateClocks();
-      loadChecklistState();
-      setInterval(updateClocks, 1000);
-    });
-  </script>
 </body>
 </html>
